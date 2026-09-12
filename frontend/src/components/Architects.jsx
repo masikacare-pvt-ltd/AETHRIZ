@@ -1,0 +1,96 @@
+import React, { useState, useEffect } from 'react';
+
+export default function Architects() {
+  const [isBioOpen, setIsBioOpen] = useState(false);
+  const [syncState, setSyncState] = useState('99.9999');
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const val = (Math.random() * (99.9999 - 99.0) + 99.0).toFixed(4);
+      setSyncState(val);
+    }, 800);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleToggleBio = () => {
+    setIsBioOpen((prev) => !prev);
+  };
+
+  return (
+    <section id="nodes" className="container">
+      <div className="director-grid rv-scroll reveal-node delay-1">
+        <div className="bio-expansion">
+          <span className="data-mono c-red mb-20-block">[06] // STRUCTURAL DIRECTOR</span>
+          <h2 className="thesis-text m-0">
+            Architect of <br />
+            Aethriz.
+          </h2>
+
+          <div className="dir-metrics">
+            <div className="dm-node">
+              <span className="dm-lbl">Auth Level</span>
+              <span className="dm-val">
+                <i className="fa-solid fa-shield-halved c-accent"></i> OMEGA-9
+              </span>
+            </div>
+            <div className="dm-node">
+              <span className="dm-lbl">Neural Hash</span>
+              <span className="dm-val">0xVP.78F2</span>
+            </div>
+            <div className="dm-node">
+              <span className="dm-lbl">Sync State</span>
+              <span className="dm-val live-rnd" data-min="99" data-max="99" data-dec="4">
+                {syncState}
+                <span>%</span>
+              </span>
+            </div>
+          </div>
+
+          <button
+            className="btn-apex decrypt-bio-btn"
+            id="bioToggleBtn"
+            onClick={handleToggleBio}
+          >
+            {isBioOpen ? (
+              <>
+                LOCK PROFILE <i className="fa-solid fa-microchip fs-075 ml-8"></i>
+              </>
+            ) : (
+              <>
+                DECRYPT PROFILE <i className="fa-solid fa-fingerprint fs-075 ml-8"></i>
+              </>
+            )}
+          </button>
+
+          <div className={`unlocked-data ${isBioOpen ? 'is-open' : ''}`} id="bioTextWrap">
+            Driving the frontier where high-performance compute architectures meet raw biological
+            frameworks, the directive focuses explicitly on out-maneuvering evolutionary friction. System
+            blueprints deployed within the Aethriz mainframe natively integrate cognitive enhancement with
+            baseline organism functions natively mapping peak capabilities directly without interruption
+            organically. Highly secure logic arrays built ground-up strictly focused on the final iteration of
+            human biological potential dynamically deployed natively across the grid infrastructure
+            exclusively.
+          </div>
+        </div>
+
+        <div className="person-container cinematic ceo-card">
+          <div className="frame-corners"></div>
+
+          <img
+            src="https://i.supaimg.com/ba22e33f-be5b-42df-a64c-59082e8bb2c4/78e52b0c-e6fe-471d-abb4-1010771944ce.png"
+            alt="Vishma Pasayat"
+            className="ceo-img"
+          />
+
+          <div className="bio-canvas c1"></div>
+
+          <div className="pr-overlay">
+            <h4 className="p-name">Vishma Pasayat</h4>
+            <p className="pn-desc pr-role">System Architect & CEO</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
