@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AETHRIZ — The Zenith of Bio-Algorithmic Health</title>
+
+    <!-- Elite Typography Selection -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,800;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* =========================================
+           ROOT MATRIX / SYSTEM VARS
+        ========================================= */
+        :root {
+            --ink: #07090f; 
+            --ink-ghost: #3a414e;
+            --pure-white: #FFFFFF;
+            --glass-base: rgba(255, 255, 255, 0.4);
+            --glass-stroke: rgba(255, 255, 255, 0.65);
+            --glass-glare: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%);
+            --accent-red: #E81A2D;
+            --accent-glow: rgba(232, 26, 45, 0.35);
+            --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);
+            --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --cursor-size: 16px;
+        }
+
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+
+        ::selection { background: var(--accent-red); color: var(--pure-white); }
+
+        * {
+            margin: 0; padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--ink);
+            background-color: #E2E8F0;
+            overflow-x: hidden;
+            font-weight: 300;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* =========================================
+           AMBIENT CINEMATOGRAPHY & ENVIRONMENT
+        ========================================= */
+        .ambient-mesh {
+            position: fixed; inset: 0; z-index: -5; pointer-events: none;
+            background: 
+                radial-gradient(circle at 10% 10%, #F8FAFC 20%, transparent 60%),
+                radial-gradient(circle at 90% 90%, #CBD5E1 15%, transparent 60%),
+                radial-gradient(circle at 50% 50%, var(--accent-glow) 0%, transparent 70%);
+            animation: meshDrift 25s infinite alternate var(--ease-cinematic);
+            will-change: transform;
+        }
+
+        .architect-grid {
+            position: fixed; inset: 0; z-index: -4; pointer-events: none;
+            background-image: 
+                linear-gradient(to right, rgba(7,9,15,0.025) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(7,9,15,0.025) 1px, transparent 1px);
+            background-size: 5vw 5vw;
+            -webkit-mask-image: radial-gradient(circle at center, black 20%, transparent 85%);
+            mask-image: radial-gradient(circle at center, black 20%, transparent 85%);
+        }
+
+        .noise-veil {
+            position: fixed; inset: 0; z-index: -3; pointer-events: none; opacity: 0.35; mix-blend-mode: color-burn;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .lens-vignette {
+            position: fixed; inset: 0; z-index: 9990; pointer-events: none;
+            box-shadow: inset 0 0 150px rgba(7,9,15,0.08);
+        }
+
+        .hud-reticle { position: fixed; width: 20px; height: 20px; border: 1px solid rgba(7,9,15,0.1); z-index: -2; transition: 0.5s var(--ease-cinematic); }
+        .ret-tl { top: 40px; left: 40px; border-right: none; border-bottom: none; }
+        .ret-tr { top: 40px; right: 40px; border-left: none; border-bottom: none; }
+        .ret-bl { bottom: 40px; left: 40px; border-right: none; border-top: none; }
+        .ret-br { bottom: 40px; right: 40px; border-left: none; border-top: none; }
+
+        @keyframes meshDrift {
+            0% { transform: scale(1) translate(0px, 0px) rotate(0deg); }
+            100% { transform: scale(1.15) translate(2vw, -2vh) rotate(1deg); }
+        }
+
+        /* =========================================
+           TYPOGRAPHY & GLOBAL LAYOUT
+        ========================================= */
+        h1, h2, h3 { font-family: 'Playfair Display', serif; line-height: 0.95; letter-spacing: -0.04em; color: var(--ink); font-weight: 500; }
+        .data-mono { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 600; }
+        
+        .c-red { color: var(--accent-red); text-shadow: 0 0 15px var(--accent-glow); }
+        .f-italic { font-style: italic; font-weight: 400; color: #64748B; }
+
+        .container { max-width: 1600px; margin: 0 auto; padding-left: 5vw; padding-right: 5vw; width: 100%; position: relative; }
+        
+        .reveal-node { opacity: 0; transform: translateY(30px) scale(0.98); transition: 1.2s var(--ease-cinematic); filter: blur(8px);}
+        .reveal-node.is-visible { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
+
+        section { padding: 80px 0; position: relative; z-index: 10; }
+        .align-center-header { display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 700px; margin: 0 auto;}
+        .align-left-header { display: flex; flex-direction: column; align-items: flex-start; text-align: left; max-width: 700px; }
+
+        #vector { padding-top: 120px; }
+
+        /* =========================================
+           CINEMATIC BOOT LOADER REDESIGN (UPDATED 2026 MINIMALISM)
+        ========================================= */
+        #core_loader {
+            position: fixed; inset: 0; background: #010204; z-index: 99999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: 1.2s cubic-bezier(0.85, 0, 0.15, 1); overflow: hidden;
+        }
+        #core_loader::before {
+            display: none; /* Disabled older red pulsating backdrop shadow entirely for pure clean dark space */
+        }
+        
+        #core_loader.evaporate { opacity: 0; transform: translateY(-5vh) scale(1.02); filter: blur(0px); pointer-events: none; }
+        
+        /* Ultra Premium Geometric SVG HUD layer - Preserved rule strictly but hidden in HTML per minimalistic rules */
+        .loader-geo { position: absolute; top: 50%; left: 50%; width: 450px; height: 450px; transform: translate(-50%, -50%); pointer-events: none; z-index: 1; display: none; }
+        .loader-spin { transform-origin: 50% 50%; animation: spinNode 30s linear infinite; }
+        .loader-spin-fast { transform-origin: 50% 50%; animation: spinNodeRev 5s cubic-bezier(0.4, 0.0, 0.2, 1) infinite; }
+        
+        /* Minimal Typography Elements - Glows & dropshadows entirely removed */
+        .loader-cipher { 
+            font-family: 'Inter', sans-serif; font-size: 5rem; font-weight: 200; 
+            color: var(--pure-white); margin-bottom: 30px; letter-spacing: -0.04em; 
+            z-index: 2; position: relative; display: flex; align-items: baseline; filter: none;
+        }
+        .loader-cipher span { font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; color: rgba(255,255,255,0.4); margin-left: 12px; filter: none; font-weight: 300; }
+        
+        /* Loading Progress Line - Pure stark minimalism */
+        .loader-bar { width: 350px; height: 1px; background: rgba(255,255,255,0.1); position: relative; overflow: hidden; margin-bottom: 25px; z-index: 2; }
+        .loader-progress { width: 0%; height: 100%; background: var(--pure-white); position: absolute; top:0; left:0; box-shadow: none; transition: width 0.1s linear;}
+        
+        .loader-sub { 
+            font-family: 'JetBrains Mono', monospace; color: rgba(255,255,255,0.3); margin-top: 5px; 
+            display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 2; 
+            font-size: 0.55rem; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 300;
+        }
+        .loader-sub span.c-accent { color: rgba(255,255,255,0.5); filter: none; animation: none; }
+
+        /* =========================================
+           PRECISION MAGNETIC CURSOR
+        ========================================= */
+        .aeth-cursor {
+            position: fixed; top: 0; left: 0; width: var(--cursor-size); height: var(--cursor-size); border-radius: 50%;
+            background-color: var(--accent-red); z-index: 100000; pointer-events: none;
+            mix-blend-mode: exclusion; transition: width 0.4s var(--ease-spring), height 0.4s var(--ease-spring), background-color 0.4s;
+            transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono'; color: #FFF; font-size: 4px; letter-spacing: 0.1em;
+            box-shadow: 0 0 20px var(--accent-glow); opacity: 0;
+        }
+        .aeth-cursor-trailer {
+            position: fixed; top: 0; left: 0; width: 40px; height: 40px; border-radius: 50%;
+            border: 1px solid rgba(232, 26, 45, 0.4); z-index: 99999; pointer-events: none; transition: 0.15s linear; transform: translate(-50%, -50%);
+            -webkit-backdrop-filter: invert(0.1); backdrop-filter: invert(0.1); opacity: 0;
+        }
+
+        body.dna-cursor-active .aeth-cursor, 
+        body.dna-cursor-active .aeth-cursor-trailer { opacity: 1; }
+        body.dna-cursor-active .aeth-cursor { width: 60px; height: 60px; background-color: var(--pure-white); mix-blend-mode: difference; }
+        body.dna-cursor-active .aeth-cursor::after { content: 'VIEW'; font-size: 8px; font-weight: 800; color: #000; }
+        body.dna-cursor-active .aeth-cursor-trailer { opacity: 0; scale: 0; }
+
+        /* Disable Custom Cursor on Touch Devices completely */
+        @media (hover: none) and (pointer: coarse) {
+            .aeth-cursor, .aeth-cursor-trailer { display: none !important; opacity: 0 !important; visibility: hidden !important; }
+            body * { cursor: auto !important; }
+        }
+
+        /* =========================================
+           NAVIGATION & ADVANCED BUTTONS (UPDATED LOGO STYLE)
+        ========================================= */
+        header { position: fixed; top: 25px; left: 0; width: 100%; z-index: 1000; transition: 0.6s var(--ease-cinematic); }
+        
+        .nav-island {
+            width: max-content; padding: 6px 6px 6px 24px; border-radius: 100px; margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1); -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: space-between; gap: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1), inset 0 1px 1px rgba(255,255,255,0.4);
+            transition: 0.6s var(--ease-cinematic);
+        }
+        
+        /* Custom Modern Vector Logo Integration replacing image */
+        .nav-brand { text-decoration: none; display: flex; align-items: center; gap: 12px; transition: opacity 0.4s var(--ease-cinematic); }
+        .nav-brand:hover { opacity: 0.6; }
+
+        .aeth-logo-char {
+            font-family: 'Inter', sans-serif;
+            font-weight: 200;
+            font-size: 1.15rem;
+            color: var(--ink);
+            line-height: 1;
+            letter-spacing: 0;
+            display: block;
+        }
+
+        .aeth-logo-bars {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 11px;
+            width: 14px;
+            margin: 0 2px;
+        }
+
+        .aeth-logo-bars span {
+            display: block;
+            width: 100%;
+            height: 1.5px;
+            background-color: var(--accent-red);
+        }
+
+        .brand-logo-img { display: none; } /* Disabled old img class */
+        .nav-brand:hover .brand-logo-img { transform: none; filter: none; } /* Neutralized older hover rule safely */
+
+        .nav-clusters { display: flex; list-style: none; gap: 15px; align-items: center; margin: 0;}
+        .nav-clusters li a { 
+            text-decoration: none; 
+            color: #475569; 
+            font-size: 0.65rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.15em; 
+            font-weight: 600; 
+            position: relative; 
+            padding: 8px 16px;
+            border-radius: 50px;
+            border: 1px solid transparent;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        .nav-clusters li a:hover { 
+            color: var(--ink); 
+            background: rgba(7, 9, 15, 0.05);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            border-color: rgba(7, 9, 15, 0.08);
+        }
+        
+        .btn-apex {
+            height: 42px; border-radius: 50px; padding: 0 26px; border: 1px solid transparent;
+            background: var(--ink); color: var(--pure-white); font-family: 'JetBrains Mono'; font-weight: 600; font-size: 0.65rem; letter-spacing: 0.15em;
+            text-transform: uppercase; position: relative; overflow: hidden; z-index: 1; transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1); 
+            display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; box-shadow: inset 0 0 0 0 var(--accent-red), 0 5px 15px rgba(7,9,15,0.2);
+        }
+        .btn-apex::after {
+            content: ''; position: absolute; top: 0; left: -150%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            transform: skewX(-25deg); transition: 0s; z-index: 10; pointer-events: none;
+        }
+        .btn-apex:hover { 
+            border: 1px solid rgba(232, 26, 45, 0.8);
+            background: var(--ink);
+            color: var(--pure-white);
+            box-shadow: inset 0 0 0 40px var(--accent-red), 0 15px 35px rgba(232, 26, 45, 0.4), 0 0 20px rgba(232, 26, 45, 0.2);
+            transform: translateY(-2px);
+        }
+        .btn-apex:hover::after {
+            left: 150%; transition: left 0.8s cubic-bezier(0.19, 1, 0.22, 1) 0.1s;
+        }
+        .btn-apex i { transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1); }
+        .btn-apex:hover i { transform: translateX(5px) scale(1.1); }
+
+        /* =========================================
+           H-01: THE HERO THEATER
+        ========================================= */
+        .hero-stage { min-height: 100vh; display: flex; align-items: center; position: relative; padding-top: 12vh; z-index: 5; perspective: 2000px;}
+        .h-layout { display: grid; grid-template-columns: 55% 45%; align-items: center; gap: 20px; position: relative; z-index: 10;}
+
+        .status-badge { 
+            display: inline-flex; align-items: center; gap: 12px; padding: 6px 16px 6px 6px; 
+            background: rgba(255,255,255,0.5); border: 1px solid var(--glass-stroke); border-radius: 50px; 
+            -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); margin-bottom: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .status-dot { width: 24px; height: 24px; background: var(--ink); border-radius: 50%; display: flex; align-items: center; justify-content: center;}
+        .status-dot div { width: 6px; height: 6px; background: var(--accent-red); border-radius: 50%; animation: pulseRed 1.5s infinite; box-shadow: 0 0 10px var(--accent-red);}
+        @keyframes pulseRed { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
+
+        .h-txt h1 { font-size: clamp(3.5rem, 5vw, 6.5rem); margin-bottom: 30px; position: relative; letter-spacing: -0.05em;}
+        .h-txt p { font-size: 1.1rem; color: #475569; max-width: 480px; line-height: 1.7; margin-bottom: 50px; font-weight: 400;}
+
+        .decrypt-text { display: inline-block; min-height: 1em; }
+
+        .hero-data-strip { display: flex; gap: 30px; margin-top: 40px; border-top: 1px solid rgba(7,9,15,0.1); padding-top: 30px;}
+        .hd-node { display: flex; flex-direction: column; gap: 5px; }
+        .hd-val { font-family: 'JetBrains Mono'; font-size: 1.25rem; font-weight: 600; color: var(--ink); display: flex; align-items: center; gap: 5px;}
+        .hd-val span { font-size: 0.7rem; color: var(--accent-red); }
+        .hd-lbl { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: #64748B; font-weight: 600;}
+
+        .hero-graphics { position: relative; height: 600px; display: flex; align-items: center; justify-content: center; transform-style: preserve-3d; will-change: transform;}
+        .reactor-containment {
+            position: absolute; width: 350px; height: 500px; border-radius: 200px; border: 1px solid rgba(255,255,255,0.8);
+            background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.1) 100%);
+            box-shadow: inset 0 0 50px rgba(255,255,255,0.8), 0 30px 60px rgba(0,0,0,0.05); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center; transform-style: preserve-3d; animation: floatReactor 10s infinite ease-in-out alternate;
+        }
+        .reactor-containment::before { content: ''; position: absolute; inset: -2px; border-radius: inherit; border: 2px dashed rgba(232, 26, 45, 0.2); animation: spinDash 20s linear infinite;}
+
+        .core-dna { position: relative; width: 80px; height: 380px; transform-style: preserve-3d; animation: dnaTwirl 12s linear infinite;}
+        .dna-rung { position: absolute; left: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; transform-style: preserve-3d; transform-origin: 50% 50%; margin-top:-4px;}
+        .dna-rung::before { content:''; position: absolute; top: 4px; left: 8px; width: 64px; height: 1px; background: rgba(7,9,15,0.15); box-shadow: 0 1px 2px rgba(255,255,255,0.8); z-index: 1;}
+        .dna-d1 { width: 10px; height: 10px; border-radius: 50%; background: var(--ink); border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 5px 10px rgba(0,0,0,0.1); position:relative; z-index: 2;}
+        .dna-d2 { width: 10px; height: 10px; border-radius: 50%; background: var(--accent-red); border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 0 15px var(--accent-red); position:relative; z-index: 2;}
+
+        .orbital-ring { position: absolute; border-radius: 50%; border: 1px solid rgba(7,9,15,0.08); top: 50%; left: 50%; transform: translate(-50%, -50%) rotateX(75deg); transform-style: preserve-3d; pointer-events: none;}
+        .orb-1 { width: 450px; height: 450px; animation: orbitRing 20s linear infinite; border-left: 2px solid var(--accent-red);}
+        .orb-2 { width: 600px; height: 600px; animation: orbitRing 30s linear infinite reverse; border-right: 2px solid var(--ink);}
+
+        @keyframes floatReactor { 100% { transform: translateY(-20px) rotateX(5deg); } }
+        @keyframes spinDash { 100% { transform: rotate(360deg); } }
+        @keyframes dnaTwirl { 100% { transform: rotateY(360deg); } }
+        @keyframes orbitRing { 100% { transform: translate(-50%, -50%) rotateX(75deg) rotateZ(360deg); } }
+
+        .hud-tag { position: absolute; background: rgba(255,255,255,0.6); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.8); padding: 8px 12px; border-radius: 8px; font-family: 'JetBrains Mono'; font-size: 0.55rem; font-weight: 700; color: var(--ink); box-shadow: 0 10px 20px rgba(0,0,0,0.03); display: flex; align-items: center; gap: 8px; z-index: 20;}
+        .tag-1 { top: 10%; right: -20px; animation: floatTag 4s infinite ease-in-out alternate;}
+        .tag-2 { bottom: 15%; left: -40px; animation: floatTag 5s infinite ease-in-out alternate-reverse;}
+        @keyframes floatTag { 100% { transform: translateY(10px); } }
+
+        /* =========================================
+           S-02: SYNTAX PARADIGM
+        ========================================= */
+        .mega-grid { display: grid; grid-template-columns: 4fr 7fr; gap: 60px; align-items: flex-start;}
+        .sticky-column { position: sticky; top: 20vh; }
+        .thesis-text { font-size: clamp(2rem, 3.5vw, 3.5rem); font-weight: 500; line-height: 1.1; color: var(--ink); margin-bottom: 30px; letter-spacing: -0.03em;}
+        .thesis-text strong { font-weight: 600; color: var(--accent-red); font-family: 'Playfair Display'; font-style: italic;}
+        
+        .module-deck { display: flex; flex-direction: column; gap: 40px; perspective: 1500px;}
+        
+        .module-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255,255,255,0.3)); border-radius: 24px; padding: 40px; border: 1px solid rgba(255,255,255, 0.8);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.02), inset 0 1px 0 #FFF; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 40px; transform-style: preserve-3d; transition: border-color 0.4s, box-shadow 0.4s; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); will-change: transform;
+        }
+        .module-card::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.5s; background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.9), transparent 40%); z-index: -1;}
+        .module-card:hover { border-color: rgba(255,255,255,1); box-shadow: 0 30px 60px rgba(0,0,0,0.05), 0 0 0 1px rgba(255,255,255,0.5) inset;}
+        .module-card:hover::before { opacity: 1; }
+
+        .mc-icon { width: 60px; height: 60px; background: transparent; box-shadow: none; border: none; border-radius: 0; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; transform: translateZ(30px); }
+        .mc-text-block { flex: 0 0 45%; transform: translateZ(20px); }
+        .mc-idx { position: absolute; right: 20px; top: -10px; font-family: 'JetBrains Mono'; font-size: 8rem; color: rgba(7,9,15,0.02); font-weight: 800; line-height: 1; z-index: 0; pointer-events: none; transform: translateZ(-10px);}
+
+        .mc-title { font-size: 1.5rem; z-index: 2; position: relative;}
+        .mc-desc { color: #475569; line-height: 1.7; margin-top: 12px; z-index: 2; position: relative; font-size: 1rem; font-weight: 400;}
+        .mc-graph { flex: 1; align-self: stretch; background: transparent; border-radius: 0; border: none; display: flex; align-items: center; justify-content: center; padding: 25px; transform: translateZ(40px); box-shadow: none; overflow: visible; position: relative;}
+
+        /* Ultra Premium SVG Modifiers */
+        .svg-pulse-line { stroke-dasharray: 100; stroke-dashoffset: 100; animation: dashAnim 4s cubic-bezier(0.19, 1, 0.22, 1) infinite;}
+        .elite-glow { filter: drop-shadow(0 0 8px rgba(232, 26, 45, 0.6)); }
+        .elite-wave { animation: driftWave 5s infinite linear; stroke-dasharray: 400; stroke-dashoffset: 400; }
+        .elite-orbit-slow { transform-origin: 50% 50%; animation: spinNode 8s linear infinite;}
+        .elite-orbit-fast { transform-origin: 50% 50%; animation: spinNodeRev 5s linear infinite;}
+        .svg-poly-spin { transform-origin: 50% 50%; animation: spinNode 10s linear infinite;}
+        .svg-poly-spin-rev { transform-origin: 50% 50%; animation: spinNodeRev 15s linear infinite;}
+        .telomere-loop { stroke-dasharray: 80; stroke-dashoffset: 160; animation: tracerLoop 6s linear infinite; fill:none; stroke-linecap:round;}
+
+        @keyframes dashAnim { to { stroke-dashoffset: -100; } }
+        @keyframes driftWave { 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -400; } }
+        @keyframes spinNode { 100% { transform: rotate(360deg); } }
+        @keyframes spinNodeRev { 100% { transform: rotate(-360deg); } }
+        @keyframes tracerLoop { 100% { stroke-dashoffset: 0; } }
+        
+        .quantum-orb { animation: quantOrbit 6s infinite ease-in-out; transform-origin: 50px 40px; }
+        .quantum-orb-rev { animation: quantOrbitRev 5s infinite ease-in-out; }
+        @keyframes quantOrbit { 0% { transform: scale(0.8) rotate(0deg); opacity: 0.5;} 50% { transform: scale(1.2) rotate(180deg); opacity: 1;} 100% { transform: scale(0.8) rotate(360deg); opacity: 0.5;} }
+        @keyframes quantOrbitRev { 0% { transform: scale(1) rotate(0deg); } 50% { transform: scale(0.8) rotate(-180deg); } 100% { transform: scale(1) rotate(-360deg); } }
+
+        /* =========================================
+           S-03: ADV. LIVE TELEMETRY ARRAY 
+        ========================================= */
+        .telemetry-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; width: 100%; max-width: 1200px; margin: 40px 0 0 0;}
+        .data-card.span-7 { grid-column: span 7; }
+        .data-card.span-5 { grid-column: span 5; }
+        .data-card.span-12 { grid-column: span 12; display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 40px;}
+        
+        .data-card { 
+            padding: 24px 30px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.9); 
+            background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4));
+            box-shadow: 0 15px 35px rgba(0,0,0,0.02), inset 0 2px 2px #FFF; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; transform-style: preserve-3d; will-change: transform;
+        }
+        .data-card::after { content:''; position:absolute; right: -50px; bottom: -50px; width: 150px; height: 150px; background: radial-gradient(circle, var(--accent-glow), transparent 70%); opacity: 0.5; border-radius: 50%; pointer-events: none;}
+        
+        .data-head { display:flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;}
+        .dt-title { font-size: 0.7rem; color: var(--accent-red); font-family: 'JetBrains Mono'; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; }
+        .live-badge { font-size: 0.5rem; padding: 4px 8px; background: var(--ink); color: #FFF; border-radius: 4px; font-family: 'JetBrains Mono'; display: flex; align-items: center; gap: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);}
+        .live-badge::before { content:''; width: 4px; height: 4px; background: #22c55e; border-radius: 50%; animation: pulseRed 1s infinite;}
+
+        .big-live-num { font-size: 3.2rem; font-family: 'JetBrains Mono'; font-weight: 300; letter-spacing: -0.05em; color: var(--ink); margin-bottom: 5px; display: block; line-height: 1;}
+        
+        /* Premium Data Metric Array (Re-designed EQ) */
+        .eq-bars-pro { display: flex; align-items: flex-end; justify-content: space-between; height: 50px; margin-top: 25px; border-bottom: 1px solid rgba(7,9,15,0.1); padding-bottom: 2px; position:relative;}
+        .eq-bars-pro::before { content:'MATRIX SYNC L/100'; position:absolute; bottom:-18px; right:0; font-family:'JetBrains Mono'; font-size:8px; font-weight:600; color:#94A3B8;}
+        
+        /* The structural pillars generated by JS */
+        .eq-bp { flex: 1; border-radius: 3px 3px 0 0; background: rgba(7,9,15,0.02); overflow:hidden; border: 1px solid rgba(7,9,15,0.04); margin: 0 2px; height: 100%; box-shadow: inset 0 2px 5px rgba(0,0,0,0.02); position:relative; }
+        
+        /* The absolute highly styled metric bars */
+        .eq-bf { 
+            position: absolute; bottom: 0; left: 0; width: 100%; 
+            background: repeating-linear-gradient(0deg, var(--ink), var(--ink) 2px, transparent 3px, transparent 5px);
+            box-shadow: 0 -4px 8px rgba(7,9,15,0.1); transition: height 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .eq-bf.red { 
+            background: repeating-linear-gradient(0deg, var(--accent-red), var(--accent-red) 2px, transparent 3px, transparent 5px); 
+            box-shadow: 0 -5px 15px var(--accent-glow);
+        }
+
+        /* Next-Level Wave Component */
+        .wave-graph-advanced { flex: 1; min-width: 50%; height: 120px; display: flex; align-items: flex-end; justify-content: space-between; position: relative; perspective: 500px; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 15%, #000 85%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, #000 15%, #000 85%, transparent 100%); margin-bottom: 5px;}
+        .wave-bar-pro { 
+            flex: 1; width: 6px; margin: 0 1px; border-radius: 5px; opacity: 0.6; transform-origin: bottom center; 
+            background: linear-gradient(0deg, rgba(7,9,15,0.1) 0%, rgba(232, 26, 45, 0.3) 50%, var(--accent-red) 100%);
+            animation: sciFiWave 2.5s infinite cubic-bezier(0.4, 0.0, 0.2, 1) alternate;
+        }
+        @keyframes sciFiWave { 0% { height: 15%; opacity: 0.1; background: rgba(7,9,15,0.1); } 100% { height: 95%; opacity: 1; filter: drop-shadow(0 -5px 10px rgba(232,26,45,0.6)); } }
+
+        /* =========================================
+           S-04: MONOLITHIC PIPELINE 
+        ========================================= */
+        #vector .bg-inverted { background: transparent; color: var(--ink); box-shadow: none; border: none; padding: 0; position: relative;}
+        
+        .pipe-layout-container { display: flex; align-items: flex-start; justify-content: space-between; position: relative; width: 100%; text-align: left; margin-top: 80px; z-index: 5;}
+        
+        .timeline-dna-wrap { position: absolute; top: 5px; left: 9%; right: 9%; height: 40px; display: flex; perspective: 1200px; z-index: 1; pointer-events:none; }
+        .dna-rung.horiz-rung { top: 50%; width: 10px; height: 40px; display: flex; flex-direction: column; justify-content: space-between; transform-origin: 50% 50%; }
+        .dna-rung.horiz-rung::before { top: 5px; left: 4px; width: 2px; height: 30px; background: rgba(7,9,15,0.1); }
+        .horiz-rung .dna-d1, .horiz-rung .dna-d2 { width: 6px; height: 6px; }
+        @keyframes dnaTwirlX { 100% { transform: rotateX(360deg); } }
+        .timeline-dna-core { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; animation: dnaTwirlX 12s linear infinite; }
+
+        .p-node { width: 18%; position: relative; z-index: 2; transition: 0.4s;}
+        .node-circle {
+            width: 50px; height: 50px; background: rgba(255,255,255,0.95); border: 1px solid var(--glass-stroke); border-radius: 50%; display: flex; align-items: center; justify-content: center; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); font-family: 'JetBrains Mono'; font-weight: 600; color: var(--ink); font-size: 1.2rem; margin: 0 auto 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: all 0.5s var(--ease-cinematic); z-index: 10; position: relative;
+        }
+        .p-node:hover .node-circle { border-color: var(--accent-red); background: var(--pure-white); box-shadow: 0 0 30px rgba(232,26,45,0.2), 0 0 0 8px rgba(232,26,45,0.05); transform: scale(1.1); color: var(--accent-red);}
+        
+        .pn-title { font-size: 1.25rem; margin-bottom: 10px; line-height: 1.1; font-family: 'Playfair Display'; font-weight: 600; color: var(--ink);}
+        .pn-desc { font-size: 0.85rem; color: #64748B; line-height: 1.7; font-weight: 400;}
+
+        /* =========================================
+           S-04A: THE IMPERATIVE 
+        ========================================= */
+        .imperative-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative;}
+        .imp-interactive-svg { width: 100%; max-width: 450px; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.8), transparent 70%); position: relative; display: flex; justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.4); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); box-shadow: inset 0 0 40px rgba(255,255,255,1), 0 20px 60px rgba(0,0,0,0.03); cursor: crosshair; transition: all 0.8s var(--ease-cinematic); transform-style: preserve-3d; perspective: 1000px; will-change: transform;}
+        .imp-interactive-svg:hover { border-color: var(--accent-red); box-shadow: inset 0 0 50px rgba(232, 26, 45, 0.1), 0 30px 80px rgba(232, 26, 45, 0.15); transform: scale(1.02); }
+        
+        /* Mod Logic Injection Layer Settings Preserved */
+        .ae-spin-sl { transform-origin: 200px 200px; animation: ae-rot 60s linear infinite; }
+        .ae-spin-sr { transform-origin: 200px 200px; animation: ae-rot-rev 40s linear infinite; }
+        .ae-pulse { transform-origin: 200px 200px; animation: ae-breathing 4s ease-in-out infinite alternate; }
+        .ae-dash { stroke-dasharray: 2 6; animation: ae-flow 2s linear infinite; }
+        .ae-geom-morph { transform-origin: 200px 200px; animation: ae-poly-twist 15s cubic-bezier(0.5, 0.05, 0.5, 0.95) infinite; }
+        .ae-core-glow { animation: ae-radiance 3s infinite alternate; }
+        
+        @keyframes ae-rot { 100% { transform: rotate(360deg); } }
+        @keyframes ae-rot-rev { 100% { transform: rotate(-360deg); } }
+        @keyframes ae-breathing { 0% { transform: scale(0.98); } 100% { transform: scale(1.02); } }
+        @keyframes ae-flow { to { stroke-dashoffset: -16; } }
+        @keyframes ae-poly-twist { 0%, 15% { transform: rotate(0deg) scale(1); } 40%, 60% { transform: rotate(180deg) scale(0.9); } 85%, 100% { transform: rotate(360deg) scale(1); } }
+        @keyframes ae-radiance { 0% { filter: drop-shadow(0 0 10px rgba(232, 26, 45, 0.2)); } 100% { filter: drop-shadow(0 0 35px rgba(232, 26, 45, 0.6)); } }
+
+        /* =========================================
+           S-04B: COGNITIVE RESONANCE 
+        ========================================= */
+        .resonance-card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 80px; padding-top: 20px;}
+        .rc-box { background: transparent; border: none; padding: 0; box-shadow: none; position: relative; display: flex; flex-direction: column; align-items: flex-start; }
+        
+        .rc-graph { height: 180px; width: 100%; margin-bottom: 35px; display: flex; align-items: center; justify-content: flex-start; position: relative;}
+        
+        /* Elite Minimalist SVGs */
+        .elite-svg-core { height: 100%; width: 100%; max-width: 180px; overflow: visible; }
+        
+        @keyframes esSpin { 100% { transform: rotate(360deg); } }
+        @keyframes esSpinRev { 100% { transform: rotate(-360deg); } }
+        @keyframes esBreathe { 0%, 100% { transform: scale(0.95); opacity: 0.8; } 50% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 8px rgba(232, 26, 45, 0.4));} }
+        @keyframes esTrace { 0% { stroke-dashoffset: 150; } 100% { stroke-dashoffset: 0; } }
+        @keyframes esPulseOut { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(1.6); opacity: 0; } }
+        @keyframes esConnect { 0%, 100% { opacity: 0.1; } 50% { opacity: 1; filter: drop-shadow(0 0 4px rgba(232, 26, 45, 0.6)); } }
+
+        .es-ring-1 { transform-origin: 50px 50px; animation: esSpin 30s linear infinite; }
+        .es-ring-2 { transform-origin: 50px 50px; animation: esSpinRev 20s linear infinite; }
+        .es-accel-ring { transform-origin: 50px 50px; animation: esSpin 10s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+        .es-core-crystal { transform-origin: 50px 50px; animation: esBreathe 4s ease-in-out infinite; }
+        .es-orbit-node { transform-origin: 50px 50px; animation: esSpin 15s linear infinite; }
+        
+        .es-wave-tracer-1 { stroke-dasharray: 150; stroke-dashoffset: 150; animation: esTrace 3s cubic-bezier(0.25, 1, 0.5, 1) infinite; }
+        .es-wave-tracer-2 { stroke-dasharray: 150; stroke-dashoffset: 150; animation: esTrace 4s cubic-bezier(0.25, 1, 0.5, 1) infinite reverse; }
+        .es-ring-pulse { transform-origin: 50px 50px; animation: esPulseOut 3s ease-out infinite; }
+        .es-line-connect { animation: esConnect 2s infinite; }
+        .es-line-connect-red { animation: esConnect 2s infinite 1s; }
+
+        /* Cinematic Text Styling */
+        .rc-meta { margin-bottom: 12px; }
+        .rc-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 2.5vw, 2.6rem); color: var(--ink); margin: 0; letter-spacing: -0.04em; font-weight: 500; line-height: 1.1; }
+        .rc-desc { color: #64748B; font-size: 1.05rem; line-height: 1.8; font-weight: 300; max-width: 90%; margin: 0; }
+        
+        .cinematic-text-anim { display: block; }
+        .cinematic-text-anim > span { 
+            display: block; transform: translateY(25px); opacity: 0; filter: blur(6px);
+            transition: transform 1.4s cubic-bezier(0.19, 1, 0.22, 1), opacity 1.4s cubic-bezier(0.19, 1, 0.22, 1), filter 1.4s ease-out; 
+        }
+        .reveal-node.is-visible .cinematic-text-anim > span { transform: translateY(0); opacity: 1; filter: blur(0); }
+        
+        .rc-line { width: 0px; height: 1px; background: rgba(7,9,15,0.1); margin: 25px 0; transition: width 1.5s cubic-bezier(0.19, 1, 0.22, 1); position: relative; }
+        .rc-line::after { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 0; background: var(--accent-red); transition: width 1.5s cubic-bezier(0.19, 1, 0.22, 1); }
+        
+        .reveal-node.is-visible .rc-box.delay-1 .rc-line { transition-delay: 0.3s; width: 120px; }
+        .reveal-node.is-visible .rc-box.delay-1 .rc-line::after { transition-delay: 0.6s; width: 40px; }
+        .reveal-node.is-visible .rc-box.delay-2 .rc-line { transition-delay: 0.5s; width: 120px; }
+        .reveal-node.is-visible .rc-box.delay-2 .rc-line::after { transition-delay: 0.8s; width: 40px; }
+
+        /* =========================================
+           S-05: THE ARCHITECTS 
+        ========================================= */
+        .director-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 60px; align-items: center;}
+        
+        .person-container.cinematic { 
+            position: relative; border-radius: 8px; background: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.8); overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.08), inset 0 1px 2px #FFF; width: 100%; max-width: 340px; aspect-ratio: 0.8; margin: 0 auto; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+        }
+        .frame-corners {
+            position: absolute; inset: 12px; pointer-events: none; z-index: 5;
+            background: 
+                linear-gradient(var(--accent-red), var(--accent-red)) top left / 2px 20px no-repeat,
+                linear-gradient(var(--accent-red), var(--accent-red)) top left / 20px 2px no-repeat,
+                linear-gradient(var(--accent-red), var(--accent-red)) top right / 2px 20px no-repeat,
+                linear-gradient(var(--accent-red), var(--accent-red)) top right / 20px 2px no-repeat,
+                linear-gradient(var(--accent-red), var(--accent-red)) bottom left / 2px 20px no-repeat,
+                linear-gradient(var(--accent-red), var(--accent-red)) bottom left / 20px 2px no-repeat,
+                linear-gradient(var(--accent-red), var(--accent-red)) bottom right / 2px 20px no-repeat,
+                linear-gradient(var(--accent-red), var(--accent-red)) bottom right / 20px 2px no-repeat;
+            opacity: 1;
+        }
+
+        .ceo-img {
+            position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+            z-index: 1; filter: grayscale(10%) contrast(1.15) brightness(0.9);
+            transition: transform 1.5s var(--ease-cinematic); pointer-events: none;
+        }
+        .person-container.cinematic:hover .ceo-img { transform: scale(1.05); }
+
+        .bio-canvas.c1 { position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(232, 26, 45, 0.05), transparent 70%); display: flex; justify-content: center; align-items: center; z-index: 2; mix-blend-mode: color-dodge; opacity: 0.8; }
+        
+        .bio-canvas.c1::before { content: ''; position: absolute; width: 160px; height: 160px; border-radius: 50%; border: 1px dashed rgba(7,9,15,0.2); animation: spinDash 15s linear infinite; }
+        .bio-canvas.c1::after { content: ''; position: absolute; width: 90px; height: 90px; border-radius: 50%; border: 1px solid rgba(232, 26, 45, 0.15); animation: pulseRed 4s infinite; }
+
+        .pr-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 60px 30px 25px; background: linear-gradient(180deg, transparent, rgba(255,255,255,0.9) 60%, rgba(255,255,255,1) 100%); display: flex; flex-direction: column; justify-content: flex-end; align-items: center; text-align: center; z-index: 10;}
+        
+        .bio-expansion { position: relative; border-left: 2px solid var(--accent-red); padding-left: 40px;}
+
+        .dir-metrics { display: flex; flex-wrap: wrap; gap: 30px; margin: 30px 0 0 0; padding-left: 20px; border-left: 2px solid var(--accent-glow); }
+        .dm-node { display: flex; flex-direction: column; gap: 6px; }
+        .dm-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; color: #64748B; text-transform: uppercase; font-weight: 700; }
+        .dm-val { font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; color: var(--ink); font-weight: 400; display:flex; align-items:center; gap:8px; }
+        
+        .decrypt-bio-btn { margin-top: 30px; font-family: 'JetBrains Mono'; background: var(--ink); color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 16px 32px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.5s var(--ease-cinematic); position: relative; overflow: hidden; display:inline-flex; align-items:center; gap:10px; box-shadow: inset 0 0 0 0 var(--accent-red), 0 10px 30px rgba(0,0,0,0.15), inset 0 1px 1px rgba(255,255,255,0.1);}
+        
+        .decrypt-bio-btn:hover {
+            box-shadow: inset 0 0 0 40px var(--accent-red), 0 20px 40px rgba(232, 26, 45, 0.4), 0 0 25px rgba(232, 26, 45, 0.2);
+            border-color: rgba(232, 26, 45, 0.8);
+        }
+
+        .unlocked-data { max-height: 0; opacity: 0; overflow: hidden; transition: 0.6s var(--ease-cinematic); color: #475569; font-size: 1.05rem; line-height: 1.8;}
+        .unlocked-data.is-open { max-height: 1200px; opacity: 1; margin-top: 30px; }
+
+        /* =========================================
+           S-06: FAQ
+        ========================================= */
+        .faq-block-wrap { max-width: 900px; margin: 0;}
+        .faq-list { border-top: 1px solid rgba(7,9,15,0.1); display: flex; flex-direction: column;}
+        .faq-item { border-bottom: 1px solid rgba(7,9,15,0.1); padding: 30px 0; cursor: pointer; position: relative;}
+        .faq-question { display: flex; justify-content: space-between; align-items: center; font-family: 'Playfair Display'; font-style: italic; font-size: 1.4rem; font-weight: 500; color: var(--ink); transition: color 0.4s;}
+        .faq-item:hover .faq-question { color: var(--accent-red); letter-spacing: -0.01em;}
+        .faq-icon { font-family: 'JetBrains Mono'; font-style: normal; font-size: 0.8rem; font-weight: 600; color: var(--ink); display:flex; align-items:center; gap:5px; transition: 0.4s ease;}
+        .faq-item.active .faq-icon { color: var(--accent-red); transform: translateX(5px);}
+        .faq-item.active .faq-icon::before { content: '[OPEN]'; }
+        .faq-icon::before { content: '[VIEW]'; transition: 0.4s ease;}
+        .faq-answer { max-height: 0; opacity: 0; filter: blur(5px); overflow: hidden; transition: all 0.6s var(--ease-cinematic); color: #64748B; line-height: 1.7; font-size: 1.05rem; padding-right: 50px;}
+        
+        .faq-item.active .faq-answer { max-height: 800px; opacity: 1; filter: blur(0); margin-top: 20px; }
+
+        /* =========================================
+           S-07: MINIMALIST GLASS FORM
+        ========================================= */
+        .contact-wrap { max-width: 900px;}
+        .contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px;}
+        .form-group { position: relative; }
+        .form-group.full { grid-column: span 2; }
+        
+        .form-label {
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--accent-red);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .form-input { width: 100%; border: none; border-bottom: 1px solid rgba(7,9,15,0.2); background: transparent; padding: 10px 0 10px; font-family: 'JetBrains Mono'; font-size: 0.95rem; color: var(--ink); outline: none; transition: 0.4s; position: relative; z-index:2;}
+        .input-bg-focus { position: absolute; bottom:0; left:0; width: 0%; height: 2px; background: var(--accent-red); transition: width 0.6s var(--ease-cinematic); z-index:3;}
+        .form-input:focus + .input-bg-focus { width: 100%; box-shadow: 0 0 10px var(--accent-red);}
+        .form-input::placeholder { color: #94A3B8; font-weight: 400; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.65rem; transition: 0.3s; transform: translateY(-2px);}
+        .form-input:focus::placeholder { opacity: 0; transform: translateY(-12px); }
+
+        /* =========================================
+           ULTRA-PREMIUM CINEMATOGRAPHIC FOOTER
+        ========================================= */
+        .footer-zenith {
+            background: var(--ink);
+            position: relative;
+            overflow: hidden;
+            color: var(--pure-white);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 140px;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Abstract structural background in footer */
+        .footer-zenith::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.015) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: 4vw 4vw;
+            pointer-events: none;
+            z-index: 0;
+            mask-image: radial-gradient(circle at 50% 0%, rgba(0,0,0,1) 0%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at 50% 0%, rgba(0,0,0,1) 0%, transparent 80%);
+        }
+
+        /* Glowing radar scanline at top of footer */
+        .fz-scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
+            opacity: 0.5;
+            animation: fzScan 8s linear infinite;
+        }
+        @keyframes fzScan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .fz-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 5vw;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Footer Top Meta Typographic Bar */
+        .fz-top-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 60px;
+            display: flex;
+            gap: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 20px;
+        }
+        .fz-top-meta span { display: block; }
+
+        /* Grid Layout */
+        .fz-grid {
+            display: grid;
+            grid-template-columns: 5fr 3fr 3fr;
+            gap: 80px;
+            margin-bottom: 120px;
+        }
+
+        /* Left CTA Box */
+        .fz-cta-block { display: flex; flex-direction: column; align-items: flex-start; }
+        .fz-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--accent-red); font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; }
+        .fz-label::before { content: ''; width: 6px; height: 6px; background: var(--accent-red); display: inline-block; box-shadow: 0 0 10px var(--accent-glow); animation: pulseRed 2s infinite; }
+        
+        .fz-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 4vw, 4.5rem); font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; color: var(--pure-white); margin-bottom: 35px; }
+        .fz-title i { font-style: italic; color: rgba(255,255,255,0.5); }
+
+        /* Links Columns */
+        .fz-col { display: flex; flex-direction: column; }
+        .fz-col-title { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: rgba(255,255,255,0.4); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 35px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; display: block; }
+        
+        .fz-links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 18px; }
+        .fz-links li a {
+            color: #CBD5E1; text-decoration: none; font-size: 0.95rem; font-family: 'Inter', sans-serif;
+            font-weight: 300; display: inline-flex; align-items: center; transition: all 0.4s var(--ease-cinematic);
+            position: relative;
+        }
+        .fz-links li a::before {
+            content: '[0' counter(link-counter) ']';
+            counter-increment: link-counter;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            color: var(--accent-red);
+            margin-right: 12px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.4s var(--ease-cinematic);
+        }
+        .fz-links { counter-reset: link-counter; }
+        .fz-links li a:hover { color: var(--pure-white); transform: translateX(5px); }
+        .fz-links li a:hover::before { opacity: 1; transform: translateX(0); }
+
+        /* Socials & Meta Bottom Bar (Fixed completely ABOVE line) */
+        .fz-bottom {
+            border-bottom: 1px solid rgba(255,255,255,0.05); /* Pushed line below elements */
+            padding: 0 0 40px 0;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .fz-meta-data { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.1em; }
+        .fz-meta-data span { color: rgba(255,255,255,0.6); margin-right: 20px; }
+
+        .fz-socials { display: flex; gap: 15px; }
+        .fz-socials a {
+            width: 44px; height: 44px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--pure-white); text-decoration: none; font-size: 1rem;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 4px; /* Minimalist Square */
+            position: relative; transition: all 0.5s var(--ease-cinematic);
+            background: rgba(255,255,255,0.02);
+        }
+        /* Targeting Brackets Hover Effect */
+        .fz-socials a::before, .fz-socials a::after {
+            content: ''; position: absolute; width: 8px; height: 8px; border: 1px solid transparent; transition: 0.4s var(--ease-cinematic); pointer-events: none;
+        }
+        .fz-socials a::before { top: -1px; left: -1px; border-top-color: var(--accent-red); border-left-color: var(--accent-red); transform: translate(-4px, -4px) scale(0.8); opacity: 0; }
+        .fz-socials a::after { bottom: -1px; right: -1px; border-bottom-color: var(--accent-red); border-right-color: var(--accent-red); transform: translate(4px, 4px) scale(0.8); opacity: 0; }
+        
+        .fz-socials a:hover { border-color: transparent; color: var(--accent-red); background: transparent; transform: scale(1.05); filter: drop-shadow(0 0 10px rgba(232, 26, 45, 0.2)); }
+        .fz-socials a:hover::before { transform: translate(0, 0) scale(1); opacity: 1; }
+        .fz-socials a:hover::after { transform: translate(0, 0) scale(1); opacity: 1; }
+
+        /* Massive Anchoring Logomark */
+        .fz-huge-mark {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 18vw;
+            line-height: 0.75;
+            color: rgba(255,255,255,0.015);
+            text-align: center;
+            letter-spacing: -0.05em;
+            pointer-events: none;
+            user-select: none;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            margin-top: 20px;
+            transform: translateY(20%);
+        }
+
+        /* =========================================
+           UTILITY CLASSES
+        ========================================= */
+        .c-accent { color: var(--accent-red); }
+        .c-ink { color: var(--ink); }
+        .hero-btn-lg { height: 54px; font-size: 0.75rem; padding: 0 35px; }
+        .ml-10 { margin-left: 10px; }
+        .ml-8 { margin-left: 8px; }
+        .mb-20-block { margin-bottom: 20px; display: block; }
+        .desc-max-400 { max-width: 400px; margin-top: 20px; }
+        .telomere-loop-rev { animation-direction: reverse; stroke-dasharray: 40; }
+        .mb-10 { margin-bottom: 10px; }
+        .desc-sm-85 { font-size: 0.85rem; margin: 0; max-width: 85%; }
+        .desc-sm { font-size: 0.85rem; margin: 0; }
+        .flex-1 { flex: 1; }
+        .max-w-250 { max-width: 250px; }
+        .desc-sm-350 { font-size: 0.85rem; margin: 0; max-width: 350px; }
+        .mb-20 { margin-bottom: 20px; }
+        .thesis-ink-mb20 { color: var(--ink); margin-bottom: 20px; }
+        .desc-gray-500 { margin: 0; color: #64748B; max-width: 500px; }
+        .node-highlight { border-color: var(--accent-red) !important; color: var(--accent-red) !important; box-shadow: 0 10px 30px rgba(232,26,45,0.2), 0 0 0 5px rgba(232,26,45,0.05) !important; transform: translateY(-5px) !important; }
+        .border-dashed { border-style: dashed; }
+        .max-w-none { max-width: none; }
+        .mb-30 { margin-bottom: 30px; }
+        .imperative-desc { font-size: clamp(1rem, 1.5vw, 1.25rem); color: #475569; line-height: 1.8; font-weight: 400; }
+        .drop-shadow-red { filter: drop-shadow(0 0 5px #E81A2D); }
+        .mb-60 { margin-bottom: 60px; }
+        .delay-1-3 { animation-delay: 1.3s; }
+        .delay-2-6 { animation-delay: 2.6s; }
+        .pr-role { font-family: 'JetBrains Mono'; font-size: 0.65rem; text-transform: uppercase; color: var(--accent-red); font-weight: 600; }
+        .m-0 { margin: 0; }
+        .fs-075 { font-size: 0.75rem; }
+        .mb-40 { margin-bottom: 40px; }
+        .mb-15-block { margin-bottom: 15px; display: block; }
+        .thesis-lg { margin: 0; font-size: clamp(2rem, 3vw, 3rem); }
+        .mb-50 { margin-bottom: 50px; }
+        .pb-40 { padding-bottom: 40px; }
+        .mt-20 { margin-top: 20px; }
+        .form-btn { height: 54px; font-size: 0.75rem; padding: 0 45px; width: max-content; }
+        .pr-40 { padding-right: 40px; }
+        .f-desc { margin-top: 30px; max-width: 250px; color: #64748B; }
+
+        /* MQ / RWD / VISUAL ERROR FIXES (MOBILE OPTIMIZATIONS ENHANCED) */
+        
+        @media (max-width: 1400px) {
+            .hero-graphics { transform: scale(0.75) translateZ(0); }
+            .h-layout { gap: 0px; }
+        }
+        
+        @media (max-width: 1200px) {
+            .pipe-layout-container { flex-wrap: wrap; justify-content: center; gap: 40px; }
+            .p-node { width: 40%; text-align: center; }
+            .timeline-dna-wrap { display: none; }
+        }
+
+        /* 
+         * MOBILE LAG & ALIGNMENT FIXES 
+         * Completely eliminates structural drag and filter lag in rendering on mobile.
+         */
+        @media (max-width: 1024px) {
+            
+            /* Destroy heavy filters that lag smartphone screens */
+            .noise-veil { display: none !important; }
+            .architect-grid { display: none !important; }
+            .ambient-mesh { animation: none !important; background-attachment: scroll; }
+            
+            /* General layout breakdown */
+            .h-layout, .mega-grid, .imperative-grid, .director-grid, .resonance-card-grid { grid-template-columns: 1fr; }
+            
+            section { padding: 50px 0; }
+            .hero-stage { padding-top: 15vh; text-align: center; }
+            .h-txt p { margin: 0 auto 40px; }
+            .hero-data-strip { justify-content: center; flex-wrap: wrap; gap: 20px; }
+            
+            .hero-graphics { transform: scale(0.6) translateZ(0); margin-top: -60px; height: 400px; }
+            
+            /* Fixed Mobile Navbar to completely solve overlap and fit elegantly */
+            header { top: 15px; }
+            .nav-island { 
+                flex-direction: row; flex-wrap: wrap; width: 92%; 
+                padding: 12px 20px; gap: 12px; justify-content: space-between; 
+                border-radius: 20px; 
+            }
+            .nav-brand { order: 1; flex: 0 0 auto; gap: 8px;}
+            .aeth-logo-char { font-size: 0.85rem; }
+            .aeth-logo-bars { height: 9px; width: 11px; }
+            .btn-apex { order: 2; flex: 0 0 auto; height: 38px; padding: 0 16px; font-size: 0.6rem; }
+            .nav-clusters { order: 3; flex: 1 1 100%; justify-content: center; gap: 8px; margin-top: 5px; }
+            .nav-clusters li a { font-size: 0.55rem; padding: 6px 12px; }
+
+            .pipe-layout-container { flex-direction: column; gap: 60px; margin-top: 60px;}
+            .timeline-dna-wrap { display: none; }
+            .p-node { width: 100%; display: flex; gap: 30px; align-items: flex-start; text-align: left; }
+            .node-circle { margin: 0; min-width: 60px;}
+            .module-card { flex-direction: column; text-align: center; transform: none !important; transform-style: flat; }
+            .mc-icon { margin: 0 auto 25px; }
+            #vector .bg-inverted { padding: 0;}
+            .hud-reticle { display: none; }
+            .data-card.span-7, .data-card.span-5, .data-card.span-12 { grid-column: span 12; flex-direction: column; transform: none !important;}
+            .wave-graph-advanced { display: none; }
+            .contact-form { grid-template-columns: 1fr; }
+            .form-group.full { grid-column: span 1; }
+            .sticky-column { position: relative; top: 0; margin-bottom: 40px; }
+            
+            .imp-interactive-svg { margin: 0 auto; max-width: 300px; transform: none !important; }
+            
+            .pr-40 { padding-right: 0; }
+
+            /* Footer Mobile Rules */
+            .fz-top-meta { flex-direction: column; gap: 10px; margin-bottom: 40px; border-bottom: none; }
+            .fz-grid { grid-template-columns: 1fr; gap: 60px; margin-bottom: 80px; }
+            .fz-title { font-size: clamp(2.5rem, 8vw, 3.5rem); }
+            .fz-bottom { flex-direction: column; gap: 30px; text-align: center; padding: 0 0 30px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+            .fz-meta-data span { display: block; margin: 0 0 10px 0; }
+            .fz-huge-mark { font-size: 22vw; transform: translateY(30%); }
+            .footer-zenith { padding-top: 80px; }
+            
+            /* Refined Loader Typography on mobile */
+            .loader-geo { display: none; }
+            .loader-cipher { font-size: 3.5rem; margin-bottom: 20px; }
+            .loader-bar { width: 220px; margin-bottom: 25px; }
+            .loader-sub { font-size: 0.45rem; letter-spacing: 0.2em; text-align: center; padding: 0 20px;}
+        }
+
+        @media (max-width: 768px) {
+            .fz-socials { flex-wrap: wrap; justify-content: center; gap: 12px; }
+            .fz-socials a { width: 40px; height: 40px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-mesh"></div>
+    <div class="architect-grid"></div>
+    <div class="noise-veil"></div>
+    <div class="lens-vignette"></div>
+    
+    <div class="hud-reticle ret-tl"></div>
+    <div class="hud-reticle ret-tr"></div>
+    <div class="hud-reticle ret-bl"></div>
+    <div class="hud-reticle ret-br"></div>
+
+    <div class="aeth-cursor" id="custom-c"></div>
+    <div class="aeth-cursor-trailer" id="custom-c-trail"></div>
+
+    <!-- NEW ULTRA-CINEMATIC INITIALIZATION SEQUENCE -->
+    <div id="core_loader">
+        
+        <!-- Extraneous graphics cleared directly targeting maximal sophisticated clean geometry exclusively -->
+        <div class="loader-cipher" id="load_nums">000.00<span>%</span></div>
+        <div class="loader-bar"><div class="loader-progress" id="load_prog"></div></div>
+        
+        <div class="loader-sub data-mono">
+            <span>NEURAL SYNC INITIATED</span>
+            <span class="c-accent">[ ESTABLISHING VECTOR ]</span>
+        </div>
+    </div>
+
+    <header id="main_nav">
+        <div class="nav-island">
+            <!-- Purged img integration completely substituting pure typographical precision alignment mimicking raw exact visual specifications seamlessly -->
+            <a href="/" class="nav-brand">
+                <span class="aeth-logo-char">Λ</span>
+                <span class="aeth-logo-char">E</span>
+                <span class="aeth-logo-char">T</span>
+                <span class="aeth-logo-char">H</span>
+                <div class="aeth-logo-bars">
+                    <span></span><span></span><span></span>
+                </div>
+                <span class="aeth-logo-char">I</span>
+                <span class="aeth-logo-char">Z</span>
+            </a>
+            <ul class="nav-clusters">
+                <li><a href="#syntax">Syntax</a></li>
+                <li><a href="#telemetry">Matrix</a></li>
+                <li><a href="#vector">Architecture</a></li>
+            </ul>
+            <button class="btn-apex cursor-hv" onclick="window.location.href='/login'">INITIATE DEPLOY <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </header>
+
+    <!-- H-01: THE HERO THEATER -->
+    <section class="hero-stage">
+        <div class="container h-layout">
+            <div class="h-txt">
+                <div class="status-badge reveal-node h-obs">
+                    <div class="status-dot"><div></div></div>
+                    <span class="data-mono c-ink">MDLX-1A ACTIVE</span>
+                </div>
+                
+                <h1 class="reveal-node h-obs delay-1"><span class="decrypt-text" data-val="Hyper-Optimize">Hyper-Optimize</span><br><span class="f-italic">Biological</span><br><span class="decrypt-text" data-val="Synthesis.">Synthesis.</span></h1>
+                
+                <p class="reveal-node h-obs delay-2">We construct a 200-billion scalar metric from your biometric substrate. Calculating precise recovery algorithms down to the structural nucleotide level securely.</p>
+                
+                <div class="reveal-node h-obs delay-3">
+                    <button class="btn-apex cursor-hv hero-btn-lg" onclick="window.location.href='/login'">COMPILE REPORT <i class="fa-solid fa-satellite-dish ml-10"></i></button>
+                </div>
+                
+                <div class="hero-data-strip reveal-node h-obs delay-3">
+                    <div class="hd-node"><span class="hd-val live-rnd" data-min="99" data-max="99" data-dec="3">99.999<span>%</span></span><span class="hd-lbl">Substrate Purity</span></div>
+                    <div class="hd-node"><span class="hd-val">2.8<span>B+</span></span><span class="hd-lbl">Scalar Metrics</span></div>
+                    <div class="hd-node"><span class="hd-val live-rnd" data-min="10" data-max="90" data-dec="0">45<span>ms</span></span><span class="hd-lbl">Compute Latency</span></div>
+                </div>
+            </div>
+
+            <!-- Absolute Elite 3D DNA Reactor -->
+            <div class="hero-graphics reveal-node h-obs delay-2" id="reactor-3d">
+                <div class="orbital-ring orb-1"></div>
+                <div class="orbital-ring orb-2"></div>
+                
+                <div class="hud-tag tag-1"><i class="fa-solid fa-crosshairs c-accent"></i> TGT_SEQ: ALFA</div>
+                <div class="hud-tag tag-2"><i class="fa-solid fa-chart-line"></i> STABLE</div>
+
+                <div class="reactor-containment">
+                    <div class="core-dna" id="cssDnaWrap"></div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- S-02: SYNTAX PARADIGM -->
+    <section id="syntax">
+        <div class="container mega-grid">
+            
+            <div class="sticky-column rv-scroll reveal-node">
+                <span class="data-mono c-red mb-20-block">[01] // Core Precept</span>
+                <h2 class="thesis-text">Reject surface heuristics.<br>Execute <strong>Pure Scientific Immortality.</strong></h2>
+                <p class="mc-desc desc-max-400">Redefining physiological boundaries through algorithmic intervention and non-invasive neural synchronization.</p>
+            </div>
+
+            <div class="module-deck">
+                
+                <div class="module-card card-3d mag-tgt rv-scroll reveal-node">
+                    <span class="mc-idx">I</span>
+                    <div class="mc-text-block">
+                        <div class="mc-icon">
+                            <svg viewBox="0 0 40 40" overflow="visible">
+                                <g class="svg-poly-spin" transform-origin="20 20">
+                                    <polygon points="20,2 38,11 38,29 20,38 2,29 2,11" fill="none" stroke="rgba(7,9,15,0.15)" stroke-width="1.5" />
+                                    <polygon points="20,5 34,13 34,27 20,35 6,27 6,13" fill="none" stroke="var(--ink)" stroke-width="1" stroke-dasharray="2 4"/>
+                                </g>
+                                <circle cx="20" cy="20" r="8" fill="none" stroke="var(--ink)" stroke-width="2" stroke-dasharray="10 15" class="svg-pulse-line" />
+                                <path d="M10 20 L14 20 L17 12 L21 28 L24 20 L30 20" fill="none" stroke="var(--accent-red)" stroke-width="1.5" class="elite-glow" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="mc-title">Physiological Engine</h3>
+                        <p class="mc-desc">Evaluating load-bearing kinetics, cardiovascular density mapping, and V02 extraction modeling against structural deterioration variables.</p>
+                    </div>
+                    <div class="mc-graph">
+                        <svg width="100%" height="100px" viewBox="0 0 200 100" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="gradientRedLine" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="transparent" />
+                                    <stop offset="50%" stop-color="#E81A2D" />
+                                    <stop offset="100%" stop-color="transparent" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M0,50 L200,50 M0,25 L200,25 M0,75 L200,75" stroke="rgba(7,9,15,0.05)" stroke-width="1"/>
+                            <path d="M-50,80 Q25,0 100,80 T250,80 T400,80" fill="none" stroke="rgba(232, 26, 45, 0.15)" stroke-width="3" class="elite-wave"/>
+                            <path d="M0,60 C40,60 50,30 70,80 C90,120 120,20 150,60 C170,80 200,60 200,60" fill="none" stroke="url(#gradientRedLine)" stroke-width="2.5" class="elite-glow svg-pulse-line"/>
+                            <circle cx="110" cy="38" r="4" fill="#FFF" stroke="var(--accent-red)" stroke-width="2" class="elite-glow" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="module-card card-3d mag-tgt rv-scroll reveal-node delay-1">
+                    <span class="mc-idx">II</span>
+                    <div class="mc-text-block">
+                        <div class="mc-icon">
+                            <svg viewBox="0 0 40 40" overflow="visible">
+                                <circle cx="20" cy="20" r="16" fill="none" stroke="rgba(7,9,15,0.1)" stroke-width="1.5" class="svg-poly-spin-rev"/>
+                                <path d="M 20 4 C 36 4 36 24 20 36 C 4 24 4 4 20 4 Z" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="60 100" class="svg-pulse-line"/>
+                                <path d="M 12 16 Q 20 8 28 16 Q 28 26 20 32 Q 12 26 12 16" fill="none" stroke="var(--accent-red)" stroke-width="1"/>
+                                <circle cx="20" cy="18" r="3" fill="var(--accent-red)" class="elite-glow elite-orbit-fast" transform-origin="20 20"/>
+                            </svg>
+                        </div>
+                        <h3 class="mc-title">Neurological Mapping</h3>
+                        <p class="mc-desc">Mining cortical flow capacities, measuring beta-amyloid disruption latencies utilizing advanced chronometric arrays.</p>
+                    </div>
+                    <div class="mc-graph">
+                        <svg width="100%" height="100px" viewBox="0 0 200 100">
+                            <path d="M50,50 A 40,40 0 1,1 150,50 A 40,40 0 1,1 50,50" fill="none" stroke="rgba(7,9,15,0.06)" stroke-width="4" />
+                            <path d="M50,50 A 40,40 0 1,1 150,50 A 40,40 0 1,1 50,50" fill="none" stroke="var(--ink)" stroke-width="2" stroke-dasharray="30 220" class="svg-pulse-line"/>
+                            <path d="M70,50 A 20,20 0 1,0 130,50 A 20,20 0 1,0 70,50" fill="none" stroke="var(--accent-red)" stroke-width="1" stroke-dasharray="4 6" class="elite-orbit-slow" transform-origin="100 50"/>
+                            <line x1="100" y1="50" x2="135" y2="35" stroke="var(--accent-red)" stroke-width="1" class="svg-poly-spin-rev" transform-origin="100 50" />
+                            <circle cx="100" cy="50" r="3" fill="#FFF" stroke="var(--accent-red)" stroke-width="2" class="elite-glow"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="module-card card-3d mag-tgt rv-scroll reveal-node delay-2">
+                    <span class="mc-idx">III</span>
+                    <div class="mc-text-block">
+                        <div class="mc-icon">
+                            <svg viewBox="0 0 40 40" overflow="visible">
+                                <g class="svg-poly-spin" transform-origin="20 20">
+                                    <rect x="6" y="6" width="28" height="28" fill="none" stroke="rgba(7,9,15,0.15)" stroke-width="1.5" transform="rotate(45 20 20)"/>
+                                    <rect x="10" y="10" width="20" height="20" fill="none" stroke="var(--ink)" stroke-dasharray="4 4" stroke-width="1" transform="rotate(22.5 20 20)"/>
+                                </g>
+                                <circle cx="20" cy="20" r="6" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="15 20" class="svg-pulse-line"/>
+                                <circle cx="20" cy="20" r="3" fill="var(--accent-red)" class="elite-glow"/>
+                                <path d="M 20 0 L 20 8 M 20 32 L 20 40 M 0 20 L 8 20 M 32 20 L 40 20" stroke="var(--accent-red)" stroke-width="1" opacity="0.8" class="elite-glow"/>
+                            </svg>
+                        </div>
+                        <h3 class="mc-title">Somatic Reconstruction</h3>
+                        <p class="mc-desc">Targeted hyper-oxygenation parameters syncing precisely with metabolic windows to reverse cellular senescence aggressively.</p>
+                    </div>
+                    <div class="mc-graph">
+                        <svg width="100%" height="100px" viewBox="0 0 200 100">
+                            <g class="svg-poly-spin" transform-origin="100 50">
+                                <polygon points="100,20 140,80 60,80" fill="none" stroke="rgba(7,9,15,0.15)" stroke-width="1"/>
+                                <polygon points="100,25 130,70 70,70" fill="none" stroke="var(--ink)" stroke-width="2" stroke-dasharray="5 15"/>
+                            </g>
+                            <g class="svg-poly-spin-rev" transform-origin="100 50">
+                                <polygon points="100,80 135,30 65,30" fill="none" stroke="rgba(232,26,45,0.4)" stroke-width="2" class="elite-glow"/>
+                                <circle cx="100" cy="53" r="5" fill="var(--accent-red)" class="elite-glow"/>
+                                <line x1="100" y1="53" x2="100" y2="80" stroke="var(--ink)" stroke-width="1" />
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="module-card card-3d mag-tgt rv-scroll reveal-node delay-1">
+                    <span class="mc-idx">IV</span>
+                    <div class="mc-text-block">
+                        <div class="mc-icon">
+                            <svg viewBox="0 0 40 40" overflow="visible">
+                                <path d="M 4 36 Q 20 4 36 36" fill="none" stroke="rgba(7,9,15,0.15)" stroke-width="2"/>
+                                <path d="M 4 4 Q 20 36 36 4" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="6 6" class="svg-pulse-line"/>
+                                <circle cx="20" cy="20" r="10" fill="none" stroke="var(--ink)" stroke-width="1" stroke-dasharray="2 4" class="svg-poly-spin" />
+                                <circle cx="20" cy="20" r="3" fill="none" stroke="var(--accent-red)" stroke-width="2" class="elite-glow elite-orbit-slow" transform-origin="20 20"/>
+                                <circle cx="20" cy="20" r="1.5" fill="var(--accent-red)"/>
+                                <line x1="15" y1="20" x2="25" y2="20" stroke="var(--accent-red)" stroke-width="1" class="svg-poly-spin-rev" transform-origin="20 20"/>
+                            </svg>
+                        </div>
+                        <h3 class="mc-title">Telomere Extension</h3>
+                        <p class="mc-desc">Continuous chromosomal monitoring deploying micro-nutritional cascades directly responsive to DNA fraying indicators instantly.</p>
+                    </div>
+                    <div class="mc-graph">
+                        <svg width="100%" height="100px" viewBox="0 0 200 100">
+                            <!-- Background guiding sine line -->
+                            <path d="M-10,50 Q40,-10 90,50 T190,50 T290,50" fill="none" stroke="rgba(7,9,15,0.08)" stroke-width="6" />
+                            <!-- Elaborate tracking system -->
+                            <path d="M-10,50 Q40,-10 90,50 T190,50 T290,50" class="telomere-loop" stroke="var(--accent-red)" stroke-width="2"/>
+                            <path d="M-10,50 Q40,110 90,50 T190,50 T290,50" class="telomere-loop telomere-loop-rev" stroke="var(--ink)" stroke-width="1.5"/>
+                            <circle cx="90" cy="50" r="3" fill="var(--pure-white)" stroke="var(--accent-red)" stroke-width="2" class="elite-glow"/>
+                            <line x1="90" y1="20" x2="90" y2="80" stroke="rgba(232, 26, 45, 0.4)" stroke-dasharray="2 2" stroke-width="1" class="svg-poly-spin-rev" transform-origin="90 50"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="module-card card-3d mag-tgt rv-scroll reveal-node delay-2">
+                    <span class="mc-idx">V</span>
+                    <div class="mc-text-block">
+                        <div class="mc-icon">
+                            <svg viewBox="0 0 40 40" overflow="visible">
+                                <circle cx="20" cy="20" r="18" fill="none" stroke="rgba(7,9,15,0.06)" stroke-width="0.75" />
+                                <circle cx="20" cy="20" r="16" fill="none" stroke="rgba(7,9,15,0.1)" stroke-width="1" stroke-dasharray="2 6 8 2" class="svg-poly-spin" style="animation-duration:25s; transform-origin:20px 20px;"/>
+                                <g class="svg-poly-spin" style="animation-duration:15s; transform-origin:20px 20px;">
+                                    <ellipse cx="20" cy="20" rx="14" ry="4" fill="none" stroke="var(--ink)" stroke-width="1.2" transform="rotate(45 20 20)"/>
+                                    <circle cx="10" cy="10" r="2" fill="var(--accent-red)" class="elite-glow"/>
+                                    <circle cx="30" cy="30" r="1" fill="var(--ink)"/>
+                                </g>
+                                <g class="svg-poly-spin-rev" style="animation-duration:18s; transform-origin:20px 20px;">
+                                    <ellipse cx="20" cy="20" rx="14" ry="4" fill="none" stroke="var(--accent-red)" stroke-width="1.2" opacity="0.6" stroke-dasharray="2 3" transform="rotate(-45 20 20)"/>
+                                    <circle cx="30" cy="10" r="1.5" fill="var(--ink)"/>
+                                </g>
+                                <circle cx="20" cy="20" r="4.5" fill="none" stroke="var(--ink)" stroke-width="1" />
+                                <circle cx="20" cy="20" r="2.5" fill="#FFF" class="svg-pulse-line"/>
+                                <circle cx="20" cy="20" r="1.5" fill="var(--accent-red)" class="elite-glow"/>
+                            </svg>
+                        </div>
+                        <h3 class="mc-title">Quantum Bio-Sync</h3>
+                        <p class="mc-desc">Merging macro-level environmental data with micro-level hormonal balances to calculate exact peak-state entry points securely.</p>
+                    </div>
+                    <div class="mc-graph">
+                        <svg width="100%" height="100px" viewBox="0 0 200 100" overflow="visible">
+                            <g class="svg-poly-spin" style="transform-origin: 100px 50px; animation-duration: 20s;">
+                                <ellipse cx="100" cy="50" rx="65" ry="18" fill="none" stroke="rgba(7,9,15,0.08)" stroke-width="1.5" transform="rotate(25 100 50)"/>
+                                <circle cx="35" cy="50" r="2.5" fill="var(--ink)" transform="rotate(25 100 50)"/>
+                            </g>
+                            <g class="svg-poly-spin-rev" style="transform-origin: 100px 50px; animation-duration: 15s;">
+                                <ellipse cx="100" cy="50" rx="65" ry="18" fill="none" stroke="var(--accent-red)" stroke-width="1.5" stroke-dasharray="6 12" transform="rotate(-35 100 50)"/>
+                                <circle cx="165" cy="50" r="3" fill="var(--accent-red)" class="elite-glow" transform="rotate(-35 100 50)"/>
+                            </g>
+                            <circle cx="100" cy="50" r="8" fill="rgba(232,26,45,0.1)" stroke="var(--accent-red)" stroke-width="1" class="elite-glow svg-poly-spin" stroke-dasharray="4 4" style="transform-origin: 100px 50px; animation-duration: 10s;"/>
+                            <circle cx="100" cy="50" r="3" fill="#FFF"/>
+                            <circle cx="100" cy="50" r="1" fill="var(--accent-red)"/>
+                        </svg>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- S-03: ADVANCED LIVE TELEMETRY ARRAY - Alignment Perfected -->
+    <section id="telemetry" class="container rv-scroll reveal-node">
+        <div class="align-left-header">
+            <span class="data-mono c-red mb-20-block">[02] // LIVE SYNAPTIC OBSERVATION</span>
+            <h2 class="thesis-text mb-10">Real-Time Cellular <br>Telemetry.</h2>
+        </div>
+
+        <div class="telemetry-grid">
+            
+            <div class="data-card card-3d mag-tgt span-7">
+                <div class="data-head">
+                    <span class="dt-title">Hemodynamic Viscosity</span>
+                    <span class="live-badge">LIVE</span>
+                </div>
+                <span class="big-live-num live-rnd" data-min="200" data-max="350" data-dec="1">284.2</span>
+                <p class="mc-desc desc-sm-85">Processing sub-beats per analysis framework actively suppressing micro-clots natively.</p>
+                <div class="eq-bars-pro" id="dynamicEq1">
+                    <!-- Javascript generates these upgraded segment lines perfectly -->
+                </div>
+            </div>
+            
+            <div class="data-card card-3d mag-tgt span-5">
+                <div class="data-head">
+                    <span class="dt-title">Isotopic Mesh</span>
+                    <span class="live-badge">LIVE</span>
+                </div>
+                <span class="big-live-num live-rnd" data-min="10" data-max="99" data-dec="2">88.45</span>
+                <p class="mc-desc desc-sm">Direct manipulation of intrinsic amino clusters driving cellular division boundaries.</p>
+                <div class="eq-bars-pro" id="dynamicEq2">
+                    <!-- Javascript generates these correctly sized structure columns -->
+                </div>
+            </div>
+
+            <div class="data-card card-3d mag-tgt span-12">
+                <div class="flex-1">
+                    <div class="data-head max-w-250">
+                        <span class="dt-title">Vector Washout Synch</span>
+                        <span class="live-badge">LIVE</span>
+                    </div>
+                    <span class="big-live-num live-rnd" data-min="1" data-max="9" data-dec="3">4.092</span>
+                    <p class="mc-desc desc-sm-350">Total neural washout synchronization eliminating toxic metabolite layers deposited throughout cognitive operation hours strictly.</p>
+                </div>
+                
+                <!-- Highly styled CSS premium cinematic glowing graph bars -->
+                <div class="wave-graph-advanced" id="advWaveSystem"></div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- S-04: COMPILER PIPELINE (MONOLITHIC + HORIZ DNA) -->
+    <section id="vector" class="container">
+        <div class="bg-inverted rv-scroll">
+            
+            <div class="align-left-header rv-scroll reveal-node delay-1 mb-20">
+                <span class="data-mono c-red mb-20">[03] // ALGORITHMIC TIMELINE</span>
+                <h2 class="thesis-text thesis-ink-mb20">Flawless Logical <br>Convergence.</h2>
+                <p class="mc-desc desc-gray-500">Automating organic reconstruction flawlessly scaling upward inherently translating bio-noise accurately to logic operations natively.</p>
+            </div>
+
+            <div class="pipe-layout-container pipe-nodes rv-scroll reveal-node delay-1">
+                
+                <!-- The 3D CSS Horizontal Tracking Engine precisely matched inline visually to exact geometric numbers axis -->
+                <div class="timeline-dna-wrap">
+                    <div class="timeline-dna-core" id="cssDnaWrapHoriz"></div>
+                </div>
+
+                <div class="p-node">
+                    <div class="node-circle mag-tgt">I</div>
+                    <h4 class="pn-title">Ingest Logic</h4>
+                    <p class="pn-desc">Mass input framework reading exact DNA configurations alongside systemic stress histories smoothly.</p>
+                </div>
+
+                <div class="p-node">
+                    <div class="node-circle mag-tgt">II</div>
+                    <h4 class="pn-title">Vector Plot</h4>
+                    <p class="pn-desc">Establishing exact routes to deploy micro-interventions through the bloodstream precisely.</p>
+                </div>
+
+                <div class="p-node">
+                    <div class="node-circle mag-tgt">III</div>
+                    <h4 class="pn-title">Bio Trial</h4>
+                    <p class="pn-desc">Advanced chronometric simulators calculate stress ruptures extending probabilistic logic entirely.</p>
+                </div>
+
+                <div class="p-node">
+                    <div class="node-circle mag-tgt">IV</div>
+                    <h4 class="pn-title">Neural Splice</h4>
+                    <p class="pn-desc">Interweaving newly synthesized habits natively into baseline rewards bypassing resistance natively.</p>
+                </div>
+
+                <div class="p-node">
+                    <div class="node-circle mag-tgt">V</div>
+                    <h4 class="pn-title">Arc Push</h4>
+                    <p class="pn-desc">Generating executable habit maps actively pushed direct synchronizing microscopic routines.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- S-04A: THE IMPERATIVE -->
+    <section id="journey" class="container rv-scroll reveal-node">
+        <div class="imperative-grid">
+            <div class="align-left-header max-w-none">
+                <span class="data-mono c-red mb-20-block">[04] // THE IMPERATIVE</span>
+                <h2 class="thesis-text mb-30">Beyond Standard <br>Healthcare.</h2>
+                <div class="imperative-desc">
+                    We engineered a paradigm where human biological limits are treated as mere variables. Through psychological anchoring and deep physiological mapping, we bridge the chasm between raw survival and absolute optimization. <br><br>This is not medicine; it is an algorithmic rebirth designed to outpace mortality natively and accurately executing systemic evolution algorithms perfectly calculated.
+                </div>
+            </div>
+            
+            <!-- Highly Advanced SVG Interactive Graphics Area -->
+            <div class="imp-interactive-svg">
+                
+                <!-- Mod Logic Injection Layer Settings Preserved -->
+                <style>
+                    .ae-spin-sl { transform-origin: 200px 200px; animation: ae-rot 60s linear infinite; }
+                    .ae-spin-sr { transform-origin: 200px 200px; animation: ae-rot-rev 40s linear infinite; }
+                    .ae-pulse { transform-origin: 200px 200px; animation: ae-breathing 4s ease-in-out infinite alternate; }
+                    .ae-dash { stroke-dasharray: 2 6; animation: ae-flow 2s linear infinite; }
+                    .ae-geom-morph { transform-origin: 200px 200px; animation: ae-poly-twist 15s cubic-bezier(0.5, 0.05, 0.5, 0.95) infinite; }
+                    .ae-core-glow { animation: ae-radiance 3s infinite alternate; }
+                    
+                    @keyframes ae-rot { 100% { transform: rotate(360deg); } }
+                    @keyframes ae-rot-rev { 100% { transform: rotate(-360deg); } }
+                    @keyframes ae-breathing { 0% { transform: scale(0.98); } 100% { transform: scale(1.02); } }
+                    @keyframes ae-flow { to { stroke-dashoffset: -16; } }
+                    @keyframes ae-poly-twist { 0%, 15% { transform: rotate(0deg) scale(1); } 40%, 60% { transform: rotate(180deg) scale(0.9); } 85%, 100% { transform: rotate(360deg) scale(1); } }
+                    @keyframes ae-radiance { 0% { filter: drop-shadow(0 0 10px rgba(232, 26, 45, 0.2)); } 100% { filter: drop-shadow(0 0 35px rgba(232, 26, 45, 0.6)); } }
+                </style>
+
+                <svg width="100%" height="100%" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width:100%; overflow:visible;">
+                    <defs>
+                        <filter id="ae-glow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="5" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                        <radialGradient id="ae-depth" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#E81A2D" stop-opacity="0.04"/>
+                            <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+                        </radialGradient>
+                        <linearGradient id="ae-glass" x1="0" y1="0" x2="400" y2="400">
+                            <stop offset="0%" stop-color="var(--ink)" stop-opacity="0.1"/>
+                            <stop offset="50%" stop-color="#fff" stop-opacity="0.8"/>
+                            <stop offset="100%" stop-color="var(--ink)" stop-opacity="0.1"/>
+                        </linearGradient>
+                    </defs>
+
+                    <circle cx="200" cy="200" r="190" fill="url(#ae-depth)" />
+                    
+                    <g class="ae-spin-sl" opacity="0.4">
+                        <circle cx="200" cy="200" r="185" stroke="var(--ink)" stroke-width="0.5" stroke-dasharray="1 8" />
+                        <circle cx="200" cy="15" r="2.5" fill="var(--ink)"/>
+                        <path d="M190 5 Q 200 15 210 5" stroke="var(--ink)" stroke-width="0.5" fill="none"/>
+                    </g>
+                    
+                    <g class="ae-spin-sr" opacity="0.6">
+                        <circle cx="200" cy="200" r="150" stroke="rgba(7,9,15,0.4)" stroke-width="1.5" stroke-dasharray="90 30" />
+                        <path d="M 50 200 A 150 150 0 0 1 70 120" stroke="var(--accent-red)" stroke-width="3" fill="none" filter="url(#ae-glow)" stroke-linecap="round"/>
+                        <circle cx="50" cy="200" r="4" fill="var(--accent-red)"/>
+                    </g>
+
+                    <g opacity="0.75">
+                        <line x1="200" y1="20" x2="200" y2="380" stroke="rgba(7,9,15,0.08)" stroke-width="0.5" stroke-dasharray="4 4" />
+                        <line x1="20" y1="200" x2="380" y2="200" stroke="rgba(7,9,15,0.08)" stroke-width="0.5" stroke-dasharray="4 4" />
+                        
+                        <circle cx="200" cy="200" r="115" stroke="rgba(7,9,15,0.15)" stroke-width="1" />
+                        
+                        <g class="ae-spin-sl">
+                            <polygon points="200,85 295,255 105,255" fill="none" stroke="var(--ink)" stroke-width="1" stroke-linejoin="round" opacity="0.3" stroke-dasharray="4 12" />
+                        </g>
+                    </g>
+
+                    <g class="ae-pulse ae-core-glow">
+                        <circle cx="200" cy="200" r="75" fill="rgba(255,255,255,0.8)" stroke="url(#ae-glass)" stroke-width="1.5" style="backdrop-filter: blur(8px);" />
+                        <circle cx="200" cy="200" r="70" fill="none" stroke="rgba(7,9,15,0.05)" stroke-width="0.5" />
+                        
+                        <g class="ae-geom-morph">
+                            <polygon points="175,140 225,140 260,175 260,225 225,260 175,260 140,225 140,175" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="8 4"/>
+                            <polygon points="180,150 220,150 250,180 250,220 220,250 180,250 150,220 150,180" fill="none" stroke="var(--accent-red)" stroke-width="1" opacity="0.8"/>
+                            
+                            <line x1="200" y1="125" x2="200" y2="135" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="200" y1="275" x2="200" y2="265" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="125" y1="200" x2="135" y2="200" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="275" y1="200" x2="265" y2="200" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+                            
+                            <circle cx="240" cy="160" r="2.5" fill="var(--accent-red)" filter="url(#ae-glow)"/>
+                            <circle cx="160" cy="240" r="2.5" fill="var(--accent-red)" filter="url(#ae-glow)"/>
+                        </g>
+
+                        <circle cx="200" cy="200" r="16" fill="var(--ink)" />
+                        <circle cx="200" cy="200" r="10" fill="none" stroke="var(--accent-red)" stroke-width="2" class="ae-dash"/>
+                        <circle cx="200" cy="200" r="4" fill="var(--accent-red)" filter="url(#ae-glow)"/>
+                    </g>
+
+                    <g font-family="'JetBrains Mono', monospace" font-size="8" fill="rgba(7,9,15,0.4)" letter-spacing="0.2em" font-weight="700">
+                        <text x="350" y="385">M::SYNC</text>
+                        <text x="40" y="385">AE::002</text>
+                        <text x="175" y="45" opacity="0.6">N-0101[LIVE]</text>
+                        <line x1="330" y1="382" x2="340" y2="382" stroke="rgba(7,9,15,0.2)" stroke-width="1"/>
+                        <line x1="90" y1="382" x2="100" y2="382" stroke="rgba(7,9,15,0.2)" stroke-width="1"/>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- S-04B: COGNITIVE RESONANCE -->
+    <section id="resonance" class="container rv-scroll reveal-node">
+        <div class="align-left-header mb-60">
+            <span class="data-mono c-red mb-20-block">[05] // NEURAL ANCHORING</span>
+            <h2 class="thesis-text mb-10">Subconscious <br>Architecture.</h2>
+        </div>
+        
+        <div class="resonance-card-grid">
+            
+            <div class="rc-box mag-tgt delay-1">
+                <div class="rc-graph">
+                    <svg viewBox="0 0 100 100" class="elite-svg-core">
+                        <defs>
+                            <linearGradient id="redFade" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#E81A2D" stop-opacity="0.8"/>
+                                <stop offset="100%" stop-color="#E81A2D" stop-opacity="0"/>
+                            </linearGradient>
+                            <filter id="esGlow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feGaussianBlur stdDeviation="2" result="blur"/>
+                                <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                            </filter>
+                        </defs>
+                        
+                        <!-- Ambient Orbiters -->
+                        <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(7,9,15,0.04)" stroke-width="0.5"/>
+                        <path d="M 8 50 A 42 42 0 0 1 92 50" fill="none" stroke="rgba(7,9,15,0.15)" stroke-width="0.25" stroke-dasharray="1 3" class="es-ring-1"/>
+                        
+                        <!-- Counter-rotating precise dial -->
+                        <circle cx="50" cy="50" r="32" fill="none" stroke="var(--ink)" stroke-width="0.5" stroke-dasharray="10 2 1 2" class="es-ring-2"/>
+                        
+                        <!-- Accelerator Ring -->
+                        <circle cx="50" cy="50" r="26" fill="none" stroke="var(--accent-red)" stroke-width="0.25" stroke-dasharray="40 60" class="es-accel-ring"/>
+                        
+                        <!-- The Core Crystal -->
+                        <g class="es-core-crystal">
+                            <path d="M50 20 L65 50 L50 80 L35 50 Z" fill="none" stroke="url(#redFade)" stroke-width="0.75" />
+                            <path d="M50 30 L58 50 L50 70 L42 50 Z" fill="rgba(232, 26, 45, 0.05)" stroke="var(--accent-red)" stroke-width="0.5" filter="url(#esGlow)"/>
+                            <circle cx="50" cy="50" r="2.5" fill="#FFF" filter="url(#esGlow)"/>
+                        </g>
+                        
+                        <!-- Micro data node orbiting -->
+                        <g class="es-orbit-node">
+                            <circle cx="50" cy="8" r="1.5" fill="var(--ink)"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="rc-meta cinematic-text-anim"><span style="transition-delay: 0.1s;" class="data-mono c-red">SYS.01 — ALPHA</span></div>
+                <h4 class="rc-title cinematic-text-anim"><span style="transition-delay: 0.2s;">Phase Alpha Sync</span></h4>
+                <div class="rc-line"></div>
+                <p class="rc-desc cinematic-text-anim">
+                    <span style="transition-delay: 0.4s;">Synchronize external stimuli with intrinsic alpha-wave patterns. Radically reduce structural cellular stress at the foundational perceptual layer.</span>
+                </p>
+            </div>
+
+            <div class="rc-box mag-tgt delay-2">
+                <div class="rc-graph">
+                    <svg viewBox="0 0 100 100" class="elite-svg-core">
+                        <defs>
+                            <filter id="esGlowBeta" x="-50%" y="-50%" width="200%" height="200%">
+                                <feGaussianBlur stdDeviation="1.5" result="blur"/>
+                                <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                            </filter>
+                        </defs>
+
+                        <!-- Sine Wave Matrix -->
+                        <g class="es-wave-matrix">
+                            <path d="M -10 50 Q 25 10 50 50 T 110 50" fill="none" stroke="rgba(7,9,15,0.05)" stroke-width="1"/>
+                            <path d="M -10 50 Q 25 90 50 50 T 110 50" fill="none" stroke="rgba(7,9,15,0.05)" stroke-width="1"/>
+                            
+                            <path d="M -10 50 Q 25 10 50 50 T 110 50" fill="none" stroke="var(--accent-red)" stroke-width="0.75" class="es-wave-tracer-1"/>
+                            <path d="M -10 50 Q 25 90 50 50 T 110 50" fill="none" stroke="var(--ink)" stroke-width="0.5" class="es-wave-tracer-2"/>
+                        </g>
+
+                        <!-- Neural Intersect Core -->
+                        <circle cx="50" cy="50" r="18" fill="none" stroke="rgba(7,9,15,0.1)" stroke-width="0.25"/>
+                        <circle cx="50" cy="50" r="18" fill="none" stroke="var(--ink)" stroke-width="0.5" stroke-dasharray="1 4" class="es-ring-1"/>
+                        
+                        <circle cx="50" cy="50" r="12" fill="none" stroke="var(--accent-red)" stroke-width="0.25" class="es-ring-pulse"/>
+                        
+                        <!-- Splice Points -->
+                        <g class="es-splice-points">
+                            <circle cx="31" cy="35" r="1.5" fill="var(--ink)"/>
+                            <line x1="31" y1="35" x2="50" y2="50" stroke="rgba(7,9,15,0.2)" stroke-width="0.5" class="es-line-connect"/>
+                            
+                            <circle cx="69" cy="65" r="2" fill="var(--accent-red)" filter="url(#esGlowBeta)"/>
+                            <line x1="69" y1="65" x2="50" y2="50" stroke="rgba(232,26,45,0.3)" stroke-width="0.5" class="es-line-connect-red"/>
+                        </g>
+                        
+                        <circle cx="50" cy="50" r="3" fill="var(--ink)"/>
+                        <circle cx="50" cy="50" r="1" fill="#FFF"/>
+                    </svg>
+                </div>
+                <div class="rc-meta cinematic-text-anim"><span style="transition-delay: 0.3s;" class="data-mono c-red">SYS.02 — BETA</span></div>
+                <h4 class="rc-title cinematic-text-anim"><span style="transition-delay: 0.4s;">Phase Beta Splice</span></h4>
+                <div class="rc-line"></div>
+                <p class="rc-desc cinematic-text-anim">
+                    <span style="transition-delay: 0.6s;">Rewire psychological loops at the synaptic level. Deploy non-invasive harmonic interference tailored purely to precise active biometric arrays.</span>
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- S-05: SYSTEM ARCHITECTS -->
+    <section id="nodes" class="container">
+        
+        <div class="director-grid rv-scroll reveal-node delay-1">
+
+            <div class="bio-expansion">
+                <span class="data-mono c-red mb-20-block">[06] // STRUCTURAL DIRECTOR</span>
+                <h2 class="thesis-text m-0">Architect of <br>Aethriz.</h2>
+                
+                <!-- NEW ADDED METRICS SIGNATURE ELEMENT -->
+                <div class="dir-metrics">
+                    <div class="dm-node"><span class="dm-lbl">Auth Level</span><span class="dm-val"><i class="fa-solid fa-shield-halved c-accent"></i> OMEGA-9</span></div>
+                    <div class="dm-node"><span class="dm-lbl">Neural Hash</span><span class="dm-val">0xVP.78F2</span></div>
+                    <div class="dm-node"><span class="dm-lbl">Sync State</span><span class="dm-val live-rnd" data-min="99" data-max="99" data-dec="4">99.9999<span>%</span></span></div>
+                </div>
+                
+                <button class="btn-apex decrypt-bio-btn" id="bioToggleBtn">DECRYPT PROFILE <i class="fa-solid fa-fingerprint fs-075 ml-8"></i></button>
+
+                <div class="unlocked-data" id="bioTextWrap">
+                    Driving the frontier where high-performance compute architectures meet raw biological frameworks, the directive focuses explicitly on out-maneuvering evolutionary friction. System blueprints deployed within the Aethriz mainframe natively integrate cognitive enhancement with baseline organism functions natively mapping peak capabilities directly without interruption organically. Highly secure logic arrays built ground-up strictly focused on the final iteration of human biological potential dynamically deployed natively across the grid infrastructure exclusively.
+                </div>
+            </div>
+
+            <div class="person-container cinematic ceo-card">
+                <div class="frame-corners"></div>
+
+                <!-- ADDED PRECISELY DEFINED PORTRAIT INJECTION BEHIND OVERLAYS -->
+                <img src="https://i.supaimg.com/ba22e33f-be5b-42df-a64c-59082e8bb2c4/78e52b0c-e6fe-471d-abb4-1010771944ce.png" alt="Vishma Pasayat" class="ceo-img">
+
+                <div class="bio-canvas c1"></div>
+                
+                <div class="pr-overlay">
+                    <h4 class="p-name">Vishma Pasayat</h4>
+                    <p class="pn-desc pr-role">System Architect & CEO</p>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- S-06: FAQS -->
+    <section id="faq" class="container rv-scroll reveal-node">
+        <div class="faq-block-wrap">
+            <div class="align-left-header mb-40">
+                <span class="data-mono c-red mb-15-block">[07] // QUERY RESOLUTION</span>
+                <h2 class="thesis-text thesis-lg">Critical Data <br>Retrieval.</h2>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">How does bio-algorithmic synthesis integrate securely? <div class="faq-icon"></div></div>
+                    <div class="faq-answer">Integration occurs through a highly encrypted, non-invasive overlay measuring surface electro-dermal activity alongside cardiovascular density maps. It does not alter native chemistry instantly; it architects an optimized behavioral subroutine running parallel to natural instinct precisely seamlessly correctly mapped without failure perfectly scaling actively securely executed correctly.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What is the latency on the telemetry readouts? <div class="faq-icon"></div></div>
+                    <div class="faq-answer">Standard biological readouts incur a latency of less than 45 milliseconds natively. The quantum sync engine pulls real-time isotonic displacement metrics straight to the logical compiler, rendering lag functionally zero in observing cellular distress exactly synchronized reliably natively across all environments accurately seamlessly deployed flawlessly.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Can the neurological mapping disrupt sleep patterns? <div class="faq-icon"></div></div>
+                    <div class="faq-answer">Conversely, the Vector Sleep Index forces absolute washout synchronization. By mapping chronometric brainwave states, AETHRIZ identifies exact entry points for delta wave enhancement, actively erasing toxic metabolite accumulation safely removing native chemical suppressants smoothly without causing active organic interruptions natively perfectly.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Is the structural nucleotide monitoring physically invasive? <div class="faq-icon"></div></div>
+                    <div class="faq-answer">No. We utilize advanced photonic resonance imaging combined with historical genetic marker databases to calculate structural deterioration probabilistically with a 99.999% purity substrate accuracy rating perfectly engineered ensuring seamless reading arrays correctly mapping arrays seamlessly beautifully correctly organically mapped reliably dynamically.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How soon can algorithmic macro habits deploy dynamically? <div class="faq-icon"></div></div>
+                    <div class="faq-answer">Immediately following the initial 72-hour algorithmic trial phase accurately securely mapped correctly cleanly seamlessly directly successfully scaled. Once the Architect Push compiles your unique biometric blueprint micro interventions directly safely mapped properly accurately beautifully reliably consistently safely flawlessly gracefully engineered.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- S-07: REACH OUT / MINIMALIST FORM -->
+    <section id="contact" class="container rv-scroll reveal-node">
+        <div class="contact-wrap">
+            <div class="align-left-header mb-50">
+                <span class="data-mono c-red mb-15-block">[08] // INITIATE LINK</span>
+                <h2 class="thesis-text thesis-lg">Establish Root <br>Connection.</h2>
+            </div>
+            
+            <form class="contact-form">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-input" placeholder="[ IDENTIFICATION ] NAME" required>
+                    <div class="input-bg-focus"></div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input" placeholder="[ VECTOR ] EMAIL ADDRESS" required>
+                    <div class="input-bg-focus"></div>
+                </div>
+                <div class="form-group full">
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" class="form-input" placeholder="[ COMMS ] PHONE NUMBER" required>
+                    <div class="input-bg-focus"></div>
+                </div>
+                <div class="form-group full">
+                    <label class="form-label">Message Log</label>
+                    <input type="text" class="form-input pb-40" placeholder="[ ENCRYPTED DATA ] YOUR MESSAGE LOG" required>
+                    <div class="input-bg-focus"></div>
+                </div>
+                <div class="form-group full mt-20">
+                    <button type="submit" class="btn-apex cursor-hv form-btn">TRANSMIT SIGNAL <i class="fa-solid fa-satellite-dish ml-10"></i></button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- ULTRA-PREMIUM CINEMATOGRAPHIC FOOTER REDESIGN -->
+    <footer class="footer-zenith" id="terminus">
+        <div class="fz-scanline"></div>
+        
+        <div class="fz-container rv-scroll reveal-node">
+            
+            <!-- Absolute Top Footer Meta Typography relocated exactly as requested -->
+            <div class="fz-top-meta">
+                <span>// CAL.VECTOR.02</span>
+                <span>// ENCRYPTION LAYER: ACTIVE</span>
+            </div>
+
+            <div class="fz-grid">
+                
+                <!-- Anchoring Call To Action / Mail Link entirely removed -->
+                <div class="fz-cta-block">
+                    <span class="fz-label">AETHRIZ ROOT SYSTEMS</span>
+                    <h2 class="fz-title">Initiate <br><i>Deployment.</i></h2>
+                </div>
+
+                <!-- Shortcuts Mapped ONLY to exact sections as requested -->
+                <div class="fz-col delay-1">
+                    <span class="fz-col-title">System Architecture</span>
+                    <ul class="fz-links">
+                        <li><a href="#syntax" class="cursor-hv">Syntax Paradigm</a></li>
+                        <li><a href="#telemetry" class="cursor-hv">Live Telemetry</a></li>
+                        <li><a href="#vector" class="cursor-hv">Vector Pipeline</a></li>
+                    </ul>
+                </div>
+
+                <!-- Secondary Section Shortcuts mapped appropriately -->
+                <div class="fz-col delay-2">
+                    <span class="fz-col-title">Module Access</span>
+                    <ul class="fz-links">
+                        <li><a href="#journey" class="cursor-hv">The Imperative</a></li>
+                        <li><a href="#faq" class="cursor-hv">Query Resolution</a></li>
+                        <li><a href="#contact" class="cursor-hv">Establish Link</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Meta Data & Social Interface -->
+            <div class="fz-bottom delay-3">
+                <div class="fz-meta-data">
+                    <!-- Copyright moved to original location of Encryption/Vector data -->
+                    <span>© 2026 AETHRIZ SYSTEM DEPLOYMENT</span>
+                </div>
+                
+                <div class="fz-socials">
+                    <!-- Inline explicit standard robust SVG used for perfect X (Twitter) visibility -->
+                    <a href="https://x.com/aethriz_ai" target="_blank" rel="noopener noreferrer" aria-label="X Twitter" class="cursor-hv">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor">
+                           <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.6 318.1 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/aethriz.ai" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="cursor-hv"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/vishmapasayat" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="cursor-hv"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.facebook.com/share/14iGtsmA3ut/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="cursor-hv"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.youtube.com/@aethriz_ai" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="cursor-hv"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="mailto:aethriz.ai@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Gmail" class="cursor-hv"><i class="fa-regular fa-envelope"></i></a>
+                </div>
+            </div>
+            
+            <!-- Massive Typographic Base Watermark -->
+            <div class="fz-huge-mark">AETHRIZ</div>
+        </div>
+    </footer>
+
+    <!-- JS ELITE FUNCTIONALITY MODULES -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // =====================================
+            // 01: ADVANCED CRYPTOGRAPHIC BOOT
+            // =====================================
+            const loader = document.getElementById('core_loader');
+            const loadProg = document.getElementById('load_prog');
+            const loadNums = document.getElementById('load_nums');
+            
+            let loadValue = 0;
+            const bootInt = setInterval(() => {
+                loadValue += Math.random() * 6; 
+                if (loadValue >= 100) {
+                    loadValue = 100;
+                    clearInterval(bootInt);
+                    
+                    setTimeout(() => {
+                        loader.classList.add('evaporate');
+                        triggerDecipherText(); // Boot the scramble text effect
+                        document.querySelectorAll('.h-obs').forEach(el => el.classList.add('is-visible'));
+                        setTimeout(() => loader.remove(), 1500); 
+                    }, 500);
+                }
+                loadProg.style.width = loadValue + "%";
+                loadNums.innerHTML = `${(loadValue).toFixed(2)}<span>%</span>`;
+            }, 40);
+
+            // =====================================
+            // 02: DECIPHER SCRAMBLE TEXT ENGINE
+            // =====================================
+            const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
+            function triggerDecipherText() {
+                const decNodes = document.querySelectorAll('.decrypt-text');
+                decNodes.forEach(node => {
+                    let iterations = 0;
+                    const finalStr = node.getAttribute('data-val');
+                    
+                    const interval = setInterval(() => {
+                        node.innerText = finalStr.split("").map((letter, index) => {
+                            if(index < iterations) return finalStr[index];
+                            return letters[Math.floor(Math.random() * 42)];
+                        }).join("");
+                        
+                        if(iterations >= finalStr.length) clearInterval(interval);
+                        iterations += 1/3; 
+                    }, 30);
+                });
+            }
+
+            // =====================================
+            // 03: ABSOLUTE ELITE 3D VOLUMETRIC DNA 
+            // =====================================
+            // Vertical Original Hero Core
+            const cssDnaNode = document.getElementById('cssDnaWrap');
+            let strandsCount = 36;
+            for (let i = 0; i < strandsCount; i++) {
+                let rung = document.createElement('div');
+                rung.className = 'dna-rung';
+                rung.style.top = `${(i / (strandsCount - 1)) * 100}%`;
+                rung.style.transform = `rotateY(${i * 18}deg)`;
+
+                let d1 = document.createElement('div'); d1.className = 'dna-d1';
+                let d2 = document.createElement('div'); d2.className = 'dna-d2';
+                rung.appendChild(d1); rung.appendChild(d2); cssDnaNode.appendChild(rung);
+            }
+
+            // High Tech Pipeline Core Horizontal Dna Addition 
+            const cssDnaNodeHoriz = document.getElementById('cssDnaWrapHoriz');
+            if(cssDnaNodeHoriz) {
+                let strandsCountHoriz = 55;
+                for (let i = 0; i < strandsCountHoriz; i++) {
+                    let rungH = document.createElement('div');
+                    rungH.className = 'dna-rung horiz-rung';
+                    rungH.style.left = `${(i / (strandsCountHoriz - 1)) * 100}%`;
+                    rungH.style.transform = `translateY(-50%) rotateX(${i * 18}deg)`;
+
+                    let dh1 = document.createElement('div'); dh1.className = 'dna-d1';
+                    let dh2 = document.createElement('div'); dh2.className = 'dna-d2';
+                    rungH.appendChild(dh1); rungH.appendChild(dh2); cssDnaNodeHoriz.appendChild(rungH);
+                }
+            }
+
+            // =====================================
+            // 04: PRECISION PHYSICS CURSOR 
+            // =====================================
+            const cursor = document.getElementById('custom-c');
+            const trailer = document.getElementById('custom-c-trail');
+            let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2; 
+            let trailerX = mouseX, trailerY = mouseY;
+
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                cursor.style.left = mouseX + 'px';
+                cursor.style.top = mouseY + 'px';
+            });
+
+            function loopAnim() {
+                trailerX += (mouseX - trailerX) * 0.2; 
+                trailerY += (mouseY - trailerY) * 0.2;
+                trailer.style.left = trailerX + 'px';
+                trailer.style.top = trailerY + 'px';
+                requestAnimationFrame(loopAnim);
+            }
+            loopAnim();
+
+            const reactorHover = document.getElementById('reactor-3d');
+            reactorHover.addEventListener('mouseenter', () => { document.body.classList.add('dna-cursor-active'); });
+            reactorHover.addEventListener('mouseleave', () => { document.body.classList.remove('dna-cursor-active'); });
+
+            // Standard Magnetic Nodes
+            document.querySelectorAll('.mag-tgt').forEach(tgt => {
+                tgt.addEventListener('mousemove', (e) => {
+                    const rect = tgt.getBoundingClientRect();
+                    const rx = e.clientX - rect.left - rect.width / 2;
+                    const ry = e.clientY - rect.top - rect.height / 2;
+                    tgt.style.transform = `translate(${rx * 0.15}px, ${ry * 0.15}px)`; 
+                });
+                tgt.addEventListener('mouseleave', () => { tgt.style.transform = 'translate(0, 0)'; });
+            });
+
+            // =====================================
+            // 05: 3D MULTI-AXIS TILT CARDS
+            // =====================================
+            const cards3D = document.querySelectorAll('.card-3d');
+            cards3D.forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+
+                    const centerX = rect.width / 2; const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -6; 
+                    const rotateY = ((x - centerX) / centerX) * 6;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                });
+            });
+
+            const reactor = document.getElementById('reactor-3d');
+            window.addEventListener('mousemove', (e) => {
+                const rx = (e.clientX / window.innerWidth - 0.5) * 20;
+                const ry = (e.clientY / window.innerHeight - 0.5) * 20;
+                reactor.style.transform = `perspective(2000px) rotateX(${-ry}deg) rotateY(${rx}deg)`;
+            });
+
+            // =====================================
+            // 06: UPGRADED LIVE DATA DOM CREATORS 
+            // =====================================
+            // Build Array EQ Boxes beautifully styled via pure sophisticated CSS structures 
+            const dEq1 = document.getElementById('dynamicEq1');
+            const dEq2 = document.getElementById('dynamicEq2');
+            for(let i=0; i<16; i++) {
+                let ebar1 = document.createElement('div'); ebar1.className = 'eq-bp';
+                let ebfil1 = document.createElement('div'); ebfil1.className = 'eq-bf dyn-ht'; if(i%6===0) ebfil1.classList.add('red');
+                ebar1.appendChild(ebfil1); if(dEq1) dEq1.appendChild(ebar1);
+            }
+            for(let i=0; i<12; i++) {
+                let ebar2 = document.createElement('div'); ebar2.className = 'eq-bp';
+                let ebfil2 = document.createElement('div'); ebfil2.className = 'eq-bf dyn-ht'; if(i%4===0) ebfil2.classList.add('red');
+                ebar2.appendChild(ebfil2); if(dEq2) dEq2.appendChild(ebar2);
+            }
+
+            // Build Matrix Wave safely seamlessly executing
+            const wSys = document.getElementById('advWaveSystem');
+            if(wSys){
+                for(let k=0; k<45; k++) {
+                    let wv = document.createElement('div');
+                    wv.className = 'wave-bar-pro';
+                    wv.style.animationDelay = `${(k*0.06).toFixed(2)}s`;
+                    wSys.appendChild(wv);
+                }
+            }
+
+            // Live Simulator Loop smoothly updating parameters exclusively internally
+            setInterval(() => {
+                document.querySelectorAll('.dyn-ht').forEach(bar => { bar.style.height = `${Math.floor(Math.random() * 85) + 5}%`; });
+            }, 300);
+
+            // Random Text Numbers Simulator mapping correctly accurately 
+            setInterval(() => {
+                document.querySelectorAll('.live-rnd').forEach(num => {
+                    const min = parseFloat(num.getAttribute('data-min'));
+                    const max = parseFloat(num.getAttribute('data-max'));
+                    const dec = parseInt(num.getAttribute('data-dec'));
+                    const val = (Math.random() * (max - min) + min).toFixed(dec);
+                    
+                    if(num.innerHTML.includes('<span>%</span>')) {
+                        num.innerHTML = `${val}<span>%</span>`;
+                    } else if(num.innerHTML.includes('<span>B+</span>')) {
+                        num.innerHTML = `${val}<span>B+</span>`;
+                    } else {
+                        num.innerText = val;
+                    }
+                });
+            }, 800);
+
+            // =====================================
+            // 07: INTERACTIVE DOM TOGGLES
+            // =====================================
+            // FAQ logic minified style interaction natively securely dynamically processed 
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+                    if(!isActive) item.classList.add('active');
+                });
+            });
+
+            // Cinematic Bio Extender Button Logic successfully safely executed elegantly correctly seamlessly  
+            const bioBtn = document.getElementById('bioToggleBtn');
+            const bioTxt = document.getElementById('bioTextWrap');
+            if(bioBtn && bioTxt) {
+                bioBtn.addEventListener('click', () => {
+                    if(bioTxt.classList.contains('is-open')){
+                        bioTxt.classList.remove('is-open');
+                        bioBtn.innerHTML = `DECRYPT PROFILE <i class="fa-solid fa-fingerprint fs-075 ml-8"></i>`;
+                    } else {
+                        bioTxt.classList.add('is-open');
+                        bioBtn.innerHTML = `LOCK PROFILE <i class="fa-solid fa-microchip fs-075 ml-8"></i>`;
+                    }
+                });
+            }
+
+            // =====================================
+            // 08: SCROLL OBSERVERS 
+            // =====================================
+            const sysObserver = new IntersectionObserver((entries) => {
+                entries.forEach(et => {
+                    if (et.isIntersecting) et.target.classList.add('is-visible');
+                });
+            }, { threshold: 0.15, rootMargin: "0px -50px" });
+
+            document.querySelectorAll('.rv-scroll').forEach(ele => { sysObserver.observe(ele); });
+
+        });
+    </script>
+</body>
+</html>
