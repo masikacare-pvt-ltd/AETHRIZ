@@ -174,13 +174,13 @@ header { position: fixed; top: 25px; left: 0; width: 100%; z-index: 1000; transi
 .nav-island {
     width: max-content; padding: 6px 6px 6px 24px; border-radius: 100px; margin: 0 auto;
     background: rgba(255, 255, 255, 0.1); -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: space-between; gap: 28px;
     box-shadow: 0 30px 60px rgba(0,0,0,0.1), inset 0 1px 1px rgba(255,255,255,0.4);
     transition: 0.6s var(--ease-cinematic);
 }
 
 /* Custom Modern Vector Logo Integration */
-.nav-brand { text-decoration: none; display: flex; align-items: center; gap: 12px; transition: opacity 0.4s var(--ease-cinematic); }
+.nav-brand { text-decoration: none; display: flex; align-items: center; gap: 10px; transition: opacity 0.4s var(--ease-cinematic); }
 .nav-brand:hover { opacity: 0.6; }
 
 .aeth-logo-char {
@@ -199,7 +199,7 @@ header { position: fixed; top: 25px; left: 0; width: 100%; z-index: 1000; transi
     justify-content: space-between;
     height: 11px;
     width: 14px;
-    margin: 0 2px;
+    margin: 0;
 }
 
 .aeth-logo-bars span {
@@ -261,7 +261,7 @@ header { position: fixed; top: 25px; left: 0; width: 100%; z-index: 1000; transi
 /* =========================================
    H-01: THE HERO THEATER
 ========================================= */
-.hero-stage { min-height: 100vh; display: flex; align-items: center; position: relative; padding-top: 12vh; z-index: 5; perspective: 2000px;}
+.hero-stage { min-height: 100vh; display: flex; align-items: center; position: relative; padding-top: max(130px, 15vh); padding-bottom: 50px; z-index: 5; perspective: 2000px;}
 .h-layout { display: grid; grid-template-columns: 55% 45%; align-items: center; gap: 20px; position: relative; z-index: 10;}
 
 .status-badge { 
