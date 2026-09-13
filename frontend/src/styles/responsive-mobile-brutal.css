@@ -606,3 +606,75 @@
         padding: 40px 0;
     }
 }
+
+
+/* =========================================
+   BRUTAL OVERRIDE - FIX NUMBER COLLISION
+   FORCE THIS TO WORK!
+========================================= */
+@media (max-width: 768px) {
+    .hero-data-strip { 
+        display: grid !important; 
+        grid-template-columns: repeat(3, 1fr) !important; 
+        gap: 22px !important; 
+        margin-top: 38px !important; 
+        padding-top: 28px !important;
+    }
+    
+    .hd-node {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        align-items: center !important;
+        padding: 0 12px !important;
+    }
+    
+    .hd-val { 
+        font-size: 0.8rem !important;
+        line-height: 1 !important;
+        font-weight: 700 !important;
+        white-space: nowrap !important;
+    }
+    
+    .hd-val span {
+        font-size: 0.48rem !important;
+        margin-left: 2px !important;
+    }
+    
+    .hd-lbl { 
+        font-size: 0.42rem !important;
+        line-height: 1.6 !important;
+        text-align: center !important;
+        word-wrap: break-word !important;
+        max-width: 100% !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-data-strip { 
+        grid-template-columns: 1fr !important; 
+        gap: 18px !important;
+    }
+    
+    .hd-node { 
+        padding: 16px 0 !important;
+        border-bottom: 1px solid rgba(7,9,15,0.05) !important;
+    }
+    
+    .hd-node:last-child {
+        border-bottom: none !important;
+    }
+    
+    .hd-val { 
+        font-size: 1.4rem !important;
+    }
+    
+    .hd-val span {
+        font-size: 0.75rem !important;
+    }
+    
+    .hd-lbl { 
+        font-size: 0.56rem !important;
+        margin-top: 6px !important;
+    }
+}
