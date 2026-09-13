@@ -1433,11 +1433,11 @@ header { position: fixed; top: 25px; left: 0; width: 100%; z-index: 1000; transi
         display: inline-flex;
     }
     
-    /* Hero Data Strip */
+    /* Hero Data Strip - FIXED COLLISION */
     .hero-data-strip { 
         display: grid; 
         grid-template-columns: repeat(3, 1fr); 
-        gap: 12px; 
+        gap: 16px; 
         margin-top: 35px; 
         padding-top: 25px; 
         text-align: center;
@@ -1446,17 +1446,24 @@ header { position: fixed; top: 25px; left: 0; width: 100%; z-index: 1000; transi
     .hd-node {
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 8px;
+        padding: 0 6px;
     }
     .hd-val { 
-        font-size: 1.1rem; 
+        font-size: 0.95rem; 
         justify-content: center;
+        line-height: 1;
+        font-weight: 700;
     }
-    .hd-val span { font-size: 0.65rem; }
+    .hd-val span { 
+        font-size: 0.58rem;
+        margin-left: 1px;
+    }
     .hd-lbl { 
-        font-size: 0.52rem; 
-        letter-spacing: 0.06em;
-        line-height: 1.3;
+        font-size: 0.48rem; 
+        letter-spacing: 0.05em;
+        line-height: 1.4;
+        word-break: keep-all;
     }
 
     /* DNA Reactor Graphics */

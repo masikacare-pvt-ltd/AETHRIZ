@@ -94,7 +94,11 @@ export default function Hero({ isLoaded }) {
   }));
 
   const handleCompileClick = () => {
-    window.location.href = '/login';
+    // Smooth scroll to footer contact section
+    const footer = document.getElementById('contact');
+    if (footer) {
+      footer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
@@ -128,7 +132,7 @@ export default function Hero({ isLoaded }) {
 
           <div className={`reveal-node h-obs delay-3 ${isLoaded ? 'is-visible' : ''}`}>
             <button className="btn-apex cursor-hv hero-btn-lg" onClick={handleCompileClick}>
-              START HEALTH SCAN <i className="fa-solid fa-arrow-right ml-10"></i>
+              CONTACT US <i className="fa-solid fa-arrow-right ml-10"></i>
             </button>
           </div>
 

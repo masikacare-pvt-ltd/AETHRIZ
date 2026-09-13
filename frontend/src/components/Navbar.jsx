@@ -2,7 +2,11 @@ import React from 'react';
 
 export default function Navbar() {
   const handleDeployClick = () => {
-    window.location.href = '/login';
+    // Smooth scroll to footer contact section
+    const footer = document.getElementById('contact');
+    if (footer) {
+      footer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
@@ -39,7 +43,7 @@ export default function Navbar() {
           </li>
         </ul>
         <button className="btn-apex cursor-hv" onClick={handleDeployClick}>
-          GET STARTED <i className="fa-solid fa-arrow-right"></i>
+          CONTACT US <i className="fa-solid fa-arrow-right"></i>
         </button>
       </div>
     </header>

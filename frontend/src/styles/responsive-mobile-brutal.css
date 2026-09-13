@@ -335,11 +335,26 @@
     }
     .hero-data-strip { 
         grid-template-columns: repeat(3, 1fr) !important; 
-        gap: 14px; 
+        gap: 18px; 
         margin-top: 38px;
     }
-    .hd-val { font-size: 1.15rem; }
-    .hd-lbl { font-size: 0.54rem; }
+    .hd-node {
+        padding: 0 6px;
+    }
+    .hd-val { 
+        font-size: 0.95rem;
+        line-height: 1;
+        font-weight: 700;
+    }
+    .hd-val span {
+        font-size: 0.58rem;
+        margin-left: 1px;
+    }
+    .hd-lbl { 
+        font-size: 0.48rem;
+        line-height: 1.4;
+        word-break: keep-all;
+    }
     .hero-graphics { 
         transform: scale(0.66); 
         height: 310px;
@@ -476,16 +491,27 @@
         height: 48px;
     }
     
-    /* Stack Data Vertically */
+    /* Stack Data Vertically - FIXED */
     .hero-data-strip { 
         grid-template-columns: 1fr !important; 
         gap: 15px;
     }
     .hd-node { 
-        padding: 12px 0;
+        padding: 14px 0;
         border-bottom: 1px solid rgba(7,9,15,0.05);
     }
     .hd-node:last-child { border-bottom: none; }
+    .hd-val { 
+        font-size: 1.3rem;
+        font-weight: 700;
+    }
+    .hd-val span {
+        font-size: 0.7rem;
+    }
+    .hd-lbl { 
+        font-size: 0.55rem;
+        margin-top: 5px;
+    }
     
     /* DNA Reactor */
     .hero-graphics { 
