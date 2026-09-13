@@ -94,10 +94,10 @@ export default function Hero({ isLoaded }) {
   }));
 
   const handleCompileClick = () => {
-    // Smooth scroll to footer contact section
-    const footer = document.getElementById('contact');
-    if (footer) {
-      footer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Smooth scroll to services section
+    const servicesSection = document.getElementById('syntax');
+    if (servicesSection) {
+      servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -132,7 +132,7 @@ export default function Hero({ isLoaded }) {
 
           <div className={`reveal-node h-obs delay-3 ${isLoaded ? 'is-visible' : ''}`}>
             <button className="btn-apex cursor-hv hero-btn-lg" onClick={handleCompileClick}>
-              CONTACT US <i className="fa-solid fa-arrow-right ml-10"></i>
+              OUR SERVICES <i className="fa-solid fa-arrow-right ml-10"></i>
             </button>
           </div>
 
