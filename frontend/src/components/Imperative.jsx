@@ -5,18 +5,19 @@ export default function Imperative() {
     <section id="journey" className="container rv-scroll reveal-node">
       <div className="imperative-grid">
         <div className="align-left-header max-w-none">
-          <span className="data-mono c-red mb-20-block">[04] // THE IMPERATIVE</span>
+          <span className="data-mono c-red mb-20-block">[04] // WHY WE ARE UNIQUE</span>
           <h2 className="thesis-text mb-30">
             Beyond Standard <br />
             Healthcare.
           </h2>
           <div className="imperative-desc">
-            We engineered a paradigm where human biological limits are treated as mere variables. Through
-            psychological anchoring and deep physiological mapping, we bridge the chasm between raw survival and
-            absolute optimization. <br />
+            Traditional healthcare often tells you what is wrong after a problem appears. AETHRIZ focuses on
+            understanding your health data continuously and turning it into simple, personalized actions that can
+            help you make better everyday decisions. <br />
             <br />
-            This is not medicine; it is an algorithmic rebirth designed to outpace mortality natively and
-            accurately executing systemic evolution algorithms perfectly calculated.
+            We don't believe healthcare should be one-size-fits-all. Whether you are from a city or a rural
+            community, follow a different diet, speak a different language, or have different health needs,
+            AETHRIZ is designed to adapt around you.
           </div>
         </div>
 

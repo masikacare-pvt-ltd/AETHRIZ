@@ -5,29 +5,29 @@ export default function FAQ() {
 
   const faqItems = [
     {
-      question: 'How does bio-algorithmic synthesis integrate securely?',
+      question: 'What is AETHRIZ?',
       answer:
-        'Integration occurs through a highly encrypted, non-invasive overlay measuring surface electro-dermal activity alongside cardiovascular density maps. It does not alter native chemistry instantly; it architects an optimized behavioral subroutine running parallel to natural instinct precisely seamlessly correctly mapped without failure perfectly scaling actively securely executed correctly.',
+        'AETHRIZ is an AI-powered health intelligence platform that analyzes health data and provides personalized diet, lifestyle, and health insights based on an individual\'s unique profile.',
     },
     {
-      question: 'What is the latency on the telemetry readouts?',
+      question: 'What health data can AETHRIZ analyze?',
       answer:
-        'Standard biological readouts incur a latency of less than 45 milliseconds natively. The quantum sync engine pulls real-time isotonic displacement metrics straight to the logical compiler, rendering lag functionally zero in observing cellular distress exactly synchronized reliably natively across all environments accurately seamlessly deployed flawlessly.',
+        'AETHRIZ can work with relevant health information such as laboratory reports, health parameters, dietary habits, lifestyle information, and other available health data to build a personalized health profile.',
     },
     {
-      question: 'Can the neurological mapping disrupt sleep patterns?',
+      question: 'How is AETHRIZ different from normal health apps?',
       answer:
-        'Conversely, the Vector Sleep Index forces absolute washout synchronization. By mapping chronometric brainwave states, AETHRIZ identifies exact entry points for delta wave enhancement, actively erasing toxic metabolite accumulation safely removing native chemical suppressants smoothly without causing active organic interruptions natively perfectly.',
+        'Most health apps provide general advice. AETHRIZ focuses on connecting your health data with your lifestyle and dietary patterns to generate recommendations specifically for you.',
     },
     {
-      question: 'Is the structural nucleotide monitoring physically invasive?',
+      question: 'Does AETHRIZ replace a doctor?',
       answer:
-        'No. We utilize advanced photonic resonance imaging combined with historical genetic marker databases to calculate structural deterioration probabilistically with a 99.999% purity substrate accuracy rating perfectly engineered ensuring seamless reading arrays correctly mapping arrays seamlessly beautifully correctly organically mapped reliably dynamically.',
+        'No. AETHRIZ is designed to support health awareness and informed decision-making, not replace qualified medical professionals, diagnosis, or emergency medical care.',
     },
     {
-      question: 'How soon can algorithmic macro habits deploy dynamically?',
+      question: 'Can AETHRIZ work for people with different diets, languages, ages, and lifestyles?',
       answer:
-        'Immediately following the initial 72-hour algorithmic trial phase accurately securely mapped correctly cleanly seamlessly directly successfully scaled. Once the Architect Push compiles your unique biometric blueprint micro interventions directly safely mapped properly accurately beautifully reliably consistently safely flawlessly gracefully engineered.',
+        'Yes. AETHRIZ is designed around personalization, allowing its intelligence layer to adapt recommendations according to individual health data, dietary preferences, lifestyle, language, and user context.',
     },
   ];
 
@@ -41,8 +41,8 @@ export default function FAQ() {
         <div className="align-left-header mb-40">
           <span className="data-mono c-red mb-15-block">[07] // QUERY RESOLUTION</span>
           <h2 className="thesis-text thesis-lg">
-            Critical Data <br />
-            Retrieval.
+            Frequently Asked <br />
+            Questions.
           </h2>
         </div>
 

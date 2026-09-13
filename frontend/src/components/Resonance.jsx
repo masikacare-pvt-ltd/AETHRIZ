@@ -4,15 +4,15 @@ export default function Resonance() {
   return (
     <section id="resonance" className="container rv-scroll reveal-node">
       <div className="align-left-header mb-60">
-        <span className="data-mono c-red mb-20-block">[05] // NEURAL ANCHORING</span>
+        <span className="data-mono c-red mb-20-block">[05] // PURPOSE & DIRECTIVE</span>
         <h2 className="thesis-text mb-10">
-          Subconscious <br />
-          Architecture.
+          Mission & Vision <br />
+          for Bharat.
         </h2>
       </div>
 
       <div className="resonance-card-grid">
-        {/* Card 1: Phase Alpha Sync */}
+        {/* Card 1: Our Mission */}
         <div className="rc-box mag-tgt delay-1">
           <div className="rc-graph">
             <svg viewBox="0 0 100 100" className="elite-svg-core">
@@ -83,22 +83,21 @@ export default function Resonance() {
           </div>
           <div className="rc-meta cinematic-text-anim">
             <span style={{ transitionDelay: '0.1s' }} className="data-mono c-red">
-              SYS.01 — ALPHA
+              05 // OUR MISSION
             </span>
           </div>
           <h4 className="rc-title cinematic-text-anim">
-            <span style={{ transitionDelay: '0.2s' }}>Phase Alpha Sync</span>
+            <span style={{ transitionDelay: '0.2s' }}>Mission — Healthier Bharat</span>
           </h4>
           <div className="rc-line"></div>
           <p className="rc-desc cinematic-text-anim">
             <span style={{ transitionDelay: '0.4s' }}>
-              Synchronize external stimuli with intrinsic alpha-wave patterns. Radically reduce structural
-              cellular stress at the foundational perceptual layer.
+              To make intelligent, personalized, and understandable healthcare accessible to every person in Bharat—using AI, deep learning, and technology to turn health data into better everyday decisions.
             </span>
           </p>
         </div>
 
-        {/* Card 2: Phase Beta Splice */}
+        {/* Card 2: Our Vision */}
         <div className="rc-box mag-tgt delay-2">
           <div className="rc-graph">
             <svg viewBox="0 0 100 100" className="elite-svg-core">
@@ -184,17 +183,16 @@ export default function Resonance() {
           </div>
           <div className="rc-meta cinematic-text-anim">
             <span style={{ transitionDelay: '0.3s' }} className="data-mono c-red">
-              SYS.02 — BETA
+              06 // OUR VISION
             </span>
           </div>
           <h4 className="rc-title cinematic-text-anim">
-            <span style={{ transitionDelay: '0.4s' }}>Phase Beta Splice</span>
+            <span style={{ transitionDelay: '0.4s' }}>Vision — Powered by Intelligence</span>
           </h4>
           <div className="rc-line"></div>
           <p className="rc-desc cinematic-text-anim">
             <span style={{ transitionDelay: '0.6s' }}>
-              Rewire psychological loops at the synaptic level. Deploy non-invasive harmonic interference
-              tailored purely to precise active biometric arrays.
+              To build a future where every individual can understand their health, receive personalized guidance, and make informed decisions before health problems become bigger problems. AETHRIZ envisions an intelligent healthcare ecosystem where technology doesn't replace human care—it makes better care more accessible, personal, and proactive.
             </span>
           </p>
         </div>

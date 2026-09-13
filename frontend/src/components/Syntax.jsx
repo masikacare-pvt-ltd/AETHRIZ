@@ -5,20 +5,20 @@ export default function Syntax() {
     <section id="syntax">
       <div className="container mega-grid">
         <div className="sticky-column rv-scroll reveal-node">
-          <span className="data-mono c-red mb-20-block">[01] // Core Precept</span>
+          <span className="data-mono c-red mb-20-block">[01] // INTELLIGENT HEALTH SERVICES</span>
           <h2 className="thesis-text">
-            Reject surface heuristics.
+            Intelligent Health,
             <br />
-            Execute <strong>Pure Scientific Immortality.</strong>
+            Personalized <strong>for You.</strong>
           </h2>
           <p className="mc-desc desc-max-400">
-            Redefining physiological boundaries through algorithmic intervention and non-invasive neural
-            synchronization.
+            Using deep learning and cutting-edge AI, we help people understand their health better, make smarter
+            daily choices, and work toward a healthier life—regardless of age, diet, language, or location.
           </p>
         </div>
 
         <div className="module-deck">
-          {/* Card I: Physiological Engine */}
+          {/* Card I: Personalized */}
           <div className="module-card card-3d mag-tgt rv-scroll reveal-node">
             <span className="mc-idx">I</span>
             <div className="mc-text-block">
@@ -60,10 +60,9 @@ export default function Syntax() {
                   />
                 </svg>
               </div>
-              <h3 className="mc-title">Physiological Engine</h3>
+              <h3 className="mc-title">01 — Personalized</h3>
               <p className="mc-desc">
-                Evaluating load-bearing kinetics, cardiovascular density mapping, and V02 extraction modeling
-                against structural deterioration variables.
+                Health recommendations built around your unique health data, lifestyle, dietary habits, and individual needs.
               </p>
             </div>
             <div className="mc-graph">
@@ -95,7 +94,7 @@ export default function Syntax() {
             </div>
           </div>
 
-          {/* Card II: Neurological Mapping */}
+          {/* Card II: Multilingual */}
           <div className="module-card card-3d mag-tgt rv-scroll reveal-node delay-1">
             <span className="mc-idx">II</span>
             <div className="mc-text-block">
@@ -134,10 +133,9 @@ export default function Syntax() {
                   />
                 </svg>
               </div>
-              <h3 className="mc-title">Neurological Mapping</h3>
+              <h3 className="mc-title">02 — Multilingual</h3>
               <p className="mc-desc">
-                Mining cortical flow capacities, measuring beta-amyloid disruption latencies utilizing advanced
-                chronometric arrays.
+                Designed to make AI-powered healthcare accessible across multiple Indian languages and diverse communities.
               </p>
             </div>
             <div className="mc-graph">
@@ -180,7 +178,7 @@ export default function Syntax() {
             </div>
           </div>
 
-          {/* Card III: Somatic Reconstruction */}
+          {/* Card III: Predictive */}
           <div className="module-card card-3d mag-tgt rv-scroll reveal-node delay-2">
             <span className="mc-idx">III</span>
             <div className="mc-text-block">
@@ -229,10 +227,9 @@ export default function Syntax() {
                   />
                 </svg>
               </div>
-              <h3 className="mc-title">Somatic Reconstruction</h3>
+              <h3 className="mc-title">03 — Predictive</h3>
               <p className="mc-desc">
-                Targeted hyper-oxygenation parameters syncing precisely with metabolic windows to reverse
-                cellular senescence aggressively.
+                Deep-learning models analyze health patterns to identify potential risks and provide proactive health insights.
               </p>
             </div>
             <div className="mc-graph">
@@ -256,7 +253,7 @@ export default function Syntax() {
             </div>
           </div>
 
-          {/* Card IV: Telomere Extension */}
+          {/* Card IV: Precise */}
           <div className="module-card card-3d mag-tgt rv-scroll reveal-node delay-1">
             <span className="mc-idx">IV</span>
             <div className="mc-text-block">
@@ -304,10 +301,9 @@ export default function Syntax() {
                   />
                 </svg>
               </div>
-              <h3 className="mc-title">Telomere Extension</h3>
+              <h3 className="mc-title">04 — Precise</h3>
               <p className="mc-desc">
-                Continuous chromosomal monitoring deploying micro-nutritional cascades directly responsive to DNA
-                fraying indicators instantly.
+                Our AI models are designed for high-performance health-data analysis, with reported accuracy of up to 98.9% in applicable validated model evaluations.
               </p>
             </div>
             <div className="mc-graph">
@@ -346,7 +342,7 @@ export default function Syntax() {
             </div>
           </div>
 
-          {/* Card V: Quantum Bio-Sync */}
+          {/* Card V: Adaptive */}
           <div className="module-card card-3d mag-tgt rv-scroll reveal-node delay-2">
             <span className="mc-idx">V</span>
             <div className="mc-text-block">
@@ -398,10 +394,9 @@ export default function Syntax() {
                   <circle cx="20" cy="20" r="1.5" fill="var(--accent-red)" className="elite-glow" />
                 </svg>
               </div>
-              <h3 className="mc-title">Quantum Bio-Sync</h3>
+              <h3 className="mc-title">05 — Adaptive</h3>
               <p className="mc-desc">
-                Merging macro-level environmental data with micro-level hormonal balances to calculate exact
-                peak-state entry points securely.
+                Your recommendations evolve with your health data, lifestyle, and changing needs—rather than following a one-size-fits-all approach.
               </p>
             </div>
             <div className="mc-graph">

@@ -64,13 +64,10 @@ export default function Architects() {
           </button>
 
           <div className={`unlocked-data ${isBioOpen ? 'is-open' : ''}`} id="bioTextWrap">
-            Driving the frontier where high-performance compute architectures meet raw biological
-            frameworks, the directive focuses explicitly on out-maneuvering evolutionary friction. System
-            blueprints deployed within the Aethriz mainframe natively integrate cognitive enhancement with
-            baseline organism functions natively mapping peak capabilities directly without interruption
-            organically. Highly secure logic arrays built ground-up strictly focused on the final iteration of
-            human biological potential dynamically deployed natively across the grid infrastructure
-            exclusively.
+            Driving the frontier where deep learning and AI-powered health intelligence meet everyday wellness,
+            Vishma Pasayat leads the vision of building a Healthier Bharat. By transforming complex laboratory
+            metrics and lifestyle patterns into actionable, personalized guidance, AETHRIZ empowers individuals
+            across languages, communities, and diverse backgrounds to make proactive health decisions before problems escalate.
           </div>
         </div>
 

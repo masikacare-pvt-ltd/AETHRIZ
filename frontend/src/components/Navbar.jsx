@@ -23,17 +23,23 @@ export default function Navbar() {
         </a>
         <ul className="nav-clusters">
           <li>
-            <a href="#syntax">Syntax</a>
+            <a href="#syntax">Services</a>
           </li>
           <li>
-            <a href="#telemetry">Matrix</a>
+            <a href="#vector">How It Works</a>
           </li>
           <li>
-            <a href="#vector">Architecture</a>
+            <a href="#journey">Why Unique</a>
+          </li>
+          <li>
+            <a href="#resonance">Mission</a>
+          </li>
+          <li>
+            <a href="#faq">FAQ</a>
           </li>
         </ul>
         <button className="btn-apex cursor-hv" onClick={handleDeployClick}>
-          INITIATE DEPLOY <i className="fa-solid fa-arrow-right"></i>
+          GET STARTED <i className="fa-solid fa-arrow-right"></i>
         </button>
       </div>
     </header>

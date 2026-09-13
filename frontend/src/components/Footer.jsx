@@ -15,20 +15,20 @@ export default function Footer() {
         <div className="fz-grid">
           {/* Left CTA Box */}
           <div className="fz-cta-block">
-            <span className="fz-label">AETHRIZ ROOT SYSTEMS</span>
+            <span className="fz-label">AETHRIZ HEALTH INTELLIGENCE</span>
             <h2 className="fz-title">
-              Initiate <br />
-              <i>Deployment.</i>
+              Start Your <br />
+              <i>Health Action.</i>
             </h2>
           </div>
 
           {/* System Architecture Shortcuts */}
           <div className="fz-col delay-1">
-            <span className="fz-col-title">System Architecture</span>
+            <span className="fz-col-title">Platform Architecture</span>
             <ul className="fz-links">
               <li>
                 <a href="#syntax" className="cursor-hv">
-                  Syntax Paradigm
+                  Services
                 </a>
               </li>
               <li>
@@ -38,7 +38,7 @@ export default function Footer() {
               </li>
               <li>
                 <a href="#vector" className="cursor-hv">
-                  Vector Pipeline
+                  How It Works
                 </a>
               </li>
             </ul>
@@ -46,16 +46,21 @@ export default function Footer() {
 
           {/* Module Access Shortcuts */}
           <div className="fz-col delay-2">
-            <span className="fz-col-title">Module Access</span>
+            <span className="fz-col-title">Health Modules</span>
             <ul className="fz-links">
               <li>
                 <a href="#journey" className="cursor-hv">
-                  The Imperative
+                  Why We Are Unique
+                </a>
+              </li>
+              <li>
+                <a href="#resonance" className="cursor-hv">
+                  Mission & Vision
                 </a>
               </li>
               <li>
                 <a href="#faq" className="cursor-hv">
-                  Query Resolution
+                  FAQ
                 </a>
               </li>
               <li>

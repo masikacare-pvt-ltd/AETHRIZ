@@ -34,21 +34,21 @@ function useScramble(targetText, trigger) {
 
 export default function Hero({ isLoaded }) {
   const reactorRef = useRef(null);
-  const hyperText = useScramble('Hyper-Optimize', isLoaded);
-  const synthText = useScramble('Synthesis.', isLoaded);
+  const hyperText = useScramble('Intelligent', isLoaded);
+  const synthText = useScramble('Personalized.', isLoaded);
 
   // Live randomized data
-  const [purity, setPurity] = useState('99.999');
-  const [latency, setLatency] = useState('45');
+  const [accuracy, setAccuracy] = useState('98.9');
+  const [latency, setLatency] = useState('42');
 
   useEffect(() => {
     const interval = setInterval(() => {
-      // Purity (99.000 to 99.999)
-      const purVal = (Math.random() * (99.999 - 99.0) + 99.0).toFixed(3);
-      setPurity(purVal);
+      // Model accuracy simulation around 98.9%
+      const accVal = (Math.random() * (98.95 - 98.85) + 98.85).toFixed(1);
+      setAccuracy(accVal);
 
-      // Latency (10 to 90)
-      const latVal = Math.floor(Math.random() * (90 - 10) + 10);
+      // Inference latency (35 to 50ms)
+      const latVal = Math.floor(Math.random() * (50 - 35) + 35);
       setLatency(latVal.toString());
     }, 800);
 
@@ -105,52 +105,53 @@ export default function Hero({ isLoaded }) {
             <div className="status-dot">
               <div></div>
             </div>
-            <span className="data-mono c-ink">MDLX-1A ACTIVE</span>
+            <span className="data-mono c-ink">AI HEALTH INTELLIGENCE ACTIVE</span>
           </div>
 
           <h1 className={`reveal-node h-obs delay-1 ${isLoaded ? 'is-visible' : ''}`}>
-            <span className="decrypt-text" data-val="Hyper-Optimize">
+            <span className="decrypt-text" data-val="Intelligent">
               {hyperText}
             </span>
             <br />
-            <span className="f-italic">Biological</span>
+            <span className="f-italic">Health,</span>
             <br />
-            <span className="decrypt-text" data-val="Synthesis.">
+            <span className="decrypt-text" data-val="Personalized.">
               {synthText}
             </span>
           </h1>
 
           <p className={`reveal-node h-obs delay-2 ${isLoaded ? 'is-visible' : ''}`}>
-            We construct a 200-billion scalar metric from your biometric substrate. Calculating precise
-            recovery algorithms down to the structural nucleotide level securely.
+            AETHRIZ is an AI-powered health intelligence platform that turns your health data into personalized
+            diet and lifestyle guidance. Using deep learning, we help people make smarter daily choices and work
+            toward a healthier life—regardless of age, diet, language, or location.
           </p>
 
           <div className={`reveal-node h-obs delay-3 ${isLoaded ? 'is-visible' : ''}`}>
             <button className="btn-apex cursor-hv hero-btn-lg" onClick={handleCompileClick}>
-              COMPILE REPORT <i className="fa-solid fa-satellite-dish ml-10"></i>
+              START HEALTH SCAN <i className="fa-solid fa-arrow-right ml-10"></i>
             </button>
           </div>
 
           <div className={`hero-data-strip reveal-node h-obs delay-3 ${isLoaded ? 'is-visible' : ''}`}>
             <div className="hd-node">
-              <span className="hd-val live-rnd" data-min="99" data-max="99" data-dec="3">
-                {purity}
+              <span className="hd-val live-rnd" data-min="98" data-max="99" data-dec="1">
+                {accuracy}
                 <span>%</span>
               </span>
-              <span className="hd-lbl">Substrate Purity</span>
+              <span className="hd-lbl">Model Accuracy</span>
             </div>
             <div className="hd-node">
               <span className="hd-val">
-                2.8<span>B+</span>
+                22<span>+</span>
               </span>
-              <span className="hd-lbl">Scalar Metrics</span>
+              <span className="hd-lbl">Languages Supported</span>
             </div>
             <div className="hd-node">
-              <span className="hd-val live-rnd" data-min="10" data-max="90" data-dec="0">
+              <span className="hd-val live-rnd" data-min="35" data-max="50" data-dec="0">
                 {latency}
                 <span>ms</span>
               </span>
-              <span className="hd-lbl">Compute Latency</span>
+              <span className="hd-lbl">Inference Latency</span>
             </div>
           </div>
         </div>

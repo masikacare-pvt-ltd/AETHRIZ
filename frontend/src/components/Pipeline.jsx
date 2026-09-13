@@ -10,28 +10,28 @@ export default function Pipeline() {
   const pipelineNodes = [
     {
       idx: 'I',
-      title: 'Ingest Logic',
-      desc: 'Mass input framework reading exact DNA configurations alongside systemic stress histories smoothly.',
+      title: '01 — SCAN',
+      desc: 'Upload or scan your health reports and relevant health information. AETHRIZ converts complex health data into structured information that AI can understand.',
     },
     {
       idx: 'II',
-      title: 'Vector Plot',
-      desc: 'Establishing exact routes to deploy micro-interventions through the bloodstream precisely.',
+      title: '02 — ANALYZE',
+      desc: 'Our deep-learning models process your health parameters, patterns, lifestyle, and dietary information to understand your overall health profile.',
     },
     {
       idx: 'III',
-      title: 'Bio Trial',
-      desc: 'Advanced chronometric simulators calculate stress ruptures extending probabilistic logic entirely.',
+      title: '03 — INTERPRET',
+      desc: 'AETHRIZ translates complex medical and health data into simple, understandable insights. No confusing medical jargon—just clarity you can act on.',
     },
     {
       idx: 'IV',
-      title: 'Neural Splice',
-      desc: 'Interweaving newly synthesized habits natively into baseline rewards bypassing resistance natively.',
+      title: '04 — PERSONALIZE',
+      desc: 'The AI generates recommendations based on your specific health profile, food habits, lifestyle, age, and needs—designed for you, not an average person.',
     },
     {
       idx: 'V',
-      title: 'Arc Push',
-      desc: 'Generating executable habit maps actively pushed direct synchronizing microscopic routines.',
+      title: '05 — GUIDE',
+      desc: 'AETHRIZ helps you make better everyday decisions around nutrition, lifestyle, and preventive health. Turn health data into practical actions.',
     },
   ];
 
@@ -39,14 +39,13 @@ export default function Pipeline() {
     <section id="vector" className="container">
       <div className="bg-inverted rv-scroll">
         <div className="align-left-header rv-scroll reveal-node delay-1 mb-20">
-          <span className="data-mono c-red mb-20">[03] // ALGORITHMIC TIMELINE</span>
+          <span className="data-mono c-red mb-20">[03] // HOW AETHRIZ WORKS</span>
           <h2 className="thesis-text thesis-ink-mb20">
-            Flawless Logical <br />
-            Convergence.
+            From Health Data <br />
+            to Health Action.
           </h2>
           <p className="mc-desc desc-gray-500">
-            Automating organic reconstruction flawlessly scaling upward inherently translating bio-noise
-            accurately to logic operations natively.
+            A seamless algorithmic progression that turns complex medical data into practical, everyday lifestyle guidance.
           </p>
         </div>
 

@@ -39,25 +39,25 @@ export default function Telemetry() {
   return (
     <section id="telemetry" className="container rv-scroll reveal-node">
       <div className="align-left-header">
-        <span className="data-mono c-red mb-20-block">[02] // LIVE SYNAPTIC OBSERVATION</span>
+        <span className="data-mono c-red mb-20-block">[02] // CONTINUOUS HEALTH OBSERVATION</span>
         <h2 className="thesis-text mb-10">
-          Real-Time Cellular <br />
+          Real-Time Health <br />
           Telemetry.
         </h2>
       </div>
 
       <div className="telemetry-grid">
-        {/* Card 1: Hemodynamic Viscosity */}
+        {/* Card 1: Health Parameter Synthesis */}
         <div className="data-card card-3d mag-tgt span-7">
           <div className="data-head">
-            <span className="dt-title">Hemodynamic Viscosity</span>
+            <span className="dt-title">Biomarker Analysis Index</span>
             <span className="live-badge">LIVE</span>
           </div>
           <span className="big-live-num live-rnd" data-min="200" data-max="350" data-dec="1">
             {hemodynamic}
           </span>
           <p className="mc-desc desc-sm-85">
-            Processing sub-beats per analysis framework actively suppressing micro-clots natively.
+            Processing multi-parameter laboratory reports and vital metrics actively identifying health patterns.
           </p>
           <div className="eq-bars-pro" id="dynamicEq1">
             {eqHeights1.map((height, i) => (
@@ -71,17 +71,17 @@ export default function Telemetry() {
           </div>
         </div>
 
-        {/* Card 2: Isotopic Mesh */}
+        {/* Card 2: Lifestyle & Nutrition Mesh */}
         <div className="data-card card-3d mag-tgt span-5">
           <div className="data-head">
-            <span className="dt-title">Isotopic Mesh</span>
+            <span className="dt-title">Diet & Lifestyle Mesh</span>
             <span className="live-badge">LIVE</span>
           </div>
           <span className="big-live-num live-rnd" data-min="10" data-max="99" data-dec="2">
             {isotopic}
           </span>
           <p className="mc-desc desc-sm">
-            Direct manipulation of intrinsic amino clusters driving cellular division boundaries.
+            Continuous modeling of dietary habits and metabolic windows to calibrate personalized routines.
           </p>
           <div className="eq-bars-pro" id="dynamicEq2">
             {eqHeights2.map((height, i) => (
@@ -95,19 +95,18 @@ export default function Telemetry() {
           </div>
         </div>
 
-        {/* Card 3: Vector Washout Synch */}
+        {/* Card 3: Predictive Neural Model */}
         <div className="data-card card-3d mag-tgt span-12">
           <div className="flex-1">
             <div className="data-head max-w-250">
-              <span className="dt-title">Vector Washout Synch</span>
+              <span className="dt-title">Predictive Health Insights</span>
               <span className="live-badge">LIVE</span>
             </div>
             <span className="big-live-num live-rnd" data-min="1" data-max="9" data-dec="3">
               {vectorWashout}
             </span>
             <p className="mc-desc desc-sm-350">
-              Total neural washout synchronization eliminating toxic metabolite layers deposited throughout
-              cognitive operation hours strictly.
+              Deep-learning models process your health parameters and lifestyle to identify potential risks and provide proactive health insights continuously.
             </p>
           </div>
 
