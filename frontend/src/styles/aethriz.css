@@ -1,4 +1,9 @@
 /* =========================================
+   IMPORT RESPONSIVE STYLES (MUST BE AT TOP)
+========================================= */
+@import './responsive-mobile-brutal.css';
+
+/* =========================================
    ROOT MATRIX / SYSTEM VARS
 ========================================= */
 :root {
@@ -1971,8 +1976,3 @@ header { position: fixed; top: 25px; left: 0; width: 100%; z-index: 1000; transi
     }
 }
 
-
-/* =========================================
-   IMPORT BRUTAL MOBILE OPTIMIZATION
-========================================= */
-@import './responsive-mobile-brutal.css';
