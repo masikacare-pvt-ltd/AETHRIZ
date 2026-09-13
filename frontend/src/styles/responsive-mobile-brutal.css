@@ -248,6 +248,9 @@
     }
     .fz-huge-mark { 
         font-size: 18vw;
+        transform: translateY(0);
+        line-height: 0.9;
+        margin-bottom: 30px;
     }
 }
 
@@ -440,14 +443,19 @@
     }
 
     /* Footer */
-    .footer-zenith { padding-top: 65px; }
+    .footer-zenith { padding-top: 65px; padding-bottom: 40px; }
     .fz-title { font-size: 2.3rem; }
     .fz-grid { gap: 42px; }
     .fz-socials { 
         flex-wrap: wrap; 
         gap: 13px;
     }
-    .fz-huge-mark { font-size: 25vw; }
+    .fz-huge-mark { 
+        font-size: 25vw;
+        transform: translateY(0);
+        line-height: 0.9;
+        margin-bottom: 30px;
+    }
 }
 
 /* ===== 480PX: STANDARD MOBILE ===== */
@@ -555,7 +563,12 @@
     
     /* Footer */
     .fz-title { font-size: 1.9rem; }
-    .fz-huge-mark { font-size: 26vw; }
+    .fz-huge-mark { 
+        font-size: 26vw;
+        transform: translateY(0);
+        line-height: 0.9;
+        margin-bottom: 30px;
+    }
 }
 
 /* ===== 360PX: SMALL MOBILE (BUDGET ANDROID) ===== */

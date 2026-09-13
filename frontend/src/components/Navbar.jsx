@@ -14,14 +14,15 @@ export default function Navbar() {
       <div className="nav-island">
         <a href="/" className="nav-brand">
           <span className="aeth-logo-char">Λ</span>
-          <span className="aeth-logo-char">E</span>
-          <span className="aeth-logo-char">T</span>
-          <span className="aeth-logo-char">H</span>
           <div className="aeth-logo-bars">
             <span></span>
             <span></span>
             <span></span>
           </div>
+           
+          <span className="aeth-logo-char">T</span>
+          <span className="aeth-logo-char">H</span>
+          <span className="aeth-logo-char">R</span>
           <span className="aeth-logo-char">I</span>
           <span className="aeth-logo-char">Z</span>
         </a>

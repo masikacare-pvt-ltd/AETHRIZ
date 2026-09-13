@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import teamLeaderImg from '../assets/team-leader.png';
 
 export default function Architects() {
   const [isBioOpen, setIsBioOpen] = useState(false);
@@ -75,7 +76,7 @@ export default function Architects() {
           <div className="frame-corners"></div>
 
           <img
-            src="https://i.supaimg.com/ba22e33f-be5b-42df-a64c-59082e8bb2c4/78e52b0c-e6fe-471d-abb4-1010771944ce.png"
+            src={teamLeaderImg}
             alt="Vishma Pasayat"
             className="ceo-img"
           />

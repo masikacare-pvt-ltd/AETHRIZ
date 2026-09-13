@@ -17,6 +17,20 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Prepare email content
+    const subject = encodeURIComponent('Health Inquiry from ' + formData.fullName);
+    const body = encodeURIComponent(
+      `Name: ${formData.fullName}\n` +
+      `Email: ${formData.email}\n` +
+      `Phone: ${formData.phone}\n\n` +
+      `Message:\n${formData.message}`
+    );
+    
+    // Open email client with pre-filled data
+    window.location.href = `mailto:aethriz.ai@gmail.com?subject=${subject}&body=${body}`;
+    
+    // Show confirmation
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 4000);
   };
