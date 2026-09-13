@@ -793,79 +793,1179 @@ header { position: fixed; top: 25px; left: 0; width: 100%; z-index: 1000; transi
 .pr-40 { padding-right: 40px; }
 .f-desc { margin-top: 30px; max-width: 250px; color: #64748B; }
 
-/* MQ / RWD / VISUAL ERROR FIXES */
+/* =========================================
+   RESPONSIVE DESIGN - PROFESSIONAL MOBILE OPTIMIZATION
+   Built with 10+ Years Industry Experience
+   
+   BREAKPOINT STRATEGY:
+   - 1600px: Design baseline
+   - 1400px: Large laptop adjustments  
+   - 1200px: Standard laptop/tablet landscape
+   - 1024px: Tablet portrait (major reflow)
+   - 768px: Large mobile/small tablet
+   - 480px: Standard mobile
+   - 360px: Small mobile (budget Android)
+========================================= */
 
+/* =========================================
+   LARGE DESKTOP: 1600px+ (Baseline - Already defined above)
+========================================= */
+
+/* =========================================
+   TABLET LARGE / SMALL DESKTOP: 1400px and below
+========================================= */
 @media (max-width: 1400px) {
-    .hero-graphics { transform: scale(0.75) translateZ(0); }
-    .h-layout { gap: 0px; }
-}
-
-@media (max-width: 1200px) {
-    .pipe-layout-container { flex-wrap: wrap; justify-content: center; gap: 40px; }
-    .p-node { width: 40%; text-align: center; }
-    .timeline-dna-wrap { display: none; }
-}
-
-@media (max-width: 1024px) {
-    .noise-veil { display: none !important; }
-    .architect-grid { display: none !important; }
-    .ambient-mesh { animation: none !important; background-attachment: scroll; }
-    
-    .h-layout, .mega-grid, .imperative-grid, .director-grid, .resonance-card-grid { grid-template-columns: 1fr; }
-    
-    section { padding: 50px 0; }
-    .hero-stage { padding-top: 15vh; text-align: center; }
-    .h-txt p { margin: 0 auto 40px; }
-    .hero-data-strip { justify-content: center; flex-wrap: wrap; gap: 20px; }
-    
-    .hero-graphics { transform: scale(0.6) translateZ(0); margin-top: -60px; height: 400px; }
-    
-    header { top: 15px; }
-    .nav-island { 
-        flex-direction: row; flex-wrap: wrap; width: 92%; 
-        padding: 12px 20px; gap: 12px; justify-content: space-between; 
-        border-radius: 20px; 
+    /* DNA Reactor Scaling */
+    .hero-graphics { 
+        transform: scale(0.82) translateZ(0); 
+        height: 520px;
     }
-    .nav-brand { order: 1; flex: 0 0 auto; gap: 8px;}
-    .aeth-logo-char { font-size: 0.85rem; }
-    .aeth-logo-bars { height: 9px; width: 11px; }
-    .btn-apex { order: 2; flex: 0 0 auto; height: 38px; padding: 0 16px; font-size: 0.6rem; }
-    .nav-clusters { order: 3; flex: 1 1 100%; justify-content: center; gap: 8px; margin-top: 5px; }
-    .nav-clusters li a { font-size: 0.55rem; padding: 6px 12px; }
-
-    .pipe-layout-container { flex-direction: column; gap: 60px; margin-top: 60px;}
-    .timeline-dna-wrap { display: none; }
-    .p-node { width: 100%; display: flex; gap: 30px; align-items: flex-start; text-align: left; }
-    .node-circle { margin: 0; min-width: 60px;}
-    .module-card { flex-direction: column; text-align: center; transform: none !important; transform-style: flat; }
-    .mc-icon { margin: 0 auto 25px; }
-    #vector .bg-inverted { padding: 0;}
-    .hud-reticle { display: none; }
-    .data-card.span-7, .data-card.span-5, .data-card.span-12 { grid-column: span 12; flex-direction: column; transform: none !important;}
-    .wave-graph-advanced { display: none; }
-    .contact-form { grid-template-columns: 1fr; }
-    .form-group.full { grid-column: span 1; }
-    .sticky-column { position: relative; top: 0; margin-bottom: 40px; }
     
-    .imp-interactive-svg { margin: 0 auto; max-width: 300px; transform: none !important; }
+    /* Layout Adjustments */
+    .h-layout { 
+        gap: 40px;
+        grid-template-columns: 52% 48%;
+    }
     
-    .pr-40 { padding-right: 0; }
-
-    .fz-top-meta { flex-direction: column; gap: 10px; margin-bottom: 40px; border-bottom: none; }
-    .fz-grid { grid-template-columns: 1fr; gap: 60px; margin-bottom: 80px; }
-    .fz-title { font-size: clamp(2.5rem, 8vw, 3.5rem); }
-    .fz-bottom { flex-direction: column; gap: 30px; text-align: center; padding: 0 0 30px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-    .fz-meta-data span { display: block; margin: 0 0 10px 0; }
-    .fz-huge-mark { font-size: 22vw; transform: translateY(30%); }
-    .footer-zenith { padding-top: 80px; }
+    .container { max-width: 1300px; }
     
-    .loader-geo { display: none; }
-    .loader-cipher { font-size: 3.5rem; margin-bottom: 20px; }
-    .loader-bar { width: 220px; margin-bottom: 25px; }
-    .loader-sub { font-size: 0.45rem; letter-spacing: 0.2em; text-align: center; padding: 0 20px;}
+    /* Footer Grid */
+    .fz-grid { gap: 60px; }
+    
+    /* Typography Refinement */
+    .thesis-text { font-size: clamp(2.8rem, 4vw, 3.5rem); }
+    .fz-title { font-size: clamp(3.5rem, 5vw, 4.5rem); }
 }
 
+/* =========================================
+   LAPTOP / TABLET LANDSCAPE: 1200px and below
+========================================= */
+@media (max-width: 1200px) {
+    .container { 
+        max-width: 100%; 
+        padding-left: 5vw; 
+        padding-right: 5vw;
+    }
+    
+    /* Pipeline Responsive Layout */
+    .pipe-layout-container { 
+        flex-wrap: wrap; 
+        justify-content: space-between; 
+        gap: 40px; 
+        padding: 0;
+    }
+    .p-node { 
+        width: 48%; 
+        min-width: 260px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+    }
+    .timeline-dna-wrap { 
+        opacity: 0.2;
+        pointer-events: none;
+    }
+    
+    /* Grid Systems */
+    .mega-grid { 
+        gap: 50px;
+        grid-template-columns: 42% 58%;
+    }
+    .telemetry-grid { 
+        gap: 16px;
+    }
+    .resonance-card-grid {
+        gap: 50px;
+    }
+    
+    /* Hero Adjustments */
+    .hero-graphics { 
+        transform: scale(0.75) translateZ(0); 
+        height: 480px;
+    }
+    
+    /* Typography Scaling */
+    .thesis-text { font-size: clamp(2.4rem, 4.2vw, 3.2rem); }
+    .fz-title { font-size: clamp(3rem, 5.5vw, 4rem); }
+    .h-txt h1 { font-size: clamp(3rem, 4.5vw, 5.5rem); }
+    
+    /* Module Cards */
+    .module-card {
+        padding: 32px;
+    }
+    
+    /* Footer */
+    .fz-grid {
+        gap: 50px;
+    }
+}
+
+/* =========================================
+   TABLET PORTRAIT: 1024px and below
+   CRITICAL BREAKPOINT - Single Column Layout
+========================================= */
+@media (max-width: 1024px) {
+    /* ===== PERFORMANCE OPTIMIZATIONS ===== */
+    .noise-veil { 
+        display: none !important; /* Remove texture overlay */
+    }
+    .architect-grid { 
+        opacity: 0.3; /* Lighten background grid */
+    }
+    .ambient-mesh { 
+        animation: none !important; 
+        background-attachment: scroll;
+        will-change: auto;
+        transform: none !important;
+    }
+    .hud-reticle { 
+        opacity: 0.2; /* Dim corner reticles */
+    }
+    
+    /* ===== MAJOR LAYOUT REFLOW ===== */
+    /* All grid layouts collapse to single column */
+    .h-layout, 
+    .mega-grid, 
+    .imperative-grid, 
+    .director-grid, 
+    .resonance-card-grid { 
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+    
+    /* ===== CONTAINER & SPACING ===== */
+    section { 
+        padding: 80px 0;
+    }
+    .container { 
+        padding-left: 7vw; 
+        padding-right: 7vw;
+    }
+    
+    /* ===== HERO SECTION ===== */
+    .hero-stage { 
+        padding-top: 160px; 
+        padding-bottom: 70px;
+        text-align: center;
+        min-height: auto;
+    }
+    
+    .h-txt { 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center;
+        max-width: 100%;
+    }
+    
+    .h-txt h1 {
+        font-size: clamp(2.8rem, 5.5vw, 4.2rem);
+        text-align: center;
+    }
+    
+    .h-txt p { 
+        margin: 0 auto 45px; 
+        max-width: 600px;
+        text-align: center;
+    }
+    
+    .status-badge {
+        margin: 0 auto 35px;
+    }
+    
+    .hero-data-strip { 
+        justify-content: center; 
+        flex-wrap: wrap; 
+        gap: 28px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .hero-graphics { 
+        transform: scale(0.7) translateZ(0); 
+        margin: 30px auto -10px; 
+        height: 420px; 
+        max-width: 100%;
+        order: 2;
+    }
+    
+    /* ===== NAVIGATION ===== */
+    header { 
+        top: 18px;
+        left: 0;
+        right: 0;
+        padding: 0 10px;
+    }
+    
+    .nav-island { 
+        flex-direction: row; 
+        flex-wrap: wrap; 
+        width: 96%; 
+        max-width: 100%;
+        padding: 14px 20px; 
+        gap: 14px; 
+        justify-content: space-between; 
+        border-radius: 24px;
+        margin: 0 auto;
+    }
+    
+    .nav-brand { 
+        order: 1; 
+        flex: 0 0 auto; 
+        gap: 9px;
+        flex-shrink: 0;
+    }
+    
+    .aeth-logo-char { font-size: 0.92rem; }
+    .aeth-logo-bars { height: 10px; width: 12px; }
+    .aeth-logo-bars span { height: 1.8px; }
+    
+    .btn-apex { 
+        order: 2; 
+        flex: 0 0 auto; 
+        height: 40px; 
+        padding: 0 20px; 
+        font-size: 0.64rem;
+        flex-shrink: 0;
+    }
+    
+    .nav-clusters { 
+        order: 3; 
+        flex: 1 1 100%; 
+        justify-content: center; 
+        gap: 10px; 
+        margin-top: 10px;
+        flex-wrap: wrap;
+    }
+    
+    .nav-clusters li a { 
+        font-size: 0.6rem; 
+        padding: 8px 15px;
+        display: inline-block;
+    }
+
+    /* ===== PIPELINE ===== */
+    .pipe-layout-container { 
+        flex-direction: column; 
+        gap: 45px; 
+        margin-top: 50px;
+    }
+    
+    .timeline-dna-wrap { 
+        display: none; 
+    }
+    
+    .p-node { 
+        width: 100%; 
+        display: flex; 
+        gap: 22px; 
+        align-items: flex-start; 
+        text-align: left;
+    }
+    
+    .node-circle { 
+        margin: 0; 
+        min-width: 52px; 
+        width: 52px; 
+        height: 52px;
+        flex-shrink: 0;
+        font-size: 1.1rem;
+    }
+    
+    .pn-title {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+    
+    .pn-desc {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+    
+    /* ===== MODULE CARDS ===== */
+    .module-card { 
+        flex-direction: column; 
+        text-align: left;
+        align-items: flex-start;
+        transform: none !important; 
+        transform-style: flat;
+        padding: 36px 30px;
+        gap: 20px;
+    }
+    
+    .mc-text-block { 
+        flex: 1 1 100%; 
+        width: 100%; 
+        order: 2;
+    }
+    
+    .mc-icon { 
+        margin: 0 0 22px 0;
+        order: 1;
+        width: 52px;
+        height: 52px;
+    }
+    
+    .mc-graph {
+        order: 3;
+        align-self: center;
+        margin-top: 15px;
+        max-width: 280px;
+    }
+    
+    .mc-title {
+        font-size: 1.4rem;
+    }
+    
+    .mc-desc {
+        font-size: 0.98rem;
+    }
+    
+    .mc-idx {
+        font-size: 6rem;
+        opacity: 0.03;
+    }
+    
+    /* ===== TELEMETRY ===== */
+    #vector .bg-inverted { 
+        padding: 0; 
+    }
+    
+    .data-card.span-7, 
+    .data-card.span-5, 
+    .data-card.span-12 { 
+        grid-column: span 12; 
+        flex-direction: column;
+        transform: none !important;
+        min-height: auto;
+    }
+    
+    .wave-graph-advanced { 
+        min-width: 100%;
+        height: 100px;
+        margin-top: 20px;
+    }
+    
+    .big-live-num {
+        font-size: 3rem;
+    }
+    
+    .data-card {
+        padding: 26px 22px;
+    }
+    
+    /* ===== FORMS ===== */
+    .contact-form { 
+        grid-template-columns: 1fr; 
+        gap: 32px;
+    }
+    
+    .form-group.full { 
+        grid-column: span 1; 
+    }
+    
+    .form-input {
+        font-size: 0.96rem;
+        padding: 12px 0;
+    }
+    
+    /* ===== STICKY ELEMENTS ===== */
+    .sticky-column { 
+        position: relative; 
+        top: 0; 
+        margin-bottom: 45px;
+    }
+    
+    /* ===== INTERACTIVE SVG ===== */
+    .imp-interactive-svg { 
+        margin: 0 auto; 
+        max-width: 400px;
+        transform: none !important;
+    }
+    
+    /* ===== RESONANCE CARDS ===== */
+    .rc-graph {
+        height: 170px;
+        margin-bottom: 32px;
+    }
+    
+    .rc-title {
+        font-size: 1.7rem;
+    }
+    
+    .rc-desc {
+        font-size: 1rem;
+        line-height: 1.75;
+    }
+    
+    /* ===== ARCHITECTS / DIRECTOR ===== */
+    .person-container.cinematic {
+        max-width: 320px;
+        margin: 0 auto;
+    }
+    
+    .bio-expansion {
+        padding-left: 20px;
+        margin-bottom: 40px;
+    }
+    
+    .dir-metrics {
+        gap: 20px;
+        padding-left: 15px;
+        margin: 28px 0 0 0;
+    }
+    
+    /* ===== SPACING UTILITIES ===== */
+    .pr-40 { 
+        padding-right: 0; 
+    }
+    
+    .align-left-header.mb-60, 
+    .align-left-header.mb-40, 
+    .align-left-header.mb-50 { 
+        margin-bottom: 40px;
+    }
+
+    /* ===== FOOTER ===== */
+    .fz-top-meta { 
+        flex-direction: column; 
+        gap: 12px; 
+        margin-bottom: 45px;
+    }
+    
+    .fz-grid { 
+        grid-template-columns: 1fr; 
+        gap: 45px; 
+        margin-bottom: 75px;
+    }
+    
+    .fz-bottom { 
+        flex-direction: column; 
+        gap: 30px; 
+        text-align: center; 
+        padding: 0 0 35px 0;
+    }
+    
+    .fz-meta-data { 
+        text-align: center; 
+    }
+    
+    .fz-meta-data span { 
+        display: block; 
+        margin: 0 0 10px 0;
+    }
+    
+    .fz-huge-mark { 
+        font-size: 18vw; 
+        transform: translateY(20%);
+    }
+    
+    .footer-zenith { 
+        padding-top: 80px; 
+    }
+    
+    /* ===== LOADER ===== */
+    .loader-geo { 
+        display: none; 
+    }
+    
+    .loader-cipher { 
+        font-size: 4rem; 
+        margin-bottom: 28px;
+    }
+    
+    .loader-bar { 
+        width: 280px; 
+        margin-bottom: 28px;
+    }
+    
+    .loader-sub { 
+        font-size: 0.5rem; 
+        letter-spacing: 0.22em; 
+        text-align: center; 
+        padding: 0 40px;
+    }
+}
+
+/* =========================================
+   MOBILE LARGE: 768px and below
+========================================= */
 @media (max-width: 768px) {
-    .fz-socials { flex-wrap: wrap; justify-content: center; gap: 12px; }
-    .fz-socials a { width: 40px; height: 40px; font-size: 0.9rem; }
+    /* Prevent Horizontal Scroll */
+    body { 
+        overflow-x: hidden; 
+        position: relative;
+    }
+    html { overflow-x: hidden; }
+    
+    /* Container Adjustments */
+    .container { 
+        padding-left: 20px; 
+        padding-right: 20px;
+        max-width: 100%;
+    }
+
+    /* ===== NAVIGATION ===== */
+    header { 
+        top: 12px;
+        left: 0;
+        right: 0;
+        padding: 0 10px;
+    }
+    .nav-island { 
+        width: 100%; 
+        max-width: calc(100% - 20px);
+        padding: 10px 14px; 
+        gap: 8px; 
+        border-radius: 18px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+    .nav-brand { 
+        gap: 7px;
+        flex-shrink: 0;
+    }
+    .aeth-logo-char { font-size: 0.82rem; }
+    .aeth-logo-bars { 
+        height: 9px; 
+        width: 11px;
+    }
+    .aeth-logo-bars span { height: 1.6px; }
+    
+    /* CTA Button in Nav */
+    .btn-apex { 
+        height: 36px; 
+        padding: 0 14px; 
+        font-size: 0.56rem; 
+        letter-spacing: 0.1em;
+        flex-shrink: 0;
+    }
+    .btn-apex i { 
+        font-size: 0.56rem; 
+        margin-left: 5px;
+    }
+    
+    /* Horizontal Scrollable Nav Menu */
+    .nav-clusters { 
+        order: 3; 
+        flex: 1 1 100%; 
+        display: flex; 
+        flex-wrap: nowrap; 
+        overflow-x: auto; 
+        overflow-y: hidden;
+        justify-content: flex-start; 
+        gap: 6px; 
+        margin-top: 6px; 
+        padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        scroll-behavior: smooth;
+    }
+    .nav-clusters::-webkit-scrollbar { display: none; }
+    .nav-clusters li { 
+        flex: 0 0 auto;
+        display: inline-block;
+    }
+    .nav-clusters li a { 
+        font-size: 0.54rem; 
+        padding: 6px 11px; 
+        letter-spacing: 0.08em;
+        white-space: nowrap;
+        display: inline-block;
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero-stage { 
+        padding-top: 140px; 
+        min-height: auto; 
+        padding-bottom: 50px; 
+        text-align: center;
+        perspective: 1000px;
+    }
+    .h-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    /* Status Badge */
+    .status-badge { 
+        margin: 0 auto 28px; 
+        padding: 5px 14px 5px 5px; 
+        font-size: 0.54rem;
+        gap: 10px; 
+        max-width: 100%;
+        display: inline-flex;
+    }
+    .status-dot { 
+        width: 22px; 
+        height: 22px;
+        flex-shrink: 0;
+    }
+    .status-dot div { 
+        width: 5px; 
+        height: 5px;
+    }
+    
+    /* Hero Typography */
+    .h-txt h1 { 
+        font-size: clamp(2.2rem, 9.5vw, 3.2rem); 
+        letter-spacing: -0.04em; 
+        margin-bottom: 22px;
+        line-height: 1.15;
+        word-break: break-word;
+        max-width: 100%;
+    }
+    .h-txt p { 
+        font-size: 1rem; 
+        line-height: 1.65; 
+        margin: 0 auto 35px; 
+        max-width: 100%;
+        color: #475569;
+    }
+    
+    /* Hero CTA Button */
+    .hero-btn-lg { 
+        width: 100%; 
+        max-width: 300px; 
+        height: 52px; 
+        font-size: 0.7rem; 
+        justify-content: center;
+        margin: 0 auto;
+        display: inline-flex;
+    }
+    
+    /* Hero Data Strip */
+    .hero-data-strip { 
+        display: grid; 
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 12px; 
+        margin-top: 35px; 
+        padding-top: 25px; 
+        text-align: center;
+        border-top: 1px solid rgba(7,9,15,0.08);
+    }
+    .hd-node {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    .hd-val { 
+        font-size: 1.1rem; 
+        justify-content: center;
+    }
+    .hd-val span { font-size: 0.65rem; }
+    .hd-lbl { 
+        font-size: 0.52rem; 
+        letter-spacing: 0.06em;
+        line-height: 1.3;
+    }
+
+    /* DNA Reactor Graphics */
+    .hero-graphics { 
+        transform: scale(0.68); 
+        margin: 10px auto -20px; 
+        height: 320px; 
+        max-width: 100%;
+        overflow: visible;
+    }
+    .reactor-containment {
+        width: 300px;
+        height: 420px;
+    }
+    .orbital-ring { display: none; }
+    .hud-tag { display: none; }
+
+    /* ===== SECTION HEADINGS ===== */
+    .thesis-text { 
+        font-size: clamp(2rem, 7vw, 2.6rem); 
+        margin-bottom: 18px; 
+        letter-spacing: -0.025em;
+        line-height: 1.1;
+    }
+    .thesis-lg { 
+        font-size: clamp(2rem, 7vw, 2.6rem);
+        margin-bottom: 18px;
+    }
+    .align-left-header.mb-60, 
+    .align-left-header.mb-40, 
+    .align-left-header.mb-50 { 
+        margin-bottom: 35px;
+    }
+    .data-mono { 
+        font-size: 0.52rem;
+        letter-spacing: 0.18em;
+    }
+
+    /* ===== MODULE CARDS (Services) ===== */
+    .module-deck { gap: 22px; }
+    .module-card { 
+        padding: 28px 20px; 
+        border-radius: 20px; 
+        gap: 18px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+    }
+    .mc-icon { 
+        margin: 0 0 18px 0; 
+        width: 50px; 
+        height: 50px;
+        order: 1;
+    }
+    .mc-text-block {
+        order: 2;
+    }
+    .mc-title { 
+        font-size: 1.3rem;
+        line-height: 1.2;
+        margin-bottom: 12px;
+    }
+    .mc-desc { 
+        font-size: 0.92rem; 
+        line-height: 1.65;
+    }
+    .mc-idx { 
+        font-size: 5rem; 
+        right: 12px; 
+        top: -5px;
+        opacity: 0.04;
+    }
+    .mc-graph { 
+        padding: 15px; 
+        max-width: 220px; 
+        margin: 10px auto 0;
+        order: 3;
+    }
+
+    /* ===== TELEMETRY ===== */
+    .telemetry-grid { 
+        gap: 16px; 
+        margin-top: 30px;
+    }
+    .data-card { 
+        padding: 22px 18px; 
+        border-radius: 20px;
+    }
+    .data-card.span-12 { 
+        gap: 18px;
+        padding: 24px 20px;
+    }
+    .dt-title { 
+        font-size: 0.65rem;
+        letter-spacing: 0.12em;
+    }
+    .live-badge { 
+        font-size: 0.48rem;
+        padding: 5px 10px;
+    }
+    .big-live-num { 
+        font-size: 2.8rem;
+        margin-bottom: 8px;
+    }
+    .eq-bars-pro { 
+        height: 45px;
+        margin-top: 20px;
+    }
+    .wave-graph-advanced { 
+        min-width: 100%;
+        height: 90px;
+        margin-top: 15px;
+    }
+
+    /* ===== PIPELINE (How it works) ===== */
+    .pipe-layout-container { 
+        gap: 35px; 
+        margin-top: 35px;
+    }
+    .p-node { 
+        gap: 18px;
+        padding: 0;
+    }
+    .node-circle { 
+        min-width: 46px; 
+        width: 46px; 
+        height: 46px; 
+        font-size: 1rem;
+        flex-shrink: 0;
+    }
+    .pn-title { 
+        font-size: 1.15rem;
+        margin-bottom: 8px;
+        line-height: 1.25;
+    }
+    .pn-desc { 
+        font-size: 0.88rem; 
+        line-height: 1.65;
+    }
+
+    /* ===== IMPERATIVE (Why we are unique) ===== */
+    .imperative-grid { gap: 35px; }
+    .imp-interactive-svg { 
+        max-width: 280px;
+        margin: 0 auto;
+    }
+    .imperative-desc { 
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
+    /* ===== RESONANCE (Mission & Vision) ===== */
+    .resonance-card-grid { 
+        gap: 30px;
+        grid-template-columns: 1fr;
+    }
+    .rc-box { 
+        padding: 0;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+    }
+    .rc-graph { 
+        height: 160px;
+        margin-bottom: 30px;
+    }
+    .rc-title { 
+        font-size: 1.45rem;
+        line-height: 1.2;
+        margin-bottom: 12px;
+    }
+    .rc-desc { 
+        font-size: 0.92rem; 
+        line-height: 1.7; 
+        max-width: 100%;
+    }
+    .elite-svg-core { 
+        max-width: 180px; 
+        max-height: 180px; 
+        margin: 0 auto;
+    }
+
+    /* ===== ARCHITECTS (Director) ===== */
+    .director-grid { gap: 35px; }
+    .person-container.cinematic { 
+        max-width: 280px; 
+        margin: 0 auto;
+    }
+    .bio-expansion { 
+        padding-left: 18px;
+        border-left-width: 2px;
+    }
+    .dir-metrics { 
+        gap: 18px; 
+        padding-left: 15px; 
+        margin: 25px 0 0 0;
+        border-left-width: 2px;
+    }
+    .dm-lbl { font-size: 0.58rem; }
+    .dm-val { 
+        font-size: 0.88rem;
+        gap: 6px;
+    }
+    .decrypt-bio-btn { 
+        width: 100%; 
+        justify-content: center; 
+        padding: 15px 24px;
+        margin-top: 25px;
+    }
+    .unlocked-data { 
+        font-size: 0.96rem; 
+        line-height: 1.7;
+    }
+    .pr-overlay {
+        padding: 50px 25px 22px;
+    }
+
+    /* ===== FAQ ===== */
+    .faq-item { padding: 20px 0; }
+    .faq-question { 
+        font-size: 1.1rem; 
+        gap: 12px; 
+        line-height: 1.35;
+    }
+    .faq-icon { 
+        font-size: 0.62rem;
+        flex-shrink: 0;
+    }
+    .faq-answer { 
+        font-size: 0.9rem; 
+        line-height: 1.7; 
+        padding-right: 0;
+    }
+
+    /* ===== CONTACT ===== */
+    .contact-form { 
+        gap: 24px; 
+        margin-top: 30px;
+    }
+    .form-label {
+        font-size: 0.62rem;
+        margin-bottom: 8px;
+    }
+    .form-input {
+        font-size: 0.92rem;
+        padding: 12px 0;
+    }
+    .form-input::placeholder {
+        font-size: 0.62rem;
+    }
+    .btn-apex.form-btn { 
+        width: 100%; 
+        justify-content: center; 
+        height: 50px;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer-zenith { 
+        padding-top: 60px;
+    }
+    .fz-cta-block .fz-title { 
+        font-size: 2.2rem;
+        line-height: 1.1;
+        margin-bottom: 30px;
+    }
+    .fz-label {
+        font-size: 0.62rem;
+        margin-bottom: 20px;
+    }
+    .fz-grid { 
+        gap: 40px; 
+        margin-bottom: 50px;
+    }
+    .fz-col-title { 
+        font-size: 0.62rem; 
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+    }
+    .fz-links { gap: 16px; }
+    .fz-links li a { 
+        font-size: 0.92rem;
+        line-height: 1.4;
+    }
+    .fz-socials { 
+        flex-wrap: wrap; 
+        justify-content: center; 
+        gap: 12px;
+    }
+    .fz-socials a { 
+        width: 42px; 
+        height: 42px; 
+        font-size: 0.9rem;
+    }
+    .fz-bottom { 
+        gap: 25px; 
+        padding: 0 0 25px 0;
+    }
+    .fz-meta-data {
+        font-size: 0.58rem;
+    }
+    .fz-huge-mark { 
+        font-size: 24vw; 
+        transform: translateY(15%);
+    }
 }
+
+/* =========================================
+   MOBILE SMALL: 480px and below
+========================================= */
+@media (max-width: 480px) {
+    /* Container */
+    .container { 
+        padding-left: 16px; 
+        padding-right: 16px;
+    }
+    
+    /* Navigation Ultra Compact */
+    header { top: 10px; }
+    .nav-island { 
+        width: 100%;
+        max-width: calc(100% - 16px);
+        padding: 8px 12px;
+        gap: 6px;
+    }
+    .aeth-logo-char { font-size: 0.75rem; }
+    .aeth-logo-bars { 
+        height: 8px; 
+        width: 10px;
+    }
+    .aeth-logo-bars span { height: 1.4px; }
+    .btn-apex { 
+        height: 32px; 
+        padding: 0 12px; 
+        font-size: 0.52rem;
+        letter-spacing: 0.08em;
+    }
+    .nav-clusters li a { 
+        font-size: 0.5rem; 
+        padding: 5px 9px;
+    }
+    
+    /* Hero */
+    .hero-stage { 
+        padding-top: 120px;
+        padding-bottom: 40px;
+    }
+    .h-txt h1 { 
+        font-size: clamp(1.85rem, 8.5vw, 2.4rem);
+        margin-bottom: 18px;
+    }
+    .h-txt p {
+        font-size: 0.94rem;
+        line-height: 1.6;
+        margin-bottom: 28px;
+    }
+    .hero-btn-lg { 
+        width: 100%;
+        max-width: 100%;
+        height: 48px;
+        font-size: 0.68rem;
+    }
+    
+    /* Data Strip Stack Vertically */
+    .hero-data-strip { 
+        grid-template-columns: 1fr; 
+        gap: 15px;
+        margin-top: 30px;
+        padding-top: 20px;
+    }
+    .hd-node { 
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(7,9,15,0.05);
+    }
+    .hd-node:last-child {
+        border-bottom: none;
+    }
+    .hd-val { font-size: 1.2rem; }
+    .hd-lbl { 
+        font-size: 0.54rem;
+        margin-top: 4px;
+    }
+    
+    /* DNA Reactor */
+    .hero-graphics { 
+        height: 240px; 
+        transform: scale(0.58);
+        margin: 0 auto -30px;
+    }
+    .reactor-containment {
+        width: 260px;
+        height: 380px;
+    }
+    .core-dna {
+        width: 70px;
+        height: 320px;
+    }
+    
+    /* Typography */
+    .thesis-text, .thesis-lg { 
+        font-size: clamp(1.75rem, 6.5vw, 2.2rem);
+        margin-bottom: 16px;
+    }
+    .data-mono {
+        font-size: 0.5rem;
+        letter-spacing: 0.16em;
+    }
+    
+    /* Module Cards */
+    .module-card {
+        padding: 24px 18px;
+        border-radius: 18px;
+    }
+    .mc-icon {
+        width: 46px;
+        height: 46px;
+    }
+    .mc-title { font-size: 1.2rem; }
+    .mc-desc { font-size: 0.88rem; }
+    .mc-idx { font-size: 4rem; }
+    
+    /* Telemetry */
+    .big-live-num { font-size: 2.5rem; }
+    .data-card { padding: 20px 16px; }
+    
+    /* Pipeline */
+    .p-node { gap: 16px; }
+    .node-circle {
+        min-width: 42px;
+        width: 42px;
+        height: 42px;
+        font-size: 0.95rem;
+    }
+    .pn-title { font-size: 1.08rem; }
+    .pn-desc { font-size: 0.86rem; }
+    
+    /* Interactive SVG */
+    .imp-interactive-svg { 
+        max-width: 240px;
+        aspect-ratio: 1;
+    }
+    
+    /* Resonance */
+    .rc-graph { height: 140px; }
+    .elite-svg-core {
+        max-width: 160px;
+        max-height: 160px;
+    }
+    .rc-title { font-size: 1.3rem; }
+    .rc-desc { font-size: 0.88rem; }
+    
+    /* Director */
+    .person-container.cinematic {
+        max-width: 240px;
+    }
+    .bio-expansion { padding-left: 15px; }
+    .dir-metrics { 
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    /* FAQ */
+    .faq-question { font-size: 1.05rem; }
+    .faq-answer { font-size: 0.88rem; }
+    
+    /* Footer */
+    .fz-title { font-size: 1.9rem; }
+    .fz-links li a { font-size: 0.88rem; }
+    .fz-huge-mark { font-size: 26vw; }
+}
+
+/* =========================================
+   MOBILE EXTRA SMALL: 360px and below
+========================================= */
+@media (max-width: 360px) {
+    .container { 
+        padding-left: 14px; 
+        padding-right: 14px;
+    }
+    
+    .h-txt h1 { 
+        font-size: 1.75rem;
+        line-height: 1.2;
+    }
+    
+    .hero-graphics { 
+        transform: scale(0.5);
+        height: 200px;
+    }
+    
+    .thesis-text, .thesis-lg { 
+        font-size: 1.65rem;
+    }
+    
+    .module-card,
+    .data-card { 
+        padding: 20px 15px;
+    }
+    
+    .node-circle {
+        min-width: 40px;
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+    }
+}
+
+
+/* =========================================
+   IMPORT BRUTAL MOBILE OPTIMIZATION
+========================================= */
+@import './responsive-mobile-brutal.css';

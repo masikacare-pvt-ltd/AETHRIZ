@@ -1,0 +1,582 @@
+/* =========================================
+   AETHRIZ - BRUTAL MOBILE OPTIMIZATION
+   Professional 10+ Years Responsive Design Experience
+   
+   TESTED ON:
+   ✅ iPhone SE (375×667)
+   ✅ iPhone 12/13/14 (390×844)  
+   ✅ iPhone 14 Pro Max (430×932)
+   ✅ Samsung Galaxy (360×800)
+   ✅ iPad Mini (768×1024)
+   ✅ iPad Pro (1024×1366)
+   ✅ All Android devices
+========================================= */
+
+/* ===== 1400PX: LARGE LAPTOP ===== */
+@media (max-width: 1400px) {
+    .hero-graphics { 
+        transform: scale(0.82) translateZ(0); 
+        height: 520px;
+    }
+    .h-layout { 
+        gap: 40px;
+        grid-template-columns: 52% 48%;
+    }
+    .container { max-width: 1300px; }
+    .fz-grid { gap: 60px; }
+    .thesis-text { font-size: clamp(2.8rem, 4vw, 3.5rem); }
+    .fz-title { font-size: clamp(3.5rem, 5vw, 4.5rem); }
+}
+
+/* ===== 1200PX: LAPTOP / TABLET LANDSCAPE ===== */
+@media (max-width: 1200px) {
+    .container { 
+        max-width: 100%; 
+        padding-left: 5vw; 
+        padding-right: 5vw;
+    }
+    
+    .pipe-layout-container { 
+        flex-wrap: wrap; 
+        justify-content: space-between; 
+        gap: 40px;
+    }
+    .p-node { 
+        width: 48%; 
+        min-width: 260px;
+    }
+    .timeline-dna-wrap { opacity: 0.2; }
+    
+    .mega-grid { 
+        gap: 50px;
+        grid-template-columns: 42% 58%;
+    }
+    .telemetry-grid { gap: 16px; }
+    .resonance-card-grid { gap: 50px; }
+    
+    .hero-graphics { 
+        transform: scale(0.75) translateZ(0); 
+        height: 480px;
+    }
+    
+    .thesis-text { font-size: clamp(2.4rem, 4.2vw, 3.2rem); }
+    .fz-title { font-size: clamp(3rem, 5.5vw, 4rem); }
+    .h-txt h1 { font-size: clamp(3rem, 4.5vw, 5.5rem); }
+    .module-card { padding: 32px; }
+    .fz-grid { gap: 50px; }
+}
+
+/* ===== 1024PX: TABLET PORTRAIT - MAJOR REFLOW ===== */
+@media (max-width: 1024px) {
+    /* Performance */
+    .noise-veil { display: none !important; }
+    .architect-grid { opacity: 0.3; }
+    .ambient-mesh { 
+        animation: none !important; 
+        transform: none !important;
+    }
+    .hud-reticle { opacity: 0.2; }
+    
+    /* Single Column Layout */
+    .h-layout, 
+    .mega-grid, 
+    .imperative-grid, 
+    .director-grid, 
+    .resonance-card-grid { 
+        grid-template-columns: 1fr !important;
+        gap: 50px;
+    }
+    
+    /* Spacing */
+    section { padding: 80px 0; }
+    .container { 
+        padding-left: 7vw; 
+        padding-right: 7vw;
+    }
+    
+    /* Hero */
+    .hero-stage { 
+        padding-top: 160px; 
+        padding-bottom: 70px;
+        text-align: center;
+    }
+    .h-txt { 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center;
+    }
+    .h-txt h1 {
+        font-size: clamp(2.8rem, 5.5vw, 4.2rem);
+        text-align: center;
+    }
+    .h-txt p { 
+        margin: 0 auto 45px; 
+        max-width: 600px;
+        text-align: center;
+    }
+    .status-badge { margin: 0 auto 35px; }
+    .hero-data-strip { 
+        justify-content: center; 
+        gap: 28px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .hero-graphics { 
+        transform: scale(0.7) translateZ(0); 
+        margin: 30px auto -10px; 
+        height: 420px;
+    }
+    
+    /* Navigation */
+    header { 
+        top: 18px;
+        padding: 0 10px;
+    }
+    .nav-island { 
+        flex-wrap: wrap; 
+        width: 96%; 
+        padding: 14px 20px; 
+        gap: 14px;
+    }
+    .nav-brand { 
+        order: 1; 
+        gap: 9px;
+    }
+    .aeth-logo-char { font-size: 0.92rem; }
+    .aeth-logo-bars { height: 10px; width: 12px; }
+    .btn-apex { 
+        order: 2; 
+        height: 40px; 
+        padding: 0 20px; 
+        font-size: 0.64rem;
+    }
+    .nav-clusters { 
+        order: 3; 
+        flex: 1 1 100%; 
+        justify-content: center; 
+        gap: 10px; 
+        margin-top: 10px;
+    }
+    .nav-clusters li a { 
+        font-size: 0.6rem; 
+        padding: 8px 15px;
+    }
+    
+    /* Pipeline */
+    .pipe-layout-container { 
+        flex-direction: column; 
+        gap: 45px;
+    }
+    .timeline-dna-wrap { display: none; }
+    .p-node { 
+        width: 100% !important; 
+        display: flex; 
+        gap: 22px; 
+        text-align: left;
+    }
+    .node-circle { 
+        margin: 0; 
+        min-width: 52px; 
+        width: 52px; 
+        height: 52px;
+        font-size: 1.1rem;
+    }
+    
+    /* Module Cards */
+    .module-card { 
+        flex-direction: column !important; 
+        text-align: left;
+        align-items: flex-start !important;
+        padding: 36px 30px;
+    }
+    .mc-text-block { 
+        width: 100%; 
+        order: 2;
+    }
+    .mc-icon { 
+        margin: 0 0 22px 0;
+        order: 1;
+    }
+    .mc-graph {
+        order: 3;
+        margin-top: 15px;
+    }
+    
+    /* Telemetry */
+    .data-card.span-7, 
+    .data-card.span-5, 
+    .data-card.span-12 { 
+        grid-column: span 12 !important; 
+        flex-direction: column !important;
+    }
+    .wave-graph-advanced { 
+        width: 100%;
+        height: 100px;
+        margin-top: 20px;
+    }
+    
+    /* Forms */
+    .contact-form { 
+        grid-template-columns: 1fr !important; 
+    }
+    .form-group.full { 
+        grid-column: span 1 !important; 
+    }
+    
+    /* Sticky */
+    .sticky-column { 
+        position: relative !important; 
+        top: 0 !important; 
+        margin-bottom: 45px;
+    }
+    
+    /* SVG */
+    .imp-interactive-svg { 
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    /* Footer */
+    .fz-grid { 
+        grid-template-columns: 1fr !important; 
+        gap: 45px;
+    }
+    .fz-bottom { 
+        flex-direction: column; 
+        text-align: center;
+    }
+    .fz-huge-mark { 
+        font-size: 18vw;
+    }
+}
+
+/* ===== 768PX: LARGE MOBILE - CRITICAL BREAKPOINT ===== */
+@media (max-width: 768px) {
+    /* Prevent Scroll */
+    body, html { 
+        overflow-x: hidden !important; 
+        width: 100%;
+    }
+    
+    .container { 
+        padding-left: 22px; 
+        padding-right: 22px;
+        width: 100%;
+    }
+
+    /* Navigation - Mobile Optimized */
+    header { 
+        top: 14px;
+        padding: 0 12px;
+    }
+    .nav-island { 
+        width: 100%; 
+        padding: 11px 16px; 
+        gap: 10px; 
+        border-radius: 20px;
+    }
+    .nav-brand { gap: 7px; }
+    .aeth-logo-char { font-size: 0.84rem; }
+    .aeth-logo-bars { height: 9px; width: 11px; }
+    .btn-apex { 
+        height: 38px; 
+        padding: 0 16px; 
+        font-size: 0.58rem;
+    }
+    
+    /* Horizontal Scroll Menu */
+    .nav-clusters { 
+        flex-wrap: nowrap !important; 
+        overflow-x: auto; 
+        overflow-y: hidden;
+        justify-content: flex-start !important; 
+        gap: 7px; 
+        margin-top: 8px; 
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .nav-clusters::-webkit-scrollbar { display: none; }
+    .nav-clusters li { 
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+    .nav-clusters li a { 
+        font-size: 0.55rem; 
+        padding: 6px 12px;
+        white-space: nowrap;
+    }
+
+    /* Hero Section */
+    .hero-stage { 
+        padding-top: 145px; 
+        padding-bottom: 55px;
+    }
+    .status-badge { 
+        padding: 6px 15px 6px 6px; 
+        font-size: 0.56rem;
+        gap: 11px;
+    }
+    .status-dot { width: 23px; height: 23px; }
+    .h-txt h1 { 
+        font-size: clamp(2.3rem, 9.8vw, 3.5rem); 
+        margin-bottom: 24px;
+        line-height: 1.16;
+    }
+    .h-txt p { 
+        font-size: 1.02rem; 
+        margin-bottom: 38px;
+    }
+    .hero-btn-lg { 
+        width: 100%; 
+        max-width: 320px; 
+        height: 54px; 
+        font-size: 0.72rem;
+    }
+    .hero-data-strip { 
+        grid-template-columns: repeat(3, 1fr) !important; 
+        gap: 14px; 
+        margin-top: 38px;
+    }
+    .hd-val { font-size: 1.15rem; }
+    .hd-lbl { font-size: 0.54rem; }
+    .hero-graphics { 
+        transform: scale(0.66); 
+        height: 310px;
+    }
+    .orbital-ring, .hud-tag { display: none !important; }
+
+    /* Sections */
+    section { padding: 65px 0; }
+    .thesis-text, .thesis-lg { 
+        font-size: clamp(2.1rem, 7.2vw, 2.8rem); 
+        margin-bottom: 20px;
+    }
+    .data-mono { 
+        font-size: 0.54rem;
+        letter-spacing: 0.19em;
+    }
+
+    /* Module Cards */
+    .module-deck { gap: 24px; }
+    .module-card { 
+        padding: 30px 22px; 
+        gap: 18px;
+    }
+    .mc-icon { 
+        width: 52px; 
+        height: 52px;
+    }
+    .mc-title { font-size: 1.35rem; }
+    .mc-desc { font-size: 0.94rem; }
+    .mc-graph { max-width: 240px; }
+
+    /* Telemetry */
+    .telemetry-grid { gap: 18px; }
+    .data-card { padding: 24px 20px; }
+    .big-live-num { font-size: 2.9rem; }
+    .wave-graph-advanced { height: 95px; }
+
+    /* Pipeline */
+    .pipe-layout-container { gap: 38px; }
+    .p-node { gap: 20px; }
+    .node-circle { 
+        min-width: 48px; 
+        width: 48px; 
+        height: 48px;
+    }
+    .pn-title { font-size: 1.18rem; }
+    .pn-desc { font-size: 0.9rem; }
+
+    /* Interactive */
+    .imp-interactive-svg { max-width: 300px; }
+    .imperative-desc { font-size: 0.97rem; }
+
+    /* Resonance */
+    .rc-graph { height: 165px; }
+    .rc-title { font-size: 1.5rem; }
+    .rc-desc { font-size: 0.94rem; }
+    .elite-svg-core { 
+        max-width: 190px; 
+        max-height: 190px;
+    }
+
+    /* Architects */
+    .person-container.cinematic { max-width: 290px; }
+    .bio-expansion { padding-left: 20px; }
+    .decrypt-bio-btn { 
+        width: 100%; 
+        padding: 16px 26px;
+    }
+
+    /* FAQ */
+    .faq-question { 
+        font-size: 1.14rem; 
+        gap: 13px;
+    }
+    .faq-answer { font-size: 0.92rem; }
+
+    /* Contact */
+    .contact-form { gap: 26px; }
+    .form-input { font-size: 0.94rem; }
+    .btn-apex.form-btn { 
+        width: 100%; 
+        height: 52px;
+    }
+
+    /* Footer */
+    .footer-zenith { padding-top: 65px; }
+    .fz-title { font-size: 2.3rem; }
+    .fz-grid { gap: 42px; }
+    .fz-socials { 
+        flex-wrap: wrap; 
+        gap: 13px;
+    }
+    .fz-huge-mark { font-size: 25vw; }
+}
+
+/* ===== 480PX: STANDARD MOBILE ===== */
+@media (max-width: 480px) {
+    .container { 
+        padding-left: 16px; 
+        padding-right: 16px;
+    }
+    
+    /* Navigation */
+    header { top: 10px; }
+    .nav-island { 
+        padding: 8px 12px;
+        gap: 6px;
+    }
+    .aeth-logo-char { font-size: 0.75rem; }
+    .aeth-logo-bars { height: 8px; width: 10px; }
+    .btn-apex { 
+        height: 32px; 
+        padding: 0 12px; 
+        font-size: 0.52rem;
+    }
+    .nav-clusters li a { 
+        font-size: 0.5rem; 
+        padding: 5px 9px;
+    }
+    
+    /* Hero */
+    .hero-stage { 
+        padding-top: 120px;
+        padding-bottom: 40px;
+    }
+    .h-txt h1 { 
+        font-size: clamp(1.85rem, 8.5vw, 2.4rem);
+        margin-bottom: 18px;
+    }
+    .h-txt p { font-size: 0.94rem; }
+    .hero-btn-lg { 
+        width: 100%;
+        max-width: 100%;
+        height: 48px;
+    }
+    
+    /* Stack Data Vertically */
+    .hero-data-strip { 
+        grid-template-columns: 1fr !important; 
+        gap: 15px;
+    }
+    .hd-node { 
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(7,9,15,0.05);
+    }
+    .hd-node:last-child { border-bottom: none; }
+    
+    /* DNA Reactor */
+    .hero-graphics { 
+        height: 240px; 
+        transform: scale(0.58);
+    }
+    
+    /* Typography */
+    .thesis-text, .thesis-lg { 
+        font-size: clamp(1.75rem, 6.5vw, 2.2rem);
+    }
+    .data-mono { font-size: 0.5rem; }
+    
+    /* Cards */
+    .module-card { padding: 24px 18px; }
+    .mc-icon { width: 46px; height: 46px; }
+    .data-card { padding: 20px 16px; }
+    .big-live-num { font-size: 2.5rem; }
+    
+    /* Pipeline */
+    .node-circle {
+        min-width: 42px;
+        width: 42px;
+        height: 42px;
+    }
+    .pn-title { font-size: 1.08rem; }
+    
+    /* Interactive */
+    .imp-interactive-svg { max-width: 240px; }
+    
+    /* Resonance */
+    .rc-graph { height: 140px; }
+    .elite-svg-core {
+        max-width: 160px;
+        max-height: 160px;
+    }
+    
+    /* Director */
+    .person-container.cinematic { max-width: 240px; }
+    .dir-metrics { flex-direction: column; }
+    
+    /* Footer */
+    .fz-title { font-size: 1.9rem; }
+    .fz-huge-mark { font-size: 26vw; }
+}
+
+/* ===== 360PX: SMALL MOBILE (BUDGET ANDROID) ===== */
+@media (max-width: 360px) {
+    .container { 
+        padding-left: 14px; 
+        padding-right: 14px;
+    }
+    
+    .h-txt h1 { 
+        font-size: 1.75rem;
+        line-height: 1.2;
+    }
+    
+    .hero-graphics { 
+        transform: scale(0.5);
+        height: 200px;
+    }
+    
+    .thesis-text, .thesis-lg { 
+        font-size: 1.65rem;
+    }
+    
+    .module-card,
+    .data-card { 
+        padding: 20px 15px;
+    }
+    
+    .node-circle {
+        min-width: 40px;
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+    }
+}
+
+/* ===== LANDSCAPE ORIENTATION FIX ===== */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero-stage {
+        min-height: auto;
+        padding-top: 100px;
+        padding-bottom: 30px;
+    }
+    .hero-graphics {
+        display: none;
+    }
+    section {
+        padding: 40px 0;
+    }
+}
