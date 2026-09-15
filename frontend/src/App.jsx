@@ -9,7 +9,7 @@ import Telemetry from './components/Telemetry';
 import Pipeline from './components/Pipeline';
 import Imperative from './components/Imperative';
 import Resonance from './components/Resonance';
-import Architects from './components/Architects';
+import PreRegister from './components/PreRegister';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -48,7 +48,7 @@ export default function App() {
         <Pipeline />
         <Imperative />
         <Resonance />
-        <Architects />
+        <PreRegister />
         <FAQ />
         <Contact />
       </main>
