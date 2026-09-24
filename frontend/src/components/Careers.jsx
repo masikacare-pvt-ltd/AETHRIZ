@@ -286,9 +286,9 @@ export default function Careers({ onBack }) {
       if (!formData.emailAddress.trim()) errs.emailAddress = 'Email is required';
       if (!formData.phone.trim()) errs.phone = 'Mobile / WhatsApp number is required';
       if (!formData.collegeCourse.trim()) errs.collegeCourse = 'College / University & Course is required';
-      if (!formData.currentYearSemester) errs.currentYearSemester = 'Please select your current year/semester';
+      if (!formData.currentYearSemester) errs.currentYearSemester = 'Please select your current year';
       if (formData.currentYearSemester === 'Other' && !formData.currentYearOther.trim()) {
-        errs.currentYearSemester = 'Please specify your year/semester';
+        errs.currentYearSemester = 'Please specify your year';
       }
       if (!formData.cityState.trim()) errs.cityState = 'City/State is required';
     } else if (step === 2) {
@@ -578,6 +578,62 @@ export default function Careers({ onBack }) {
 
             {/* Right Main Card: Fullpage Dossier Card */}
             <main className="fp-form-main-card">
+              {/* Mobile-Only Step HUD & Milestone Bar */}
+              <div className="fp-mobile-stepper-header">
+                <div className="fp-mobile-stepper-meta">
+                  <div className="fp-mobile-step-title-col">
+                    <span className="fp-mobile-step-kicker">STEP {currentStep} OF 5</span>
+                    <span className="fp-mobile-step-name">
+                      {[
+                        'Personal Info',
+                        'Role & Skills',
+                        'CV & Availability',
+                        'Motivation',
+                        'Terms & Submit'
+                      ][currentStep - 1]}
+                    </span>
+                  </div>
+                  <div className="fp-mobile-track-tag">
+                    {formData.position ? (
+                      <span className="track-name">{formData.position}</span>
+                    ) : (
+                      <span className="track-empty">Track: Step 2</span>
+                    )}
+                  </div>
+                </div>
+
+                {/* 5-Step Compact Dots / Pills */}
+                <div className="fp-mobile-dots-row">
+                  {[
+                    { num: 1, label: 'Info' },
+                    { num: 2, label: 'Role' },
+                    { num: 3, label: 'CV' },
+                    { num: 4, label: 'Why' },
+                    { num: 5, label: 'Submit' }
+                  ].map((s) => (
+                    <button
+                      key={s.num}
+                      type="button"
+                      className={`fp-mobile-dot-btn ${currentStep === s.num ? 'active' : ''} ${
+                        currentStep > s.num ? 'completed' : ''
+                      }`}
+                      onClick={() => handleStepClick(s.num)}
+                      disabled={s.num > currentStep + 1}
+                      title={`Step ${s.num}: ${s.label}`}
+                    >
+                      <span className="dot-circle">
+                        {currentStep > s.num ? (
+                          <i className="fa-solid fa-check"></i>
+                        ) : (
+                          s.num
+                        )}
+                      </span>
+                      <span className="dot-label">{s.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <div className="fp-form-banner-strip">
                 <span className="fp-banner-kicker">WINTER INTERNSHIP PROGRAMME 2026-27</span>
                 <h2 className="fp-banner-title">
@@ -645,9 +701,9 @@ export default function Careers({ onBack }) {
                       </div>
 
                       <div className="fp-field-block">
-                        <label className="fp-label">Current Year / Semester *</label>
+                        <label className="fp-label">Current Year *</label>
                         <div className="fp-radios-grid">
-                          {['1', '2', '3', '4'].map((yr) => (
+                          {['1st Year', '2nd Year', '3rd Year', '4th Year'].map((yr) => (
                             <div
                               key={yr}
                               className={`fp-radio-item ${formData.currentYearSemester === yr ? 'selected' : ''}`}
@@ -656,7 +712,7 @@ export default function Careers({ onBack }) {
                               <div className="fp-radio-circle">
                                 {formData.currentYearSemester === yr && <div className="fp-radio-inner"></div>}
                               </div>
-                              <span>Year / Semester {yr}</span>
+                              <span>{yr}</span>
                             </div>
                           ))}
                           <div
@@ -671,7 +727,7 @@ export default function Careers({ onBack }) {
                               type="text"
                               className="fp-input"
                               style={{ padding: '6px 12px', fontSize: '0.88rem' }}
-                              placeholder="Specify semester or course year..."
+                              placeholder="Specify course year..."
                               value={formData.currentYearOther}
                               onChange={(e) => {
                                 handleChange('currentYearSemester', 'Other');

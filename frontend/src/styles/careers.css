@@ -1689,69 +1689,553 @@ body:has(.fullpage-portal-wrapper) #main_nav {
   }
 }
 
-/* Responsive */
+/* Desktop: Hide Mobile Stepper HUD */
+.fp-mobile-stepper-header {
+  display: none;
+}
+
+/* ==========================================================================
+   TABLET & INTERMEDIATE BREAKPOINTS (max-width: 992px)
+   ========================================================================== */
 @media (max-width: 992px) {
   .fp-portal-grid {
-    grid-template-columns: 1fr;
+    display: block;
   }
+
+  /* Hide the 500px tall vertical sidebar on tablet/mobile */
   .fp-sidebar-card {
-    position: relative;
-    top: 0;
+    display: none !important;
   }
+
+  /* Show sleek, compact Mobile Stepper HUD */
+  .fp-mobile-stepper-header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 20px;
+    background: #F8FAFC;
+    border-bottom: 1px solid #E2E8F0;
+  }
+
+  .fp-mobile-stepper-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .fp-mobile-step-title-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fp-mobile-step-kicker {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    color: #E81A2D;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+
+  .fp-mobile-step-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #0F172A;
+  }
+
+  .fp-mobile-track-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #FEE2E2;
+    color: #DC2626;
+    border: 1px solid #FECACA;
+    white-space: nowrap;
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .fp-mobile-dots-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .fp-mobile-dot-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+
+  .dot-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #E2E8F0;
+    color: #64748B;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.76rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .fp-mobile-dot-btn.active .dot-circle {
+    background: #E81A2D;
+    color: #FFFFFF;
+    box-shadow: 0 0 10px rgba(232, 26, 45, 0.4);
+  }
+
+  .fp-mobile-dot-btn.completed .dot-circle {
+    background: #DEF7EC;
+    color: #0E9F6E;
+    border: 1.5px solid #31C48D;
+  }
+
+  .dot-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    color: #94A3B8;
+    font-weight: 600;
+  }
+
+  .fp-mobile-dot-btn.active .dot-label {
+    color: #0F172A;
+    font-weight: 700;
+  }
+
+  .fp-mobile-dot-btn.completed .dot-label {
+    color: #0E9F6E;
+  }
+
   .c-perks-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .fp-review-grid {
     grid-template-columns: 1fr;
   }
+
   .fp-review-item.full-width {
     grid-column: span 1;
   }
 }
 
+/* ==========================================================================
+   MOBILE PHONES (max-width: 640px)
+   ========================================================================== */
 @media (max-width: 640px) {
-  .fullpage-portal-wrapper {
-    padding: 90px 16px 60px;
+  /* Careers Main Viewport */
+  .careers-main-viewport {
+    padding: 20px 14px 60px;
+    overflow-x: hidden;
   }
-  .fp-header-nav {
+
+  .c-top-bar {
+    padding: 12px 14px;
+    margin-bottom: 24px;
+  }
+
+  .c-back-link {
+    font-size: 0.74rem;
+    padding: 6px 12px;
+  }
+
+  .c-status-chip {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+  }
+
+  /* Hero */
+  .c-hero {
+    padding: 30px 6px 20px;
+  }
+
+  .c-hero-kicker {
+    font-size: 0.72rem;
+  }
+
+  .c-hero-title {
+    font-size: clamp(1.85rem, 8vw, 2.6rem);
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+
+  .c-hero-subtitle {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin-bottom: 24px;
+  }
+
+  .c-hero-actions {
     flex-direction: column;
-    gap: 16px;
-    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
   }
-  .fp-sub-statusbar {
+
+  .btn-primary-lead,
+  .btn-secondary-lead {
+    width: 100%;
+    min-height: 48px;
+    justify-content: center;
+    font-size: 0.85rem;
+  }
+
+  /* Spotlight Card */
+  .c-program-spotlight {
+    padding: 18px 14px;
+    border-radius: 14px;
+    margin-bottom: 40px;
+  }
+
+  .spotlight-banner-media {
+    border-radius: 8px;
+    margin-bottom: 14px;
+  }
+
+  .spotlight-title {
+    font-size: 1.25rem;
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+
+  .spotlight-company {
+    font-size: 0.74rem;
+    margin-bottom: 16px;
+  }
+
+  .spotlight-grid {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .spotlight-summary-p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .spotlight-meta-list {
+    padding: 12px;
+    border-radius: 10px;
+    gap: 8px;
+  }
+
+  .meta-row {
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
+    gap: 2px;
   }
-  .fp-form-body {
-    padding: 24px 18px;
+
+  .meta-label {
+    font-size: 0.68rem;
   }
-  .fp-form-footer {
-    padding: 18px 20px;
+
+  .meta-val {
+    font-size: 0.82rem;
   }
+
+  /* Perks */
   .c-perks-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
+
+  .c-perk-card {
+    padding: 18px 16px;
+    border-radius: 12px;
+  }
+
+  /* Open Positions Board & Search */
+  .job-board-toolbar {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .job-search-box {
+    max-width: 100%;
+  }
+
+  .job-search-input {
+    font-size: 16px !important; /* Critical to prevent iOS auto-zoom */
+    min-height: 46px;
+    padding: 12px 38px 12px 42px;
+  }
+
+  /* Swipeable horizontal filter chips on mobile */
+  .job-board-filters {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+    gap: 8px;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
+  }
+
+  .job-board-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 10px 16px;
+    font-size: 0.78rem;
+    min-height: 40px;
+  }
+
+  /* Job Row Item */
+  .job-row-item {
+    padding: 18px 16px;
+    border-radius: 12px;
+  }
+
   .job-row-main {
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 14px;
   }
+
+  .job-name-title {
+    font-size: 1.15rem;
+    line-height: 1.3;
+  }
+
+  .job-metadata-chips {
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 0.72rem;
+  }
+
   .job-actions-group {
     width: 100%;
     flex-direction: column;
+    gap: 8px;
   }
+
   .btn-details-toggle,
   .btn-apply-job {
     width: 100%;
     justify-content: center;
+    min-height: 46px;
+    font-size: 0.82rem;
   }
+
+  /* ========================================================================
+     APPLICATION PORTAL ON MOBILE PHONES
+     ======================================================================== */
+  .fullpage-portal-wrapper {
+    padding: 16px 12px 60px !important;
+  }
+
+  .fp-header-nav {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+  }
+
+  .fp-back-btn {
+    padding: 8px 12px;
+    font-size: 0.72rem;
+  }
+
+  .fp-header-brand {
+    display: none; /* Hide verbose desktop brand title to save screen space */
+  }
+
+  .fp-stage-badge {
+    padding: 5px 10px;
+    font-size: 0.7rem;
+  }
+
+  .fp-form-main-card {
+    border-radius: 14px;
+  }
+
+  .fp-form-banner-strip {
+    padding: 18px 16px;
+  }
+
+  .fp-banner-kicker {
+    font-size: 0.68rem;
+  }
+
+  .fp-banner-title {
+    font-size: 1.18rem;
+    line-height: 1.3;
+  }
+
+  .fp-banner-corp {
+    font-size: 0.76rem;
+  }
+
+  .fp-form-body {
+    padding: 18px 14px;
+  }
+
+  .fp-field-block {
+    margin-bottom: 20px;
+  }
+
+  .fp-label {
+    font-size: 0.88rem;
+  }
+
+  .fp-sublabel {
+    font-size: 0.74rem;
+    line-height: 1.4;
+  }
+
+  /* Inputs: 16px font-size prevents iOS auto-zoom */
+  .fp-input,
+  .fp-textarea {
+    font-size: 16px !important;
+    min-height: 48px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .fp-textarea {
+    min-height: 100px;
+  }
+
+  /* Radios */
+  .fp-radios-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .fp-radio-item {
+    min-height: 48px;
+    padding: 12px 14px;
+    font-size: 0.88rem;
+  }
+
+  /* Dropzone & File Card */
+  .fp-dropzone {
+    padding: 22px 14px;
+  }
+
   .fp-file-card-enhanced {
     flex-direction: column;
     align-items: flex-start;
+    gap: 12px;
+    padding: 14px;
   }
+
   .fp-file-card-actions {
     width: 100%;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .fp-file-replace-btn {
+    flex: 1;
+    justify-content: center;
+    min-height: 40px;
+  }
+
+  .fp-file-remove-btn {
+    min-height: 40px;
+    width: 40px;
+  }
+
+  /* Review Summary Card (Step 5) */
+  .fp-review-summary-card {
+    padding: 16px 12px;
+  }
+
+  .fp-review-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .fp-review-heading {
+    font-size: 1.05rem;
+  }
+
+  .fp-review-grid {
+    gap: 10px;
+  }
+
+  .fp-review-item {
+    padding: 10px 12px;
+  }
+
+  .fp-review-row-flex {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .fp-review-edit-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 40px;
+  }
+
+  .fp-terms-container {
+    padding: 12px;
+    font-size: 0.78rem;
+    max-height: 160px;
+  }
+
+  .fp-checkbox-wrap {
+    padding: 12px 10px;
+    font-size: 0.8rem;
+  }
+
+  /* Form Footer */
+  .fp-form-footer {
+    flex-direction: column-reverse;
+    gap: 10px;
+    padding: 16px 14px;
+  }
+
+  .btn-fp-action {
+    width: 100%;
+    min-height: 48px;
+    justify-content: center;
+    font-size: 0.9rem;
+  }
+
+  /* Success Screen */
+  .fp-success-screen {
+    padding: 30px 14px;
+  }
+
+  .fp-success-screen h1 {
+    font-size: 1.5rem !important;
+  }
+
+  .fp-success-screen p {
+    font-size: 0.92rem;
+  }
+
+  .fp-success-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .fp-success-actions .btn-fp-action {
+    width: 100%;
   }
 }
