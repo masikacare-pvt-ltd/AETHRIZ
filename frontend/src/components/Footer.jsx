@@ -1,6 +1,13 @@
 import React from 'react';
 
-export default function Footer() {
+export default function Footer({ onNavigate }) {
+  const handleCareersClick = (e) => {
+    e.preventDefault();
+    if (onNavigate) {
+      onNavigate('careers');
+    }
+  };
+
   return (
     <footer className="footer-zenith" id="terminus">
       <div className="fz-scanline"></div>
@@ -39,6 +46,11 @@ export default function Footer() {
               <li>
                 <a href="#vector" className="cursor-hv">
                   How It Works
+                </a>
+              </li>
+              <li>
+                <a href="#careers" onClick={handleCareersClick} className="cursor-hv" style={{ color: '#E81A2D' }}>
+                  Careers / Internship
                 </a>
               </li>
             </ul>
