@@ -130,6 +130,12 @@ const fileToBase64 = (file) => {
   });
 };
 
+// Formats a sequence index to AETH-WI26-001, AETH-WI26-002, etc.
+const formatSequentialRefId = (count) => {
+  const num = Math.max(1, parseInt(count, 10) || 1);
+  return `AETH-WI26-${String(num).padStart(3, '0')}`;
+};
+
 export default function Careers({ onBack }) {
   // Page mode: 'overview' (Corporate Careers Landing) | 'apply' (Dedicated Full-Page Application)
   const [viewMode, setViewMode] = useState('overview');
@@ -146,6 +152,7 @@ export default function Careers({ onBack }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   const [refId, setRefId] = useState('');
+  const [seqRefId, setSeqRefId] = useState('');
 
   // Form Fields State
   const initialForm = {
@@ -213,6 +220,94 @@ export default function Careers({ onBack }) {
       document.body.classList.remove('in-apply-portal');
     }
     return () => document.body.classList.remove('in-apply-portal');
+  }, [viewMode]);
+
+  // Synchronize next sequential Reference ID (AETH-WI26-001, AETH-WI26-002, etc.)
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchApplicantCount = async () => {
+      // 1. Try JSONP to bypass CORS seamlessly across domains
+      try {
+        const jsonpPromise = new Promise((resolve, reject) => {
+          const cbName = 'aeth_cb_' + Math.floor(Math.random() * 1000000);
+          const script = document.createElement('script');
+          const sep = GOOGLE_SHEET_ENDPOINT.includes('?') ? '&' : '?';
+          script.src = `${GOOGLE_SHEET_ENDPOINT}${sep}action=getCount&callback=${cbName}`;
+
+          const timer = setTimeout(() => {
+            cleanup();
+            reject(new Error('timeout'));
+          }, 4500);
+
+          const cleanup = () => {
+            clearTimeout(timer);
+            if (script.parentNode) script.parentNode.removeChild(script);
+            delete window[cbName];
+          };
+
+          window[cbName] = (resp) => {
+            cleanup();
+            resolve(resp);
+          };
+
+          script.onerror = () => {
+            cleanup();
+            reject(new Error('script error'));
+          };
+
+          document.body.appendChild(script);
+        });
+
+        const res = await jsonpPromise;
+        if (isMounted && res && res.nextRefId) {
+          setSeqRefId(res.nextRefId);
+          try {
+            localStorage.setItem('aethriz_last_known_ref_id', res.nextRefId);
+          } catch (e) {}
+          return;
+        }
+      } catch (err) {
+        // Fallback to standard fetch or local count
+      }
+
+      // 2. Try standard fetch GET
+      try {
+        const resp = await fetch(GOOGLE_SHEET_ENDPOINT + '?action=getCount');
+        if (resp.ok) {
+          const data = await resp.json();
+          if (isMounted && data && data.nextRefId) {
+            setSeqRefId(data.nextRefId);
+            try {
+              localStorage.setItem('aethriz_last_known_ref_id', data.nextRefId);
+            } catch (e) {}
+            return;
+          }
+        }
+      } catch (e) {
+        // Fallback below
+      }
+
+      // 3. Fallback from localStorage or start at AETH-WI26-001
+      try {
+        const savedRef = localStorage.getItem('aethriz_last_known_ref_id');
+        if (isMounted) {
+          setSeqRefId(savedRef || 'AETH-WI26-001');
+        }
+      } catch (e) {
+        if (isMounted) setSeqRefId('AETH-WI26-001');
+      }
+    };
+
+    if (GOOGLE_SHEET_ENDPOINT) {
+      fetchApplicantCount();
+    } else {
+      setSeqRefId('AETH-WI26-001');
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [viewMode]);
 
   // Step click navigation (can jump back to completed steps)
@@ -341,7 +436,17 @@ export default function Careers({ onBack }) {
     if (!validateStep(5)) return;
 
     setIsSubmitting(true);
-    const generatedId = `AETH-W26-${Math.floor(100000 + Math.random() * 900000)}`;
+
+    // Sequential Reference ID (AETH-WI26-001, AETH-WI26-002, etc.)
+    let generatedId = seqRefId;
+    if (!generatedId) {
+      try {
+        const localCached = localStorage.getItem('aethriz_last_known_ref_id');
+        generatedId = localCached || 'AETH-WI26-001';
+      } catch (err) {
+        generatedId = 'AETH-WI26-001';
+      }
+    }
 
     let resumeBase64 = '';
     let resumeMimeType = '';
@@ -395,6 +500,11 @@ export default function Careers({ onBack }) {
       setRefId(generatedId);
       setIsSubmitted(true);
       try {
+        // Advance sequence for subsequent applications
+        const currentNumeric = parseInt(generatedId.replace('AETH-WI26-', ''), 10) || 1;
+        const nextId = formatSequentialRefId(currentNumeric + 1);
+        localStorage.setItem('aethriz_last_known_ref_id', nextId);
+        setSeqRefId(nextId);
         localStorage.removeItem('aethriz_candidate_draft');
       } catch (e) {
         // ignore
