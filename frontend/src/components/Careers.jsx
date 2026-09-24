@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/careers.css';
 
+// Google Apps Script Web App Endpoint for Real-Time Google Sheet Intake
+const GOOGLE_SHEET_ENDPOINT =
+  'https://script.google.com/macros/s/AKfycbxc_-D6X0uozC2P3nDMkrSxdQHFj7Ma73XUL9c6H2bmBWTh3Rb4wTW3MkY9n-3rPPZm/exec';
+
 const ROLES_LIST = [
   {
     id: 'ai-ml',
@@ -108,6 +112,23 @@ const ROLES_LIST = [
     ]
   }
 ];
+
+// Convert File to Base64 data string for Google Drive upload
+const fileToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const result = reader.result;
+      const base64 =
+        typeof result === 'string' && result.includes(',')
+          ? result.split(',')[1]
+          : result;
+      resolve(base64);
+    };
+    reader.onerror = (error) => reject(error);
+  });
+};
 
 export default function Careers({ onBack }) {
   // Page mode: 'overview' (Corporate Careers Landing) | 'apply' (Dedicated Full-Page Application)
@@ -315,14 +336,62 @@ export default function Careers({ onBack }) {
     }
   };
 
-  const handleSubmitApplication = (e) => {
+  const handleSubmitApplication = async (e) => {
     e.preventDefault();
     if (!validateStep(5)) return;
 
     setIsSubmitting(true);
-    setTimeout(() => {
+    const generatedId = `AETH-W26-${Math.floor(100000 + Math.random() * 900000)}`;
+
+    let resumeBase64 = '';
+    let resumeMimeType = '';
+    if (formData.resumeFile) {
+      try {
+        resumeBase64 = await fileToBase64(formData.resumeFile);
+        resumeMimeType = formData.resumeFile.type || 'application/pdf';
+      } catch (fileErr) {
+        console.warn('Failed to encode resume file:', fileErr);
+      }
+    }
+
+    const payload = {
+      refId: generatedId,
+      fullName: formData.fullName,
+      emailAddress: formData.emailAddress,
+      phone: formData.phone,
+      collegeCourse: formData.collegeCourse,
+      currentYearSemester: formData.currentYearSemester,
+      currentYearOther: formData.currentYearOther,
+      cityState: formData.cityState,
+      position: formData.position,
+      keySkills: formData.keySkills,
+      hasExperience: formData.hasExperience,
+      experienceDetails: formData.experienceDetails,
+      portfolioUrl: formData.portfolioUrl,
+      resumeFileName: formData.resumeFileName,
+      resumeBase64: resumeBase64,
+      resumeMimeType: resumeMimeType,
+      availableFullPeriod: formData.availableFullPeriod,
+      comfortableRemote: formData.comfortableRemote,
+      whyJoin: formData.whyJoin,
+      contribution: formData.contribution
+    };
+
+    try {
+      if (GOOGLE_SHEET_ENDPOINT) {
+        await fetch(GOOGLE_SHEET_ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify(payload)
+        });
+      }
+    } catch (err) {
+      console.warn('Google Sheet submission warning:', err);
+    } finally {
       setIsSubmitting(false);
-      const generatedId = `AETH-W26-${Math.floor(100000 + Math.random() * 900000)}`;
       setRefId(generatedId);
       setIsSubmitted(true);
       try {
@@ -330,7 +399,7 @@ export default function Careers({ onBack }) {
       } catch (e) {
         // ignore
       }
-    }, 1200);
+    }
   };
 
   // Filtered jobs in overview
@@ -378,88 +447,39 @@ export default function Careers({ onBack }) {
           ></div>
         </div>
 
-        {/* Portal Meta Sub-bar */}
-        <div className="fp-sub-statusbar">
-          <div className="fp-status-left">
-            <i className="fa-regular fa-clock" style={{ color: '#E81A2D' }}></i>
-            <span>Estimated completion: ~3 mins</span>
-          </div>
-          <div className="fp-status-right">
-            <i className="fa-solid fa-circle-check" style={{ color: '#10B981' }}></i>
-            <span>Draft auto-saved locally</span>
-          </div>
-        </div>
-
         {/* Success Screen */}
         {isSubmitted ? (
           <div className="fp-success-screen">
             <div className="fp-success-icon">
               <i className="fa-solid fa-check"></i>
             </div>
-            <h1 style={{ fontFamily: 'Inter, sans-serif', fontSize: '2rem', fontWeight: 800, color: '#0F172A' }}>
+            <h1 style={{ fontFamily: 'Inter, sans-serif', fontSize: '2rem', fontWeight: 800, color: '#0F172A', marginBottom: '8px' }}>
               Application Successfully Submitted
             </h1>
-            <p style={{ color: '#475569', fontSize: '1rem', lineHeight: '1.6', maxWidth: '580px' }}>
+            <p style={{ color: '#475569', fontSize: '1.05rem', lineHeight: '1.6', maxWidth: '560px', margin: '0 auto 16px' }}>
               Thank you for applying to the <strong>AETHRIZ Winter Internship Programme 2026-27</strong>. Your application
               has been recorded in our talent acquisition database.
             </p>
 
-            {/* Official Printable Receipt Card */}
-            <div className="fp-receipt-card" id="printable-receipt">
-              <div className="fp-receipt-letterhead">
-                <div>
-                  <span className="receipt-brand-title">AETHRIZ AI HEALTHCARE & RESEARCH PRIVATE LIMITED</span>
-                  <span className="receipt-brand-sub">Winter Internship Programme 2026–27 • Official Candidate Receipt</span>
-                </div>
-                <div className="receipt-verified-stamp">
-                  <i className="fa-solid fa-shield-halved"></i> VERIFIED
-                </div>
+            {refId && (
+              <div style={{
+                fontFamily: 'Space Mono, monospace',
+                fontSize: '0.85rem',
+                color: '#64748B',
+                background: '#F8FAFC',
+                border: '1px solid #E2E8F0',
+                padding: '8px 18px',
+                borderRadius: '8px',
+                display: 'inline-block',
+                marginBottom: '26px'
+              }}>
+                Reference ID: <strong style={{ color: '#E81A2D' }}>{refId}</strong>
               </div>
-
-              <div className="fp-receipt-row">
-                <span style={{ color: '#64748B' }}>Dossier Reference ID:</span>
-                <span style={{ fontFamily: 'Space Mono, monospace', fontWeight: 700, color: '#E81A2D', fontSize: '1.05rem' }}>{refId}</span>
-              </div>
-              <div className="fp-receipt-row">
-                <span style={{ color: '#64748B' }}>Candidate Name:</span>
-                <span style={{ fontWeight: 600, color: '#0F172A' }}>{formData.fullName}</span>
-              </div>
-              <div className="fp-receipt-row">
-                <span style={{ color: '#64748B' }}>Applied Position:</span>
-                <span style={{ fontWeight: 600, color: '#0F172A' }}>{formData.position}</span>
-              </div>
-              <div className="fp-receipt-row">
-                <span style={{ color: '#64748B' }}>Registered Email:</span>
-                <span style={{ fontWeight: 600, color: '#0F172A' }}>{formData.emailAddress}</span>
-              </div>
-              <div className="fp-receipt-row">
-                <span style={{ color: '#64748B' }}>Mobile / WhatsApp:</span>
-                <span style={{ fontWeight: 600, color: '#0F172A' }}>{formData.phone}</span>
-              </div>
-              <div className="fp-receipt-row">
-                <span style={{ color: '#64748B' }}>Institution & Course:</span>
-                <span style={{ fontWeight: 600, color: '#0F172A' }}>{formData.collegeCourse}</span>
-              </div>
-              <div className="fp-receipt-row">
-                <span style={{ color: '#64748B' }}>Cohort Duration:</span>
-                <span style={{ fontWeight: 600, color: '#0F172A' }}>15 Oct 2026 – 15 Jan 2027 (100% Remote)</span>
-              </div>
-              <div className="fp-receipt-row">
-                <span style={{ color: '#64748B' }}>Attached CV:</span>
-                <span style={{ fontWeight: 600, color: '#0F172A' }}>{formData.resumeFileName || 'Uploaded'}</span>
-              </div>
-
-              <div className="receipt-footer-clause">
-                Official acknowledgement recorded. Selection updates and next assessment steps will be sent to the registered email address.
-              </div>
-            </div>
+            )}
 
             <div className="fp-success-actions">
-              <button
-                className="btn-fp-action primary"
-                onClick={() => window.print()}
-              >
-                <i className="fa-solid fa-print"></i> Print Official Receipt / Save PDF
+              <button className="btn-fp-action" onClick={handleReturnToOverview}>
+                Back to Careers Overview <i className="fa-solid fa-arrow-right"></i>
               </button>
               <button
                 className="btn-fp-action secondary"
@@ -470,9 +490,6 @@ export default function Careers({ onBack }) {
                 }}
               >
                 Submit Another Application
-              </button>
-              <button className="btn-fp-action secondary" onClick={handleReturnToOverview}>
-                Back to Careers Overview
               </button>
             </div>
           </div>
