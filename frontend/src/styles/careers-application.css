@@ -1,0 +1,1428 @@
+/* ==========================================================================
+   AETHRIZ CINEMATIC 30% / 70% SPLIT APPLICATION EXPERIENCE
+   - White / Light Cybernetic Theme (Matching AETHRIZ Signature Aesthetic)
+   - 30% Left Screen: Role Name, Track Switcher, Meta Badges & Role Details
+   - 70% Right Screen: Realistic Multi-Step Application Form (Steps 1–6)
+   - Smooth Slide & Split Screen Transition on "Start Application"
+   - Ink Black (#07090F), Clean White (#FFFFFF), Crimson Accents (#E81A2D)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   STAGE VIEWPORT & TRANSITION ENGINES
+   -------------------------------------------------------------------------- */
+.careers-stage-viewport {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: transparent;
+}
+
+/* Panel 1: Careers Overview Container */
+.careers-overview-container {
+  width: 100%;
+  min-height: 100vh;
+  background: transparent;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.55s ease,
+              filter 0.55s ease;
+  transform: translateX(0) scale(1);
+  opacity: 1;
+  filter: blur(0px);
+  will-change: transform, opacity, filter;
+}
+
+.careers-overview-container.slide-out-left {
+  transform: translateX(-15vw) scale(0.96);
+  opacity: 0;
+  filter: blur(10px);
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+/* Panel 2: Cinematic 30/70 Application Container */
+.careers-app-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+  background: #F8FAFC;
+  color: #07090F;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.55s ease;
+  transform: translateX(100vw);
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  will-change: transform, opacity;
+}
+
+.careers-app-container.active {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.careers-app-container.closing {
+  transform: translateX(100vw);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   30% / 70% SPLIT LAYOUT WRAPPER
+   -------------------------------------------------------------------------- */
+.careers-split-layout {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background: #F8FAFC;
+}
+
+/* Ambient glow & cyber grid across the light experience */
+.cine-bg-mesh {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(232, 26, 45, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(59, 130, 246, 0.05) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.7) 0%, transparent 60%);
+  animation: splitMeshDrift 24s ease-in-out infinite alternate;
+}
+
+.cine-bg-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background-image:
+    linear-gradient(to right, rgba(7, 9, 15, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(7, 9, 15, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 90%);
+  mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 90%);
+}
+
+@keyframes splitMeshDrift {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.04) translate(1vw, -1vh); }
+}
+
+/* ==========================================================================
+   LEFT 30% SCREEN: ROLE DETAILS SIDEBAR (.cine-role-sidebar)
+   ========================================================================== */
+.cine-role-sidebar {
+  width: 32%;
+  min-width: 320px;
+  max-width: 440px;
+  height: 100%;
+  background: #FFFFFF;
+  border-right: 1px solid rgba(7, 9, 15, 0.08);
+  display: flex;
+  flex-direction: column;
+  padding: 32px 30px;
+  position: relative;
+  z-index: 10;
+  overflow-y: auto;
+  box-shadow: 6px 0 24px rgba(7, 9, 15, 0.04);
+  animation: sidebarEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes sidebarEntrance {
+  0% {
+    transform: translateX(-40px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.sidebar-ambient-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 280px;
+  pointer-events: none;
+  background: radial-gradient(circle at 10% 0%, rgba(232, 26, 45, 0.08) 0%, transparent 70%);
+  z-index: 1;
+}
+
+/* Sidebar Top Brand Header */
+.sidebar-top-brand {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(7, 9, 15, 0.08);
+}
+
+.sidebar-brand-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #07090F;
+}
+
+.brand-red-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #E81A2D;
+  box-shadow: 0 0 10px #E81A2D;
+}
+
+.sidebar-cohort-chip {
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #E81A2D;
+  background: rgba(232, 26, 45, 0.08);
+  border: 1px solid rgba(232, 26, 45, 0.25);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+/* Sidebar Role Header */
+.sidebar-role-header {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 22px;
+}
+
+.sidebar-kicker {
+  display: block;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #64748B;
+  margin-bottom: 8px;
+}
+
+.sidebar-role-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.95rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #07090F;
+  margin-bottom: 14px;
+}
+
+.sidebar-role-title i {
+  font-style: italic;
+  font-weight: 400;
+  color: #E81A2D;
+}
+
+/* Track Switcher Dropdown */
+.sidebar-track-switcher-wrap {
+  position: relative;
+  margin-top: 8px;
+}
+
+.sidebar-switch-btn {
+  background: rgba(7, 9, 15, 0.04);
+  border: 1px solid rgba(7, 9, 15, 0.12);
+  color: #07090F;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sidebar-switch-btn:hover {
+  background: rgba(232, 26, 45, 0.1);
+  border-color: rgba(232, 26, 45, 0.35);
+  color: #E81A2D;
+}
+
+.sidebar-roles-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 100%;
+  max-width: 320px;
+  background: #FFFFFF;
+  border: 1px solid rgba(7, 9, 15, 0.12);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 16px 36px rgba(7, 9, 15, 0.12);
+  z-index: 50;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.dropdown-role-item {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: 9px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: background 0.2s ease;
+}
+
+.dropdown-role-item:hover {
+  background: rgba(7, 9, 15, 0.04);
+}
+
+.dropdown-role-item.active {
+  background: rgba(232, 26, 45, 0.08);
+  border: 1px solid rgba(232, 26, 45, 0.25);
+}
+
+.drop-role-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #07090F;
+}
+
+.drop-role-dept {
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: #64748B;
+}
+
+/* Sidebar Meta Badges */
+.sidebar-meta-badges {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.sidebar-meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(7, 9, 15, 0.035);
+  border: 1px solid rgba(7, 9, 15, 0.08);
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #334155;
+}
+
+.sidebar-meta-pill i {
+  font-size: 0.72rem;
+}
+
+/* Sidebar Information Sections */
+.sidebar-section {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 22px;
+}
+
+.sidebar-section-title {
+  display: block;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #E81A2D;
+  margin-bottom: 8px;
+}
+
+.sidebar-overview-text {
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: #475569;
+  margin: 0;
+}
+
+/* Responsibilities List */
+.sidebar-bullets-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-bullets-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #334155;
+}
+
+.bullet-arrow {
+  color: #E81A2D;
+  font-weight: 700;
+  flex-shrink: 0;
+  line-height: 1.5;
+}
+
+/* Skills Tags Cloud */
+.sidebar-tags-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.sidebar-skill-tag {
+  background: rgba(7, 9, 15, 0.035);
+  border: 1px solid rgba(7, 9, 15, 0.08);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #1E293B;
+}
+
+/* Cohort Perks Box */
+.sidebar-perks-box {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid rgba(7, 9, 15, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.perk-mini-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(7, 9, 15, 0.025);
+  border: 1px solid rgba(7, 9, 15, 0.06);
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 0.76rem;
+  color: #475569;
+}
+
+.perk-mini-item i {
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+/* Sidebar Footer & Return Button */
+.sidebar-footer {
+  position: relative;
+  z-index: 2;
+}
+
+.sidebar-return-btn {
+  width: 100%;
+  background: rgba(7, 9, 15, 0.03);
+  border: 1px solid rgba(7, 9, 15, 0.1);
+  color: #475569;
+  height: 42px;
+  border-radius: 8px;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.sidebar-return-btn:hover {
+  background: rgba(232, 26, 45, 0.08);
+  border-color: rgba(232, 26, 45, 0.3);
+  color: #E81A2D;
+}
+
+/* ==========================================================================
+   RIGHT 70% SCREEN: APPLICATION FORM STAGE (.cine-form-stage)
+   ========================================================================== */
+.cine-form-stage {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  background: #F8FAFC;
+  animation: stageEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes stageEntrance {
+  0% {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.cine-stage-mesh {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(circle at 75% 20%, rgba(232, 26, 45, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 40% 80%, rgba(59, 130, 246, 0.04) 0%, transparent 45%);
+}
+
+.cine-stage-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background-image:
+    linear-gradient(to right, rgba(7, 9, 15, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(7, 9, 15, 0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Top Progress Header Bar */
+.stage-top-bar {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 48px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(7, 9, 15, 0.06);
+}
+
+.stage-step-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: #64748B;
+}
+
+.step-prefix {
+  font-weight: 500;
+  color: #94A3B8;
+}
+
+.step-current {
+  font-weight: 700;
+  color: #07090F;
+}
+
+.step-divider {
+  color: #CBD5E1;
+}
+
+.step-total {
+  color: #94A3B8;
+}
+
+.stage-progress-track {
+  width: 220px;
+  height: 4px;
+  background: rgba(7, 9, 15, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.stage-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #E81A2D, #FF3B4E);
+  box-shadow: 0 0 10px rgba(232, 26, 45, 0.4);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 999px;
+}
+
+.stage-close-btn {
+  background: rgba(7, 9, 15, 0.04);
+  border: 1px solid rgba(7, 9, 15, 0.1);
+  color: #475569;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.2s ease;
+}
+
+.stage-close-btn:hover {
+  background: rgba(232, 26, 45, 0.1);
+  border-color: rgba(232, 26, 45, 0.35);
+  color: #E81A2D;
+}
+
+/* Main Form Viewport */
+.stage-form-viewport {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  overflow-y: auto;
+  padding: 40px 48px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.stage-slide-content {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.stage-slide-fwd {
+  animation: stageSlideFwd 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.stage-slide-bwd {
+  animation: stageSlideBwd 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes stageSlideFwd {
+  0% {
+    opacity: 0;
+    transform: translateX(30px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes stageSlideBwd {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* Question Header Group */
+.stage-card-box {
+  width: 100%;
+}
+
+.stage-header-group {
+  margin-bottom: 30px;
+}
+
+.stage-kicker {
+  display: inline-block;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #E81A2D;
+  margin-bottom: 8px;
+}
+
+.stage-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #07090F;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+
+.stage-h1 i {
+  font-style: italic;
+  font-weight: 400;
+  color: #475569;
+}
+
+.stage-desc {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #64748B;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   FORM FIELDS & REALISTIC CONTROLS
+   -------------------------------------------------------------------------- */
+.stage-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.stage-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stage-field-full {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stage-label {
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.req-dot {
+  color: #E81A2D;
+}
+
+.stage-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input-icon {
+  position: absolute;
+  left: 16px;
+  font-size: 0.85rem;
+  color: #94A3B8;
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.stage-text-input {
+  width: 100%;
+  height: 48px;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 10px;
+  padding: 0 16px 0 44px;
+  color: #07090F;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  box-shadow: 0 1px 3px rgba(7, 9, 15, 0.04);
+  transition: all 0.2s ease;
+}
+
+.stage-text-input:focus {
+  outline: none;
+  border-color: #E81A2D;
+  box-shadow: 0 0 0 3px rgba(232, 26, 45, 0.12);
+}
+
+.stage-text-input:focus + .input-icon,
+.stage-input-wrap:focus-within .input-icon {
+  color: #E81A2D;
+}
+
+.stage-text-input::placeholder {
+  color: #94A3B8;
+}
+
+.stage-textarea {
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 10px;
+  padding: 14px 16px;
+  color: #07090F;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  resize: vertical;
+  box-shadow: 0 1px 3px rgba(7, 9, 15, 0.04);
+  transition: all 0.2s ease;
+}
+
+.stage-textarea:focus {
+  outline: none;
+  border-color: #E81A2D;
+  box-shadow: 0 0 0 3px rgba(232, 26, 45, 0.12);
+}
+
+.stage-textarea::placeholder {
+  color: #94A3B8;
+}
+
+/* --------------------------------------------------------------------------
+   STEP 2: JOURNEY MILESTONE CARDS
+   -------------------------------------------------------------------------- */
+.stage-journey-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.stage-journey-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-shadow: 0 1px 3px rgba(7, 9, 15, 0.03);
+  transition: all 0.2s ease;
+}
+
+.stage-journey-card:hover {
+  background: #FFFFFF;
+  border-color: #CBD5E1;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(7, 9, 15, 0.06);
+}
+
+.stage-journey-card.selected {
+  background: rgba(232, 26, 45, 0.04);
+  border-color: #E81A2D;
+  box-shadow: 0 0 0 1px #E81A2D, 0 4px 14px rgba(232, 26, 45, 0.12);
+}
+
+.journey-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.journey-title {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #07090F;
+}
+
+.journey-desc {
+  font-size: 0.72rem;
+  color: #64748B;
+  line-height: 1.4;
+}
+
+.journey-radio {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid #CBD5E1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.stage-journey-card.selected .journey-radio {
+  border-color: #E81A2D;
+  background: #E81A2D;
+}
+
+.radio-check {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #FFFFFF;
+}
+
+/* --------------------------------------------------------------------------
+   STEP 3: SKILL PILLS & CUSTOM ADD
+   -------------------------------------------------------------------------- */
+.stage-skills-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.skills-count-pill {
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #475569;
+  background: rgba(7, 9, 15, 0.04);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.skills-count-pill strong {
+  color: #E81A2D;
+}
+
+.stage-pills-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.stage-pill-tag {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  color: #334155;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  box-shadow: 0 1px 2px rgba(7, 9, 15, 0.03);
+  transition: all 0.2s ease;
+}
+
+.stage-pill-tag:hover {
+  border-color: #94A3B8;
+  color: #07090F;
+}
+
+.stage-pill-tag.selected {
+  background: #E81A2D;
+  border-color: #E81A2D;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(232, 26, 45, 0.3);
+}
+
+.pill-check {
+  font-size: 0.72rem;
+}
+
+.stage-custom-skill-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 14px;
+}
+
+.stage-skill-add-btn {
+  background: rgba(7, 9, 15, 0.04);
+  border: 1px solid rgba(7, 9, 15, 0.12);
+  color: #07090F;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 8px;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.stage-skill-add-btn:hover {
+  background: rgba(232, 26, 45, 0.1);
+  border-color: rgba(232, 26, 45, 0.35);
+  color: #E81A2D;
+}
+
+/* --------------------------------------------------------------------------
+   STEP 4: PROJECT LINKS & REPOSITORIES
+   -------------------------------------------------------------------------- */
+.stage-links-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   STEP 5: RESUME DROPZONE & PREVIEW
+   -------------------------------------------------------------------------- */
+.stage-dropzone {
+  border: 2px dashed #CBD5E1;
+  border-radius: 12px;
+  padding: 44px 24px;
+  text-align: center;
+  background: #FFFFFF;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(7, 9, 15, 0.03);
+  transition: all 0.25s ease;
+}
+
+.stage-dropzone:hover,
+.stage-dropzone.dragging {
+  border-color: #E81A2D;
+  background: rgba(232, 26, 45, 0.02);
+  box-shadow: 0 0 20px rgba(232, 26, 45, 0.1);
+}
+
+.dropzone-icon-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(232, 26, 45, 0.08);
+  border: 1px solid rgba(232, 26, 45, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 1.25rem;
+  color: #E81A2D;
+}
+
+.dropzone-h3 {
+  font-size: 0.96rem;
+  font-weight: 600;
+  color: #07090F;
+  margin-bottom: 6px;
+}
+
+.dropzone-sub {
+  font-size: 0.78rem;
+  color: #64748B;
+  margin-bottom: 16px;
+}
+
+.dropzone-browse-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(7, 9, 15, 0.04);
+  border: 1px solid rgba(7, 9, 15, 0.12);
+  color: #07090F;
+  padding: 7px 18px;
+  border-radius: 999px;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.stage-file-preview-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFFFFF;
+  border: 1px solid rgba(232, 26, 45, 0.35);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 16px rgba(232, 26, 45, 0.08);
+}
+
+.file-preview-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.file-type-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(232, 26, 45, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #E81A2D;
+  font-size: 1.1rem;
+}
+
+.file-preview-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.file-preview-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #07090F;
+}
+
+.file-preview-size {
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #64748B;
+}
+
+.file-remove-btn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 6px;
+  transition: color 0.2s ease;
+}
+
+.file-remove-btn:hover {
+  color: #E81A2D;
+}
+
+/* --------------------------------------------------------------------------
+   STEP 6: SUMMARY REVIEW DECK & AGREEMENT
+   -------------------------------------------------------------------------- */
+.stage-review-deck {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.stage-review-item {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  box-shadow: 0 1px 3px rgba(7, 9, 15, 0.02);
+}
+
+.stage-review-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.rev-lbl {
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: #64748B;
+  letter-spacing: 0.08em;
+}
+
+.rev-val {
+  font-size: 0.82rem;
+  color: #07090F;
+  font-weight: 600;
+}
+
+.stage-agree-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 18px;
+  cursor: pointer;
+}
+
+.stage-agree-row input[type="checkbox"] {
+  accent-color: #E81A2D;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  cursor: pointer;
+}
+
+.agree-text {
+  font-size: 0.78rem;
+  color: #475569;
+  line-height: 1.5;
+}
+
+/* Validation Toast */
+.stage-val-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(232, 26, 45, 0.08);
+  border: 1px solid rgba(232, 26, 45, 0.3);
+  color: #DC2626;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  animation: shakeToast 0.4s ease;
+}
+
+@keyframes shakeToast {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* --------------------------------------------------------------------------
+   STEP 7: SUCCESS SCREEN
+   -------------------------------------------------------------------------- */
+.stage-success-box {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.success-icon-badge {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: #10B981;
+  margin: 0 auto 20px;
+  box-shadow: 0 0 24px rgba(16, 185, 129, 0.2);
+}
+
+.success-receipt-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 18px 24px;
+  display: flex;
+  justify-content: space-around;
+  gap: 16px;
+  margin: 0 auto;
+  max-width: 520px;
+  text-align: left;
+  box-shadow: 0 4px 16px rgba(7, 9, 15, 0.04);
+}
+
+.receipt-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.receipt-label {
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: #64748B;
+  letter-spacing: 0.08em;
+}
+
+.receipt-val {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #07090F;
+}
+
+.receipt-val.crimson {
+  color: #E81A2D;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+}
+
+.receipt-copy-btn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 2px;
+  transition: color 0.2s ease;
+}
+
+.receipt-copy-btn:hover {
+  color: #07090F;
+}
+
+/* --------------------------------------------------------------------------
+   FLOATING BOTTOM ACTION BAR
+   -------------------------------------------------------------------------- */
+.stage-bottom-bar {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 48px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(7, 9, 15, 0.06);
+}
+
+.stage-hint-col {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #64748B;
+}
+
+.stage-key-badge {
+  background: rgba(7, 9, 15, 0.04);
+  border: 1px solid rgba(7, 9, 15, 0.12);
+  border-radius: 4px;
+  padding: 2px 7px;
+  color: #07090F;
+  font-weight: 700;
+}
+
+.stage-actions-col {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stage-secondary-btn {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  color: #07090F;
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 1px 3px rgba(7, 9, 15, 0.04);
+  transition: all 0.2s ease;
+}
+
+.stage-secondary-btn:hover:not(:disabled) {
+  background: #F1F5F9;
+  border-color: #94A3B8;
+}
+
+.stage-primary-btn {
+  background: #E81A2D;
+  border: 1px solid #E81A2D;
+  color: #FFFFFF;
+  height: 44px;
+  padding: 0 26px;
+  border-radius: 999px;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  box-shadow: 0 6px 20px rgba(232, 26, 45, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stage-primary-btn:hover:not(:disabled) {
+  background: #FF1E33;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(232, 26, 45, 0.5);
+}
+
+.stage-primary-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (TABLETS & MOBILE)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .cine-role-sidebar {
+    width: 36%;
+    padding: 24px 20px;
+  }
+
+  .stage-form-viewport {
+    padding: 30px 24px;
+  }
+
+  .stage-top-bar,
+  .stage-bottom-bar {
+    padding: 16px 24px;
+  }
+}
+
+@media (max-width: 840px) {
+  .careers-split-layout {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .cine-role-sidebar {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(7, 9, 15, 0.1);
+    box-shadow: none;
+    padding: 20px 20px;
+  }
+
+  .sidebar-perks-box {
+    display: none;
+  }
+
+  .cine-form-stage {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .stage-form-grid,
+  .stage-journey-grid,
+  .stage-links-grid,
+  .stage-review-deck {
+    grid-template-columns: 1fr;
+  }
+
+  .stage-hint-col {
+    display: none;
+  }
+
+  .stage-progress-track {
+    width: 120px;
+  }
+}
+
+@media (max-width: 540px) {
+  .sidebar-role-title {
+    font-size: 1.5rem;
+  }
+
+  .stage-h1 {
+    font-size: 1.65rem;
+  }
+
+  .stage-top-bar,
+  .stage-bottom-bar {
+    padding: 12px 16px;
+  }
+
+  .success-receipt-card {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

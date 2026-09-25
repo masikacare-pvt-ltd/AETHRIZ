@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/careers.css';
-import CinematicApplicationExperience from './careers/CinematicApplicationExperience';
+import '../styles/careers-application.css';
+import CareersApplicationExperience from './careers/CareersApplicationExperience';
 
 const ROLES_LIST = [
   {
@@ -129,10 +130,13 @@ export default function Careers({ onBack }) {
     setViewMode('apply');
   };
 
-  // Exit back to overview
+  // Exit back to overview with smooth reverse slide transition
   const handleReturnToOverview = () => {
-    setViewMode('overview');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setViewMode('closing');
+    setTimeout(() => {
+      setViewMode('overview');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }, 600);
   };
 
   // Filtered jobs in overview
@@ -148,23 +152,11 @@ export default function Careers({ onBack }) {
     return matchesCategory && matchesQuery;
   });
 
-  // =========================================================================
-  // VIEW MODE 1: CINEMATIC CANDIDATE EXPERIENCE (ONE QUESTION AT A TIME)
-  // =========================================================================
-  if (viewMode === 'apply') {
-    return (
-      <CinematicApplicationExperience
-        role={selectedRole}
-        onExit={handleReturnToOverview}
-      />
-    );
-  }
-
-  // =========================================================================
-  // VIEW MODE 2: CORPORATE CAREERS & OPPORTUNITIES PAGE (OVERVIEW)
-  // =========================================================================
   return (
-    <div className="careers-main-viewport">
+    <div className="careers-stage-viewport">
+      {/* Panel 1: Careers Overview (slides left with blur and scale when applying) */}
+      <div className={`careers-overview-container ${viewMode === 'apply' ? 'slide-out-left' : ''}`}>
+        <div className="careers-main-viewport">
       {/* Top HUD Nav */}
       <div className="c-top-bar">
         <button className="c-back-link" onClick={onBack}>
@@ -179,7 +171,7 @@ export default function Careers({ onBack }) {
 
       {/* Hero Section */}
       <section className="c-hero">
-        <span className="c-hero-kicker">// JOIN THE VANGUARD</span>
+        <span className="c-hero-kicker">// WINTER COHORT 2026-27</span>
         <h1 className="c-hero-title">
           Build the Future of <br />
           <i>Bio-Algorithmic Health.</i>
@@ -475,6 +467,20 @@ export default function Careers({ onBack }) {
           )}
         </div>
       </section>
+    </div>
+  </div>
+
+      {/* Panel 2: Cinematic Application Experience (slides in from right) */}
+      <div className={`careers-app-container ${viewMode === 'apply' ? 'active' : ''} ${viewMode === 'closing' ? 'closing' : ''}`}>
+        {(viewMode === 'apply' || viewMode === 'closing') && (
+          <CareersApplicationExperience
+            role={selectedRole}
+            rolesList={ROLES_LIST}
+            onSelectRole={setSelectedRole}
+            onExit={handleReturnToOverview}
+          />
+        )}
+      </div>
     </div>
   );
 }
