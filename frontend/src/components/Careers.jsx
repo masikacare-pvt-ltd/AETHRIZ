@@ -1327,8 +1327,10 @@ export default function Careers({ onBack }) {
       <section className="c-program-spotlight">
         <div className="spotlight-banner-media">
           <img
-            src="/winter-internship-banner.png"
-            alt="AETHRIZ Winter Internship Programme 2026-27 Official Banner"
+            src="/20260925_071353.png"
+            alt="AETHRIZ Winter Internship Programme 2026-27 Official HD Banner"
+            loading="eager"
+            decoding="async"
           />
         </div>
 
