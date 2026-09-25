@@ -187,15 +187,26 @@ h3 {
 
 .reveal-node {
     opacity: 0;
-    transform: translateY(30px) scale(0.98);
-    transition: 1.2s var(--ease-cinematic);
-    filter: blur(8px);
+    transform: translateY(24px) scale(0.99);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+    filter: blur(4px);
+    will-change: opacity, transform;
+    animation: autoRevealFailsafe 0.8s cubic-bezier(0.16, 1, 0.3, 1) 2s forwards;
 }
 
 .reveal-node.is-visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+    filter: blur(0) !important;
+    animation: none !important;
+}
+
+@keyframes autoRevealFailsafe {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
 }
 
 .delay-1 {

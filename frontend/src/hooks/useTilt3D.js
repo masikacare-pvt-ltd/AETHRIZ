@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 /**
  * Hook to apply 3D multi-axis perspective tilt to .card-3d elements
  */
-export function useTilt3D() {
+export function useTilt3D(viewTrigger) {
   useEffect(() => {
     const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
     if (isTouch) return;
@@ -43,5 +43,5 @@ export function useTilt3D() {
         card.removeEventListener('mouseleave', handleMouseLeave);
       });
     };
-  }, []);
+  }, [viewTrigger]);
 }

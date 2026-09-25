@@ -51,9 +51,9 @@ export default function App() {
   };
 
   // Initialize interactive scroll reveals, magnetic hover, and 3D tilt behaviors
-  useReveal();
-  useMagneticHover();
-  useTilt3D();
+  useReveal(currentView);
+  useMagneticHover(currentView);
+  useTilt3D(currentView);
 
   return (
     <>

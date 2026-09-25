@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 /**
  * Hook to apply subtle magnetic hover displacement to .mag-tgt elements
  */
-export function useMagneticHover() {
+export function useMagneticHover(viewTrigger) {
   useEffect(() => {
     const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
     if (isTouch) return;
@@ -34,5 +34,5 @@ export function useMagneticHover() {
         tgt.removeEventListener('mouseleave', handleMouseLeave);
       });
     };
-  }, []);
+  }, [viewTrigger]);
 }
