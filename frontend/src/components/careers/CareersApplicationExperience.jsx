@@ -14,6 +14,37 @@ const JOURNEY_OPTIONS = [
   { id: 'independent', title: 'Independent Builder', desc: 'Self-taught researcher or creator' }
 ];
 
+// Guaranteed non-duplicating unique numeric application ID generator
+const generateUniqueApplicationId = () => {
+  let id;
+  let history = [];
+  try {
+    history = JSON.parse(localStorage.getItem('aethriz_generated_ref_ids') || '[]');
+  } catch (e) {
+    history = [];
+  }
+
+  do {
+    // High-resolution timestamp slice (changes every millisecond) + 3 cryptographically random digits
+    const ms = (Date.now() % 1000).toString().padStart(3, '0');
+    let rand = Math.floor(100 + Math.random() * 900);
+    if (typeof window !== 'undefined' && window.crypto && window.crypto.getRandomValues) {
+      const buf = new Uint16Array(1);
+      window.crypto.getRandomValues(buf);
+      rand = (buf[0] % 900) + 100;
+    }
+    id = `AETHRIZ-2026-${ms}${rand}`;
+  } while (history.includes(id));
+
+  history.push(id);
+  if (history.length > 200) history.shift();
+  try {
+    localStorage.setItem('aethriz_generated_ref_ids', JSON.stringify(history));
+  } catch (e) {}
+
+  return id;
+};
+
 export default function CareersApplicationExperience({
   role = 'AI/ML Development',
   rolesList = [],
@@ -81,6 +112,11 @@ export default function CareersApplicationExperience({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [refId, setRefId] = useState('');
   const [copied, setCopied] = useState(false);
+
+  // Resume upload interaction states
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
+  const [resumeBlobUrl, setResumeBlobUrl] = useState(null);
 
   const fileInputRef = useRef(null);
   const formViewportRef = useRef(null);
@@ -260,33 +296,52 @@ export default function CareersApplicationExperience({
     setValidationError('');
   };
 
-  // Resume File handling
+  // Resume File handling with animated upload progress
   const handleFile = (file) => {
     if (!file) return;
     if (file.size > 10 * 1024 * 1024) {
       setValidationError('Max file size is 10MB.');
       return;
     }
+    const ext = '.' + file.name.split('.').pop().toLowerCase();
+    if (!['.pdf', '.doc', '.docx'].includes(ext)) {
+      setValidationError('Supported file formats: PDF or DOCX (up to 10MB).');
+      return;
+    }
+
+    setValidationError('');
+    setIsUploading(true);
+    setUploadProgress(20);
+
+    const blobUrl = URL.createObjectURL(file);
+    setResumeBlobUrl(blobUrl);
+
     const reader = new FileReader();
     reader.onload = () => {
+      setUploadProgress(70);
       const base64 = reader.result.split(',')[1] || reader.result;
-      setFormData((prev) => ({
-        ...prev,
-        resumeFileName: file.name,
-        resumeFileSize: `${(file.size / (1024 * 1024)).toFixed(1)} MB`,
-        resumeBase64: base64
-      }));
-      setValidationError('');
+      setTimeout(() => {
+        setUploadProgress(100);
+        setTimeout(() => {
+          setFormData((prev) => ({
+            ...prev,
+            resumeFileName: file.name,
+            resumeFileSize: `${(file.size / (1024 * 1024)).toFixed(1)} MB`,
+            resumeBase64: base64
+          }));
+          setIsUploading(false);
+        }, 250);
+      }, 300);
     };
     reader.readAsDataURL(file);
   };
 
-  // Submit Application
+  // Submit Application with cinematic transition
   const submitApplication = async () => {
-    if (!validateStep(6)) return;
+    if (!validateStep(6) || isSubmitting) return;
 
     setIsSubmitting(true);
-    const newRefId = `AETHRIZ-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+    const newRefId = generateUniqueApplicationId();
 
     const payload = {
       refId: newRefId,
@@ -320,8 +375,8 @@ export default function CareersApplicationExperience({
       setTimeout(() => {
         setIsSubmitting(false);
         setRefId(newRefId);
-        setCurrentStep(7); // Show success screen
-      }, 1200);
+        setCurrentStep(7); // Trigger cinematic AETHRIZ success sequence
+      }, 950);
     }
   };
 
@@ -877,43 +932,77 @@ export default function CareersApplicationExperience({
             )}
 
             {/* ============================================================= */}
-            {/* STEP 5: RESUME UPLOAD                                         */}
+            {/* STEP 5: RESUME UPLOAD (PREMIUM DRAG & DROP EXPERIENCE)        */}
             {/* ============================================================= */}
             {currentStep === 5 && (
               <div className="stage-card-box">
                 <div className="stage-header-group">
                   <span className="stage-kicker">05 / 06 • RESUME</span>
                   <h1 className="stage-h1">
-                    Attach your <i>resume.</i>
+                    Add your <i>resume.</i>
                   </h1>
                   <p className="stage-desc">
-                    Upload your CV or resume so our team can review your background and experience.
+                    Upload your latest CV or resume
                   </p>
                 </div>
 
-                {formData.resumeFileName ? (
-                  <div className="stage-file-preview">
-                    <div className="file-icon-box">
-                      <i className="fa-solid fa-file-pdf"></i>
+                {isUploading ? (
+                  /* Animated Upload Progress State */
+                  <div className="resume-uploading-card">
+                    <div className="uploading-spinner-ring">
+                      <i className="fa-solid fa-circle-notch fa-spin"></i>
                     </div>
-                    <div className="file-meta-col">
-                      <span className="file-status-badge">
-                        <i className="fa-solid fa-circle-check"></i> READY FOR SUBMISSION
-                      </span>
-                      <h4 className="file-title-text">{formData.resumeFileName}</h4>
-                      <span className="file-size-label">{formData.resumeFileSize}</span>
+                    <h4 className="uploading-text">Encrypting & Uploading Document...</h4>
+                    <div className="uploading-progress-track">
+                      <div className="uploading-progress-fill" style={{ width: `${uploadProgress}%` }}></div>
                     </div>
-                    <button
-                      type="button"
-                      className="file-change-btn"
-                      onClick={() => fileInputRef.current && fileInputRef.current.click()}
-                    >
-                      Replace
-                    </button>
+                    <span className="uploading-pct">{uploadProgress}%</span>
+                  </div>
+                ) : formData.resumeFileName ? (
+                  /* Beautiful Accepted Resume Preview Card */
+                  <div className="resume-accepted-card">
+                    <div className="accepted-card-left">
+                      <div className="accepted-doc-icon-wrap">
+                        <i className="fa-solid fa-file-pdf accepted-doc-glyph"></i>
+                        <span className="accepted-verified-badge">
+                          <i className="fa-solid fa-check"></i>
+                        </span>
+                      </div>
+                      <div className="accepted-meta-col">
+                        <div className="accepted-status-pill">
+                          <i className="fa-solid fa-circle-check"></i>
+                          <span>Resume uploaded</span>
+                        </div>
+                        <h3 className="accepted-filename-title">{formData.resumeFileName}</h3>
+                        <span className="accepted-filesize-sub">{formData.resumeFileSize}</span>
+                      </div>
+                    </div>
+
+                    <div className="accepted-card-actions">
+                      {resumeBlobUrl && (
+                        <button
+                          type="button"
+                          className="btn-resume-preview"
+                          onClick={() => window.open(resumeBlobUrl, '_blank')}
+                          title="Preview uploaded document"
+                        >
+                          <i className="fa-solid fa-eye"></i> Preview
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        className="btn-resume-replace"
+                        onClick={() => fileInputRef.current && fileInputRef.current.click()}
+                        title="Choose another document"
+                      >
+                        <i className="fa-solid fa-arrows-rotate"></i> Replace
+                      </button>
+                    </div>
                   </div>
                 ) : (
+                  /* Large Interactive Drag-and-Drop Area */
                   <div
-                    className={`stage-dropzone ${isDragging ? 'drag-over' : ''}`}
+                    className={`resume-luxury-dropzone ${isDragging ? 'is-drag-over' : ''}`}
                     onDragOver={(e) => {
                       e.preventDefault();
                       setIsDragging(true);
@@ -928,14 +1017,26 @@ export default function CareersApplicationExperience({
                     }}
                     onClick={() => fileInputRef.current && fileInputRef.current.click()}
                   >
-                    <div className="dropzone-circle-icon">
-                      <i className="fa-solid fa-cloud-arrow-up"></i>
+                    <div className="dropzone-content-core">
+                      <div className="dropzone-icon-beacon">
+                        <i className="fa-solid fa-cloud-arrow-up"></i>
+                      </div>
+                      <span className="dropzone-callout-kicker">DROP FILE HERE</span>
+                      <span className="dropzone-or-divider">or</span>
+                      <button
+                        type="button"
+                        className="btn-choose-resume"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          fileInputRef.current && fileInputRef.current.click();
+                        }}
+                      >
+                        <i className="fa-solid fa-plus"></i> Choose Resume
+                      </button>
+                      <span className="dropzone-supported-notice">
+                        Supported: <strong>PDF / DOCX</strong> • Max <strong>10 MB</strong>
+                      </span>
                     </div>
-                    <h4 className="dropzone-heading">Drop your resume here, or browse files</h4>
-                    <p className="dropzone-sub">Accepted formats: PDF or DOCX (up to 10MB)</p>
-                    <span className="dropzone-browse-tag">
-                      <i className="fa-solid fa-folder-open"></i> Browse Files
-                    </span>
                   </div>
                 )}
 
@@ -952,7 +1053,7 @@ export default function CareersApplicationExperience({
                 />
 
                 {validationError && (
-                  <div className="stage-val-error">
+                  <div className="stage-val-error" style={{ marginTop: '16px' }}>
                     <i className="fa-solid fa-circle-exclamation"></i> {validationError}
                   </div>
                 )}
@@ -1066,58 +1167,78 @@ export default function CareersApplicationExperience({
             )}
 
             {/* ============================================================= */}
-            {/* STEP 7: APPLICATION SUBMITTED (SUCCESS SCREEN)                */}
+            {/* STEP 7: CINEMATIC APPLICATION CONFIRMATION STATE              */}
             {/* ============================================================= */}
             {currentStep === 7 && (
-              <div className="stage-card-box stage-success-box">
-                <div className="success-icon-badge">
-                  <i className="fa-solid fa-circle-check"></i>
+              <div className="stage-card-box stage-success-cinema">
+                {/* SVG DRAWN RING & CHECKMARK ANIMATION */}
+                <div className="cinema-checkmark-anchor">
+                  <div className="cinema-ambient-halo"></div>
+                  <div className="cinema-sweep-particles">
+                    <span className="particle-spark p1"></span>
+                    <span className="particle-spark p2"></span>
+                    <span className="particle-spark p3"></span>
+                    <span className="particle-spark p4"></span>
+                  </div>
+                  <svg className="cinema-success-svg" viewBox="0 0 100 100">
+                    <circle className="cinema-ring-track" cx="50" cy="50" r="44" />
+                    <circle className="cinema-ring-draw" cx="50" cy="50" r="44" />
+                    <path className="cinema-check-draw" d="M31 52 L44 65 L70 37" />
+                  </svg>
                 </div>
 
-                <span className="stage-kicker" style={{ color: '#10B981' }}>APPLICATION RECEIVED</span>
-                <h1 className="stage-h1" style={{ marginBottom: '12px' }}>
-                  Thank you for <i>applying.</i>
-                </h1>
-                <p className="stage-desc" style={{ maxWidth: '520px', margin: '0 auto 28px' }}>
-                  Your application for <strong>{role}</strong> has been received by our hiring team.
-                  We review applications carefully and will be in touch if your profile matches our needs.
-                </p>
+                <div className="cinema-reveal-group">
+                  <span className="cinema-kicker-badge">APPLICATION SUBMITTED</span>
+                  <h1 className="cinema-h1">Application Submitted</h1>
+                  <p className="cinema-primary-sub">
+                    Your application has been successfully received.
+                  </p>
+                  <p className="cinema-secondary-sub">
+                    Thanks for applying. We’ll review your profile and get in touch if there’s a match.
+                  </p>
+                </div>
 
-                <div className="success-receipt-card">
-                  <div className="receipt-col">
-                    <span className="receipt-label">APPLICATION ID</span>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span className="receipt-val crimson">{refId}</span>
+                {/* ROLE & REF ID CONFIRMATION CARD */}
+                <div className="cinema-receipt-pod">
+                  <div className="receipt-pod-item">
+                    <span className="pod-label">APPLICATION TRACK</span>
+                    <span className="pod-val highlight">{roleData.title || role}</span>
+                  </div>
+                  <div className="receipt-pod-divider"></div>
+                  <div className="receipt-pod-item">
+                    <span className="pod-label">APPLICATION ID</span>
+                    <div className="pod-ref-row">
+                      <span className="pod-ref-code">{refId}</span>
                       <button
                         type="button"
                         onClick={copyRefToClipboard}
-                        className="receipt-copy-btn"
-                        title="Copy Reference ID"
+                        className="pod-copy-btn"
+                        title="Copy Application ID"
                       >
                         <i className={`fa-solid ${copied ? 'fa-check' : 'fa-copy'}`}></i>
+                        {copied && <span className="copy-toast-mini">COPIED</span>}
                       </button>
                     </div>
                   </div>
-
-                  <div className="receipt-col">
-                    <span className="receipt-label">ROLE APPLIED FOR</span>
-                    <span className="receipt-val">{role}</span>
-                  </div>
-
-                  <div className="receipt-col">
-                    <span className="receipt-label">STATUS</span>
-                    <span className="receipt-val" style={{ color: '#10B981' }}>SUBMITTED</span>
-                  </div>
                 </div>
 
-                <button
-                  type="button"
-                  className="stage-primary-btn"
-                  style={{ padding: '0 36px', height: '48px', marginTop: '28px' }}
-                  onClick={onExit}
-                >
-                  RETURN TO CAREERS <i className="fa-solid fa-arrow-right"></i>
-                </button>
+                {/* FINAL ACTION BUTTONS */}
+                <div className="cinema-cta-row">
+                  <button
+                    type="button"
+                    className="cinema-btn-primary"
+                    onClick={onExit}
+                  >
+                    <i className="fa-solid fa-arrow-left"></i> Back to Careers
+                  </button>
+                  <button
+                    type="button"
+                    className="cinema-btn-secondary"
+                    onClick={onExit}
+                  >
+                    Explore Other Roles <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -1140,17 +1261,17 @@ export default function CareersApplicationExperience({
 
               <button
                 type="button"
-                className="stage-primary-btn"
+                className={`stage-primary-btn ${currentStep === totalSteps ? 'btn-submit-glow' : ''}`}
                 onClick={handleNext}
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
                   <>
-                    <i className="fa-solid fa-circle-notch fa-spin"></i> SUBMITTING...
+                    <i className="fa-solid fa-circle-notch fa-spin"></i> Submitting...
                   </>
                 ) : currentStep === totalSteps ? (
                   <>
-                    SUBMIT APPLICATION <i className="fa-solid fa-paper-plane"></i>
+                    Submit Application <i className="fa-solid fa-arrow-right btn-arrow-animated"></i>
                   </>
                 ) : (
                   <>

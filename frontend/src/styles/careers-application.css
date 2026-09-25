@@ -1598,128 +1598,324 @@ header.stage-top-bar {
 }
 
 /* --------------------------------------------------------------------------
-   STEP 5: RESUME DROPZONE & PREVIEW
+   STEP 5: LUXURY RESUME DRAG-AND-DROP & PREVIEW CARD
    -------------------------------------------------------------------------- */
-.stage-dropzone {
+.resume-luxury-dropzone {
   border: 2px dashed #CBD5E1;
-  border-radius: 12px;
-  padding: 36px 24px;
+  border-radius: 16px;
+  padding: 44px 28px;
   text-align: center;
   background: #FFFFFF;
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(7, 9, 15, 0.03);
-  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(7, 9, 15, 0.03);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.stage-dropzone:hover,
-.stage-dropzone.dragging {
+.resume-luxury-dropzone:hover {
   border-color: #E81A2D;
-  background: rgba(232, 26, 45, 0.02);
-  box-shadow: 0 0 16px rgba(232, 26, 45, 0.1);
+  background: #FAFAFC;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(232, 26, 45, 0.08);
 }
 
-.dropzone-icon-circle {
-  width: 52px;
-  height: 52px;
+.resume-luxury-dropzone.is-drag-over {
+  border-color: #E81A2D;
+  background: rgba(232, 26, 45, 0.04);
+  transform: scale(1.02);
+  box-shadow: 0 14px 40px rgba(232, 26, 45, 0.16);
+}
+
+.dropzone-content-core {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropzone-icon-beacon {
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  background: rgba(232, 26, 45, 0.08);
-  border: 1px solid rgba(232, 26, 45, 0.25);
+  background: rgba(232, 26, 45, 0.06);
+  border: 1px solid rgba(232, 26, 45, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 14px;
-  font-size: 1.3rem;
   color: #E81A2D;
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.dropzone-h3 {
-  font-size: 1.02rem;
-  font-weight: 600;
-  color: #07090F;
-  margin-bottom: 5px;
+.resume-luxury-dropzone:hover .dropzone-icon-beacon {
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 0 20px rgba(232, 26, 45, 0.25);
+  background: rgba(232, 26, 45, 0.12);
 }
 
-.dropzone-sub {
-  font-size: 0.82rem;
-  color: #64748B;
+.dropzone-callout-kicker {
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0F172A;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+.dropzone-or-divider {
+  font-size: 0.85rem;
+  color: #94A3B8;
+  margin: 8px 0;
+  font-weight: 500;
+  text-transform: lowercase;
+}
+
+.btn-choose-resume {
+  background: #0F172A;
+  border: 1px solid #0F172A;
+  color: #FFFFFF;
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+  transition: all 0.22s ease;
   margin-bottom: 14px;
 }
 
-.dropzone-browse-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: rgba(7, 9, 15, 0.04);
-  border: 1px solid rgba(7, 9, 15, 0.12);
-  color: #07090F;
-  padding: 8px 18px;
-  border-radius: 999px;
-  font-family: 'Space Mono', 'JetBrains Mono', monospace;
-  font-size: 0.76rem;
+.btn-choose-resume:hover {
+  background: #E81A2D;
+  border-color: #E81A2D;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(232, 26, 45, 0.35);
+}
+
+.dropzone-supported-notice {
+  font-size: 0.78rem;
+  color: #64748B;
+}
+
+.dropzone-supported-notice strong {
+  color: #1E293B;
   font-weight: 600;
 }
 
-.stage-file-preview-card {
+/* Upload Progress Card */
+.resume-uploading-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 40px 24px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(7, 9, 15, 0.04);
+  animation: uploadCardFade 0.3s ease;
+}
+
+@keyframes uploadCardFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.uploading-spinner-ring {
+  font-size: 2rem;
+  color: #E81A2D;
+  margin-bottom: 14px;
+}
+
+.uploading-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0F172A;
+  margin: 0 0 16px;
+}
+
+.uploading-progress-track {
+  width: 100%;
+  max-width: 320px;
+  height: 6px;
+  background: #F1F5F9;
+  border-radius: 999px;
+  margin: 0 auto 10px;
+  overflow: hidden;
+}
+
+.uploading-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #E81A2D, #FF4557);
+  border-radius: 999px;
+  transition: width 0.25s ease-out;
+}
+
+.uploading-pct {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #E81A2D;
+}
+
+/* Beautiful Accepted Resume Preview Card */
+.resume-accepted-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 18px;
   background: #FFFFFF;
-  border: 1px solid rgba(232, 26, 45, 0.35);
-  border-radius: 10px;
-  padding: 14px 18px;
-  margin-bottom: 16px;
-  box-shadow: 0 3px 12px rgba(232, 26, 45, 0.08);
+  border: 1.5px solid #E2E8F0;
+  border-left: 4px solid #10B981;
+  border-radius: 14px;
+  padding: 20px 24px;
+  box-shadow: 0 6px 24px rgba(7, 9, 15, 0.05);
+  animation: acceptedCardPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.file-preview-left {
+@keyframes acceptedCardPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.accepted-card-left {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
+  min-width: 0;
 }
 
-.file-type-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 7px;
-  background: rgba(232, 26, 45, 0.1);
+.accepted-doc-icon-wrap {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #E81A2D;
-  font-size: 1.15rem;
+  flex-shrink: 0;
 }
 
-.file-preview-meta {
+.accepted-doc-glyph {
+  color: #10B981;
+  font-size: 1.4rem;
+}
+
+.accepted-verified-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #10B981;
+  color: #FFFFFF;
+  font-size: 0.62rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #FFFFFF;
+}
+
+.accepted-meta-col {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
+  min-width: 0;
 }
 
-.file-preview-name {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #07090F;
+.accepted-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #10B981;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
 }
 
-.file-preview-size {
-  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+.accepted-filename-title {
+  margin: 0;
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #0F172A;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 280px;
+}
+
+.accepted-filesize-sub {
+  font-family: 'Space Mono', monospace;
   font-size: 0.72rem;
   color: #64748B;
 }
 
-.file-remove-btn {
-  background: transparent;
-  border: none;
-  color: #94A3B8;
-  font-size: 0.95rem;
-  cursor: pointer;
-  padding: 4px;
-  transition: color 0.2s ease;
+.accepted-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
-.file-remove-btn:hover {
+.btn-resume-preview {
+  background: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  color: #0F172A;
+  height: 38px;
+  padding: 0 16px;
+  border-radius: 8px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-resume-preview:hover {
+  background: #FFFFFF;
+  border-color: #0F172A;
+  transform: translateY(-1px);
+}
+
+.btn-resume-replace {
+  background: transparent;
+  border: 1px solid #E2E8F0;
+  color: #64748B;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 8px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.74rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-resume-replace:hover {
+  background: rgba(232, 26, 45, 0.06);
+  border-color: rgba(232, 26, 45, 0.3);
   color: #E81A2D;
 }
+
 
 /* --------------------------------------------------------------------------
    STEP 6: SUMMARY REVIEW DECK & AGREEMENT
@@ -1875,79 +2071,394 @@ header.stage-top-bar {
 }
 
 /* --------------------------------------------------------------------------
-   STEP 7: SUCCESS SCREEN
+   STEP 7: CINEMATIC APPLICATION CONFIRMATION EXPERIENCE
    -------------------------------------------------------------------------- */
-.stage-success-box {
+.stage-success-cinema {
   text-align: center;
-  padding: 28px 18px;
-}
-
-.success-icon-badge {
-  width: 62px;
-  height: 62px;
-  border-radius: 50%;
-  background: rgba(16, 185, 129, 0.12);
-  border: 1px solid rgba(16, 185, 129, 0.35);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8rem;
-  color: #10B981;
-  margin: 0 auto 18px;
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
-}
-
-.success-receipt-card {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: 12px;
-  padding: 16px 22px;
-  display: flex;
-  justify-content: space-around;
-  gap: 16px;
-  margin: 0 auto;
-  max-width: 520px;
-  text-align: left;
-  box-shadow: 0 3px 12px rgba(7, 9, 15, 0.04);
-}
-
-.receipt-col {
+  padding: 36px 20px 24px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  align-items: center;
+  animation: cinemaStageEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.receipt-label {
+@keyframes cinemaStageEnter {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(12px);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0px);
+  }
+}
+
+/* Animated Ring & Checkmark Core */
+.cinema-checkmark-anchor {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 20px;
+}
+
+.cinema-ambient-halo {
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232, 26, 45, 0.25) 0%, rgba(232, 26, 45, 0.02) 65%, transparent 75%);
+  animation: haloPulse 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes haloPulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.18); opacity: 1; }
+}
+
+.cinema-success-svg {
+  width: 96px;
+  height: 96px;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 6px 18px rgba(232, 26, 45, 0.3));
+}
+
+.cinema-ring-track {
+  fill: #FFFFFF;
+  stroke: rgba(232, 26, 45, 0.12);
+  stroke-width: 4;
+}
+
+.cinema-ring-draw {
+  fill: none;
+  stroke: #E81A2D;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 280;
+  stroke-dashoffset: 280;
+  animation: drawCircleTrace 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+}
+
+@keyframes drawCircleTrace {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.cinema-check-draw {
+  fill: none;
+  stroke: #E81A2D;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: drawCheckPath 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+}
+
+@keyframes drawCheckPath {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Subtle particle light sparks */
+.cinema-sweep-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.particle-spark {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #E81A2D;
+  opacity: 0;
+  animation: particleBurst 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+}
+
+.particle-spark.p1 { top: 10%; left: 20%; --tx: -18px; --ty: -18px; }
+.particle-spark.p2 { top: 15%; right: 18%; --tx: 18px; --ty: -16px; }
+.particle-spark.p3 { bottom: 18%; left: 16%; --tx: -16px; --ty: 18px; }
+.particle-spark.p4 { bottom: 12%; right: 14%; --tx: 20px; --ty: 20px; }
+
+@keyframes particleBurst {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+  40% { opacity: 1; transform: translate(var(--tx), var(--ty)) scale(1.3); }
+  100% { opacity: 0; transform: translate(calc(var(--tx) * 1.5), calc(var(--ty) * 1.5)) scale(0); }
+}
+
+/* Revealed text */
+.cinema-reveal-group {
+  margin-bottom: 22px;
+  animation: revealFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+}
+
+@keyframes revealFadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cinema-kicker-badge {
   font-family: 'Space Mono', 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #10B981;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 3px 12px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.cinema-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #07090F;
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
+}
+
+.cinema-primary-sub {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1E293B;
+  margin: 0 0 4px;
+}
+
+.cinema-secondary-sub {
+  font-size: 0.82rem;
+  color: #64748B;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.45;
+}
+
+/* Role & Ref ID Confirmation Card */
+.cinema-receipt-pod {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 14px 22px;
+  width: 100%;
+  max-width: 490px;
+  margin: 0 auto 34px;
+  box-shadow: 0 4px 16px rgba(7, 9, 15, 0.04);
+  animation: revealFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+
+.receipt-pod-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: left;
+}
+
+.receipt-pod-divider {
+  width: 1px;
+  height: 36px;
+  background: #E2E8F0;
+}
+
+.pod-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.64rem;
+  font-weight: 700;
   color: #64748B;
   letter-spacing: 0.08em;
 }
 
-.receipt-val {
+.pod-val {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.pod-val.highlight {
+  color: #0F172A;
+}
+
+.pod-ref-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pod-ref-code {
+  font-family: 'Space Mono', monospace;
   font-size: 0.88rem;
-  font-weight: 600;
-  color: #07090F;
-}
-
-.receipt-val.crimson {
+  font-weight: 700;
   color: #E81A2D;
-  font-family: 'Space Mono', 'JetBrains Mono', monospace;
 }
 
-.receipt-copy-btn {
-  background: transparent;
-  border: none;
-  color: #94A3B8;
+.pod-copy-btn {
+  background: rgba(7, 9, 15, 0.04);
+  border: 1px solid rgba(7, 9, 15, 0.1);
+  color: #475569;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.72rem;
   cursor: pointer;
-  font-size: 0.82rem;
-  padding: 2px;
-  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
 }
 
-.receipt-copy-btn:hover {
-  color: #07090F;
+.pod-copy-btn:hover {
+  background: #0F172A;
+  color: #FFFFFF;
+  border-color: #0F172A;
 }
+
+.copy-toast-mini {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #10B981;
+}
+
+/* Hiring Pipeline Timeline */
+.cinema-timeline-tray {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto 28px;
+  padding: 14px 10px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  animation: revealFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
+}
+
+.timeline-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.timeline-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  transition: all 0.25s ease;
+}
+
+.timeline-node.completed .timeline-dot {
+  background: #10B981;
+  color: #FFFFFF;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+.timeline-node.future .timeline-dot {
+  background: #F1F5F9;
+  border: 1.5px solid #CBD5E1;
+}
+
+.timeline-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: #94A3B8;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.timeline-node.completed .timeline-label {
+  color: #0F172A;
+  font-weight: 700;
+}
+
+.timeline-connector {
+  flex: 0.6;
+  height: 2px;
+  background: #E2E8F0;
+  margin-bottom: 20px;
+}
+
+.timeline-connector.active {
+  background: #10B981;
+}
+
+/* Final Action Buttons */
+.cinema-cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  animation: revealFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+}
+
+.cinema-btn-primary {
+  background: #0F172A;
+  border: 1px solid #0F172A;
+  color: #FFFFFF;
+  height: 46px;
+  padding: 0 24px;
+  border-radius: 999px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+}
+
+.cinema-btn-primary:hover {
+  background: #E81A2D;
+  border-color: #E81A2D;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(232, 26, 45, 0.35);
+}
+
+.cinema-btn-secondary {
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  color: #1E293B;
+  height: 46px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.cinema-btn-secondary:hover {
+  border-color: #0F172A;
+  color: #0F172A;
+  background: #F8FAFC;
+  transform: translateY(-2px);
+}
+
 
 /* --------------------------------------------------------------------------
    FLOATING BOTTOM ACTION BAR
@@ -2044,10 +2555,32 @@ footer.stage-bottom-bar {
   box-shadow: 0 8px 24px rgba(232, 26, 45, 0.5);
 }
 
+.stage-primary-btn.btn-submit-glow {
+  box-shadow: 0 4px 22px rgba(232, 26, 45, 0.45);
+  font-weight: 700;
+  letter-spacing: 0.09em;
+}
+
+.stage-primary-btn.btn-submit-glow:hover:not(:disabled) {
+  background: #FF1E33;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(232, 26, 45, 0.65);
+}
+
+.btn-arrow-animated {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
+}
+
+.stage-primary-btn.btn-submit-glow:hover:not(:disabled) .btn-arrow-animated {
+  transform: translateX(4px);
+}
+
 .stage-primary-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
+
 
 /* ==========================================================================
    RESPONSIVE DESIGN (TABLETS & MOBILE)
