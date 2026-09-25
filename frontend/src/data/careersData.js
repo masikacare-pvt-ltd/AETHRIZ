@@ -400,3 +400,312 @@ export const OPEN_ROLES = [
     ]
   }
 ];
+
+export const ROLE_SKILL_PRESETS = {
+  'ai-ml': {
+    categories: [
+      {
+        id: 'core_ai',
+        name: 'CORE AI & MACHINE LEARNING',
+        icon: 'fa-solid fa-brain',
+        skills: ['PyTorch', 'TensorFlow', 'Python', 'LLMs', 'Computer Vision', 'Bio-Data Models', 'CUDA', 'JAX', 'Hugging Face']
+      },
+      {
+        id: 'data_math',
+        name: 'DATA ENGINEERING & RESEARCH',
+        icon: 'fa-solid fa-chart-line',
+        skills: ['Pandas', 'NumPy', 'Scikit-learn', 'Time Series Analysis', 'Jupyter', 'Data Preprocessing', 'Model Evaluation']
+      },
+      {
+        id: 'systems_mlops',
+        name: 'MLOPS & DEPLOYMENT',
+        icon: 'fa-solid fa-server',
+        skills: ['MLOps', 'TensorRT', 'Docker', 'FastAPI', 'C++', 'Weights & Biases', 'Distributed Training']
+      }
+    ]
+  },
+  'web-fullstack': {
+    categories: [
+      {
+        id: 'frontend',
+        name: 'FRONTEND ARCHITECTURE',
+        icon: 'fa-solid fa-code',
+        skills: ['React', 'TypeScript', 'Next.js', 'JavaScript', 'CSS3 / HTML5', 'Tailwind CSS', 'Canvas / WebGL', 'Framer Motion']
+      },
+      {
+        id: 'backend',
+        name: 'BACKEND & APIS',
+        icon: 'fa-solid fa-network-wired',
+        skills: ['Node.js', 'Express', 'Go', 'REST APIs', 'GraphQL', 'WebSockets', 'gRPC']
+      },
+      {
+        id: 'databases_infra',
+        name: 'DATABASES & INFRASTRUCTURE',
+        icon: 'fa-solid fa-database',
+        skills: ['PostgreSQL', 'Redis', 'Docker', 'MongoDB', 'AWS', 'Git', 'Kafka']
+      }
+    ]
+  },
+  'app-dev': {
+    categories: [
+      {
+        id: 'mobile_core',
+        name: 'MOBILE FRAMEWORKS & LANGUAGES',
+        icon: 'fa-solid fa-mobile-screen',
+        skills: ['Flutter', 'React Native', 'Swift', 'Kotlin', 'Dart', 'Mobile Telemetry']
+      },
+      {
+        id: 'mobile_arch',
+        name: 'ARCHITECTURE & PERFORMANCE',
+        icon: 'fa-solid fa-microchip',
+        skills: ['iOS SDK', 'Android SDK', 'State Management', 'Offline-First', 'SQLite / Realm', 'App Optimization']
+      },
+      {
+        id: 'hardware_connectivity',
+        name: 'SENSORS & CONNECTIVITY',
+        icon: 'fa-solid fa-wifi',
+        skills: ['Bluetooth LE (BLE)', 'WebSockets', 'Background Sync', 'Push Notifications', 'Biometric Sensors', 'REST APIs']
+      }
+    ]
+  },
+  'design': {
+    categories: [
+      {
+        id: 'product_ui',
+        name: 'UI / UX & PRODUCT DESIGN',
+        icon: 'fa-solid fa-bezier-curve',
+        skills: ['Figma', 'UI/UX Design', 'Design Systems', 'Design Tokens', 'Wireframing', 'Prototyping', 'User Research']
+      },
+      {
+        id: 'visual_brand',
+        name: 'VISUAL BRAND & 3D ASSETS',
+        icon: 'fa-solid fa-wand-magic-sparkles',
+        skills: ['Adobe Photoshop', 'Illustrator', 'Blender / 3D', 'Brand Systems', 'Typography', 'Spline / 3D']
+      },
+      {
+        id: 'motion_front',
+        name: 'MOTION & INTERACTION',
+        icon: 'fa-solid fa-film',
+        skills: ['After Effects', 'Lottie / Micro-Animations', 'Design QA', 'Design Handoff', 'HTML/CSS Literacy']
+      }
+    ]
+  },
+  'social-media': {
+    categories: [
+      {
+        id: 'content_strategy',
+        name: 'CONTENT STRATEGY & NARRATIVE',
+        icon: 'fa-solid fa-bullhorn',
+        skills: ['Tech Storytelling', 'Content Strategy', 'Copywriting', 'Infographics', 'Video Scripting', 'Short-Form Video']
+      },
+      {
+        id: 'channels',
+        name: 'CHANNELS & COMMUNITY',
+        icon: 'fa-solid fa-share-nodes',
+        skills: ['LinkedIn', 'Twitter/X', 'YouTube', 'Instagram', 'Threads', 'Community Engagement']
+      },
+      {
+        id: 'analytics_tools',
+        name: 'ANALYTICS & DIGITAL TOOLS',
+        icon: 'fa-solid fa-chart-pie',
+        skills: ['Analytics & Insights', 'Canva / Adobe', 'Social Listening', 'Growth Hacking', 'Campaign Scheduling']
+      }
+    ]
+  },
+  'marketing-lead': {
+    categories: [
+      {
+        id: 'growth_strategy',
+        name: 'GROWTH STRATEGY & GTM',
+        icon: 'fa-solid fa-rocket',
+        skills: ['Growth Flywheels', 'User Acquisition', 'Go-To-Market (GTM)', 'Product Marketing', 'Brand Positioning']
+      },
+      {
+        id: 'conversion_funnels',
+        name: 'FUNNELS & ANALYTICS',
+        icon: 'fa-solid fa-chart-line',
+        skills: ['Campaign Analytics', 'Conversion Funnels', 'Retention Loops', 'A/B Testing', 'Google Analytics', 'Mixpanel']
+      },
+      {
+        id: 'martech_comms',
+        name: 'MARKETING TECH & COMMS',
+        icon: 'fa-solid fa-envelope-open-text',
+        skills: ['Email Automation', 'SEO / Content Marketing', 'Referral Systems', 'Public Relations (PR)', 'Notion / PM']
+      }
+    ]
+  },
+  'influencer-team': {
+    categories: [
+      {
+        id: 'creator_ecosystem',
+        name: 'CREATOR & TALENT RELATIONS',
+        icon: 'fa-solid fa-users',
+        skills: ['Creator Outreach', 'Partnership Pitching', 'Talent Scouting', 'Contract Negotiations', 'Sponsorship Management']
+      },
+      {
+        id: 'activations_community',
+        name: 'CAMPAIGNS & ACTIVATIONS',
+        icon: 'fa-solid fa-bullseye',
+        skills: ['Community Building', 'Product Seeding', 'Exclusive Previews', 'Influencer AMAs', 'Event Coordination']
+      },
+      {
+        id: 'brand_pr',
+        name: 'BRAND AMPLIFICATION & PR',
+        icon: 'fa-solid fa-award',
+        skills: ['PR Strategy', 'Media Relations', 'Brand Ambassadorship', 'Campaign ROI Measurement', 'Ecosystem Strategy']
+      }
+    ]
+  },
+  'cloud': {
+    categories: [
+      {
+        id: 'iac_containers',
+        name: 'INFRASTRUCTURE & CONTAINERS',
+        icon: 'fa-solid fa-cloud',
+        skills: ['Terraform', 'Kubernetes', 'Docker', 'Helm', 'GitOps / ArgoCD', 'Linux Internals']
+      },
+      {
+        id: 'cloud_platforms',
+        name: 'CLOUD PLATFORMS & NETWORKING',
+        icon: 'fa-solid fa-server',
+        skills: ['AWS', 'GCP', 'Azure', 'VPC / Networking', 'GPU Cluster Management', 'Zero-Trust Security']
+      },
+      {
+        id: 'cicd_observability',
+        name: 'CI/CD & OBSERVABILITY',
+        icon: 'fa-solid fa-gauge-high',
+        skills: ['GitHub Actions', 'Prometheus', 'Grafana', 'OpenTelemetry', 'Bash / Scripting', 'CI/CD Pipelines']
+      }
+    ]
+  },
+  'bio-data': {
+    categories: [
+      {
+        id: 'clinical_medicine',
+        name: 'CLINICAL & PHYSIOLOGY RESEARCH',
+        icon: 'fa-solid fa-stethoscope',
+        skills: ['Clinical Research', 'Biomedical Science', 'Literature Review', 'Medical Ethics', 'Human Physiology', 'Protocol Design']
+      },
+      {
+        id: 'data_bioinformatics',
+        name: 'HEALTH DATA & TELEMETRY',
+        icon: 'fa-solid fa-dna',
+        skills: ['Data Curation', 'Health Telemetry', 'CGM / Biosensor Analysis', 'Python / R', 'Biostatistics', 'Knowledge Graphs']
+      },
+      {
+        id: 'scientific_publishing',
+        name: 'SCIENTIFIC DOCUMENTATION',
+        icon: 'fa-solid fa-book-medical',
+        skills: ['Technical Writing', 'Whitepaper Authoring', 'Clinical Validation', 'IRB / Regulatory Standards']
+      }
+    ]
+  }
+};
+
+export function getCategoriesForRole(roleTitle = '', roleSkills = []) {
+  const r = (roleTitle || '').toLowerCase();
+
+  let presetKey = 'web-fullstack';
+  if (r.includes('ai') || r.includes('ml') || r.includes('machine learning') || r.includes('intelligence')) {
+    presetKey = 'ai-ml';
+  } else if (r.includes('app') || r.includes('mobile') || r.includes('ios') || r.includes('android') || r.includes('flutter')) {
+    presetKey = 'app-dev';
+  } else if (r.includes('graphic') || r.includes('design') || r.includes('ui') || r.includes('ux') || r.includes('product designer')) {
+    presetKey = 'design';
+  } else if (r.includes('social') || r.includes('community')) {
+    presetKey = 'social-media';
+  } else if (r.includes('influencer') || r.includes('creator')) {
+    presetKey = 'influencer-team';
+  } else if (r.includes('marketing') || r.includes('growth')) {
+    presetKey = 'marketing-lead';
+  } else if (r.includes('cloud') || r.includes('devops') || r.includes('infra') || r.includes('sre')) {
+    presetKey = 'cloud';
+  } else if (r.includes('bio') || r.includes('medical') || r.includes('fellow') || r.includes('clinical')) {
+    presetKey = 'bio-data';
+  } else if (r.includes('web') || r.includes('front') || r.includes('back') || r.includes('software') || r.includes('engineer') || r.includes('full-stack')) {
+    presetKey = 'web-fullstack';
+  }
+
+  const preset = ROLE_SKILL_PRESETS[presetKey] || ROLE_SKILL_PRESETS['web-fullstack'];
+
+  const categories = preset.categories.map((cat, idx) => {
+    if (idx === 0 && Array.isArray(roleSkills) && roleSkills.length > 0) {
+      const mergedSkills = [...cat.skills];
+      roleSkills.forEach((s) => {
+        if (!mergedSkills.includes(s)) {
+          mergedSkills.unshift(s);
+        }
+      });
+      return { ...cat, skills: mergedSkills };
+    }
+    return cat;
+  });
+
+  return categories;
+}
+
+// Top 5 most commonly used skills in respective industry domains
+export const TOP_DOMAIN_SKILLS = {
+  'ai-ml': ['Python', 'PyTorch', 'TensorFlow', 'LLMs', 'Computer Vision'],
+  'web-fullstack': ['React', 'TypeScript', 'JavaScript', 'Node.js', 'Next.js'],
+  'backend': ['Node.js', 'Python', 'PostgreSQL', 'Docker', 'REST APIs'],
+  'app-dev': ['Flutter', 'React Native', 'Swift', 'Kotlin', 'Firebase'],
+  'design': ['Figma', 'UI/UX Design', 'Design Systems', 'Wireframing', 'Prototyping'],
+  'cloud': ['AWS', 'Docker', 'Kubernetes', 'CI/CD Pipelines', 'Linux'],
+  'social-media': ['Content Strategy', 'Copywriting', 'Short-Form Video', 'Social Analytics', 'Community Engagement'],
+  'marketing-lead': ['Growth Marketing', 'SEO / SEM', 'Google Analytics', 'A/B Testing', 'Conversion Funnels'],
+  'influencer-team': ['Creator Outreach', 'Partnership Pitching', 'Contract Negotiations', 'Campaign Strategy', 'Media Relations'],
+  'bio-data': ['Biomedical Science', 'Clinical Research', 'Data Curation', 'Biostatistics', 'Python / R']
+};
+
+export function getSkillsForRole(roleTitle = '', roleSkills = []) {
+  const r = (roleTitle || '').toLowerCase();
+
+  let domainKey = 'web-fullstack';
+  if (r.includes('ai') || r.includes('ml') || r.includes('machine learning') || r.includes('intelligence')) {
+    domainKey = 'ai-ml';
+  } else if (r.includes('app') || r.includes('mobile') || r.includes('ios') || r.includes('android') || r.includes('flutter')) {
+    domainKey = 'app-dev';
+  } else if (r.includes('graphic') || r.includes('design') || r.includes('ui') || r.includes('ux') || r.includes('product designer')) {
+    domainKey = 'design';
+  } else if (r.includes('social') || r.includes('community')) {
+    domainKey = 'social-media';
+  } else if (r.includes('influencer') || r.includes('creator')) {
+    domainKey = 'influencer-team';
+  } else if (r.includes('marketing') || r.includes('growth')) {
+    domainKey = 'marketing-lead';
+  } else if (r.includes('cloud') || r.includes('devops') || r.includes('infra') || r.includes('sre')) {
+    domainKey = 'cloud';
+  } else if (r.includes('bio') || r.includes('medical') || r.includes('fellow') || r.includes('clinical')) {
+    domainKey = 'bio-data';
+  } else if (r.includes('back') || r.includes('distributed') || r.includes('database')) {
+    domainKey = 'backend';
+  } else if (r.includes('web') || r.includes('front') || r.includes('software') || r.includes('engineer') || r.includes('full-stack')) {
+    domainKey = 'web-fullstack';
+  }
+
+  const domainDefaults = TOP_DOMAIN_SKILLS[domainKey] || TOP_DOMAIN_SKILLS['web-fullstack'];
+
+  // Prefer role's specific skills if provided, then backfill with domain standards
+  const rawList = [
+    ...(Array.isArray(roleSkills) ? roleSkills : []),
+    ...domainDefaults
+  ];
+
+  // Strictly deduplicate and cap at exactly TOP 5
+  const seen = new Set();
+  const top5 = [];
+  for (const skill of rawList) {
+    if (!skill || typeof skill !== 'string') continue;
+    const clean = skill.trim();
+    const key = clean.toLowerCase();
+    if (!seen.has(key)) {
+      seen.add(key);
+      top5.push(clean);
+      if (top5.length === 5) break;
+    }
+  }
+
+  return top5;
+}
+

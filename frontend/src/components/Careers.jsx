@@ -136,7 +136,7 @@ export default function Careers({ onBack }) {
     setTimeout(() => {
       setViewMode('overview');
       window.scrollTo({ top: 0, behavior: 'instant' });
-    }, 600);
+    }, 700);
   };
 
   // Filtered jobs in overview
@@ -159,13 +159,16 @@ export default function Careers({ onBack }) {
         <div className="careers-main-viewport">
       {/* Top HUD Nav */}
       <div className="c-top-bar">
-        <button className="c-back-link" onClick={onBack}>
-          <i className="fa-solid fa-arrow-left"></i>
-          <span>RETURN TO PLATFORM</span>
-        </button>
-        <div className="c-status-chip">
-          <span className="c-pulse"></span>
-          <span>WINTER COHORT 2026-27</span>
+        <div className="c-status-chip" title="Applications currently open">
+          <span className="c-pulse-wrapper">
+            <span className="c-pulse-ping"></span>
+            <span className="c-pulse"></span>
+          </span>
+          <span className="c-status-text">
+            <strong className="c-status-live-tag">APPLICATIONS OPEN</strong>
+            <span className="c-status-dot-sep">•</span>
+            <span>WINTER COHORT 2026-27</span>
+          </span>
         </div>
       </div>
 
@@ -181,12 +184,6 @@ export default function Careers({ onBack }) {
           breakthrough health intelligence platforms. Join our Winter 2026-27 remote immersion cohort.
         </p>
         <div className="c-hero-actions">
-          <button
-            className="btn-primary-lead"
-            onClick={() => handleStartApplication('')}
-          >
-            START APPLICATION <i className="fa-solid fa-arrow-right"></i>
-          </button>
           <button
             className="btn-secondary-lead"
             onClick={() => {

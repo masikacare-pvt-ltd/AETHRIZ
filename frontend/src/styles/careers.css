@@ -6,7 +6,7 @@
 /* Careers Main Viewport */
 .careers-main-viewport {
   min-height: 100vh;
-  padding: 175px 24px 100px;
+  padding: 96px 24px 80px;
   position: relative;
   z-index: 10;
   max-width: 1200px;
@@ -18,10 +18,10 @@
    ========================================================================== */
 .c-top-bar {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 40px;
-  padding-bottom: 20px;
+  margin-bottom: 36px;
+  padding-bottom: 18px;
   border-bottom: 1px solid rgba(7, 9, 15, 0.08);
 }
 
@@ -39,50 +39,117 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .c-back-link:hover {
   background: #07090f;
   color: #FFFFFF;
   transform: translateX(-3px);
+  box-shadow: 0 4px 14px rgba(7, 9, 15, 0.12);
 }
 
 .c-status-chip {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   background: rgba(232, 26, 45, 0.08);
-  border: 1px solid rgba(232, 26, 45, 0.25);
+  border: 1px solid rgba(232, 26, 45, 0.35);
   color: #E81A2D;
-  padding: 6px 14px;
+  padding: 7px 16px;
   border-radius: 999px;
   font-family: 'Space Mono', monospace;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  animation: chipPulseGlow 2.4s ease-in-out infinite;
+  box-shadow: 0 0 14px rgba(232, 26, 45, 0.15);
+  user-select: none;
+}
+
+.c-pulse-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 10px;
+  height: 10px;
+}
+
+.c-pulse-ping {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #E81A2D;
+  opacity: 0.8;
+  animation: beaconPing 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 .c-pulse {
-  width: 6px;
-  height: 6px;
+  position: relative;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #E81A2D;
-  box-shadow: 0 0 8px #E81A2D;
-  animation: pulseDot 1.8s infinite;
+  box-shadow: 0 0 10px #E81A2D;
+  animation: pulseDot 1.6s ease-in-out infinite;
+}
+
+.c-status-text {
+  display: inline-flex;
+  align-items: center;
+}
+
+.c-status-live-tag {
+  color: #E81A2D;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.c-status-dot-sep {
+  opacity: 0.45;
+  margin: 0 7px;
+}
+
+@keyframes beaconPing {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.85;
+  }
+  75%, 100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
 }
 
 @keyframes pulseDot {
-
   0%,
   100% {
     opacity: 1;
     transform: scale(1);
+    box-shadow: 0 0 8px #E81A2D;
   }
 
   50% {
-    opacity: 0.35;
-    transform: scale(1.3);
+    opacity: 0.45;
+    transform: scale(0.85);
+    box-shadow: 0 0 3px #E81A2D;
+  }
+}
+
+@keyframes chipPulseGlow {
+  0%, 100% {
+    background: rgba(232, 26, 45, 0.07);
+    border-color: rgba(232, 26, 45, 0.3);
+    box-shadow: 0 0 10px rgba(232, 26, 45, 0.12);
+  }
+  50% {
+    background: rgba(232, 26, 45, 0.16);
+    border-color: rgba(232, 26, 45, 0.7);
+    box-shadow: 0 0 20px rgba(232, 26, 45, 0.38), inset 0 0 8px rgba(232, 26, 45, 0.1);
   }
 }
 
@@ -1743,7 +1810,7 @@ body:has(.fullpage-portal-wrapper) #main_nav {
    ========================================================================== */
 @media (max-width: 992px) {
   .careers-main-viewport {
-    padding-top: 165px !important;
+    padding-top: 92px !important;
   }
 
   .fp-portal-grid {
@@ -1888,7 +1955,7 @@ body:has(.fullpage-portal-wrapper) #main_nav {
 
   /* Careers Main Viewport */
   .careers-main-viewport {
-    padding: 175px 14px 60px !important;
+    padding: 88px 14px 60px !important;
     overflow-x: hidden;
   }
 
@@ -1896,7 +1963,7 @@ body:has(.fullpage-portal-wrapper) #main_nav {
     padding: 0 0 16px;
     margin-bottom: 24px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
@@ -2307,6 +2374,6 @@ body:has(.fullpage-portal-wrapper) #main_nav {
 
 @media (max-width: 480px) {
   .careers-main-viewport {
-    padding-top: 185px !important;
+    padding-top: 88px !important;
   }
 }

@@ -1,14 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import '../../styles/careers-application.css';
+import { getSkillsForRole } from '../../data/careersData';
 
 const GOOGLE_SHEET_ENDPOINT =
   'https://script.google.com/macros/s/AKfycbxc_-D6X0uozC2P3nDMkrSxdQHFj7Ma73XUL9c6H2bmBWTh3Rb4wTW3MkY9n-3rPPZm/exec';
-
-const DEFAULT_SKILLS = [
-  'Python', 'PyTorch', 'React', 'TypeScript', 'Node.js', 'Go', 'Rust',
-  'C++ / CUDA', 'LLMs / AI', 'PostgreSQL', 'Docker', 'Kubernetes', 'AWS',
-  'Figma', 'UI/UX Design', 'System Architecture', 'Computer Vision', 'Flutter'
-];
 
 const JOURNEY_OPTIONS = [
   { id: '1st_year', title: '1st Year Student', desc: 'Exploring fundamentals & early projects' },
@@ -89,6 +84,40 @@ export default function CareersApplicationExperience({
 
   const fileInputRef = useRef(null);
   const formViewportRef = useRef(null);
+  const journeyDropdownRef = useRef(null);
+
+  const [isJourneyDropdownOpen, setIsJourneyDropdownOpen] = useState(false);
+  const [customSkillsList, setCustomSkillsList] = useState([]);
+  const [customSkillInput, setCustomSkillInput] = useState('');
+
+  // Dynamically resolve all deduplicated skills specifically tailored to the active role in ONE unified list
+  const allSkillsList = useMemo(() => {
+    const baseSkills = getSkillsForRole(roleData?.title || role, roleData?.skills || []);
+    const combined = [...baseSkills, ...customSkillsList];
+    const seen = new Set();
+    const unique = [];
+    for (const sk of combined) {
+      if (!sk || typeof sk !== 'string') continue;
+      const clean = sk.trim();
+      const lower = clean.toLowerCase();
+      if (!seen.has(lower)) {
+        seen.add(lower);
+        unique.push(clean);
+      }
+    }
+    return unique;
+  }, [role, roleData, customSkillsList]);
+
+  // Close journey dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (journeyDropdownRef.current && !journeyDropdownRef.current.contains(e.target)) {
+        setIsJourneyDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Auto scroll to top when changing steps
   useEffect(() => {
@@ -109,6 +138,9 @@ export default function CareersApplicationExperience({
 
       if (e.key === 'Enter') {
         if (e.target.tagName === 'TEXTAREA' && !e.ctrlKey && !e.metaKey) {
+          return;
+        }
+        if (e.target.classList && e.target.classList.contains('toolkit-direct-input')) {
           return;
         }
         e.preventDefault();
@@ -210,16 +242,22 @@ export default function CareersApplicationExperience({
     setValidationError('');
   };
 
-  const addCustomSkill = (e) => {
-    e.preventDefault();
-    const val = formData.customSkill.trim();
-    if (val && !formData.skills.includes(val)) {
+  const handleDirectSkillAdd = () => {
+    const val = customSkillInput.trim().replace(/^,+|,+$/g, '');
+    if (!val) return;
+
+    const lower = val.toLowerCase();
+    if (!formData.skills.some((s) => s.toLowerCase() === lower)) {
       setFormData((prev) => ({
         ...prev,
-        skills: [...prev.skills, val],
-        customSkill: ''
+        skills: [...prev.skills, val]
       }));
     }
+    if (!allSkillsList.some((s) => s.toLowerCase() === lower) && !customSkillsList.some((s) => s.toLowerCase() === lower)) {
+      setCustomSkillsList((prev) => [...prev, val]);
+    }
+    setCustomSkillInput('');
+    setValidationError('');
   };
 
   // Resume File handling
@@ -314,45 +352,12 @@ export default function CareersApplicationExperience({
           <span className="sidebar-cohort-chip">WINTER 2026-27</span>
         </div>
 
-        {/* Role Header & Switcher */}
+        {/* Role Header (Track Switcher Removed) */}
         <div className="sidebar-role-header">
           <span className="sidebar-kicker">// APPLICATION TRACK</span>
           <h2 className="sidebar-role-title">
             {roleData.title.split(' ')[0]} <i>{roleData.title.split(' ').slice(1).join(' ')}</i>
           </h2>
-
-          {/* Track Switcher Button */}
-          {rolesList && rolesList.length > 0 && onSelectRole && (
-            <div className="sidebar-track-switcher-wrap">
-              <button
-                type="button"
-                className="sidebar-switch-btn"
-                onClick={() => setShowRolePicker(!showRolePicker)}
-              >
-                <span>Switch Track</span>
-                <i className={`fa-solid ${showRolePicker ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
-              </button>
-
-              {showRolePicker && (
-                <div className="sidebar-roles-dropdown">
-                  {rolesList.map((r) => (
-                    <button
-                      key={r.id || r.title}
-                      type="button"
-                      className={`dropdown-role-item ${r.title === role ? 'active' : ''}`}
-                      onClick={() => {
-                        onSelectRole(r.title);
-                        setShowRolePicker(false);
-                      }}
-                    >
-                      <span className="drop-role-name">{r.title}</span>
-                      <span className="drop-role-dept">{r.dept}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
         </div>
 
         {/* Metadata Badges */}
@@ -487,7 +492,6 @@ export default function CareersApplicationExperience({
                       <input
                         type="text"
                         className="stage-text-input"
-                        placeholder="e.g. Alexander Vance"
                         value={formData.fullName}
                         onChange={(e) => {
                           setFormData({ ...formData, fullName: e.target.value });
@@ -507,7 +511,6 @@ export default function CareersApplicationExperience({
                       <input
                         type="email"
                         className="stage-text-input"
-                        placeholder="alex@domain.com"
                         value={formData.email}
                         onChange={(e) => {
                           setFormData({ ...formData, email: e.target.value });
@@ -526,7 +529,6 @@ export default function CareersApplicationExperience({
                       <input
                         type="tel"
                         className="stage-text-input"
-                        placeholder="+1 (555) 000-0000 or +91 98765..."
                         value={formData.phone}
                         onChange={(e) => {
                           setFormData({ ...formData, phone: e.target.value });
@@ -545,7 +547,6 @@ export default function CareersApplicationExperience({
                       <input
                         type="text"
                         className="stage-text-input"
-                        placeholder="e.g. San Francisco, US or Bengaluru, IN"
                         value={formData.location}
                         onChange={(e) => {
                           setFormData({ ...formData, location: e.target.value });
@@ -579,28 +580,63 @@ export default function CareersApplicationExperience({
                   </p>
                 </div>
 
-                <div className="stage-journey-grid">
-                  {JOURNEY_OPTIONS.map((opt) => {
-                    const isSelected = formData.journeyStage === opt.id;
-                    return (
-                      <div
-                        key={opt.id}
-                        className={`stage-journey-item ${isSelected ? 'active' : ''}`}
-                        onClick={() => {
-                          setFormData({ ...formData, journeyStage: opt.id });
-                          setValidationError('');
-                        }}
-                      >
-                        <div className="journey-top-row">
-                          <span className="journey-opt-title">{opt.title}</span>
-                          <div className={`journey-opt-radio ${isSelected ? 'checked' : ''}`}>
-                            {isSelected && <i className="fa-solid fa-check"></i>}
-                          </div>
+                {/* Clean Modern Dropdown (No Checkboxes) */}
+                <div className="stage-field" ref={journeyDropdownRef} style={{ position: 'relative', marginBottom: '16px' }}>
+                  <label className="stage-label">
+                    CURRENT EDUCATION / EXPERIENCE MILESTONE <span className="req-dot">*</span>
+                  </label>
+                  <button
+                    type="button"
+                    className={`stage-custom-select-trigger ${isJourneyDropdownOpen ? 'open' : ''}`}
+                    onClick={() => setIsJourneyDropdownOpen(!isJourneyDropdownOpen)}
+                  >
+                    <div className="trigger-left">
+                      <i className="fa-solid fa-graduation-cap trigger-icon"></i>
+                      {formData.journeyStage ? (
+                        <div className="trigger-selection-text">
+                          <span className="trigger-title">
+                            {JOURNEY_OPTIONS.find((o) => o.id === formData.journeyStage)?.title}
+                          </span>
+                          <span className="trigger-sep">•</span>
+                          <span className="trigger-desc">
+                            {JOURNEY_OPTIONS.find((o) => o.id === formData.journeyStage)?.desc}
+                          </span>
                         </div>
-                        <p className="journey-opt-desc">{opt.desc}</p>
-                      </div>
-                    );
-                  })}
+                      ) : (
+                        <span className="trigger-placeholder">
+                          Select your education stage...
+                        </span>
+                      )}
+                    </div>
+                    <i className={`fa-solid fa-chevron-down trigger-chevron ${isJourneyDropdownOpen ? 'rotated' : ''}`}></i>
+                  </button>
+
+                  {isJourneyDropdownOpen && (
+                    <div className="stage-custom-dropdown-menu">
+                      {JOURNEY_OPTIONS.map((opt) => {
+                        const isSelected = formData.journeyStage === opt.id;
+                        return (
+                          <div
+                            key={opt.id}
+                            className={`dropdown-opt-row ${isSelected ? 'selected' : ''}`}
+                            onClick={() => {
+                              setFormData({ ...formData, journeyStage: opt.id });
+                              setValidationError('');
+                              setIsJourneyDropdownOpen(false);
+                            }}
+                          >
+                            <div className="opt-text-block">
+                              <span className="opt-title">{opt.title}</span>
+                              <span className="opt-desc">{opt.desc}</span>
+                            </div>
+                            {isSelected && (
+                              <i className="fa-solid fa-check opt-selected-check"></i>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
 
                 <div className="stage-field" style={{ marginTop: '20px' }}>
@@ -612,7 +648,6 @@ export default function CareersApplicationExperience({
                     <input
                       type="text"
                       className="stage-text-input"
-                      placeholder="e.g. Stanford University, IIT Bombay, MIT, or Self-Taught"
                       value={formData.institution}
                       onChange={(e) => {
                         setFormData({ ...formData, institution: e.target.value });
@@ -632,71 +667,139 @@ export default function CareersApplicationExperience({
             )}
 
             {/* ============================================================= */}
-            {/* STEP 3: SKILLS & TOOLS                                        */}
+            {/* STEP 3: SKILLS & TOOLS (PERSONAL TECH STACK ARCHITECTURE)     */}
             {/* ============================================================= */}
             {currentStep === 3 && (
-              <div className="stage-card-box">
+              <div className="stage-card-box stage-tech-stack-stage">
                 <div className="stage-header-group">
-                  <span className="stage-kicker">03 / 06 • SKILLS</span>
+                  <span className="stage-kicker">03 / 06 • TECH STACK</span>
                   <h1 className="stage-h1">
                     Your skills & <i>tools.</i>
                   </h1>
                   <p className="stage-desc">
-                    Select the programming languages, frameworks, and domains you're comfortable with.
+                    Build your toolkit.
                   </p>
                 </div>
 
-                {/* Skills summary header */}
-                <div className="stage-skills-summary-bar">
-                  <span className="skills-badge-info">
-                    <i className="fa-solid fa-layer-group" style={{ color: '#E81A2D' }}></i>
-                    <span>Selected: <strong>{formData.skills.length}</strong> skills</span>
-                  </span>
-                  {formData.skills.length > 0 && (
-                    <button
-                      type="button"
-                      className="skills-reset-btn"
-                      onClick={() => setFormData({ ...formData, skills: [] })}
-                    >
-                      Clear all
-                    </button>
-                  )}
-                </div>
-
-                {/* Pill Cloud */}
-                <div className="stage-pills-wrap">
-                  {DEFAULT_SKILLS.map((sk) => {
-                    const isSel = formData.skills.includes(sk);
-                    return (
+                {/* DYNAMIC TECH STACK DOCK: "YOUR TOOLKIT" */}
+                <div className="toolkit-dynamic-dock">
+                  <div className="toolkit-dock-header">
+                    <div className="toolkit-dock-title-group">
+                      <span className="toolkit-dock-kicker">// YOUR TOOLKIT</span>
+                      <span className="toolkit-dock-beacon">
+                        <span className="toolkit-beacon-dot"></span>
+                        <span className="toolkit-count-label">
+                          {formData.skills.length} {formData.skills.length === 1 ? 'MODULE' : 'MODULES'} ASSEMBLED
+                        </span>
+                      </span>
+                    </div>
+                    {formData.skills.length > 0 && (
                       <button
-                        key={sk}
                         type="button"
-                        className={`stage-skill-pill ${isSel ? 'selected' : ''}`}
-                        onClick={() => toggleSkill(sk)}
+                        className="toolkit-reset-btn"
+                        onClick={() => setFormData({ ...formData, skills: [] })}
+                        title="Clear current toolkit"
                       >
-                        <i className={`fa-solid ${isSel ? 'fa-check' : 'fa-plus'}`}></i>
-                        <span>{sk}</span>
+                        <i className="fa-solid fa-rotate-left"></i> Reset Stack
                       </button>
-                    );
-                  })}
+                    )}
+                  </div>
+
+                  <div className="toolkit-dock-body">
+                    {formData.skills.length === 0 ? (
+                      <div className="toolkit-empty-blueprint">
+                        <i className="fa-solid fa-network-wired empty-blueprint-icon"></i>
+                        <span>No modules deployed yet. Tap technologies below to assemble your personal tech stack.</span>
+                      </div>
+                    ) : (
+                      <div className="toolkit-chips-stream">
+                        {formData.skills.map((sk) => (
+                          <div key={sk} className="toolkit-assembled-chip">
+                            <span className="toolkit-node-point"></span>
+                            <span className="toolkit-node-text">{sk}</span>
+                            <button
+                              type="button"
+                              className="toolkit-node-remove"
+                              onClick={() => toggleSkill(sk)}
+                              title={`Remove ${sk} from toolkit`}
+                            >
+                              <i className="fa-solid fa-xmark"></i>
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
 
-                {/* Custom skill add */}
-                <form onSubmit={addCustomSkill} className="stage-custom-skill-row">
-                  <div className="stage-input-wrap" style={{ flex: 1 }}>
-                    <i className="fa-solid fa-plus input-icon"></i>
+                {/* DIRECT SKILL TYPING / WRITING INPUT */}
+                <div className="toolkit-type-write-box">
+                  <label className="stage-label" style={{ marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <i className="fa-solid fa-keyboard" style={{ color: '#E81A2D' }}></i>
+                    ENTER SKILLS DIRECTLY
+                  </label>
+                  <div className="toolkit-direct-input-wrap">
+                    <i className="fa-solid fa-pen-nib direct-input-icon"></i>
                     <input
                       type="text"
-                      className="stage-text-input"
-                      placeholder="Add another tool or framework (e.g. Next.js, FastAPI, Kafka)..."
-                      value={formData.customSkill}
-                      onChange={(e) => setFormData({ ...formData, customSkill: e.target.value })}
+                      className="toolkit-direct-input"
+                      placeholder="Type any skill and press Enter (e.g. Next.js, Docker, PyTorch)..."
+                      value={customSkillInput}
+                      onChange={(e) => setCustomSkillInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ',') {
+                          e.preventDefault();
+                          handleDirectSkillAdd();
+                        }
+                      }}
                     />
+                    <button
+                      type="button"
+                      className="toolkit-direct-add-btn"
+                      onClick={handleDirectSkillAdd}
+                      disabled={!customSkillInput.trim()}
+                    >
+                      <i className="fa-solid fa-plus"></i> Add
+                    </button>
                   </div>
-                  <button type="submit" className="stage-add-btn">
-                    Add
-                  </button>
-                </form>
+                  <span className="toolkit-direct-hint">
+                    Type any technical skill and press <kbd>Enter</kbd> to add it directly to your stack.
+                  </span>
+                </div>
+
+                {/* TOP 5 DOMAIN SKILLS DECK */}
+                <div className="skill-cat-deck unified-skills-deck">
+                  <div className="skill-cat-legend">
+                    <div className="skill-cat-label-wrap">
+                      <i className="fa-solid fa-star skill-cat-glyph"></i>
+                      <span className="skill-cat-name">TOP 5 DOMAIN SKILLS • {roleData.title}</span>
+                    </div>
+                    {formData.skills.length > 0 && (
+                      <span className="skill-cat-status-badge">
+                        {formData.skills.length} ASSEMBLED
+                      </span>
+                    )}
+                  </div>
+                  <div className="skill-grid-cells">
+                    {allSkillsList.map((sk) => {
+                      const isSelected = formData.skills.includes(sk);
+                      return (
+                        <button
+                          key={sk}
+                          type="button"
+                          className={`tech-module-card ${isSelected ? 'active' : ''}`}
+                          onClick={() => toggleSkill(sk)}
+                        >
+                          <div className="tech-module-node">
+                            <i className={`fa-solid ${isSelected ? 'fa-check' : 'fa-plus'}`}></i>
+                          </div>
+                          <span className="tech-module-title">{sk}</span>
+                          {isSelected && <span className="tech-module-active-halo"></span>}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
 
                 {validationError && (
                   <div className="stage-val-error">
@@ -728,7 +831,6 @@ export default function CareersApplicationExperience({
                   <textarea
                     className="stage-textarea"
                     rows={3}
-                    placeholder="e.g. HealthPulse — Built a low-latency predictive biosignal streaming service using Python, PyTorch, and WebSockets. Achieved sub-50ms inference on multi-lead ECG feeds."
                     value={formData.featuredProject}
                     onChange={(e) => {
                       setFormData({ ...formData, featuredProject: e.target.value });
@@ -746,7 +848,6 @@ export default function CareersApplicationExperience({
                       <input
                         type="url"
                         className="stage-text-input"
-                        placeholder="https://github.com/..."
                         value={formData.githubUrl}
                         onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
                       />
@@ -760,7 +861,6 @@ export default function CareersApplicationExperience({
                       <input
                         type="url"
                         className="stage-text-input"
-                        placeholder="https://yourportfolio.com"
                         value={formData.portfolioUrl}
                         onChange={(e) => setFormData({ ...formData, portfolioUrl: e.target.value })}
                       />
@@ -886,7 +986,6 @@ export default function CareersApplicationExperience({
                   <textarea
                     className="stage-textarea"
                     rows={3}
-                    placeholder="Share what interests you about our technology, health-tech research, or what you hope to achieve during the cohort..."
                     value={formData.whyJoin}
                     onChange={(e) => {
                       setFormData({ ...formData, whyJoin: e.target.value });
@@ -1027,11 +1126,6 @@ export default function CareersApplicationExperience({
         {/* Floating Bottom Action Bar */}
         {currentStep <= totalSteps && (
           <footer className="stage-bottom-bar">
-            <div className="stage-hint-col">
-              <span className="stage-key-badge">↵ ENTER</span>
-              <span>to advance</span>
-            </div>
-
             <div className="stage-actions-col">
               {currentStep > 1 && (
                 <button
