@@ -1,0 +1,1377 @@
+/* ==========================================================================
+   AETHRIZ CINEMATIC APPLICATION EXPERIENCE
+   Futuristic • Cinematic Motion Design • Linear/Apple Polish • Interactive Storytelling
+   ========================================================================== */
+
+/* Fullscreen Immersive Stage */
+.cine-stage {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+  background: #07090F;
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+/* Ambient Cybernetic Mesh Background */
+.cine-ambient-mesh {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: 
+    radial-gradient(circle at 15% 20%, rgba(232, 26, 45, 0.15) 0%, transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 70%);
+  animation: cineMeshDrift 20s ease-in-out infinite alternate;
+}
+
+.cine-grid-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 90%);
+  mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 90%);
+}
+
+.cine-scanline-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.25;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.25),
+    rgba(0, 0, 0, 0.25) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+}
+
+@keyframes cineMeshDrift {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.1) translate(2vw, -2vh); }
+}
+
+/* ==========================================================================
+   TOP HUD BAR
+   ========================================================================== */
+.cine-topbar {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 48px;
+  width: 100%;
+}
+
+.cine-brand-col {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cine-brand-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #FFFFFF;
+}
+
+.cine-track-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #CBD5E1;
+}
+
+.cine-track-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #E81A2D;
+  box-shadow: 0 0 10px #E81A2D;
+  animation: cineDotPulse 1.6s infinite;
+}
+
+@keyframes cineDotPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.4; }
+}
+
+.cine-progress-col {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.cine-step-gauge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #94A3B8;
+  letter-spacing: 0.1em;
+}
+
+.cine-step-gauge strong {
+  color: #FFFFFF;
+}
+
+.cine-progress-track {
+  width: 180px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cine-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #E81A2D, #FF4D5E);
+  box-shadow: 0 0 12px #E81A2D;
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 999px;
+}
+
+.cine-exit-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #94A3B8;
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.cine-exit-btn:hover {
+  background: rgba(232, 26, 45, 0.2);
+  color: #FFFFFF;
+  border-color: #E81A2D;
+  transform: translateX(2px);
+}
+
+/* ==========================================================================
+   MAIN CINEMATIC QUESTION THEATER
+   ========================================================================== */
+.cine-main-theater {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 40px;
+}
+
+.cine-frame-wrapper {
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Staggered Content Reveals */
+.cine-anim-enter {
+  animation: cineSlideUpFade 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes cineSlideUpFade {
+  0% {
+    opacity: 0;
+    transform: translateY(32px) scale(0.98);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.cine-tag-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #E81A2D;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.cine-question-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+  margin-bottom: 16px;
+}
+
+.cine-question-title i {
+  font-style: italic;
+  font-weight: 400;
+  color: #E81A2D;
+  text-shadow: 0 0 25px rgba(232, 26, 45, 0.4);
+}
+
+.cine-question-sub {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: #94A3B8;
+  line-height: 1.6;
+  max-width: 720px;
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+/* ==========================================================================
+   INPUTS & MINIMAL CONTROLS
+   ========================================================================== */
+
+/* Giant Minimal Hero Input */
+.cine-hero-input-box {
+  position: relative;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.cine-hero-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+  font-weight: 400;
+  color: #FFFFFF;
+  padding: 16px 0;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.cine-hero-input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+  font-weight: 300;
+}
+
+.cine-hero-input:focus {
+  border-bottom-color: #E81A2D;
+}
+
+.cine-input-glow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, #E81A2D, #FF4D5E);
+  box-shadow: 0 0 20px #E81A2D;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cine-hero-input:focus ~ .cine-input-glow {
+  width: 100%;
+}
+
+.cine-standard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.cine-field-wrap {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.cine-field-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #94A3B8;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.cine-standard-input {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  color: #FFFFFF;
+  outline: none;
+  transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.cine-standard-input:focus {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: #E81A2D;
+  box-shadow: 0 0 0 4px rgba(232, 26, 45, 0.15), 0 0 20px rgba(232, 26, 45, 0.2);
+}
+
+.cine-standard-input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.cine-error-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #FF4D5E;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  animation: cineShake 0.35s ease;
+}
+
+@keyframes cineShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* ==========================================================================
+   CARDS & MULTI-CHOICE TILES (JOURNEY & CONTACT)
+   ========================================================================== */
+.cine-cards-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.cine-choice-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 24px 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 150px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(10px);
+}
+
+.cine-choice-card:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.cine-choice-card.active {
+  background: rgba(232, 26, 45, 0.08);
+  border-color: #E81A2D;
+  box-shadow: 0 0 30px rgba(232, 26, 45, 0.25), inset 0 0 15px rgba(232, 26, 45, 0.1);
+  transform: translateY(-4px) scale(1.02);
+}
+
+.choice-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.choice-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #E81A2D;
+}
+
+.choice-key-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 2px 7px;
+  border-radius: 4px;
+  color: #94A3B8;
+}
+
+.choice-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-top: 16px;
+  margin-bottom: 6px;
+}
+
+.choice-desc {
+  font-size: 0.8rem;
+  color: #94A3B8;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   SKILL CLOUD & ASSEMBLED ARSENAL RACK
+   ========================================================================== */
+.cine-arsenal-rack {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(20px);
+}
+
+.arsenal-rack-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.arsenal-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #CBD5E1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.arsenal-feedback {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #E81A2D;
+  font-weight: 700;
+  animation: cineFadeIn 0.3s ease;
+}
+
+.arsenal-chips-shelf {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 44px;
+  align-items: center;
+}
+
+.arsenal-empty {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.3);
+  font-style: italic;
+}
+
+.arsenal-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #E81A2D;
+  color: #FFFFFF;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  box-shadow: 0 0 15px rgba(232, 26, 45, 0.4);
+  animation: cineChipPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.chip-x-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  transition: color 0.15s ease;
+}
+
+.chip-x-btn:hover {
+  color: #FFFFFF;
+}
+
+@keyframes cineChipPop {
+  0% { transform: scale(0.6); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.cine-skills-matrix {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.cine-matrix-tile {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: #CBD5E1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.cine-matrix-tile:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  color: #FFFFFF;
+}
+
+.cine-matrix-tile.selected {
+  background: rgba(232, 26, 45, 0.15);
+  border-color: #E81A2D;
+  color: #FFFFFF;
+  box-shadow: 0 0 15px rgba(232, 26, 45, 0.2);
+}
+
+/* ==========================================================================
+   RESUME LASER SCAN DROP ZONE
+   ========================================================================== */
+.cine-scanner-dropzone {
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  border: 2px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cine-scanner-dropzone:hover,
+.cine-scanner-dropzone.dragging {
+  background: rgba(232, 26, 45, 0.04);
+  border-color: #E81A2D;
+  transform: scale(1.01);
+  box-shadow: 0 0 40px rgba(232, 26, 45, 0.2);
+}
+
+/* Biometric Laser Scanning Beam */
+.cine-laser-beam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #E81A2D, #FF4D5E, transparent);
+  box-shadow: 0 0 20px 4px rgba(232, 26, 45, 0.6);
+  animation: laserSweep 3s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes laserSweep {
+  0% { top: 5%; opacity: 0.2; }
+  50% { opacity: 0.9; }
+  100% { top: 95%; opacity: 0.2; }
+}
+
+.scanner-reticle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 26, 45, 0.4);
+  background: rgba(232, 26, 45, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: #E81A2D;
+  margin-bottom: 20px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.cine-scanner-dropzone:hover .scanner-reticle {
+  transform: scale(1.1);
+  background: #E81A2D;
+  color: #FFFFFF;
+  box-shadow: 0 0 30px rgba(232, 26, 45, 0.6);
+}
+
+.scanner-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+}
+
+.scanner-sub {
+  font-size: 0.9rem;
+  color: #94A3B8;
+  margin-bottom: 16px;
+}
+
+.scanner-spec-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: #E81A2D;
+  background: rgba(232, 26, 45, 0.1);
+  border: 1px solid rgba(232, 26, 45, 0.25);
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+/* Verified Document Card */
+.cine-scanned-dossier {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(232, 26, 45, 0.5);
+  border-radius: 18px;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 0 35px rgba(232, 26, 45, 0.15);
+  animation: cineFadeIn 0.4s ease;
+}
+
+.scanned-icon-box {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: rgba(232, 26, 45, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: #E81A2D;
+}
+
+.scanned-meta {
+  flex: 1;
+}
+
+.scanned-verified-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #10B981;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.scanned-filename {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.scanned-size {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #94A3B8;
+}
+
+.scanned-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* ==========================================================================
+   WRITING CANVAS (WHY AETHRIZ)
+   ========================================================================== */
+.cine-canvas-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.cine-canvas-box:focus-within {
+  border-color: #E81A2D;
+  box-shadow: 0 0 30px rgba(232, 26, 45, 0.2);
+}
+
+.cine-canvas-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.canvas-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #E81A2D;
+  letter-spacing: 0.1em;
+}
+
+.canvas-stats {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: #94A3B8;
+  display: flex;
+  gap: 8px;
+}
+
+.cine-textarea {
+  width: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.15rem;
+  color: #FFFFFF;
+  line-height: 1.8;
+  resize: vertical;
+}
+
+.cine-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+  font-weight: 300;
+}
+
+.cine-inspiration-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.cine-inspire-pill {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94A3B8;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cine-inspire-pill:hover {
+  background: rgba(232, 26, 45, 0.15);
+  color: #FFFFFF;
+  border-color: #E81A2D;
+}
+
+/* ==========================================================================
+   HOLOGRAPHIC CANDIDATE REVIEW BADGE
+   ========================================================================== */
+.cine-holo-dossier {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  padding: 36px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(25px);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+}
+
+.cine-holo-sheen {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    135deg,
+    transparent 45%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 55%
+  );
+  pointer-events: none;
+  animation: cineSheen 8s infinite linear;
+}
+
+@keyframes cineSheen {
+  0% { transform: translateY(-50%) rotate(0deg); }
+  100% { transform: translateY(50%) rotate(360deg); }
+}
+
+.holo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.holo-badge-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #E81A2D;
+  letter-spacing: 0.15em;
+}
+
+.holo-candidate-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.holo-role-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 6px 14px;
+  border-radius: 999px;
+  color: #CBD5E1;
+}
+
+.holo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.holo-tile {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.holo-tile-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #64748B;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.holo-tile-val {
+  font-size: 0.95rem;
+  color: #FFFFFF;
+  font-weight: 500;
+}
+
+.holo-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.holo-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: #E81A2D;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.holo-statement {
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #CBD5E1;
+  line-height: 1.5;
+}
+
+.cine-declaration-toggle {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.cine-declaration-toggle:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.cine-checkbox-box {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 0.7rem;
+  transition: all 0.2s ease;
+}
+
+.cine-checkbox-box.checked {
+  background: #E81A2D;
+  border-color: #E81A2D;
+  box-shadow: 0 0 10px #E81A2D;
+}
+
+.cine-declaration-text {
+  font-size: 0.85rem;
+  color: #CBD5E1;
+}
+
+/* ==========================================================================
+   TRANSMISSION & SUCCESS CINEMATICS
+   ========================================================================== */
+.cine-transmission-overlay {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 650px;
+}
+
+.cine-transmitting-orb {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 2px solid rgba(232, 26, 45, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #E81A2D;
+  margin-bottom: 28px;
+  position: relative;
+  box-shadow: 0 0 40px rgba(232, 26, 45, 0.3);
+}
+
+.orb-pulse-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px solid #E81A2D;
+  animation: orbRing 1.5s ease-out infinite;
+}
+
+@keyframes orbRing {
+  0% { transform: scale(0.9); opacity: 1; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+.transmission-phase-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #FFFFFF;
+  margin-bottom: 12px;
+}
+
+.transmission-bar-outer {
+  width: 320px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.transmission-bar-fill {
+  height: 100%;
+  background: #E81A2D;
+  box-shadow: 0 0 15px #E81A2D;
+  transition: width 0.4s ease;
+}
+
+.transmission-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #94A3B8;
+}
+
+/* Success State */
+.cine-success-theater {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 700px;
+  animation: cineFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cine-success-ring {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: rgba(232, 26, 45, 0.1);
+  border: 2px solid #E81A2D;
+  box-shadow: 0 0 50px rgba(232, 26, 45, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.cine-checkmark-svg {
+  width: 58px;
+  height: 58px;
+  stroke: #E81A2D;
+  stroke-width: 3;
+}
+
+.cine-svg-circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  animation: cineStroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.cine-svg-check {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: cineStroke 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.5s forwards;
+}
+
+@keyframes cineStroke {
+  100% { stroke-dashoffset: 0; }
+}
+
+.cine-success-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: #E81A2D;
+  margin-bottom: 12px;
+}
+
+.cine-success-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 600;
+  line-height: 1.1;
+  color: #FFFFFF;
+  margin-bottom: 16px;
+}
+
+.cine-success-title i {
+  font-style: italic;
+  font-weight: 400;
+  color: #E81A2D;
+}
+
+.cine-success-desc {
+  font-size: 1.1rem;
+  color: #94A3B8;
+  line-height: 1.6;
+  max-width: 600px;
+  margin-bottom: 36px;
+}
+
+/* Reference Card */
+.cine-ref-strip {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 16px 28px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.ref-item-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ref-meta-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: #64748B;
+  letter-spacing: 0.1em;
+}
+
+.ref-meta-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.ref-meta-val.red {
+  color: #E81A2D;
+}
+
+.ref-copy-icon-btn {
+  background: none;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 0.85rem;
+  transition: color 0.15s ease;
+}
+
+.ref-copy-icon-btn:hover {
+  color: #FFFFFF;
+}
+
+/* Roadmap Horizontal */
+.cine-roadmap-strip {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 20px 28px;
+  margin-bottom: 36px;
+}
+
+.roadmap-pip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.pip-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #94A3B8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.roadmap-pip.active .pip-circle {
+  background: #E81A2D;
+  color: #FFFFFF;
+  box-shadow: 0 0 15px #E81A2D;
+}
+
+.pip-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: #CBD5E1;
+}
+
+.roadmap-wire {
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0 10px 18px;
+}
+
+/* ==========================================================================
+   FLOATING BOTTOM CONTROLLER & HOTKEYS HUD
+   ========================================================================== */
+.cine-bottom-controller {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 48px;
+  width: 100%;
+  background: linear-gradient(0deg, rgba(7, 9, 15, 0.8) 0%, transparent 100%);
+}
+
+.cine-hotkey-hints {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hotkey-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #64748B;
+}
+
+.kbd-badge {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  padding: 2px 7px;
+  color: #CBD5E1;
+  font-weight: 700;
+}
+
+.cine-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cine-btn-back {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #CBD5E1;
+  height: 48px;
+  padding: 0 24px;
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+}
+
+.cine-btn-back:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  transform: translateX(-2px);
+}
+
+.cine-btn-back:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.cine-btn-forward {
+  background: #E81A2D;
+  border: 1px solid #E81A2D;
+  color: #FFFFFF;
+  height: 48px;
+  padding: 0 32px;
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 0 25px rgba(232, 26, 45, 0.4);
+  transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.cine-btn-forward:hover:not(:disabled) {
+  background: #FF1E33;
+  transform: translateY(-2px);
+  box-shadow: 0 0 35px rgba(232, 26, 45, 0.6);
+}
+
+.cine-btn-forward:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cine-btn-forward i {
+  transition: transform 0.2s ease;
+}
+
+.cine-btn-forward:hover:not(:disabled) i {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (TABLET & MOBILE)
+   ========================================================================== */
+@media (max-width: 900px) {
+  .cine-topbar,
+  .cine-bottom-controller {
+    padding: 16px 24px;
+  }
+  .cine-standard-grid {
+    grid-template-columns: 1fr;
+  }
+  .holo-grid {
+    grid-template-columns: 1fr;
+  }
+  .cine-hotkey-hints {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .cine-topbar {
+    padding: 14px 18px;
+  }
+  .cine-progress-track {
+    width: 100px;
+  }
+  .cine-question-title {
+    font-size: 1.85rem;
+  }
+  .cine-bottom-controller {
+    padding: 12px 18px;
+  }
+  .cine-btn-forward {
+    padding: 0 20px;
+    font-size: 0.72rem;
+  }
+  .cine-ref-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .cine-roadmap-strip {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .roadmap-wire {
+    display: none;
+  }
+}
