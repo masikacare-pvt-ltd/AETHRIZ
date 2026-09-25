@@ -14,35 +14,19 @@ const JOURNEY_OPTIONS = [
   { id: 'independent', title: 'Independent Builder', desc: 'Self-taught researcher or creator' }
 ];
 
-// Guaranteed non-duplicating unique numeric application ID generator
-const generateUniqueApplicationId = () => {
-  let id;
-  let history = [];
+// Sequential Application ID generator (e.g. AETH-WI26-001, AETH-WI26-002...)
+const generateSequentialApplicationId = () => {
+  let count = 1;
   try {
-    history = JSON.parse(localStorage.getItem('aethriz_generated_ref_ids') || '[]');
-  } catch (e) {
-    history = [];
-  }
-
-  do {
-    // High-resolution timestamp slice (changes every millisecond) + 3 cryptographically random digits
-    const ms = (Date.now() % 1000).toString().padStart(3, '0');
-    let rand = Math.floor(100 + Math.random() * 900);
-    if (typeof window !== 'undefined' && window.crypto && window.crypto.getRandomValues) {
-      const buf = new Uint16Array(1);
-      window.crypto.getRandomValues(buf);
-      rand = (buf[0] % 900) + 100;
+    const stored = localStorage.getItem('aethriz_applicant_seq_counter');
+    if (stored) {
+      count = parseInt(stored, 10) + 1;
     }
-    id = `AETHRIZ-2026-${ms}${rand}`;
-  } while (history.includes(id));
-
-  history.push(id);
-  if (history.length > 200) history.shift();
-  try {
-    localStorage.setItem('aethriz_generated_ref_ids', JSON.stringify(history));
-  } catch (e) {}
-
-  return id;
+    localStorage.setItem('aethriz_applicant_seq_counter', count.toString());
+  } catch (e) {
+    count = 1;
+  }
+  return `AETH-WI26-${String(count).padStart(3, '0')}`;
 };
 
 export default function CareersApplicationExperience({
@@ -51,9 +35,9 @@ export default function CareersApplicationExperience({
   onSelectRole,
   onExit
 }) {
-  // Current step (1 to 6 for questions, 7 for success)
+  // Current step (1 to 5 for questions, 6 for success)
   const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 6;
+  const totalSteps = 5;
   const [slideDirection, setSlideDirection] = useState('forward');
   const [showRolePicker, setShowRolePicker] = useState(false);
 
@@ -91,34 +75,23 @@ export default function CareersApplicationExperience({
     skills: [],
     customSkill: '',
 
-    // Step 4: Projects & Work
+    // Step 4: Projects, Work & Resume Link
     featuredProject: '',
     projectLink: '',
     githubUrl: '',
     portfolioUrl: '',
+    resumeUrl: '',
 
-    // Step 5: Resume
-    resumeFileName: '',
-    resumeFileSize: '',
-    resumeBase64: '',
-
-    // Step 6: Motivation & Declaration
+    // Step 5: Motivation & Declaration
     whyJoin: '',
     agreed: false
   });
 
   const [validationError, setValidationError] = useState('');
-  const [isDragging, setIsDragging] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [refId, setRefId] = useState('');
   const [copied, setCopied] = useState(false);
 
-  // Resume upload interaction states
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [isUploading, setIsUploading] = useState(false);
-  const [resumeBlobUrl, setResumeBlobUrl] = useState(null);
-
-  const fileInputRef = useRef(null);
   const formViewportRef = useRef(null);
   const journeyDropdownRef = useRef(null);
 
@@ -144,6 +117,21 @@ export default function CareersApplicationExperience({
     return unique;
   }, [role, roleData, customSkillsList]);
 
+  // Sync next applicant count from Google Sheet if available
+  useEffect(() => {
+    if (!GOOGLE_SHEET_ENDPOINT) return;
+    fetch(GOOGLE_SHEET_ENDPOINT)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && typeof data.nextCount === 'number') {
+          try {
+            localStorage.setItem('aethriz_applicant_seq_counter', (data.nextCount - 1).toString());
+          } catch (e) {}
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   // Close journey dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -165,7 +153,7 @@ export default function CareersApplicationExperience({
   // Keyboard navigation (Enter to advance, Escape to exit)
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (isSubmitting || currentStep === 7) return;
+      if (isSubmitting || currentStep === 6) return;
 
       if (e.key === 'Escape') {
         onExit();
@@ -227,12 +215,11 @@ export default function CareersApplicationExperience({
         setValidationError('Please share a project description, GitHub profile, or portfolio URL.');
         return false;
       }
-    } else if (stepNumber === 5) {
-      if (!formData.resumeFileName) {
-        setValidationError('Please upload your resume (PDF or DOCX).');
+      if (!formData.resumeUrl.trim()) {
+        setValidationError('Please provide your resume link (Google Drive / OneDrive / Cloud link).');
         return false;
       }
-    } else if (stepNumber === 6) {
+    } else if (stepNumber === 5) {
       if (!formData.whyJoin.trim() || formData.whyJoin.trim().length < 15) {
         setValidationError('Please write a brief note on what excites you about this role.');
         return false;
@@ -246,7 +233,7 @@ export default function CareersApplicationExperience({
   };
 
   const handleNext = () => {
-    if (currentStep === 6) {
+    if (currentStep === 5) {
       submitApplication();
       return;
     }
@@ -296,52 +283,17 @@ export default function CareersApplicationExperience({
     setValidationError('');
   };
 
-  // Resume File handling with animated upload progress
-  const handleFile = (file) => {
-    if (!file) return;
-    if (file.size > 10 * 1024 * 1024) {
-      setValidationError('Max file size is 10MB.');
-      return;
-    }
-    const ext = '.' + file.name.split('.').pop().toLowerCase();
-    if (!['.pdf', '.doc', '.docx'].includes(ext)) {
-      setValidationError('Supported file formats: PDF or DOCX (up to 10MB).');
-      return;
-    }
-
-    setValidationError('');
-    setIsUploading(true);
-    setUploadProgress(20);
-
-    const blobUrl = URL.createObjectURL(file);
-    setResumeBlobUrl(blobUrl);
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      setUploadProgress(70);
-      const base64 = reader.result.split(',')[1] || reader.result;
-      setTimeout(() => {
-        setUploadProgress(100);
-        setTimeout(() => {
-          setFormData((prev) => ({
-            ...prev,
-            resumeFileName: file.name,
-            resumeFileSize: `${(file.size / (1024 * 1024)).toFixed(1)} MB`,
-            resumeBase64: base64
-          }));
-          setIsUploading(false);
-        }, 250);
-      }, 300);
-    };
-    reader.readAsDataURL(file);
-  };
-
   // Submit Application with cinematic transition
   const submitApplication = async () => {
-    if (!validateStep(6) || isSubmitting) return;
+    if (!validateStep(5) || isSubmitting) return;
 
     setIsSubmitting(true);
-    const newRefId = generateUniqueApplicationId();
+    const newRefId = generateSequentialApplicationId();
+
+    const linksCombined = [
+      formData.githubUrl ? `GitHub: ${formData.githubUrl}` : '',
+      formData.portfolioUrl ? `Live: ${formData.portfolioUrl}` : ''
+    ].filter(Boolean).join(' | ') || formData.portfolioUrl || formData.githubUrl || '';
 
     const payload = {
       refId: newRefId,
@@ -350,14 +302,20 @@ export default function CareersApplicationExperience({
       emailAddress: formData.email,
       phone: formData.phone,
       cityState: formData.location,
-      journeyStage: formData.journeyStage,
+      journeyStage: JOURNEY_OPTIONS.find((o) => o.id === formData.journeyStage)?.title || formData.journeyStage,
       collegeCourse: formData.institution,
       keySkills: formData.skills.join(', '),
       featuredProject: formData.featuredProject,
-      portfolioUrl: formData.portfolioUrl || formData.githubUrl || formData.projectLink,
-      resumeFileName: formData.resumeFileName,
-      resumeBase64: formData.resumeBase64,
-      whyJoin: formData.whyJoin
+      githubUrl: formData.githubUrl,
+      portfolioUrl: formData.portfolioUrl,
+      portfolioGithub: linksCombined,
+      resumeUrl: formData.resumeUrl,
+      resumeFileName: formData.resumeUrl,
+      hasExperience: formData.featuredProject ? 'Yes' : 'No',
+      available3Months: 'Yes (Oct 15, 2026 – Jan 15, 2027)',
+      remoteComfortable: 'Yes (100% Remote)',
+      whyJoin: formData.whyJoin,
+      contribution: formData.featuredProject
     };
 
     try {
@@ -375,7 +333,7 @@ export default function CareersApplicationExperience({
       setTimeout(() => {
         setIsSubmitting(false);
         setRefId(newRefId);
-        setCurrentStep(7); // Trigger cinematic AETHRIZ success sequence
+        setCurrentStep(6); // Trigger cinematic AETHRIZ success sequence
       }, 950);
     }
   };
@@ -528,7 +486,7 @@ export default function CareersApplicationExperience({
             {currentStep === 1 && (
               <div className="stage-card-box">
                 <div className="stage-header-group">
-                  <span className="stage-kicker">01 / 06 • INTRODUCTION</span>
+                  <span className="stage-kicker">01 / 05 • INTRODUCTION</span>
                   <h1 className="stage-h1">
                     Tell us about <i>yourself.</i>
                   </h1>
@@ -626,7 +584,7 @@ export default function CareersApplicationExperience({
             {currentStep === 2 && (
               <div className="stage-card-box">
                 <div className="stage-header-group">
-                  <span className="stage-kicker">02 / 06 • EDUCATION</span>
+                  <span className="stage-kicker">02 / 05 • EDUCATION</span>
                   <h1 className="stage-h1">
                     Your education & <i>journey.</i>
                   </h1>
@@ -727,7 +685,7 @@ export default function CareersApplicationExperience({
             {currentStep === 3 && (
               <div className="stage-card-box stage-tech-stack-stage">
                 <div className="stage-header-group">
-                  <span className="stage-kicker">03 / 06 • TECH STACK</span>
+                  <span className="stage-kicker">03 / 05 • TECH STACK</span>
                   <h1 className="stage-h1">
                     Your skills & <i>tools.</i>
                   </h1>
@@ -865,17 +823,17 @@ export default function CareersApplicationExperience({
             )}
 
             {/* ============================================================= */}
-            {/* STEP 4: WORK & PROJECTS                                       */}
+            {/* STEP 4: WORK & PROJECTS + RESUME LINK                         */}
             {/* ============================================================= */}
             {currentStep === 4 && (
               <div className="stage-card-box">
                 <div className="stage-header-group">
-                  <span className="stage-kicker">04 / 06 • YOUR WORK</span>
+                  <span className="stage-kicker">04 / 05 • YOUR WORK & RESUME</span>
                   <h1 className="stage-h1">
                     Your work & <i>projects.</i>
                   </h1>
                   <p className="stage-desc">
-                    Tell us about a project, application, or system you've built that demonstrates your skills.
+                    Tell us about a project or system you've built, and share your resume link.
                   </p>
                 </div>
 
@@ -886,6 +844,7 @@ export default function CareersApplicationExperience({
                   <textarea
                     className="stage-textarea"
                     rows={3}
+                    placeholder="Briefly describe what you built, architecture, technologies used, and your key contribution..."
                     value={formData.featuredProject}
                     onChange={(e) => {
                       setFormData({ ...formData, featuredProject: e.target.value });
@@ -903,6 +862,7 @@ export default function CareersApplicationExperience({
                       <input
                         type="url"
                         className="stage-text-input"
+                        placeholder="https://github.com/username/project"
                         value={formData.githubUrl}
                         onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
                       />
@@ -916,11 +876,36 @@ export default function CareersApplicationExperience({
                       <input
                         type="url"
                         className="stage-text-input"
+                        placeholder="https://yourportfolio.dev"
                         value={formData.portfolioUrl}
                         onChange={(e) => setFormData({ ...formData, portfolioUrl: e.target.value })}
                       />
                     </div>
                   </div>
+                </div>
+
+                {/* RESUME LINK INPUT (GOOGLE DRIVE / CLOUD) */}
+                <div className="stage-field" style={{ marginTop: '18px' }}>
+                  <label className="stage-label">
+                    RESUME / CV LINK (GOOGLE DRIVE / CLOUD) <span className="req-dot">*</span>
+                  </label>
+                  <div className="stage-input-wrap">
+                    <i className="fa-brands fa-google-drive input-icon" style={{ color: '#E81A2D' }}></i>
+                    <input
+                      type="url"
+                      className="stage-text-input"
+                      placeholder="https://drive.google.com/file/d/... or Cloud Resume Link"
+                      value={formData.resumeUrl}
+                      onChange={(e) => {
+                        setFormData({ ...formData, resumeUrl: e.target.value });
+                        setValidationError('');
+                      }}
+                    />
+                  </div>
+                  <span style={{ display: 'block', fontSize: '0.72rem', color: '#64748B', marginTop: '6px', fontFamily: 'JetBrains Mono, monospace' }}>
+                    <i className="fa-solid fa-circle-info" style={{ color: '#E81A2D', marginRight: '5px' }}></i>
+                    Paste your Google Drive, OneDrive, or Dropbox link. Please ensure permissions are set to <strong>"Anyone with the link can view"</strong>.
+                  </span>
                 </div>
 
                 {validationError && (
@@ -932,141 +917,12 @@ export default function CareersApplicationExperience({
             )}
 
             {/* ============================================================= */}
-            {/* STEP 5: RESUME UPLOAD (PREMIUM DRAG & DROP EXPERIENCE)        */}
+            {/* STEP 5: MOTIVATION & REVIEW (FINAL STEP)                      */}
             {/* ============================================================= */}
             {currentStep === 5 && (
               <div className="stage-card-box">
                 <div className="stage-header-group">
-                  <span className="stage-kicker">05 / 06 • RESUME</span>
-                  <h1 className="stage-h1">
-                    Add your <i>resume.</i>
-                  </h1>
-                  <p className="stage-desc">
-                    Upload your latest CV or resume
-                  </p>
-                </div>
-
-                {isUploading ? (
-                  /* Animated Upload Progress State */
-                  <div className="resume-uploading-card">
-                    <div className="uploading-spinner-ring">
-                      <i className="fa-solid fa-circle-notch fa-spin"></i>
-                    </div>
-                    <h4 className="uploading-text">Encrypting & Uploading Document...</h4>
-                    <div className="uploading-progress-track">
-                      <div className="uploading-progress-fill" style={{ width: `${uploadProgress}%` }}></div>
-                    </div>
-                    <span className="uploading-pct">{uploadProgress}%</span>
-                  </div>
-                ) : formData.resumeFileName ? (
-                  /* Beautiful Accepted Resume Preview Card */
-                  <div className="resume-accepted-card">
-                    <div className="accepted-card-left">
-                      <div className="accepted-doc-icon-wrap">
-                        <i className="fa-solid fa-file-pdf accepted-doc-glyph"></i>
-                        <span className="accepted-verified-badge">
-                          <i className="fa-solid fa-check"></i>
-                        </span>
-                      </div>
-                      <div className="accepted-meta-col">
-                        <div className="accepted-status-pill">
-                          <i className="fa-solid fa-circle-check"></i>
-                          <span>Resume uploaded</span>
-                        </div>
-                        <h3 className="accepted-filename-title">{formData.resumeFileName}</h3>
-                        <span className="accepted-filesize-sub">{formData.resumeFileSize}</span>
-                      </div>
-                    </div>
-
-                    <div className="accepted-card-actions">
-                      {resumeBlobUrl && (
-                        <button
-                          type="button"
-                          className="btn-resume-preview"
-                          onClick={() => window.open(resumeBlobUrl, '_blank')}
-                          title="Preview uploaded document"
-                        >
-                          <i className="fa-solid fa-eye"></i> Preview
-                        </button>
-                      )}
-                      <button
-                        type="button"
-                        className="btn-resume-replace"
-                        onClick={() => fileInputRef.current && fileInputRef.current.click()}
-                        title="Choose another document"
-                      >
-                        <i className="fa-solid fa-arrows-rotate"></i> Replace
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  /* Large Interactive Drag-and-Drop Area */
-                  <div
-                    className={`resume-luxury-dropzone ${isDragging ? 'is-drag-over' : ''}`}
-                    onDragOver={(e) => {
-                      e.preventDefault();
-                      setIsDragging(true);
-                    }}
-                    onDragLeave={() => setIsDragging(false)}
-                    onDrop={(e) => {
-                      e.preventDefault();
-                      setIsDragging(false);
-                      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                        handleFile(e.dataTransfer.files[0]);
-                      }
-                    }}
-                    onClick={() => fileInputRef.current && fileInputRef.current.click()}
-                  >
-                    <div className="dropzone-content-core">
-                      <div className="dropzone-icon-beacon">
-                        <i className="fa-solid fa-cloud-arrow-up"></i>
-                      </div>
-                      <span className="dropzone-callout-kicker">DROP FILE HERE</span>
-                      <span className="dropzone-or-divider">or</span>
-                      <button
-                        type="button"
-                        className="btn-choose-resume"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          fileInputRef.current && fileInputRef.current.click();
-                        }}
-                      >
-                        <i className="fa-solid fa-plus"></i> Choose Resume
-                      </button>
-                      <span className="dropzone-supported-notice">
-                        Supported: <strong>PDF / DOCX</strong> • Max <strong>10 MB</strong>
-                      </span>
-                    </div>
-                  </div>
-                )}
-
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept=".pdf,.doc,.docx"
-                  style={{ display: 'none' }}
-                  onChange={(e) => {
-                    if (e.target.files && e.target.files[0]) {
-                      handleFile(e.target.files[0]);
-                    }
-                  }}
-                />
-
-                {validationError && (
-                  <div className="stage-val-error" style={{ marginTop: '16px' }}>
-                    <i className="fa-solid fa-circle-exclamation"></i> {validationError}
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* ============================================================= */}
-            {/* STEP 6: MOTIVATION & REVIEW                                   */}
-            {/* ============================================================= */}
-            {currentStep === 6 && (
-              <div className="stage-card-box">
-                <div className="stage-header-group">
-                  <span className="stage-kicker">06 / 06 • FINAL STEP</span>
+                  <span className="stage-kicker">05 / 05 • FINAL STEP</span>
                   <h1 className="stage-h1">
                     Almost <i>done.</i>
                   </h1>
@@ -1087,6 +943,7 @@ export default function CareersApplicationExperience({
                   <textarea
                     className="stage-textarea"
                     rows={3}
+                    placeholder="Tell us what motivates you, what you're passionate about, and what you aim to achieve during this cohort..."
                     value={formData.whyJoin}
                     onChange={(e) => {
                       setFormData({ ...formData, whyJoin: e.target.value });
@@ -1100,47 +957,143 @@ export default function CareersApplicationExperience({
                 <div className="stage-review-deck">
                   <div className="review-deck-top">
                     <div>
-                      <span className="review-sub-kicker">SUMMARY</span>
+                      <span className="review-sub-kicker">// APPLICATION DOSSIER</span>
                       <h4 className="review-cand-name">{formData.fullName || 'Candidate'}</h4>
                     </div>
                     <span className="review-track-badge">{role}</span>
                   </div>
 
+                  {/* 2-Column Core Info: Contact & Academic */}
                   <div className="review-deck-grid">
-                    <div className="review-deck-col">
-                      <div className="review-block">
-                        <span className="review-block-label">Contact</span>
-                        <span className="review-block-main">{formData.email}</span>
-                        <span className="review-block-sub">{formData.phone} • {formData.location}</span>
-                      </div>
-                      <div className="review-block" style={{ marginTop: '10px' }}>
-                        <span className="review-block-label">Education</span>
-                        <span className="review-block-main">{formData.institution}</span>
-                        <span className="review-block-sub" style={{ textTransform: 'capitalize' }}>
-                          {formData.journeyStage.replace('_', ' ')}
+                    <div className="review-block">
+                      <div className="review-block-header">
+                        <span className="review-block-label">
+                          <i className="fa-regular fa-address-card" style={{ color: '#E81A2D', marginRight: '5px' }}></i>
+                          CANDIDATE CONTACT
                         </span>
+                        <button type="button" className="review-edit-tag" onClick={() => jumpToStep(1)} title="Edit contact info">
+                          <i className="fa-solid fa-pen-to-square"></i> Edit
+                        </button>
+                      </div>
+                      <div className="review-block-main">{formData.email}</div>
+                      <div className="review-block-sub">
+                        <span>{formData.phone}</span>
+                        {formData.location && (
+                          <>
+                            <span className="review-sep">•</span>
+                            <span>{formData.location}</span>
+                          </>
+                        )}
                       </div>
                     </div>
 
-                    <div className="review-deck-col">
-                      <div className="review-block">
-                        <span className="review-block-label">Skills Selected</span>
-                        <div className="review-pill-row">
-                          {formData.skills.slice(0, 4).map((s) => (
-                            <span key={s} className="review-tag">{s}</span>
-                          ))}
-                          {formData.skills.length > 4 && (
-                            <span className="review-tag">+{formData.skills.length - 4}</span>
-                          )}
-                        </div>
-                      </div>
-                      <div className="review-block" style={{ marginTop: '10px' }}>
-                        <span className="review-block-label">Attached Resume</span>
-                        <span className="review-block-main" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                          <i className="fa-solid fa-file-pdf" style={{ color: '#E81A2D' }}></i>
-                          {formData.resumeFileName || 'None'}
+                    <div className="review-block">
+                      <div className="review-block-header">
+                        <span className="review-block-label">
+                          <i className="fa-solid fa-graduation-cap" style={{ color: '#E81A2D', marginRight: '5px' }}></i>
+                          ACADEMIC BACKGROUND
                         </span>
+                        <button type="button" className="review-edit-tag" onClick={() => jumpToStep(2)} title="Edit education">
+                          <i className="fa-solid fa-pen-to-square"></i> Edit
+                        </button>
                       </div>
+                      <div className="review-block-main">{formData.institution || 'Not specified'}</div>
+                      <div className="review-block-sub">
+                        {JOURNEY_OPTIONS.find((o) => o.id === formData.journeyStage)?.title || (formData.journeyStage ? formData.journeyStage.replace(/_/g, ' ') : '')}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Technical Stack Section */}
+                  <div className="review-block" style={{ marginTop: '14px', paddingTop: '12px', borderTop: '1px solid #F1F5F9' }}>
+                    <div className="review-block-header">
+                      <span className="review-block-label">
+                        <i className="fa-solid fa-cubes" style={{ color: '#E81A2D', marginRight: '5px' }}></i>
+                        ASSEMBLED TECHNICAL STACK ({formData.skills.length})
+                      </span>
+                      <button type="button" className="review-edit-tag" onClick={() => jumpToStep(3)} title="Edit skills">
+                        <i className="fa-solid fa-pen-to-square"></i> Edit
+                      </button>
+                    </div>
+                    <div className="review-pill-row">
+                      {formData.skills.map((s) => (
+                        <span key={s} className="review-tag">{s}</span>
+                      ))}
+                      {formData.skills.length === 0 && (
+                        <span className="review-block-sub">No skills selected</span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Step 4: Featured Project & Repository Links */}
+                  <div className="review-block" style={{ marginTop: '14px', paddingTop: '12px', borderTop: '1px solid #F1F5F9' }}>
+                    <div className="review-block-header">
+                      <span className="review-block-label">
+                        <i className="fa-solid fa-code" style={{ color: '#E81A2D', marginRight: '5px' }}></i>
+                        FEATURED PROJECT & WORK EVIDENCE
+                      </span>
+                      <button type="button" className="review-edit-tag" onClick={() => jumpToStep(4)} title="Edit project & work">
+                        <i className="fa-solid fa-pen-to-square"></i> Edit
+                      </button>
+                    </div>
+                    {formData.featuredProject ? (
+                      <p className="review-project-desc">{formData.featuredProject}</p>
+                    ) : (
+                      <span className="review-block-sub">No project description provided</span>
+                    )}
+
+                    <div className="review-links-row">
+                      {formData.githubUrl && (
+                        <a href={formData.githubUrl} target="_blank" rel="noopener noreferrer" className="review-link-chip">
+                          <i className="fa-brands fa-github"></i>
+                          <span>GitHub Repository</span>
+                          <i className="fa-solid fa-arrow-up-right-from-square" style={{ fontSize: '0.65rem', opacity: 0.7 }}></i>
+                        </a>
+                      )}
+                      {formData.portfolioUrl && (
+                        <a href={formData.portfolioUrl} target="_blank" rel="noopener noreferrer" className="review-link-chip">
+                          <i className="fa-solid fa-globe"></i>
+                          <span>Live Demo / Portfolio</span>
+                          <i className="fa-solid fa-arrow-up-right-from-square" style={{ fontSize: '0.65rem', opacity: 0.7 }}></i>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Resume Link Card */}
+                  <div className="review-block" style={{ marginTop: '14px', paddingTop: '12px', borderTop: '1px solid #F1F5F9' }}>
+                    <div className="review-block-header">
+                      <span className="review-block-label">
+                        <i className="fa-brands fa-google-drive" style={{ color: '#E81A2D', marginRight: '5px' }}></i>
+                        RESUME / CV (CLOUD LINK)
+                      </span>
+                      <button type="button" className="review-edit-tag" onClick={() => jumpToStep(4)} title="Edit resume link">
+                        <i className="fa-solid fa-pen-to-square"></i> Edit
+                      </button>
+                    </div>
+                    <div className="review-resume-row">
+                      {formData.resumeUrl ? (
+                        <div className="review-resume-display-card">
+                          <div className="resume-display-left">
+                            <i className="fa-brands fa-google-drive resume-drive-icon"></i>
+                            <div className="resume-display-meta">
+                              <span className="resume-display-name">Cloud Resume Attached</span>
+                              <span className="resume-display-url">{formData.resumeUrl}</span>
+                            </div>
+                          </div>
+                          <a
+                            href={formData.resumeUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="review-resume-chip-btn"
+                          >
+                            <span>Open Link</span>
+                            <i className="fa-solid fa-arrow-up-right-from-square" style={{ fontSize: '0.68rem' }}></i>
+                          </a>
+                        </div>
+                      ) : (
+                        <span className="review-block-sub" style={{ color: '#DC2626' }}>No resume link provided</span>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -1167,9 +1120,9 @@ export default function CareersApplicationExperience({
             )}
 
             {/* ============================================================= */}
-            {/* STEP 7: CINEMATIC APPLICATION CONFIRMATION STATE              */}
+            {/* STEP 6: CINEMATIC APPLICATION CONFIRMATION STATE              */}
             {/* ============================================================= */}
-            {currentStep === 7 && (
+            {currentStep === 6 && (
               <div className="stage-card-box stage-success-cinema">
                 {/* SVG DRAWN RING & CHECKMARK ANIMATION */}
                 <div className="cinema-checkmark-anchor">

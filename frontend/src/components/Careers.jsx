@@ -157,9 +157,9 @@ export default function Careers({ onBack }) {
       {/* Panel 1: Careers Overview (slides left with blur and scale when applying) */}
       <div className={`careers-overview-container ${viewMode === 'apply' ? 'slide-out-left' : ''}`}>
         <div className="careers-main-viewport">
-      {/* Top HUD Nav */}
-      <div className="c-top-bar">
-        <div className="c-status-chip" title="Applications currently open">
+      {/* Hero Section */}
+      <section className="c-hero">
+        <div className="c-status-chip" title="Applications currently open" style={{ marginBottom: '20px' }}>
           <span className="c-pulse-wrapper">
             <span className="c-pulse-ping"></span>
             <span className="c-pulse"></span>
@@ -170,11 +170,6 @@ export default function Careers({ onBack }) {
             <span>WINTER COHORT 2026-27</span>
           </span>
         </div>
-      </div>
-
-      {/* Hero Section */}
-      <section className="c-hero">
-        <span className="c-hero-kicker">// WINTER COHORT 2026-27</span>
         <h1 className="c-hero-title">
           Build the Future of <br />
           <i>Bio-Algorithmic Health.</i>
@@ -427,7 +422,7 @@ export default function Careers({ onBack }) {
                         className="btn-apply-job"
                         onClick={() => handleStartApplication(role.title)}
                       >
-                        Apply For Role <i className="fa-solid fa-arrow-right"></i>
+                        Apply Now <i className="fa-solid fa-arrow-right"></i>
                       </button>
                     </div>
                   </div>

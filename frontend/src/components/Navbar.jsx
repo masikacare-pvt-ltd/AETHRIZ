@@ -79,7 +79,7 @@ export default function Navbar({ currentView = 'home', onNavigate }) {
 
   return (
     <header id="main_nav">
-      <div className={`nav-island ${isOverDark ? 'nav-theme-dark' : 'nav-theme-light'}`}>
+      <div className="nav-island">
         <a href="/" className="nav-brand" onClick={handleBrandClick}>
           <span className="aeth-logo-char">Λ</span>
           <div className="aeth-logo-bars">
