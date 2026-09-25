@@ -535,7 +535,7 @@ export default function Careers({ onBack }) {
         <div className="fp-header-nav">
           <button className="fp-back-btn" onClick={handleReturnToOverview}>
             <i className="fa-solid fa-arrow-left"></i>
-            <span>RETURN TO CAREERS OVERVIEW</span>
+            <span>Back to Overview</span>
           </button>
 
           <div className="fp-header-brand">
@@ -545,7 +545,7 @@ export default function Careers({ onBack }) {
 
           <div className="fp-stage-badge">
             <i className="fa-solid fa-file-signature"></i>
-            <span>STEP {currentStep} OF 5</span>
+            <span>Step {currentStep} of 5</span>
           </div>
         </div>
 
@@ -767,7 +767,7 @@ export default function Careers({ onBack }) {
                         <input
                           type="text"
                           className="fp-input"
-                          placeholder="e.g. Varun Kumar"
+                          placeholder="Enter your full name"
                           value={formData.fullName}
                           onChange={(e) => handleChange('fullName', e.target.value)}
                         />
@@ -779,7 +779,7 @@ export default function Careers({ onBack }) {
                         <input
                           type="email"
                           className="fp-input"
-                          placeholder="name@example.com"
+                          placeholder="Enter your email address"
                           value={formData.emailAddress}
                           onChange={(e) => handleChange('emailAddress', e.target.value)}
                         />
@@ -791,7 +791,7 @@ export default function Careers({ onBack }) {
                         <input
                           type="tel"
                           className="fp-input"
-                          placeholder="+91 98765 43210"
+                          placeholder="Enter your mobile number"
                           value={formData.phone}
                           onChange={(e) => handleChange('phone', e.target.value)}
                         />
@@ -803,7 +803,7 @@ export default function Careers({ onBack }) {
                         <input
                           type="text"
                           className="fp-input"
-                          placeholder="e.g. Stanford University — B.S. in Computer Science"
+                          placeholder="Enter your college / university & degree"
                           value={formData.collegeCourse}
                           onChange={(e) => handleChange('collegeCourse', e.target.value)}
                         />
@@ -826,18 +826,17 @@ export default function Careers({ onBack }) {
                             </div>
                           ))}
                           <div
-                            className={`fp-radio-item ${formData.currentYearSemester === 'Other' ? 'selected' : ''}`}
+                            className={`fp-radio-item fp-radio-other ${formData.currentYearSemester === 'Other' ? 'selected' : ''}`}
                             onClick={() => handleChange('currentYearSemester', 'Other')}
                           >
                             <div className="fp-radio-circle">
                               {formData.currentYearSemester === 'Other' && <div className="fp-radio-inner"></div>}
                             </div>
-                            <span style={{ marginRight: '8px' }}>Other:</span>
+                            <span style={{ marginRight: '8px', flexShrink: 0 }}>Other:</span>
                             <input
                               type="text"
-                              className="fp-input"
-                              style={{ padding: '6px 12px', fontSize: '0.88rem' }}
-                              placeholder="Specify course year..."
+                              className="fp-input fp-other-input"
+                              placeholder="Specify year..."
                               value={formData.currentYearOther}
                               onChange={(e) => {
                                 handleChange('currentYearSemester', 'Other');
@@ -856,7 +855,7 @@ export default function Careers({ onBack }) {
                         <input
                           type="text"
                           className="fp-input"
-                          placeholder="e.g. Hyderabad, Telangana"
+                          placeholder="Enter your city and state"
                           value={formData.cityState}
                           onChange={(e) => handleChange('cityState', e.target.value)}
                         />
@@ -937,7 +936,7 @@ export default function Careers({ onBack }) {
                         <input
                           type="url"
                           className="fp-input"
-                          placeholder="https://github.com/yourhandle or portfolio URL"
+                          placeholder="Paste your portfolio, GitHub, or profile URL"
                           value={formData.portfolioUrl}
                           onChange={(e) => handleChange('portfolioUrl', e.target.value)}
                         />
