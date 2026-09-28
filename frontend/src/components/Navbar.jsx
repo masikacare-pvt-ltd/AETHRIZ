@@ -101,23 +101,8 @@ export default function Navbar({ currentView = 'home', onNavigate }) {
             </a>
           </li>
           <li>
-            <a href="#vector" onClick={(e) => handleNavClick(e, 'vector')}>
-              How It Works
-            </a>
-          </li>
-          <li>
-            <a href="#journey" onClick={(e) => handleNavClick(e, 'journey')}>
-              Why Unique
-            </a>
-          </li>
-          <li>
             <a href="#resonance" onClick={(e) => handleNavClick(e, 'resonance')}>
               Mission
-            </a>
-          </li>
-          <li>
-            <a href="#faq" onClick={(e) => handleNavClick(e, 'faq')}>
-              FAQ
             </a>
           </li>
           <li>

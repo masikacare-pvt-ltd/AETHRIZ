@@ -101,6 +101,14 @@ export default function Hero({ isLoaded }) {
     }
   };
 
+  const handleContactClick = () => {
+    // Smooth scroll to contact section
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <section className="hero-stage">
       <div className="container h-layout">
@@ -130,9 +138,12 @@ export default function Hero({ isLoaded }) {
             toward a healthier life—regardless of age, diet, language, or location.
           </p>
 
-          <div className={`reveal-node h-obs delay-3 ${isLoaded ? 'is-visible' : ''}`}>
-            <button className="btn-apex cursor-hv hero-btn-lg" onClick={handleCompileClick}>
+          <div className={`hero-cta-group reveal-node h-obs delay-3 ${isLoaded ? 'is-visible' : ''}`}>
+            <button className="btn-apex cursor-hv hero-btn-lg" onClick={handleCompileClick} id="hero-services-btn">
               OUR SERVICES <i className="fa-solid fa-arrow-right ml-10"></i>
+            </button>
+            <button className="btn-apex-outline cursor-hv hero-btn-lg" onClick={handleContactClick} id="hero-contact-btn">
+              CONTACT US <i className="fa-solid fa-arrow-right ml-10"></i>
             </button>
           </div>
 

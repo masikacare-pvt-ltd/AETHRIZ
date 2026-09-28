@@ -330,6 +330,14 @@
         font-size: 1.02rem; 
         margin-bottom: 38px;
     }
+    .hero-cta-group {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        margin: 0 auto;
+    }
     .hero-btn-lg { 
         width: 100%; 
         max-width: 320px; 
@@ -493,6 +501,11 @@
         margin-bottom: 18px;
     }
     .h-txt p { font-size: 0.94rem; }
+    .hero-cta-group {
+        width: 100%;
+        max-width: 100%;
+        gap: 10px;
+    }
     .hero-btn-lg { 
         width: 100%;
         max-width: 100%;
