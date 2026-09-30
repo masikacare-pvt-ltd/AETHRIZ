@@ -3,7 +3,7 @@ import '../../styles/careers-application.css';
 import { getSkillsForRole } from '../../data/careersData';
 
 const GOOGLE_SHEET_ENDPOINT =
-  'https://script.google.com/macros/s/AKfycbxc_-D6X0uozC2P3nDMkrSxdQHFj7Ma73XUL9c6H2bmBWTh3Rb4wTW3MkY9n-3rPPZm/exec';
+  'https://script.google.com/macros/s/AKfycbwsHwBC4_m3W8bmwXF3xjZyteIMvaT7biQFPn97mlAr_XqGlrAKerJO-QBO4ZeVwq7J_g/exec';
 
 const JOURNEY_OPTIONS = [
   { id: '1st_year', title: '1st Year Student', desc: 'Exploring fundamentals & early projects' },
