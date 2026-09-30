@@ -3052,15 +3052,16 @@ header {
     .nav-clusters {
         order: 3;
         flex: 1 1 100%;
-        justify-content: center;
-        gap: 10px;
+        display: flex;
+        justify-content: center !important;
+        gap: 34px;
         margin-top: 10px;
         flex-wrap: wrap;
     }
 
     .nav-clusters li a {
         font-size: 0.6rem;
-        padding: 8px 15px;
+        padding: 6px 12px;
         display: inline-block;
     }
 
@@ -3342,19 +3343,23 @@ header {
     .nav-island {
         width: 100%;
         max-width: calc(100% - 20px);
-        padding: 10px 14px;
-        gap: 8px;
-        border-radius: 18px;
+        padding: 12px 16px;
+        gap: 10px;
+        border-radius: 20px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
     }
 
     .nav-brand {
+        order: 1;
         gap: 7px;
         flex-shrink: 0;
     }
 
     .aeth-logo-char {
-        font-size: 0.82rem;
+        font-size: 0.84rem;
     }
 
     .aeth-logo-bars {
@@ -3366,11 +3371,11 @@ header {
         height: 1.6px;
     }
 
-    /* CTA Button in Nav */
     .btn-apex {
-        height: 36px;
-        padding: 0 14px;
-        font-size: 0.56rem;
+        order: 2;
+        height: 38px;
+        padding: 0 16px;
+        font-size: 0.58rem;
         letter-spacing: 0.1em;
         flex-shrink: 0;
     }
@@ -3380,25 +3385,15 @@ header {
         margin-left: 5px;
     }
 
-    /* Horizontal Scrollable Nav Menu */
     .nav-clusters {
         order: 3;
         flex: 1 1 100%;
         display: flex;
         flex-wrap: nowrap;
-        overflow-x: auto;
-        overflow-y: hidden;
-        justify-content: flex-start;
-        gap: 6px;
-        margin-top: 6px;
-        padding-bottom: 4px;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        scroll-behavior: smooth;
-    }
-
-    .nav-clusters::-webkit-scrollbar {
-        display: none;
+        justify-content: center !important;
+        gap: 32px;
+        margin-top: 10px;
+        padding-bottom: 2px;
     }
 
     .nav-clusters li {
@@ -3407,9 +3402,9 @@ header {
     }
 
     .nav-clusters li a {
-        font-size: 0.54rem;
-        padding: 6px 11px;
-        letter-spacing: 0.08em;
+        font-size: 0.58rem;
+        padding: 6px 10px;
+        letter-spacing: 0.1em;
         white-space: nowrap;
         display: inline-block;
     }
@@ -3914,12 +3909,20 @@ header {
     .nav-island {
         width: 100%;
         max-width: calc(100% - 16px);
-        padding: 8px 12px;
-        gap: 6px;
+        padding: 10px 14px;
+        gap: 8px;
+        border-radius: 18px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .nav-brand {
+        order: 1;
+        gap: 5px;
     }
 
     .aeth-logo-char {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
     }
 
     .aeth-logo-bars {
@@ -3932,15 +3935,26 @@ header {
     }
 
     .btn-apex {
-        height: 32px;
-        padding: 0 12px;
-        font-size: 0.52rem;
+        order: 2;
+        height: 36px;
+        padding: 0 14px;
+        font-size: 0.56rem;
         letter-spacing: 0.08em;
     }
 
+    .nav-clusters {
+        order: 3;
+        flex: 1 1 100%;
+        display: flex;
+        justify-content: center !important;
+        gap: 28px;
+        margin-top: 10px;
+    }
+
     .nav-clusters li a {
-        font-size: 0.5rem;
-        padding: 5px 9px;
+        font-size: 0.56rem;
+        padding: 4px 6px;
+        letter-spacing: 0.08em;
     }
 
     /* Hero */
