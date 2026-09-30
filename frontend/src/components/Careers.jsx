@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import '../styles/careers.css';
 import '../styles/careers-application.css';
+import '../styles/careers-coming-soon.css';
 import CareersApplicationExperience from './careers/CareersApplicationExperience';
+import CareersComingSoonOverlay from './careers/CareersComingSoonOverlay';
 
 const ROLES_LIST = [
   {
@@ -112,6 +114,11 @@ const ROLES_LIST = [
 ];
 
 export default function Careers({ onBack }) {
+  // Coming Soon Overlay: applications unlock at test time today 06:22:00 IST (UTC+05:30)
+  const [isApplicationsLocked, setIsApplicationsLocked] = useState(() => {
+    return Date.now() < new Date('2026-09-30T06:22:00+05:30').getTime();
+  });
+
   // Page mode: 'overview' (Corporate Careers Landing) | 'apply' (Cinematic Application Experience)
   const [viewMode, setViewMode] = useState('overview');
 
@@ -473,6 +480,14 @@ export default function Careers({ onBack }) {
           />
         )}
       </div>
+
+      {/* Coming Soon Fullscreen Overlay: automatically disappears when countdown reaches Oct 1, 2026 00:00 IST */}
+      {isApplicationsLocked && (
+        <CareersComingSoonOverlay
+          onBack={onBack}
+          onUnlock={() => setIsApplicationsLocked(false)}
+        />
+      )}
     </div>
   );
 }

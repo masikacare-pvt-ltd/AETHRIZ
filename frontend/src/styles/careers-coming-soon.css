@@ -1,0 +1,508 @@
+/* ==========================================================================
+   AETHRIZ CAREERS COMING SOON OVERLAY & COUNTDOWN
+   Applications Opening: October 1, 2026
+   ========================================================================== */
+
+/* Fullscreen Backdrop Overlay */
+.careers-coming-soon-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(248, 250, 252, 0.88);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(180%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  overflow-y: auto;
+  animation: csFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes csFadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(28px) saturate(180%);
+  }
+}
+
+/* Modal Dialog Card */
+.careers-cs-card {
+  width: 100%;
+  max-width: 760px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1.5px solid rgba(7, 9, 15, 0.12);
+  border-radius: 28px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.14), 0 4px 16px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  position: relative;
+  animation: csCardScale 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  margin: auto;
+}
+
+@keyframes csCardScale {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Card Glow Effect */
+.careers-cs-glow {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 450px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(232, 26, 45, 0.18) 0%, rgba(232, 26, 45, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Banner Container */
+.careers-cs-banner-wrap {
+  width: 100%;
+  border-bottom: 1px solid rgba(7, 9, 15, 0.08);
+  position: relative;
+  z-index: 1;
+  background: #f1f5f9;
+}
+
+.careers-cs-banner-img {
+  width: 100%;
+  height: auto;
+  max-height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Card Body */
+.careers-cs-body {
+  padding: 36px 40px 38px;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+/* Status Pill */
+.careers-cs-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 18px;
+  border-radius: 999px;
+  background: rgba(232, 26, 45, 0.08);
+  border: 1px solid rgba(232, 26, 45, 0.3);
+  margin-bottom: 22px;
+}
+
+.careers-cs-pulse {
+  position: relative;
+  display: inline-flex;
+  width: 8px;
+  height: 8px;
+}
+
+.careers-cs-pulse-ping {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #E81A2D;
+  opacity: 0.75;
+  animation: csPing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.careers-cs-pulse-dot {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #E81A2D;
+  box-shadow: 0 0 8px #E81A2D;
+}
+
+@keyframes csPing {
+  75%, 100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.careers-cs-pill-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #E81A2D;
+}
+
+/* Title & Description */
+.careers-cs-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 700;
+  color: #07090f;
+  line-height: 1.22;
+  margin: 0 0 14px;
+}
+
+.careers-cs-title i {
+  font-style: italic;
+  font-weight: 400;
+  color: #E81A2D;
+}
+
+.careers-cs-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: #475569;
+  line-height: 1.65;
+  max-width: 600px;
+  margin: 0 auto 28px;
+}
+
+/* High-Tech Countdown Grid */
+.careers-cs-countdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 auto 30px;
+  max-width: 520px;
+}
+
+.careers-cs-time-unit {
+  flex: 1;
+  background: rgba(7, 9, 15, 0.03);
+  border: 1.5px solid rgba(7, 9, 15, 0.1);
+  border-radius: 16px;
+  padding: 14px 10px 10px;
+  text-align: center;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s ease;
+}
+
+.careers-cs-time-unit:hover {
+  border-color: rgba(232, 26, 45, 0.35);
+  background: rgba(232, 26, 45, 0.02);
+  transform: translateY(-2px);
+}
+
+.careers-cs-time-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(1.75rem, 3.5vw, 2.2rem);
+  font-weight: 800;
+  color: #07090f;
+  line-height: 1;
+  display: block;
+  letter-spacing: -0.02em;
+}
+
+.careers-cs-time-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #64748b;
+  display: block;
+  margin-top: 6px;
+}
+
+.careers-cs-colon {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: rgba(7, 9, 15, 0.3);
+  line-height: 1;
+  margin-bottom: 14px;
+}
+
+/* Highlights Chips Band */
+.careers-cs-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.careers-cs-chip-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(7, 9, 15, 0.03);
+  border: 1px solid rgba(7, 9, 15, 0.08);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  color: #334155;
+  font-weight: 600;
+}
+
+.careers-cs-chip-item i {
+  color: #E81A2D;
+}
+
+/* Action Buttons Container */
+.careers-cs-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.careers-cs-btn-primary {
+  height: 48px;
+  border-radius: 50px;
+  padding: 0 28px;
+  border: 1px solid transparent;
+  background: #07090f;
+  color: #ffffff;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(7, 9, 15, 0.2);
+  transition: all 0.35s ease;
+}
+
+.careers-cs-btn-primary:hover {
+  background: #E81A2D;
+  box-shadow: 0 10px 25px rgba(232, 26, 45, 0.4);
+  transform: translateY(-2px);
+}
+
+.careers-cs-btn-secondary {
+  height: 48px;
+  border-radius: 50px;
+  padding: 0 26px;
+  border: 1.5px solid rgba(7, 9, 15, 0.16);
+  background: rgba(255, 255, 255, 0.85);
+  color: #07090f;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.35s ease;
+}
+
+.careers-cs-btn-secondary:hover {
+  border-color: #E81A2D;
+  color: #E81A2D;
+  background: rgba(232, 26, 45, 0.04);
+  transform: translateY(-2px);
+}
+
+/* Floating Sticky Ribbon when Previewing Roles */
+.careers-cs-sticky-ribbon {
+  position: sticky;
+  top: 75px;
+  z-index: 80;
+  margin: -40px auto 30px;
+  max-width: 900px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1.5px solid rgba(232, 26, 45, 0.35);
+  border-radius: 18px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: 0 12px 30px rgba(232, 26, 45, 0.12), 0 2px 8px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  animation: csSlideDown 0.4s ease;
+}
+
+@keyframes csSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.careers-cs-ribbon-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.careers-cs-ribbon-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #07090f;
+  font-weight: 600;
+}
+
+.careers-cs-ribbon-text strong {
+  color: #E81A2D;
+  margin-right: 6px;
+}
+
+.careers-cs-ribbon-btn {
+  background: #07090f;
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s ease;
+}
+
+.careers-cs-ribbon-btn:hover {
+  background: #E81A2D;
+  transform: translateY(-1px);
+}
+
+/* Application Notice Locked Modal */
+.careers-cs-notice-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(7, 9, 15, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.careers-cs-notice-modal {
+  width: 100%;
+  max-width: 480px;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 32px 28px;
+  text-align: center;
+  border: 1.5px solid rgba(232, 26, 45, 0.35);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+  animation: csCardScale 0.35s ease;
+}
+
+.careers-cs-notice-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(232, 26, 45, 0.1);
+  color: #E81A2D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin: 0 auto 18px;
+}
+
+.careers-cs-notice-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #07090f;
+  margin: 0 0 10px;
+}
+
+.careers-cs-notice-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #475569;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.careers-cs-notice-close {
+  background: #07090f;
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 28px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.careers-cs-notice-close:hover {
+  background: #E81A2D;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 640px) {
+  .careers-cs-body {
+    padding: 24px 20px 26px;
+  }
+  .careers-cs-title {
+    font-size: 1.6rem;
+  }
+  .careers-cs-countdown {
+    gap: 8px;
+  }
+  .careers-cs-time-unit {
+    padding: 10px 6px 8px;
+    border-radius: 12px;
+  }
+  .careers-cs-time-num {
+    font-size: 1.45rem;
+  }
+  .careers-cs-time-lbl {
+    font-size: 0.52rem;
+  }
+  .careers-cs-colon {
+    font-size: 1.3rem;
+  }
+  .careers-cs-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .careers-cs-btn-primary,
+  .careers-cs-btn-secondary {
+    width: 100%;
+  }
+  .careers-cs-sticky-ribbon {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+    top: 60px;
+  }
+}
