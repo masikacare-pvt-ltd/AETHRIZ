@@ -114,9 +114,9 @@ const ROLES_LIST = [
 ];
 
 export default function Careers({ onBack }) {
-  // Coming Soon Overlay: applications unlock at test time today 06:22:00 IST (UTC+05:30)
+  // Coming Soon Overlay: applications officially unlock on October 1, 2026 at 00:00:00 IST (UTC+05:30)
   const [isApplicationsLocked, setIsApplicationsLocked] = useState(() => {
-    return Date.now() < new Date('2026-09-30T06:22:00+05:30').getTime();
+    return Date.now() < new Date('2026-10-01T00:00:00+05:30').getTime();
   });
 
   // Page mode: 'overview' (Corporate Careers Landing) | 'apply' (Cinematic Application Experience)

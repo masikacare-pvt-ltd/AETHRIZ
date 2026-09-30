@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/careers-coming-soon.css';
 
-// Target launch date: Test time today at 06:22:00 IST (UTC+05:30)
-const TARGET_LAUNCH_DATE = new Date('2026-09-30T06:22:00+05:30').getTime();
+// Target launch date: October 1, 2026 at 00:00:00 IST (UTC+05:30)
+const TARGET_LAUNCH_DATE = new Date('2026-10-01T00:00:00+05:30').getTime();
 
 export default function CareersComingSoonOverlay({ onBack, onUnlock }) {
   const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft());
