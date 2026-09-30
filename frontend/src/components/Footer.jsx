@@ -118,7 +118,7 @@ export default function Footer({ onNavigate }) {
               <i className="fa-brands fa-instagram"></i>
             </a>
             <a
-              href="https://www.linkedin.com/in/vishmapasayat"
+              href="https://www.linkedin.com/company/aethriz/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
@@ -127,7 +127,7 @@ export default function Footer({ onNavigate }) {
               <i className="fa-brands fa-linkedin-in"></i>
             </a>
             <a
-              href="https://www.facebook.com/share/14iGtsmA3ut/"
+              href="https://www.facebook.com/profile.php?id=61595061745402"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"

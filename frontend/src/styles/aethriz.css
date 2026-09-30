@@ -2574,16 +2574,17 @@ header {
 .fz-huge-mark {
     font-family: 'JetBrains Mono', monospace;
     font-weight: 800;
-    font-size: 18vw;
+    font-size: clamp(2.5rem, 15vw, 15rem);
     line-height: 0.85;
     color: rgba(255, 255, 255, 0.06);
     text-align: center;
     letter-spacing: -0.05em;
     pointer-events: none;
     user-select: none;
-    overflow: visible;
+    overflow: hidden;
     white-space: nowrap;
     width: 100%;
+    max-width: 100%;
     margin-top: 20px;
     margin-bottom: 20px;
     transform: translateY(0);
@@ -3277,9 +3278,11 @@ header {
     }
 
     .fz-huge-mark {
-        font-size: 18vw;
+        font-size: clamp(2.5rem, 15vw, 12rem);
         transform: translateY(0);
-        margin-bottom: 30px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        max-width: 100%;
     }
 
     .footer-zenith {
@@ -3883,10 +3886,13 @@ header {
     }
 
     .fz-huge-mark {
-        font-size: 24vw;
+        font-size: 15vw;
         transform: translateY(0);
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         line-height: 0.9;
+        letter-spacing: -0.04em;
+        overflow: hidden;
+        max-width: 100%;
     }
 }
 
@@ -4146,7 +4152,10 @@ header {
     }
 
     .fz-huge-mark {
-        font-size: 26vw;
+        font-size: 14.5vw;
+        letter-spacing: -0.05em;
+        overflow: hidden;
+        max-width: 100%;
     }
 }
 
