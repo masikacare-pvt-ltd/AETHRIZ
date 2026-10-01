@@ -301,24 +301,24 @@ export default function CareersApplicationExperience({
 
     const payload = {
       position: role,
-      fullName: formData.fullName,
-      emailAddress: formData.email,
-      phone: formData.phone,
-      cityState: formData.location,
+      fullName: formData.fullName.trim(),
+      emailAddress: formData.email.trim(),
+      phone: formData.phone.trim(),
+      cityState: formData.location.trim(),
       journeyStage: JOURNEY_OPTIONS.find((o) => o.id === formData.journeyStage)?.title || formData.journeyStage,
-      collegeCourse: formData.institution,
+      collegeCourse: formData.institution.trim(),
       keySkills: formData.skills.join(', '),
-      featuredProject: formData.featuredProject,
-      githubUrl: formData.githubUrl,
-      portfolioUrl: formData.portfolioUrl,
+      featuredProject: formData.featuredProject.trim(),
+      githubUrl: formData.githubUrl.trim(),
+      portfolioUrl: formData.portfolioUrl.trim(),
       portfolioGithub: linksCombined,
-      resumeUrl: formData.resumeUrl,
-      resumeFileName: formData.resumeUrl,
-      hasExperience: formData.featuredProject ? 'Yes' : 'No',
+      resumeUrl: formData.resumeUrl.trim(),
+      resumeFileName: formData.resumeUrl.trim(),
+      hasExperience: formData.featuredProject.trim() ? 'Yes' : 'No',
       available3Months: 'Yes (Oct 15, 2026 – Jan 15, 2027)',
       remoteComfortable: 'Yes (100% Remote)',
-      whyJoin: formData.whyJoin,
-      contribution: formData.featuredProject
+      whyJoin: formData.whyJoin.trim(),
+      contribution: formData.featuredProject.trim()
     };
 
     try {
