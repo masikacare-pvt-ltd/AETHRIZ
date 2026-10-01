@@ -2751,42 +2751,88 @@ footer.stage-bottom-bar {
 
 
 /* ==========================================================================
-   RESPONSIVE DESIGN (TABLETS & MOBILE)
+   IN-CARD ACTION BUTTONS (ALWAYS VISIBLE RIGHT BELOW THE FIELDS)
    ========================================================================== */
-@media (max-width: 900px) {
-  .cine-role-sidebar,
-  aside.cine-role-sidebar {
-    width: 34%;
-    padding: 18px 16px;
-  }
-
-  .stage-form-viewport {
-    padding: 16px 20px 60px;
-  }
-
-  .stage-top-bar,
-  header.stage-top-bar {
-    width: calc(100% - 24px);
-    padding: 6px 8px 6px 16px;
-    margin: 12px auto 0;
-  }
-
-  .stage-bottom-bar,
-  footer.stage-bottom-bar {
-    padding: 10px 24px !important;
-  }
+.stage-card-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  margin-top: 24px !important;
+  padding-top: 18px !important;
+  border-top: 1px solid rgba(226, 232, 240, 0.8) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
-@media (max-width: 768px) {
+.stage-card-btn-back {
+  background: #FFFFFF !important;
+  border: 1px solid #CBD5E1 !important;
+  color: #07090F !important;
+  height: 44px !important;
+  padding: 0 18px !important;
+  border-radius: 999px !important;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace !important;
+  font-size: 0.76rem !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  transition: all 0.2s ease !important;
+}
+
+.stage-card-btn-back:hover:not(:disabled) {
+  background: #F1F5F9 !important;
+  border-color: #94A3B8 !important;
+}
+
+.stage-card-btn-next {
+  background: #E81A2D !important;
+  border: 1px solid #E81A2D !important;
+  color: #FFFFFF !important;
+  height: 44px !important;
+  padding: 0 24px !important;
+  border-radius: 999px !important;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.07em !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-left: auto !important;
+  box-shadow: 0 3px 14px rgba(232, 26, 45, 0.35) !important;
+  transition: all 0.25s ease !important;
+}
+
+.stage-card-btn-next:hover:not(:disabled) {
+  background: #FF1E33 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 20px rgba(232, 26, 45, 0.45) !important;
+}
+
+.stage-card-btn-next:disabled {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (TABLETS & MOBILE <= 1024px)
+   ========================================================================== */
+@media (max-width: 1024px) {
   .careers-split-layout {
     flex-direction: column !important;
+    width: 100vw !important;
     height: 100vh !important;
     height: 100dvh !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
   }
 
-  /* Compact header on mobile so user lands straight into the form without massive scrolling */
+  /* Compact header on mobile/tablet so user lands straight into the form */
   .cine-role-sidebar,
   aside.cine-role-sidebar {
     width: 100% !important;
@@ -2796,11 +2842,12 @@ footer.stage-bottom-bar {
     border-right: none !important;
     border-bottom: 1px solid rgba(7, 9, 15, 0.08) !important;
     box-shadow: none !important;
-    padding: 12px 16px !important;
+    padding: 10px 16px !important;
     flex-shrink: 0 !important;
+    background: #FFFFFF !important;
   }
 
-  /* Hide long duplicate descriptive blocks on mobile */
+  /* Hide long duplicate descriptive blocks on mobile/tablet */
   .sidebar-section,
   .sidebar-perks-box,
   .sidebar-footer {
@@ -2808,41 +2855,77 @@ footer.stage-bottom-bar {
   }
 
   .sidebar-track-selector {
-    margin-bottom: 4px !important;
+    margin-bottom: 2px !important;
   }
 
   .sidebar-role-title {
-    font-size: 1.15rem !important;
-    margin-bottom: 6px !important;
+    font-size: 1.1rem !important;
+    margin-bottom: 4px !important;
   }
 
   .sidebar-meta-badges {
     margin-bottom: 0 !important;
-    gap: 5px !important;
+    gap: 4px !important;
   }
 
   .cine-form-stage,
   section.cine-form-stage {
     width: 100% !important;
+    flex: 1 !important;
     height: auto !important;
-    min-height: calc(100vh - 120px) !important;
+    min-height: calc(100vh - 90px) !important;
     position: relative !important;
     overflow: visible !important;
+    background: #F8FAFC !important;
   }
 
   .stage-top-bar,
   header.stage-top-bar {
     width: calc(100% - 24px) !important;
     padding: 6px 12px !important;
-    margin: 8px auto 0 !important;
+    margin: 6px auto 0 !important;
   }
 
   .stage-form-viewport {
-    padding: 16px 16px 120px !important; /* Critical 120px padding so no input is ever hidden behind fixed bottom bar */
+    padding: 14px 16px 110px !important;
     overflow-y: visible !important;
+    width: 100% !important;
   }
 
-  /* FIXED BOTTOM BAR ON ALL MOBILE PHONES - 100% ALWAYS VISIBLE & REACHABLE */
+  .stage-slide-content {
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .stage-card-box {
+    padding: 20px 16px !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .stage-h1 {
+    font-size: 1.55rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .stage-form-grid,
+  .stage-journey-grid,
+  .stage-links-grid,
+  .stage-review-deck {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .stage-hint-col {
+    display: none !important;
+  }
+
+  .stage-progress-track {
+    width: 80px !important;
+  }
+
+  /* Fixed bottom floating bar on mobile/tablet */
   .stage-bottom-bar,
   footer.stage-bottom-bar {
     position: fixed !important;
@@ -2850,7 +2933,7 @@ footer.stage-bottom-bar {
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
-    padding: 12px 16px max(14px, env(safe-area-inset-bottom)) !important;
+    padding: 10px 16px max(12px, env(safe-area-inset-bottom)) !important;
     background: #FFFFFF !important;
     border-top: 1px solid #CBD5E1 !important;
     box-shadow: 0 -8px 24px rgba(7, 9, 15, 0.12) !important;
@@ -2868,7 +2951,6 @@ footer.stage-bottom-bar {
     align-items: center !important;
     justify-content: space-between !important;
     gap: 10px !important;
-    pointer-events: auto !important;
   }
 
   .stage-secondary-btn {
@@ -2884,24 +2966,9 @@ footer.stage-bottom-bar {
     justify-content: center !important;
     font-size: 0.82rem !important;
   }
-
-  .stage-form-grid,
-  .stage-journey-grid,
-  .stage-links-grid,
-  .stage-review-deck {
-    grid-template-columns: 1fr !important;
-  }
-
-  .stage-hint-col {
-    display: none !important;
-  }
-
-  .stage-progress-track {
-    width: 90px !important;
-  }
 }
 
-@media (max-height: 800px) and (min-width: 769px) {
+@media (max-height: 800px) and (min-width: 1025px) {
   .stage-header-group {
     margin-bottom: 14px !important;
   }

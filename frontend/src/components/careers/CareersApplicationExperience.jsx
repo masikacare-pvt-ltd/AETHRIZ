@@ -355,6 +355,41 @@ export default function CareersApplicationExperience({
     }
   };
 
+  const renderCardActions = () => (
+    <div className="stage-card-actions">
+      {currentStep > 1 && (
+        <button
+          type="button"
+          className="stage-card-btn-back"
+          onClick={handleBack}
+          disabled={isSubmitting}
+        >
+          <i className="fa-solid fa-arrow-left"></i> BACK
+        </button>
+      )}
+      <button
+        type="button"
+        className={`stage-card-btn-next ${currentStep === totalSteps ? 'btn-submit-glow' : ''}`}
+        onClick={handleNext}
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? (
+          <>
+            <i className="fa-solid fa-circle-notch fa-spin"></i> Submitting...
+          </>
+        ) : currentStep === totalSteps ? (
+          <>
+            Submit Application <i className="fa-solid fa-arrow-right"></i>
+          </>
+        ) : (
+          <>
+            CONTINUE <i className="fa-solid fa-arrow-right"></i>
+          </>
+        )}
+      </button>
+    </div>
+  );
+
   const progressPercent = Math.round(((currentStep - 1) / (totalSteps - 1)) * 100);
 
   return (
@@ -584,6 +619,8 @@ export default function CareersApplicationExperience({
                     <i className="fa-solid fa-circle-exclamation"></i> {validationError}
                   </div>
                 )}
+
+                {renderCardActions()}
               </div>
             )}
 
@@ -685,6 +722,8 @@ export default function CareersApplicationExperience({
                     <i className="fa-solid fa-circle-exclamation"></i> {validationError}
                   </div>
                 )}
+
+                {renderCardActions()}
               </div>
             )}
 
@@ -828,6 +867,7 @@ export default function CareersApplicationExperience({
                     <i className="fa-solid fa-circle-exclamation"></i> {validationError}
                   </div>
                 )}
+                {renderCardActions()}
               </div>
             )}
 
@@ -927,6 +967,8 @@ export default function CareersApplicationExperience({
                     <i className="fa-solid fa-circle-exclamation"></i> {validationError}
                   </div>
                 )}
+
+                {renderCardActions()}
               </div>
             )}
 
@@ -1130,6 +1172,8 @@ export default function CareersApplicationExperience({
                     <i className="fa-solid fa-circle-exclamation"></i> {validationError}
                   </div>
                 )}
+
+                {renderCardActions()}
               </div>
             )}
 
