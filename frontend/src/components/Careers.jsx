@@ -51,7 +51,9 @@ const ROLES_LIST = [
       'Build high-velocity reactive web frontends and resilient backend API microservices.',
       'Implement enterprise token authentication, security, and healthcare data integrity.',
       'Craft responsive, accessible UI components adhering to AETHRIZ design tokens.'
-    ]
+    ],
+    isClosed: true,
+    status: 'filled'
   },
   {
     id: 'social-media',
@@ -131,13 +133,14 @@ export default function Careers({ onBack }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedRoleId, setExpandedRoleId] = useState(null);
 
-  // Selected role for the application experience
-  const [selectedRole, setSelectedRole] = useState('Full-Stack Web Development');
+  // Selected role for the application experience (defaults to first active open role)
+  const defaultOpenRole = ROLES_LIST.find((r) => !r.isClosed)?.title || 'App Development';
+  const [selectedRole, setSelectedRole] = useState(defaultOpenRole);
 
   // Launch Cinematic Application Experience
   const handleStartApplication = (roleTitle = '', isClosed = false) => {
     if (isClosed) return;
-    const target = roleTitle || 'Full-Stack Web Development';
+    const target = roleTitle || defaultOpenRole;
     setSelectedRole(target);
     setViewMode('apply');
   };

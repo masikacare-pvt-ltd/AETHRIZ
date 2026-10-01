@@ -18,7 +18,7 @@ const TRAJECTORY_OPTIONS = [
   { id: 'fellow', key: '4', title: 'Independent Researcher', desc: 'Deep technical hacker or self-taught bio-algorithmic builder' }
 ];
 
-export default function CinematicApplicationExperience({ role = 'Full-Stack Web Development', onExit }) {
+export default function CinematicApplicationExperience({ role = 'App Development', onExit }) {
   // Current Question Index (0 = Welcome, 1..9 = Questions, 10 = Success)
   const [step, setStep] = useState(0);
   const totalQuestions = 9;
