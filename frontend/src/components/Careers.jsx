@@ -96,7 +96,9 @@ const ROLES_LIST = [
       'Formulate and execute go-to-market strategies for upcoming platform and product releases.',
       'Architect referral engines and analyze conversion funnels to scale user onboarding.',
       'Conduct competitive landscape benchmarking in healthcare AI and longevity tech.'
-    ]
+    ],
+    isClosed: true,
+    status: 'filled'
   },
   {
     id: 'influencer-team',
