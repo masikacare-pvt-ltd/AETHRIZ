@@ -128,8 +128,12 @@ export default function CinematicApplicationExperience({ role = 'AI/ML Developme
         return false;
       }
     } else if (current === 6) {
-      if (!candidate.featuredProject.trim() && !candidate.githubUrl.trim() && !candidate.portfolioUrl.trim()) {
-        setError('Highlight at least one project or provide a repository / portfolio link.');
+      if (!candidate.featuredProject.trim()) {
+        setError('Please highlight a project or system you have built.');
+        return false;
+      }
+      if (!candidate.portfolioUrl.trim()) {
+        setError('Please provide your Portfolio or LinkedIn profile link.');
         return false;
       }
     } else if (current === 7) {
@@ -641,24 +645,27 @@ export default function CinematicApplicationExperience({ role = 'AI/ML Developme
 
               <div className="cine-standard-grid">
                 <div className="cine-field-wrap">
-                  <label className="cine-field-label">GITHUB / CODE REPO</label>
+                  <label className="cine-field-label">PORTFOLIO OR LINKEDIN PROFILE *</label>
+                  <input
+                    type="url"
+                    className="cine-standard-input"
+                    placeholder="https://linkedin.com/in/... or yourportfolio.dev"
+                    value={candidate.portfolioUrl}
+                    onChange={(e) => {
+                      setCandidate({ ...candidate, portfolioUrl: e.target.value });
+                      setError('');
+                    }}
+                  />
+                </div>
+
+                <div className="cine-field-wrap">
+                  <label className="cine-field-label">GITHUB / CODE REPO (OPTIONAL)</label>
                   <input
                     type="url"
                     className="cine-standard-input"
                     placeholder="https://github.com/..."
                     value={candidate.githubUrl}
                     onChange={(e) => setCandidate({ ...candidate, githubUrl: e.target.value })}
-                  />
-                </div>
-
-                <div className="cine-field-wrap">
-                  <label className="cine-field-label">PORTFOLIO / LIVE DEMO</label>
-                  <input
-                    type="url"
-                    className="cine-standard-input"
-                    placeholder="https://..."
-                    value={candidate.portfolioUrl}
-                    onChange={(e) => setCandidate({ ...candidate, portfolioUrl: e.target.value })}
                   />
                 </div>
               </div>

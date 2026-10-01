@@ -211,8 +211,12 @@ export default function CareersApplicationExperience({
         return false;
       }
     } else if (stepNumber === 4) {
-      if (!formData.featuredProject.trim() && !formData.githubUrl.trim() && !formData.portfolioUrl.trim()) {
-        setValidationError('Please share a project description, GitHub profile, or portfolio URL.');
+      if (!formData.featuredProject.trim()) {
+        setValidationError('Please share a project summary or what you built.');
+        return false;
+      }
+      if (!formData.portfolioUrl.trim()) {
+        setValidationError('Please provide your Portfolio or LinkedIn profile link.');
         return false;
       }
       if (!formData.resumeUrl.trim()) {
@@ -856,7 +860,26 @@ export default function CareersApplicationExperience({
 
                 <div className="stage-form-grid">
                   <div className="stage-field">
-                    <label className="stage-label">GITHUB / CODE REPOSITORY</label>
+                    <label className="stage-label">
+                      PORTFOLIO OR LINKEDIN PROFILE <span className="req-dot">*</span>
+                    </label>
+                    <div className="stage-input-wrap">
+                      <i className="fa-brands fa-linkedin-in input-icon" style={{ color: '#0A66C2' }}></i>
+                      <input
+                        type="url"
+                        className="stage-text-input"
+                        placeholder="https://linkedin.com/in/... or yourportfolio.dev"
+                        value={formData.portfolioUrl}
+                        onChange={(e) => {
+                          setFormData({ ...formData, portfolioUrl: e.target.value });
+                          setValidationError('');
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="stage-field">
+                    <label className="stage-label">GITHUB / CODE REPOSITORY (OPTIONAL)</label>
                     <div className="stage-input-wrap">
                       <i className="fa-brands fa-github input-icon"></i>
                       <input
@@ -865,20 +888,6 @@ export default function CareersApplicationExperience({
                         placeholder="https://github.com/username/project"
                         value={formData.githubUrl}
                         onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="stage-field">
-                    <label className="stage-label">LIVE DEMO / PORTFOLIO LINK</label>
-                    <div className="stage-input-wrap">
-                      <i className="fa-solid fa-arrow-up-right-from-square input-icon"></i>
-                      <input
-                        type="url"
-                        className="stage-text-input"
-                        placeholder="https://yourportfolio.dev"
-                        value={formData.portfolioUrl}
-                        onChange={(e) => setFormData({ ...formData, portfolioUrl: e.target.value })}
                       />
                     </div>
                   </div>
@@ -1052,8 +1061,8 @@ export default function CareersApplicationExperience({
                       )}
                       {formData.portfolioUrl && (
                         <a href={formData.portfolioUrl} target="_blank" rel="noopener noreferrer" className="review-link-chip">
-                          <i className="fa-solid fa-globe"></i>
-                          <span>Live Demo / Portfolio</span>
+                          <i className={formData.portfolioUrl.toLowerCase().includes('linkedin') ? 'fa-brands fa-linkedin-in' : 'fa-solid fa-globe'} style={formData.portfolioUrl.toLowerCase().includes('linkedin') ? { color: '#0A66C2' } : {}}></i>
+                          <span>{formData.portfolioUrl.toLowerCase().includes('linkedin') ? 'LinkedIn Profile' : 'Portfolio / LinkedIn'}</span>
                           <i className="fa-solid fa-arrow-up-right-from-square" style={{ fontSize: '0.65rem', opacity: 0.7 }}></i>
                         </a>
                       )}
