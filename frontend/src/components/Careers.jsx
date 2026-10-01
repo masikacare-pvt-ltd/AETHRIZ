@@ -19,7 +19,9 @@ const ROLES_LIST = [
       'Train and evaluate predictive machine learning architectures on biosignal datasets.',
       'Design real-time inference pipelines with optimized low-latency execution.',
       'Collaborate with research mentors to validate clinical and algorithmic outputs.'
-    ]
+    ],
+    isClosed: true,
+    status: 'filled'
   },
   {
     id: 'app-dev',
@@ -128,11 +130,12 @@ export default function Careers({ onBack }) {
   const [expandedRoleId, setExpandedRoleId] = useState(null);
 
   // Selected role for the application experience
-  const [selectedRole, setSelectedRole] = useState('AI/ML Development');
+  const [selectedRole, setSelectedRole] = useState('Full-Stack Web Development');
 
   // Launch Cinematic Application Experience
-  const handleStartApplication = (roleTitle = '') => {
-    const target = roleTitle || 'AI/ML Development';
+  const handleStartApplication = (roleTitle = '', isClosed = false) => {
+    if (isClosed) return;
+    const target = roleTitle || 'Full-Stack Web Development';
     setSelectedRole(target);
     setViewMode('apply');
   };
@@ -193,7 +196,7 @@ export default function Careers({ onBack }) {
               if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }}
           >
-            VIEW 7 OPEN ROLES <i className="fa-solid fa-list-check"></i>
+            VIEW {ROLES_LIST.filter((r) => !r.isClosed).length} OPEN ROLES <i className="fa-solid fa-list-check"></i>
           </button>
         </div>
       </section>
@@ -398,18 +401,25 @@ export default function Careers({ onBack }) {
             filteredJobs.map((role) => {
               const isExpanded = expandedRoleId === role.id;
               return (
-                <div key={role.id} className={`job-row-item ${isExpanded ? 'expanded' : ''}`}>
+                <div key={role.id} className={`job-row-item ${isExpanded ? 'expanded' : ''} ${role.isClosed ? 'role-closed' : ''}`}>
                   <div className="job-row-main">
                     <div className="job-left-info">
-                      <span className="job-dept-pill">{role.dept}</span>
+                      <div className="job-header-pills">
+                        <span className="job-dept-pill">{role.dept}</span>
+                        {role.isClosed && (
+                          <span className="job-closed-pill">
+                            <i className="fa-solid fa-lock"></i> POSITION FILLED
+                          </span>
+                        )}
+                      </div>
                       <h3 className="job-name-title">{role.title}</h3>
                       <div className="job-metadata-chips">
                         <span>
-                          <i className="fa-solid fa-location-dot" style={{ color: '#E81A2D' }}></i> {role.location}
+                          <i className="fa-solid fa-location-dot" style={{ color: role.isClosed ? '#94A3B8' : '#E81A2D' }}></i> {role.location}
                         </span>
                         <span>•</span>
                         <span>
-                          <i className="fa-regular fa-clock" style={{ color: '#E81A2D' }}></i> 3 Months
+                          <i className="fa-regular fa-clock" style={{ color: role.isClosed ? '#94A3B8' : '#E81A2D' }}></i> 3 Months
                         </span>
                         <span>•</span>
                         <span>Winter Cohort</span>
@@ -425,18 +435,39 @@ export default function Careers({ onBack }) {
                         {isExpanded ? 'Hide Details' : 'View Details'}
                         <i className={`fa-solid ${isExpanded ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
                       </button>
-                      <button
-                        className="btn-apply-job"
-                        onClick={() => handleStartApplication(role.title)}
-                      >
-                        Apply Now <i className="fa-solid fa-arrow-right"></i>
-                      </button>
+                      {role.isClosed ? (
+                        <button
+                          type="button"
+                          className="btn-apply-job btn-role-closed"
+                          disabled
+                          aria-disabled="true"
+                          title="Applications for this role have been closed as the position is already filled."
+                        >
+                          <i className="fa-solid fa-lock"></i> Position Filled
+                        </button>
+                      ) : (
+                        <button
+                          className="btn-apply-job"
+                          onClick={() => handleStartApplication(role.title, role.isClosed)}
+                        >
+                          Apply Now <i className="fa-solid fa-arrow-right"></i>
+                        </button>
+                      )}
                     </div>
                   </div>
 
                   {/* Expanded Accordion Details */}
                   {isExpanded && (
                     <div className="job-accordion-content">
+                      {role.isClosed && (
+                        <div className="job-closed-notice">
+                          <i className="fa-solid fa-circle-info"></i>
+                          <span>
+                            Applications for this track are currently closed as the position has been filled.
+                            Feel free to explore our other active engineering and growth tracks!
+                          </span>
+                        </div>
+                      )}
                       <p className="job-acc-overview">{role.overview}</p>
 
                       <div className="job-acc-section">

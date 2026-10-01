@@ -30,7 +30,7 @@ const generateSequentialApplicationId = () => {
 };
 
 export default function CareersApplicationExperience({
-  role = 'AI/ML Development',
+  role = 'Full-Stack Web Development',
   rolesList = [],
   onSelectRole,
   onExit
@@ -179,6 +179,10 @@ export default function CareersApplicationExperience({
   // Validation per step
   const validateStep = (stepNumber) => {
     setValidationError('');
+    if (roleData.isClosed) {
+      setValidationError('Applications for this track are currently closed as the position is already filled.');
+      return false;
+    }
     if (stepNumber === 1) {
       if (!formData.fullName.trim()) {
         setValidationError('Please enter your full name.');
@@ -415,6 +419,13 @@ export default function CareersApplicationExperience({
           <h2 className="sidebar-role-title">
             {roleData.title.split(' ')[0]} <i>{roleData.title.split(' ').slice(1).join(' ')}</i>
           </h2>
+          {roleData.isClosed && (
+            <div style={{ marginTop: '8px' }}>
+              <span className="job-closed-pill" style={{ background: 'rgba(232, 26, 45, 0.15)', borderColor: 'rgba(232, 26, 45, 0.4)', color: '#FF6B7A' }}>
+                <i className="fa-solid fa-lock"></i> POSITION FILLED
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Metadata Badges */}

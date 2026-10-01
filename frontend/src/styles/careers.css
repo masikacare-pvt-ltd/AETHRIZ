@@ -574,6 +574,85 @@
   box-shadow: 0 6px 16px rgba(232, 26, 45, 0.35);
 }
 
+.job-header-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.job-closed-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(232, 26, 45, 0.08);
+  border: 1px solid rgba(232, 26, 45, 0.25);
+  color: #E81A2D;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.job-row-item.role-closed {
+  background: rgba(248, 250, 252, 0.85);
+  border-color: rgba(226, 232, 240, 0.9);
+}
+
+.job-row-item.role-closed:hover {
+  border-color: rgba(203, 213, 225, 0.9);
+  transform: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.job-row-item.role-closed .job-name-title {
+  color: #334155;
+}
+
+.btn-apply-job.btn-role-closed,
+.btn-apply-job:disabled {
+  background: #E2E8F0 !important;
+  color: #64748B !important;
+  border: 1px solid #CBD5E1 !important;
+  cursor: not-allowed !important;
+  pointer-events: auto !important;
+  transform: none !important;
+  box-shadow: none !important;
+  opacity: 0.85;
+}
+
+.btn-apply-job.btn-role-closed:hover,
+.btn-apply-job:disabled:hover {
+  background: #E2E8F0 !important;
+  color: #64748B !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.job-closed-notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(232, 26, 45, 0.06);
+  border: 1px solid rgba(232, 26, 45, 0.2);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: #991B1B;
+  line-height: 1.5;
+}
+
+.job-closed-notice i {
+  font-size: 1rem;
+  color: #E81A2D;
+  flex-shrink: 0;
+}
+
 /* ==========================================================================
    FULL-PAGE APPLICATION PORTAL (DEDICATED WHITE THEME EXPERIENCE)
    ========================================================================== */
