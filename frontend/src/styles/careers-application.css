@@ -2631,25 +2631,25 @@ header.stage-top-bar {
 /* --------------------------------------------------------------------------
    FLOATING BOTTOM ACTION BAR
    -------------------------------------------------------------------------- */
-/* Floating Bottom Action Area - Solid rectangle removed, only the action buttons remain */
+/* Pinned Bottom Action Area (Always 100% visible on every desktop resolution) */
 .stage-bottom-bar,
 footer.stage-bottom-bar {
-  position: absolute;
-  bottom: 28px;
-  right: 40px;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  background: transparent !important;
-  border: none !important;
-  border-top: none !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  padding: 0 !important;
+  position: relative !important;
+  flex-shrink: 0 !important;
+  width: 100% !important;
+  z-index: 100 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  background: rgba(248, 250, 252, 0.96) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-top: 1px solid rgba(226, 232, 240, 0.85) !important;
+  padding: 14px 48px !important;
   margin: 0 !important;
-  pointer-events: none;
+  box-sizing: border-box !important;
+  pointer-events: auto !important;
+  box-shadow: 0 -4px 16px rgba(7, 9, 15, 0.04) !important;
 }
 
 .careers-app-container.active .stage-bottom-bar {
@@ -2773,71 +2773,149 @@ footer.stage-bottom-bar {
 
   .stage-bottom-bar,
   footer.stage-bottom-bar {
-    bottom: 16px;
-    right: 20px;
-    padding: 0 !important;
+    padding: 10px 24px !important;
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 768px) {
   .careers-split-layout {
-    flex-direction: column;
-    overflow-y: auto;
+    flex-direction: column !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
   }
 
+  /* Compact header on mobile so user lands straight into the form without massive scrolling */
   .cine-role-sidebar,
   aside.cine-role-sidebar {
-    width: 100%;
-    max-width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
     height: auto !important;
     max-height: none !important;
-    border-right: none;
-    border-bottom: 1px solid rgba(7, 9, 15, 0.1);
-    box-shadow: none;
-    padding: 16px;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(7, 9, 15, 0.08) !important;
+    box-shadow: none !important;
+    padding: 12px 16px !important;
+    flex-shrink: 0 !important;
   }
 
-  .sidebar-perks-box {
-    display: none;
+  /* Hide long duplicate descriptive blocks on mobile */
+  .sidebar-section,
+  .sidebar-perks-box,
+  .sidebar-footer {
+    display: none !important;
+  }
+
+  .sidebar-track-selector {
+    margin-bottom: 4px !important;
+  }
+
+  .sidebar-role-title {
+    font-size: 1.15rem !important;
+    margin-bottom: 6px !important;
+  }
+
+  .sidebar-meta-badges {
+    margin-bottom: 0 !important;
+    gap: 5px !important;
   }
 
   .cine-form-stage,
   section.cine-form-stage {
-    width: 100%;
+    width: 100% !important;
     height: auto !important;
-    min-height: 100vh;
+    min-height: calc(100vh - 120px) !important;
+    position: relative !important;
+    overflow: visible !important;
+  }
+
+  .stage-top-bar,
+  header.stage-top-bar {
+    width: calc(100% - 24px) !important;
+    padding: 6px 12px !important;
+    margin: 8px auto 0 !important;
+  }
+
+  .stage-form-viewport {
+    padding: 16px 16px 120px !important; /* Critical 120px padding so no input is ever hidden behind fixed bottom bar */
+    overflow-y: visible !important;
+  }
+
+  /* FIXED BOTTOM BAR ON ALL MOBILE PHONES - 100% ALWAYS VISIBLE & REACHABLE */
+  .stage-bottom-bar,
+  footer.stage-bottom-bar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    padding: 12px 16px max(14px, env(safe-area-inset-bottom)) !important;
+    background: #FFFFFF !important;
+    border-top: 1px solid #CBD5E1 !important;
+    box-shadow: 0 -8px 24px rgba(7, 9, 15, 0.12) !important;
+    z-index: 999999 !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
+    pointer-events: auto !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .stage-actions-col {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 10px !important;
+    pointer-events: auto !important;
+  }
+
+  .stage-secondary-btn {
+    flex: 0 0 auto !important;
+    height: 44px !important;
+    padding: 0 16px !important;
+    font-size: 0.75rem !important;
+  }
+
+  .stage-primary-btn {
+    flex: 1 !important;
+    height: 44px !important;
+    justify-content: center !important;
+    font-size: 0.82rem !important;
   }
 
   .stage-form-grid,
   .stage-journey-grid,
   .stage-links-grid,
   .stage-review-deck {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
 
   .stage-hint-col {
-    display: none;
+    display: none !important;
   }
 
   .stage-progress-track {
-    width: 110px;
+    width: 90px !important;
   }
 }
 
-@media (max-height: 600px) {
+@media (max-height: 800px) and (min-width: 769px) {
   .stage-header-group {
-    margin-bottom: 12px;
+    margin-bottom: 14px !important;
   }
 
   .stage-h1 {
-    font-size: 1.55rem;
-  }
-
-  .stage-text-input {
-    height: 38px;
+    font-size: 1.6rem !important;
   }
 
   .stage-form-viewport {
-    padding: 12px 24px 20px;
+    padding: 16px 36px 24px !important;
+  }
+
+  .stage-bottom-bar,
+  footer.stage-bottom-bar {
+    padding: 10px 36px !important;
   }
 }

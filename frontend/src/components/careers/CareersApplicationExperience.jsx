@@ -292,15 +292,14 @@ export default function CareersApplicationExperience({
     if (!validateStep(5) || isSubmitting) return;
 
     setIsSubmitting(true);
-    const newRefId = generateSequentialApplicationId();
+    let assignedRefId = '';
 
     const linksCombined = [
       formData.githubUrl ? `GitHub: ${formData.githubUrl}` : '',
-      formData.portfolioUrl ? `Live: ${formData.portfolioUrl}` : ''
+      formData.portfolioUrl ? `Portfolio/LinkedIn: ${formData.portfolioUrl}` : ''
     ].filter(Boolean).join(' | ') || formData.portfolioUrl || formData.githubUrl || '';
 
     const payload = {
-      refId: newRefId,
       position: role,
       fullName: formData.fullName,
       emailAddress: formData.email,
@@ -324,21 +323,27 @@ export default function CareersApplicationExperience({
 
     try {
       if (GOOGLE_SHEET_ENDPOINT) {
-        await fetch(GOOGLE_SHEET_ENDPOINT, {
+        const response = await fetch(GOOGLE_SHEET_ENDPOINT, {
           method: 'POST',
-          mode: 'no-cors',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(payload)
         });
+        const resData = await response.json();
+        if (resData && resData.applicationId) {
+          assignedRefId = resData.applicationId;
+        }
       }
     } catch (err) {
       console.warn('Submission notice:', err);
     } finally {
+      if (!assignedRefId) {
+        assignedRefId = `AETH-WI26-${Math.floor(100 + Math.random() * 900)}`;
+      }
       setTimeout(() => {
         setIsSubmitting(false);
-        setRefId(newRefId);
+        setRefId(assignedRefId);
         setCurrentStep(6); // Trigger cinematic AETHRIZ success sequence
-      }, 950);
+      }, 700);
     }
   };
 

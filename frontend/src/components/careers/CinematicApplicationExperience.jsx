@@ -259,23 +259,27 @@ export default function CinematicApplicationExperience({ role = 'AI/ML Developme
     }, 1600);
 
     // Finalize
+    let finalCode = generatedCode;
     try {
       if (GOOGLE_SHEET_ENDPOINT) {
-        await fetch(GOOGLE_SHEET_ENDPOINT, {
+        const res = await fetch(GOOGLE_SHEET_ENDPOINT, {
           method: 'POST',
-          mode: 'no-cors',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(payload)
         });
+        const resJson = await res.json();
+        if (resJson && resJson.applicationId) {
+          finalCode = resJson.applicationId;
+        }
       }
     } catch (e) {
-      console.warn('Endpoint ping completed:', e);
+      console.warn('Endpoint notice:', e);
     } finally {
       setTimeout(() => {
         setIsTransmitting(false);
-        setRefId(generatedCode);
+        setRefId(finalCode);
         setStep(10); // Success screen
-      }, 2400);
+      }, 2000);
     }
   };
 
