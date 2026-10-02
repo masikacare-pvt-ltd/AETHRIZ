@@ -36,7 +36,9 @@ const ROLES_LIST = [
       'Engineer sleek, reactive mobile interfaces for both iOS and Android platforms.',
       'Integrate Bluetooth/biometric sensors and real-time WebSocket telemetry feeds.',
       'Optimize app memory footprint, local caching, and background synchronization.'
-    ]
+    ],
+    isClosed: false,
+    status: 'open'
   },
   {
     id: 'full-stack',
@@ -132,12 +134,12 @@ export default function Careers({ onBack }) {
   const [expandedRoleId, setExpandedRoleId] = useState(null);
 
   // Selected role for the application experience
-  const [selectedRole, setSelectedRole] = useState('Full-Stack Web Development');
+  const [selectedRole, setSelectedRole] = useState('App Development');
 
   // Launch Cinematic Application Experience
   const handleStartApplication = (roleTitle = '', isClosed = false) => {
     if (isClosed) return;
-    const target = roleTitle || 'Full-Stack Web Development';
+    const target = roleTitle || 'App Development';
     setSelectedRole(target);
     setViewMode('apply');
   };
@@ -408,9 +410,13 @@ export default function Careers({ onBack }) {
                     <div className="job-left-info">
                       <div className="job-header-pills">
                         <span className="job-dept-pill">{role.dept}</span>
-                        {role.isClosed && (
+                        {role.isClosed ? (
                           <span className="job-closed-pill">
                             <i className="fa-solid fa-lock"></i> POSITION FILLED
+                          </span>
+                        ) : (
+                          <span className="job-open-pill">
+                            <span className="pulse-dot-green"></span> OPEN
                           </span>
                         )}
                       </div>
