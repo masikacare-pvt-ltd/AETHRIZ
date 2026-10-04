@@ -37,8 +37,8 @@ const ROLES_LIST = [
       'Integrate Bluetooth/biometric sensors and real-time WebSocket telemetry feeds.',
       'Optimize app memory footprint, local caching, and background synchronization.'
     ],
-    isClosed: false,
-    status: 'open'
+    isClosed: true,
+    status: 'filled'
   },
   {
     id: 'full-stack',
@@ -136,7 +136,7 @@ export default function Careers({ onBack }) {
   const [expandedRoleId, setExpandedRoleId] = useState(null);
 
   // Selected role for the application experience (defaults to first active open role)
-  const defaultOpenRole = ROLES_LIST.find((r) => !r.isClosed)?.title || 'App Development';
+  const defaultOpenRole = ROLES_LIST.find((r) => !r.isClosed)?.title || 'Social Media Management';
   const [selectedRole, setSelectedRole] = useState(defaultOpenRole);
 
   // Launch Cinematic Application Experience
