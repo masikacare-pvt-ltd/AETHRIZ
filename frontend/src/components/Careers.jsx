@@ -36,9 +36,7 @@ const ROLES_LIST = [
       'Engineer sleek, reactive mobile interfaces for both iOS and Android platforms.',
       'Integrate Bluetooth/biometric sensors and real-time WebSocket telemetry feeds.',
       'Optimize app memory footprint, local caching, and background synchronization.'
-    ],
-    isClosed: true,
-    status: 'filled'
+    ]
   },
   {
     id: 'full-stack',
@@ -136,7 +134,7 @@ export default function Careers({ onBack }) {
   const [expandedRoleId, setExpandedRoleId] = useState(null);
 
   // Selected role for the application experience (defaults to first active open role)
-  const defaultOpenRole = ROLES_LIST.find((r) => !r.isClosed)?.title || 'Social Media Management';
+  const defaultOpenRole = ROLES_LIST.find((r) => !r.isClosed)?.title || 'App Development';
   const [selectedRole, setSelectedRole] = useState(defaultOpenRole);
 
   // Launch Cinematic Application Experience
