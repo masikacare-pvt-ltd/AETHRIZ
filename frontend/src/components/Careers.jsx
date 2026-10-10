@@ -70,9 +70,7 @@ const ROLES_LIST = [
       'Translate complex bio-algorithmic research into engaging social threads and infographics.',
       'Cultivate active developer and health-tech community engagement across digital channels.',
       'Analyze reach, engagement metrics, and sentiment to iterate on content impact.'
-    ],
-    isClosed: true,
-    status: 'filled'
+    ]
   },
   {
     id: 'graphics-design',
