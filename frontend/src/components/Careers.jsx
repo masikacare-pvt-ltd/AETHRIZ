@@ -70,7 +70,9 @@ const ROLES_LIST = [
       'Translate complex bio-algorithmic research into engaging social threads and infographics.',
       'Cultivate active developer and health-tech community engagement across digital channels.',
       'Analyze reach, engagement metrics, and sentiment to iterate on content impact.'
-    ]
+    ],
+    isClosed: true,
+    status: 'filled'
   },
   {
     id: 'graphics-design',
@@ -85,7 +87,9 @@ const ROLES_LIST = [
       'Design futuristic visual brand assets, cybernetic iconography, and UI design systems.',
       'Create 3D bio-graphics, motion graphics, and presentation assets for product launches.',
       'Maintain aesthetic brand cohesion across all digital touchpoints and company decks.'
-    ]
+    ],
+    isClosed: true,
+    status: 'filled'
   },
   {
     id: 'marketing-lead',
@@ -117,7 +121,9 @@ const ROLES_LIST = [
       'Identify, curate, and partner with top technology and medical creator voices.',
       'Coordinate exclusive preview activations and early-access feedback loops.',
       'Amplify AETHRIZ brand awareness across scientific, academic, and builder networks.'
-    ]
+    ],
+    isClosed: true,
+    status: 'filled'
   }
 ];
 
@@ -136,12 +142,12 @@ export default function Careers({ onBack }) {
   const [expandedRoleId, setExpandedRoleId] = useState(null);
 
   // Selected role for the application experience (defaults to first active open role)
-  const defaultOpenRole = ROLES_LIST.find((r) => !r.isClosed)?.title || 'Social Media Management';
+  const defaultOpenRole = ROLES_LIST.find((r) => !r.isClosed)?.title || ROLES_LIST[0]?.title || 'Full-Stack Web Development';
   const [selectedRole, setSelectedRole] = useState(defaultOpenRole);
 
   // Launch Cinematic Application Experience
   const handleStartApplication = (roleTitle = '', isClosed = false) => {
-    if (isClosed) return;
+    if (isClosed || ROLES_LIST.every((r) => r.isClosed)) return;
     const target = roleTitle || defaultOpenRole;
     setSelectedRole(target);
     setViewMode('apply');
@@ -176,17 +182,39 @@ export default function Careers({ onBack }) {
         <div className="careers-main-viewport">
       {/* Hero Section */}
       <section className="c-hero">
-        <div className="c-status-chip" title="Applications currently open" style={{ marginBottom: '20px' }}>
-          <span className="c-pulse-wrapper">
-            <span className="c-pulse-ping"></span>
-            <span className="c-pulse"></span>
-          </span>
-          <span className="c-status-text">
-            <strong className="c-status-live-tag">APPLICATIONS OPEN</strong>
-            <span className="c-status-dot-sep">•</span>
-            <span>WINTER COHORT 2026-27</span>
-          </span>
-        </div>
+        {ROLES_LIST.some((r) => !r.isClosed) ? (
+          <div className="c-status-chip" title="Applications currently open" style={{ marginBottom: '20px' }}>
+            <span className="c-pulse-wrapper">
+              <span className="c-pulse-ping"></span>
+              <span className="c-pulse"></span>
+            </span>
+            <span className="c-status-text">
+              <strong className="c-status-live-tag">APPLICATIONS OPEN</strong>
+              <span className="c-status-dot-sep">•</span>
+              <span>WINTER COHORT 2026-27</span>
+            </span>
+          </div>
+        ) : (
+          <div
+            className="c-status-chip closed-status-chip"
+            title="Applications currently closed"
+            style={{
+              marginBottom: '20px',
+              borderColor: 'rgba(239, 68, 68, 0.45)',
+              background: 'rgba(239, 68, 68, 0.08)',
+              boxShadow: '0 0 14px rgba(239, 68, 68, 0.15)'
+            }}
+          >
+            <span className="c-pulse-wrapper">
+              <span className="c-pulse" style={{ backgroundColor: '#EF4444', boxShadow: '0 0 8px #EF4444' }}></span>
+            </span>
+            <span className="c-status-text">
+              <strong className="c-status-live-tag" style={{ color: '#EF4444' }}>APPLICATIONS CLOSED</strong>
+              <span className="c-status-dot-sep">•</span>
+              <span style={{ color: '#94A3B8' }}>ALL POSITIONS FILLED</span>
+            </span>
+          </div>
+        )}
         <h1 className="c-hero-title">
           Build the Future of <br />
           <i>Bio-Algorithmic Health.</i>
@@ -203,7 +231,10 @@ export default function Careers({ onBack }) {
               if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }}
           >
-            VIEW {ROLES_LIST.filter((r) => !r.isClosed).length} OPEN ROLES <i className="fa-solid fa-list-check"></i>
+            {ROLES_LIST.filter((r) => !r.isClosed).length > 0
+              ? `VIEW ${ROLES_LIST.filter((r) => !r.isClosed).length} OPEN ROLES`
+              : 'VIEW COHORT POSITIONS'}{' '}
+            <i className="fa-solid fa-list-check"></i>
           </button>
         </div>
       </section>
@@ -244,7 +275,8 @@ export default function Careers({ onBack }) {
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }}
             >
-              VIEW OPEN ROLES <i className="fa-solid fa-arrow-down"></i>
+              {ROLES_LIST.filter((r) => !r.isClosed).length > 0 ? 'VIEW OPEN ROLES' : 'VIEW COHORT POSITIONS'}{' '}
+              <i className="fa-solid fa-arrow-down"></i>
             </button>
           </div>
 
@@ -330,7 +362,11 @@ export default function Careers({ onBack }) {
         <div className="c-section-header">
           <span className="c-section-kicker">// COHORT OPPORTUNITIES</span>
           <h2 className="c-section-title">
-            Open Positions <i>(Winter 2026–27)</i>
+            {ROLES_LIST.filter((r) => !r.isClosed).length > 0 ? (
+              <>Open Positions <i>(Winter 2026–27)</i></>
+            ) : (
+              <>Cohort Positions <i>(Winter 2026–27)</i></>
+            )}
           </h2>
         </div>
 
@@ -475,7 +511,9 @@ export default function Careers({ onBack }) {
                           <i className="fa-solid fa-circle-info"></i>
                           <span>
                             Applications for this track are currently closed as the position has been filled.
-                            Feel free to explore our other active engineering and growth tracks!
+                            {ROLES_LIST.some((r) => !r.isClosed)
+                              ? ' Feel free to explore our other active engineering and growth tracks!'
+                              : ' Stay tuned for upcoming cohorts and future openings!'}
                           </span>
                         </div>
                       )}
