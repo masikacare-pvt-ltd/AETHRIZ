@@ -30,7 +30,7 @@ const generateSequentialApplicationId = () => {
 };
 
 export default function CareersApplicationExperience({
-  role = 'App Development',
+  role = 'Social Media Management',
   rolesList = [],
   onSelectRole,
   onExit
