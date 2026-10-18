@@ -1106,427 +1106,203 @@ header.stage-top-bar {
 }
 
 /* --------------------------------------------------------------------------
-   STEP 5: EXECUTIVE CANDIDATE VERIFICATION DOSSIER
+   STEP 5: CLEAN EXECUTIVE APPLICATION SUMMARY
    -------------------------------------------------------------------------- */
-.dossier-hero-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  background: linear-gradient(135deg, rgba(7, 9, 15, 0.03) 0%, rgba(255, 255, 255, 0.95) 100%);
-  border: 1.5px solid rgba(7, 9, 15, 0.1);
+.review-summary-container {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
   border-radius: 14px;
-  padding: 20px 24px;
-  margin-bottom: 24px;
-  box-shadow: 0 4px 18px rgba(7, 9, 15, 0.03);
-}
-
-.dossier-hero-left {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.dossier-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: #07090F;
-  color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  flex-shrink: 0;
-}
-
-.dossier-cohort-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: #E81A2D;
-  letter-spacing: 0.1em;
-  margin-bottom: 4px;
-}
-
-.dossier-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #E81A2D;
-  display: inline-block;
-}
-
-.dossier-candidate-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: #07090F;
-  margin: 0 0 2px 0;
-  line-height: 1.2;
-}
-
-.dossier-applied-track {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #475569;
-}
-
-.dossier-hero-right {
+  padding: 28px 32px;
+  box-shadow: 0 4px 20px rgba(7, 9, 15, 0.04);
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 6px;
+  gap: 22px;
 }
 
-.dossier-seal-badge {
+.review-track-lockup {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.review-track-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(16, 185, 129, 0.08);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  color: #059669;
-  padding: 6px 14px;
+  gap: 8px;
+  background: rgba(232, 26, 45, 0.08);
+  border: 1px solid rgba(232, 26, 45, 0.25);
+  color: #E81A2D;
+  padding: 5px 12px;
   border-radius: 999px;
   font-family: 'Space Mono', monospace;
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
 }
 
-.dossier-id-preview {
+.review-role-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #07090F;
+  margin: 0 0 4px 0;
+  line-height: 1.25;
+}
+
+.review-role-meta {
   font-family: 'Space Mono', monospace;
-  font-size: 0.66rem;
-  color: #94A3B8;
-  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  color: #64748B;
 }
 
-.dossier-modules-grid {
+.review-details-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-  margin-bottom: 24px;
-}
-
-.dossier-module-box {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: 12px;
-  padding: 18px 20px;
-  box-shadow: 0 2px 8px rgba(7, 9, 15, 0.02);
-}
-
-.dossier-module-box.full-width {
-  grid-column: 1 / -1;
-}
-
-.module-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: #07090F;
-  padding-bottom: 12px;
-  margin-bottom: 12px;
+  gap: 16px 28px;
+  padding-bottom: 20px;
   border-bottom: 1px solid #F1F5F9;
 }
 
-.module-header i {
-  color: #E81A2D;
-  font-size: 0.8rem;
-}
-
-.module-rows {
+.review-detail-group {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 4px;
 }
 
-.module-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.82rem;
-  gap: 12px;
-}
-
-.mod-label {
+.review-label {
   font-family: 'Space Mono', monospace;
-  font-size: 0.68rem;
-  color: #64748B;
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: #94A3B8;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.mod-val {
+.review-value {
   font-family: 'Inter', sans-serif;
-  font-size: 0.84rem;
+  font-size: 0.92rem;
   font-weight: 600;
   color: #07090F;
-  text-align: right;
+  line-height: 1.35;
   word-break: break-word;
 }
 
-.dossier-format-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  width: 100%;
-}
-
-.dossier-format-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.68rem;
-  font-weight: 600;
-  color: #334155;
-}
-
-.dossier-assets-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  margin-bottom: 14px;
-}
-
-.asset-link-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  border-radius: 10px;
-  padding: 12px 14px;
-  transition: all 0.2s ease;
-}
-
-.asset-link-card:hover {
-  border-color: #E81A2D;
-  background: #FFFFFF;
-}
-
-.asset-link-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: rgba(232, 26, 45, 0.08);
-  color: #E81A2D;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  flex-shrink: 0;
-}
-
-.asset-link-info {
-  flex: 1;
-  min-width: 0;
+.review-links-section {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 12px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #F1F5F9;
 }
 
-.asset-kind {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.62rem;
-  font-weight: 700;
-  color: #64748B;
-  letter-spacing: 0.06em;
+.review-link-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.asset-url-anchor {
+.review-pill-link {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  padding: 10px 16px;
+  border-radius: 8px;
   color: #07090F;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.72rem;
-  font-weight: 600;
   text-decoration: none;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.76rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  max-width: 100%;
   overflow: hidden;
 }
 
-.asset-url-anchor span {
+.review-pill-link:hover {
+  border-color: #E81A2D;
+  background: rgba(232, 26, 45, 0.03);
+  color: #E81A2D;
+}
+
+.review-pill-link span {
+  flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.asset-url-anchor i {
+.review-pill-link i.fa-file-pdf,
+.review-pill-link i.fa-link {
   color: #E81A2D;
-  font-size: 0.68rem;
+  font-size: 0.85rem;
   flex-shrink: 0;
 }
 
-.asset-url-anchor:hover {
-  color: #E81A2D;
+.review-pill-link i.fa-arrow-up-right-from-square {
+  font-size: 0.7rem;
+  color: #94A3B8;
+  flex-shrink: 0;
 }
 
-.dossier-quote-box {
-  background: rgba(232, 26, 45, 0.03);
-  border: 1px solid rgba(232, 26, 45, 0.18);
-  border-radius: 10px;
-  padding: 14px 16px;
+.review-best-work-section {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #F1F5F9;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.quote-badge {
-  display: block;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.64rem;
-  font-weight: 700;
-  color: #E81A2D;
-  letter-spacing: 0.1em;
-  margin-bottom: 6px;
-}
-
-.quote-text {
+.review-quote {
   font-family: 'Inter', sans-serif;
-  font-size: 0.82rem;
+  font-size: 0.86rem;
   color: #334155;
-  line-height: 1.45;
-  margin: 0;
+  line-height: 1.5;
   font-style: italic;
+  margin: 0;
+  padding-left: 12px;
+  border-left: 2.5px solid #E81A2D;
 }
 
-.dossier-declarations-wrap {
-  margin-top: 24px;
+.review-declarations-block {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  padding-top: 4px;
 }
 
-.declarations-section-kicker {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.66rem;
-  font-weight: 700;
-  color: #64748B;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.executive-declarations-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-}
-
-.declaration-attestation-card {
+.review-checkbox-item {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
-  background: #FFFFFF;
-  border: 1.5px solid #E2E8F0;
-  border-radius: 12px;
-  padding: 16px;
+  gap: 12px;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 1px 4px rgba(7, 9, 15, 0.02);
+  user-select: none;
 }
 
-.declaration-attestation-card:hover {
-  border-color: #CBD5E1;
-  background: #FAFAFA;
-}
-
-.declaration-attestation-card.confirmed {
-  border-color: #E81A2D;
-  background: rgba(232, 26, 45, 0.03);
-  box-shadow: 0 0 0 1px #E81A2D, 0 4px 14px rgba(232, 26, 45, 0.08);
-}
-
-.attestation-checkbox-box {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  border: 1.5px solid #CBD5E1;
-  background: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #FFFFFF;
-  font-size: 0.72rem;
-  flex-shrink: 0;
+.review-checkbox-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #E81A2D;
   margin-top: 2px;
-  transition: all 0.2s ease;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
-.declaration-attestation-card.confirmed .attestation-checkbox-box {
-  border-color: #E81A2D;
-  background: #E81A2D;
-}
-
-.attestation-text-wrap {
-  flex: 1;
-}
-
-.attestation-title {
+.review-checkbox-item span {
   font-family: 'Inter', sans-serif;
-  font-size: 0.86rem;
-  font-weight: 700;
-  color: #07090F;
-  margin: 0 0 4px 0;
-  line-height: 1.3;
+  font-size: 0.84rem;
+  color: #334155;
+  line-height: 1.45;
 }
 
-.declaration-attestation-card.confirmed .attestation-title {
-  color: #E81A2D;
-}
-
-.attestation-body {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.76rem;
-  color: #64748B;
-  line-height: 1.4;
-  margin: 0;
-}
-
-.dossier-security-footnote {
-  margin-top: 20px;
-  padding-top: 14px;
-  border-top: 1px solid #F1F5F9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.64rem;
-  color: #94A3B8;
-  letter-spacing: 0.06em;
-}
-
-.dossier-security-footnote i {
-  color: #10B981;
-  font-size: 0.7rem;
-}
-
-@media (max-width: 900px) {
-  .dossier-hero-card {
-    flex-direction: column;
-    align-items: flex-start;
+@media (max-width: 640px) {
+  .review-summary-container {
+    padding: 20px 18px;
+  }
+  .review-details-grid {
+    grid-template-columns: 1fr;
     gap: 14px;
-  }
-  .dossier-hero-right {
-    align-items: flex-start;
-  }
-  .dossier-modules-grid {
-    grid-template-columns: 1fr;
-  }
-  .executive-declarations-grid {
-    grid-template-columns: 1fr;
-  }
-  .dossier-assets-row {
-    grid-template-columns: 1fr;
   }
 }
 

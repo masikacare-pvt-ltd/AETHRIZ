@@ -1040,211 +1040,127 @@ export default function CareersApplicationExperience({
               </div>
             )}
 
-            {/* STEP 5: EXECUTIVE DOSSIER & FINAL VERIFICATION */}
+            {/* STEP 5: CLEAN EXECUTIVE REVIEW & SUBMISSION */}
             {currentStep === 5 && (
               <div className="stage-card-box">
                 <div className="stage-header-group">
-                  <span className="stage-kicker">// SECTION E • CANDIDATE VERIFICATION DOSSIER</span>
-                  <h1 className="stage-h1">Executive review & formal submission.</h1>
+                  <span className="stage-kicker">// SECTION E • APPLICATION REVIEW</span>
+                  <h1 className="stage-h1">Review your application.</h1>
                   <p className="stage-desc">
-                    Review your verified candidacy dossier and execute formal declarations prior to routing your file to the AETHRIZ AI Selection Board.
+                    Please take a moment to review your details before submitting your application to AETHRIZ AI.
                   </p>
                 </div>
 
-                {/* Dossier Top Hero Banner */}
-                <div className="dossier-hero-card">
-                  <div className="dossier-hero-left">
-                    <div className="dossier-avatar">
-                      <i className={roleData.icon || 'fa-solid fa-user-tie'}></i>
+                <div className="review-summary-container">
+                  {/* Track Header */}
+                  <div className="review-track-lockup">
+                    <div className="review-track-badge">
+                      <i className={roleData.icon || 'fa-solid fa-camera-retro'}></i>
+                      <span>{roleData.badge || 'Winter Cohort Track'}</span>
                     </div>
-                    <div>
-                      <div className="dossier-cohort-tag">
-                        <span className="dossier-dot"></span> WINTER COHORT 2026–2027
-                      </div>
-                      <h2 className="dossier-candidate-name">
-                        {formData.firstName} {formData.lastName}
-                      </h2>
-                      <span className="dossier-applied-track">
-                        {formData.primaryDomain}
+                    <h2 className="review-role-title">{formData.primaryDomain}</h2>
+                    <span className="review-role-meta">Winter Internship Program 2026–2027 • 100% Remote Immersion</span>
+                  </div>
+
+                  {/* Candidate Details Grid */}
+                  <div className="review-details-grid">
+                    <div className="review-detail-group">
+                      <span className="review-label">Candidate Name</span>
+                      <span className="review-value">{formData.firstName} {formData.lastName}</span>
+                    </div>
+                    <div className="review-detail-group">
+                      <span className="review-label">Email Address</span>
+                      <span className="review-value">{formData.email}</span>
+                    </div>
+                    <div className="review-detail-group">
+                      <span className="review-label">Contact Number</span>
+                      <span className="review-value">{formData.phone}</span>
+                    </div>
+                    <div className="review-detail-group">
+                      <span className="review-label">Location</span>
+                      <span className="review-value">{formData.city}, {formData.state}</span>
+                    </div>
+                    <div className="review-detail-group">
+                      <span className="review-label">Journey & Profile</span>
+                      <span className="review-value">
+                        {formData.currentStatus === 'student'
+                          ? `Student (${formData.yearOfStudy}${formData.institution ? `, ${formData.institution}` : ''})`
+                          : `${formData.currentStatus.toUpperCase()} (${formData.experienceLevel || ''})`}
                       </span>
                     </div>
-                  </div>
-
-                  <div className="dossier-hero-right">
-                    <span className="dossier-seal-badge">
-                      <i className="fa-solid fa-shield-halved"></i> PRE-SUBMISSION VERIFIED
-                    </span>
-                    <span className="dossier-id-preview">
-                      TRACK: {roleData.badge || 'WINTER INTERNSHIP'}
-                    </span>
-                  </div>
-                </div>
-
-                {/* 3 Structured Dossier Information Modules */}
-                <div className="dossier-modules-grid">
-                  {/* Module 1: Candidate Identity */}
-                  <div className="dossier-module-box">
-                    <div className="module-header">
-                      <i className="fa-regular fa-id-card"></i>
-                      <span>CANDIDATE IDENTITY & CONTACT</span>
-                    </div>
-                    <div className="module-rows">
-                      <div className="module-row">
-                        <span className="mod-label">Email</span>
-                        <span className="mod-val">{formData.email}</span>
-                      </div>
-                      <div className="module-row">
-                        <span className="mod-label">Phone</span>
-                        <span className="mod-val">{formData.phone}</span>
-                      </div>
-                      <div className="module-row">
-                        <span className="mod-label">Location</span>
-                        <span className="mod-val">{formData.city}, {formData.state}</span>
-                      </div>
-                      <div className="module-row">
-                        <span className="mod-label">Work Model</span>
-                        <span className="mod-val">100% Remote Asynchronous</span>
-                      </div>
+                    <div className="review-detail-group">
+                      <span className="review-label">Target Formats</span>
+                      <span className="review-value">{formData.preferredFormats.join(', ')}</span>
                     </div>
                   </div>
 
-                  {/* Module 2: Profile & Immersion Scope */}
-                  <div className="dossier-module-box">
-                    <div className="module-header">
-                      <i className="fa-solid fa-compass-drafting"></i>
-                      <span>CREATIVE IMMERSION PROFILE</span>
-                    </div>
-                    <div className="module-rows">
-                      <div className="module-row">
-                        <span className="mod-label">Journey Stage</span>
-                        <span className="mod-val" style={{ textTransform: 'capitalize' }}>
-                          {formData.currentStatus}
-                        </span>
-                      </div>
-                      <div className="module-row">
-                        <span className="mod-label">Experience / Stage</span>
-                        <span className="mod-val">
-                          {formData.currentStatus === 'student'
-                            ? `${formData.yearOfStudy}${formData.institution ? ` • ${formData.institution}` : ''}`
-                            : formData.experienceLevel || 'Professional / Creator'}
-                        </span>
-                      </div>
-                      <div className="module-row" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '6px' }}>
-                        <span className="mod-label">Preferred Content Formats</span>
-                        <div className="dossier-format-chips">
-                          {formData.preferredFormats.map((f) => (
-                            <span key={f} className="dossier-format-chip">
-                              <i className="fa-solid fa-play" style={{ fontSize: '0.55rem', color: '#E81A2D' }}></i> {f}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Module 3: Portfolio & Verified Assets */}
-                  <div className="dossier-module-box full-width">
-                    <div className="module-header">
-                      <i className="fa-solid fa-folder-open"></i>
-                      <span>VERIFIED ASSETS & CREATIVE EVIDENCE</span>
-                    </div>
-                    <div className="dossier-assets-row">
-                      <div className="asset-link-card">
-                        <div className="asset-link-icon">
-                          <i className="fa-solid fa-file-pdf"></i>
-                        </div>
-                        <div className="asset-link-info">
-                          <span className="asset-kind">RESUME / CV DOCUMENT</span>
-                          <a
-                            href={formData.resumeUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="asset-url-anchor"
-                          >
-                            <span>{formData.resumeUrl}</span>
-                            <i className="fa-solid fa-arrow-up-right-from-square"></i>
-                          </a>
-                        </div>
-                      </div>
-
-                      {(formData.portfolioUrl || formData.instagramUrl) && (
-                        <div className="asset-link-card">
-                          <div className="asset-link-icon">
-                            <i className="fa-solid fa-link"></i>
-                          </div>
-                          <div className="asset-link-info">
-                            <span className="asset-kind">CREATIVE PORTFOLIO / INSTAGRAM</span>
-                            <a
-                              href={formData.portfolioUrl || formData.instagramUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="asset-url-anchor"
-                            >
-                              <span>{formData.portfolioUrl || formData.instagramUrl}</span>
-                              <i className="fa-solid fa-arrow-up-right-from-square"></i>
-                            </a>
-                          </div>
-                        </div>
-                      )}
+                  {/* Verifiable Links */}
+                  <div className="review-links-section">
+                    <div className="review-link-row">
+                      <span className="review-label">Resume / CV Document</span>
+                      <a
+                        href={formData.resumeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="review-pill-link"
+                      >
+                        <i className="fa-solid fa-file-pdf"></i>
+                        <span>{formData.resumeUrl}</span>
+                        <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                      </a>
                     </div>
 
-                    {formData.bestContent && (
-                      <div className="dossier-quote-box">
-                        <span className="quote-badge">// STANDOUT CREATIVE MILESTONE</span>
-                        <p className="quote-text">"{formData.bestContent}"</p>
+                    {(formData.portfolioUrl || formData.instagramUrl) && (
+                      <div className="review-link-row">
+                        <span className="review-label">Instagram / Portfolio Link</span>
+                        <a
+                          href={formData.portfolioUrl || formData.instagramUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="review-pill-link"
+                        >
+                          <i className="fa-solid fa-link"></i>
+                          <span>{formData.portfolioUrl || formData.instagramUrl}</span>
+                          <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
                       </div>
                     )}
                   </div>
-                </div>
 
-                {/* Executive Legal Declarations (Interactive Executive Cards) */}
-                <div className="dossier-declarations-wrap">
-                  <span className="declarations-section-kicker">
-                    // MANDATORY CANDIDATE ATTESTATIONS (CLICK BOTH CARDS TO CONFIRM)
-                  </span>
-
-                  <div className="executive-declarations-grid">
-                    <div
-                      className={`declaration-attestation-card ${formData.accurateConfirmed ? 'confirmed' : ''}`}
-                      onClick={() => {
-                        setFormData((prev) => ({ ...prev, accurateConfirmed: !prev.accurateConfirmed }));
-                        setValidationError('');
-                      }}
-                    >
-                      <div className="attestation-checkbox-box">
-                        <i className={`fa-solid ${formData.accurateConfirmed ? 'fa-check' : ''}`}></i>
-                      </div>
-                      <div className="attestation-text-wrap">
-                        <h4 className="attestation-title">Accuracy & Creative Ownership Attestation</h4>
-                        <p className="attestation-body">
-                          I formally attest that all submitted personal records, credentials, social links, and creative assets represent authentic, original work owned or produced by me.
-                        </p>
-                      </div>
+                  {/* Creative Milestone Snippet */}
+                  {formData.bestContent && (
+                    <div className="review-best-work-section">
+                      <span className="review-label">Creative Milestone / Best Work</span>
+                      <p className="review-quote">"{formData.bestContent}"</p>
                     </div>
+                  )}
 
-                    <div
-                      className={`declaration-attestation-card ${formData.dedicationAgreed ? 'confirmed' : ''}`}
-                      onClick={() => {
-                        setFormData((prev) => ({ ...prev, dedicationAgreed: !prev.dedicationAgreed }));
-                        setValidationError('');
-                      }}
-                    >
-                      <div className="attestation-checkbox-box">
-                        <i className={`fa-solid ${formData.dedicationAgreed ? 'fa-check' : ''}`}></i>
-                      </div>
-                      <div className="attestation-text-wrap">
-                        <h4 className="attestation-title">Cohort Dedication & Remote Governance Agreement</h4>
-                        <p className="attestation-body">
-                          I confirm my availability for the 3-month remote immersion and agree to uphold AETHRIZ AI professional standards, weekly milestones, and confidentiality.
-                        </p>
-                      </div>
-                    </div>
+                  {/* Clean Declarations */}
+                  <div className="review-declarations-block">
+                    <label className="review-checkbox-item">
+                      <input
+                        type="checkbox"
+                        checked={formData.accurateConfirmed}
+                        onChange={(e) => {
+                          setFormData({ ...formData, accurateConfirmed: e.target.checked });
+                          setValidationError('');
+                        }}
+                      />
+                      <span>I declare that all information and portfolio links provided in this application are accurate and authentic.</span>
+                    </label>
+
+                    <label className="review-checkbox-item">
+                      <input
+                        type="checkbox"
+                        checked={formData.dedicationAgreed}
+                        onChange={(e) => {
+                          setFormData({ ...formData, dedicationAgreed: e.target.checked });
+                          setValidationError('');
+                        }}
+                      />
+                      <span>I confirm my availability for the 3-month remote winter immersion program.</span>
+                    </label>
                   </div>
-                </div>
-
-                <div className="dossier-security-footnote">
-                  <i className="fa-solid fa-lock"></i>
-                  <span>SECURE PROTOCOL • DIRECT ROUTING TO AETHRIZ AI FOUNDING TEAM & SELECTION COMMITTEE</span>
                 </div>
               </div>
             )}
