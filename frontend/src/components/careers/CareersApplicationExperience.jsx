@@ -308,21 +308,24 @@ export default function CareersApplicationExperience({
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(payload)
         });
-        const resData = await response.json();
-        if (resData && resData.applicationId) {
-          assignedRefId = resData.applicationId;
+        try {
+          const resData = await response.json();
+          if (resData && resData.applicationId) {
+            assignedRefId = resData.applicationId;
+          }
+        } catch (jsonErr) {
+          console.log('JSON parse note:', jsonErr);
         }
       }
     } catch (err) {
       console.warn('Submission notice:', err);
+    } finally {
       if (!assignedRefId) {
         assignedRefId = 'AETH-WISM-26-001';
       }
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setRefId(assignedRefId);
-        setCurrentStep(6);
-      }, 700);
+      setIsSubmitting(false);
+      setRefId(assignedRefId);
+      setCurrentStep(6);
     }
   };
 
