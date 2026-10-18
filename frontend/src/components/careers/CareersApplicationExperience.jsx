@@ -981,21 +981,17 @@ export default function CareersApplicationExperience({
 
                   <div className="stage-input-field">
                     <label className="stage-label">
-                      INSTAGRAM PROFILE OR PORTFOLIO LINK <span className="optional-tag">(IF APPLICABLE)</span>
+                      PORTFOLIO OR WORK SAMPLES LINK <span className="optional-tag">(IF APPLICABLE)</span>
                     </label>
                     <div className="stage-input-wrap">
                       <i className="fa-solid fa-link input-icon"></i>
                       <input
                         type="url"
                         className="stage-input"
-                        placeholder="https://instagram.com/yourhandle or portfolio link"
-                        value={formData.portfolioUrl || formData.instagramUrl}
+                        placeholder="https://yourportfolio.com, Drive folder, or Behance"
+                        value={formData.portfolioUrl}
                         onChange={(e) => {
-                          setFormData({
-                            ...formData,
-                            portfolioUrl: e.target.value,
-                            instagramUrl: e.target.value
-                          });
+                          setFormData({ ...formData, portfolioUrl: e.target.value });
                           setValidationError('');
                         }}
                       />
@@ -1004,6 +1000,25 @@ export default function CareersApplicationExperience({
 
                   <div className="stage-input-field">
                     <label className="stage-label">
+                      INSTAGRAM PROFILE URL <span className="optional-tag">(IF APPLICABLE)</span>
+                    </label>
+                    <div className="stage-input-wrap">
+                      <i className="fa-brands fa-instagram input-icon"></i>
+                      <input
+                        type="url"
+                        className="stage-input"
+                        placeholder="https://instagram.com/yourhandle"
+                        value={formData.instagramUrl}
+                        onChange={(e) => {
+                          setFormData({ ...formData, instagramUrl: e.target.value });
+                          setValidationError('');
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="stage-input-field" style={{ gridColumn: '1 / -1' }}>
+                    <label className="stage-label">
                       YOUTUBE OR OTHER RELEVANT LINK <span className="optional-tag">(IF APPLICABLE)</span>
                     </label>
                     <div className="stage-input-wrap">
@@ -1011,7 +1026,7 @@ export default function CareersApplicationExperience({
                       <input
                         type="url"
                         className="stage-input"
-                        placeholder="https://youtube.com/@yourchannel or LinkedIn"
+                        placeholder="https://youtube.com/@yourchannel, LinkedIn, or X"
                         value={formData.youtubeUrl}
                         onChange={(e) => setFormData({ ...formData, youtubeUrl: e.target.value })}
                       />
@@ -1081,23 +1096,47 @@ export default function CareersApplicationExperience({
                       <span className="review-value">{formData.city}, {formData.state}</span>
                     </div>
                     <div className="review-detail-group">
-                      <span className="review-label">Journey & Profile</span>
-                      <span className="review-value">
-                        {formData.currentStatus === 'student'
-                          ? `Student (${formData.yearOfStudy}${formData.institution ? `, ${formData.institution}` : ''})`
-                          : `${formData.currentStatus.toUpperCase()} (${formData.experienceLevel || ''})`}
+                      <span className="review-label">Journey & Status</span>
+                      <span className="review-value" style={{ textTransform: 'capitalize' }}>
+                        {formData.currentStatus}
                       </span>
                     </div>
+                    <div className="review-detail-group">
+                      <span className="review-label">Experience / Year</span>
+                      <span className="review-value">
+                        {formData.currentStatus === 'student'
+                          ? formData.yearOfStudy
+                          : formData.experienceLevel || 'Not Specified'}
+                      </span>
+                    </div>
+                    {formData.institution && (
+                      <div className="review-detail-group">
+                        <span className="review-label">College / University</span>
+                        <span className="review-value">{formData.institution}</span>
+                      </div>
+                    )}
+                    {formData.course && (
+                      <div className="review-detail-group">
+                        <span className="review-label">Course / Domain / Focus</span>
+                        <span className="review-value">{formData.course}</span>
+                      </div>
+                    )}
                     <div className="review-detail-group">
                       <span className="review-label">Target Formats</span>
                       <span className="review-value">{formData.preferredFormats.join(', ')}</span>
                     </div>
+                    {formData.secondarySkills && (
+                      <div className="review-detail-group">
+                        <span className="review-label">Secondary Skills & Tools</span>
+                        <span className="review-value">{formData.secondarySkills}</span>
+                      </div>
+                    )}
                   </div>
 
                   {/* Verifiable Links */}
                   <div className="review-links-section">
                     <div className="review-link-row">
-                      <span className="review-label">Resume / CV Document</span>
+                      <span className="review-label">Resume / CV Document *</span>
                       <a
                         href={formData.resumeUrl}
                         target="_blank"
@@ -1110,26 +1149,70 @@ export default function CareersApplicationExperience({
                       </a>
                     </div>
 
-                    {(formData.portfolioUrl || formData.instagramUrl) && (
-                      <div className="review-link-row">
-                        <span className="review-label">Instagram / Portfolio Link</span>
+                    <div className="review-link-row">
+                      <span className="review-label">Portfolio / Work Samples</span>
+                      {formData.portfolioUrl ? (
                         <a
-                          href={formData.portfolioUrl || formData.instagramUrl}
+                          href={formData.portfolioUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="review-pill-link"
                         >
                           <i className="fa-solid fa-link"></i>
-                          <span>{formData.portfolioUrl || formData.instagramUrl}</span>
+                          <span>{formData.portfolioUrl}</span>
+                          <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                      ) : (
+                        <span className="review-empty-tag">None provided (Optional)</span>
+                      )}
+                    </div>
+
+                    <div className="review-link-row">
+                      <span className="review-label">Instagram Profile</span>
+                      {formData.instagramUrl ? (
+                        <a
+                          href={formData.instagramUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="review-pill-link"
+                        >
+                          <i className="fa-brands fa-instagram"></i>
+                          <span>{formData.instagramUrl}</span>
+                          <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                      ) : (
+                        <span className="review-empty-tag">None provided (Optional)</span>
+                      )}
+                    </div>
+
+                    {formData.youtubeUrl && (
+                      <div className="review-link-row">
+                        <span className="review-label">YouTube / Other Link</span>
+                        <a
+                          href={formData.youtubeUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="review-pill-link"
+                        >
+                          <i className="fa-brands fa-youtube"></i>
+                          <span>{formData.youtubeUrl}</span>
                           <i className="fa-solid fa-arrow-up-right-from-square"></i>
                         </a>
                       </div>
                     )}
                   </div>
 
+                  {/* Motivation Snippet */}
+                  {formData.whyJoin && (
+                    <div className="review-text-block">
+                      <span className="review-label">Why AETHRIZ AI (Motivation)</span>
+                      <p className="review-quote">"{formData.whyJoin}"</p>
+                    </div>
+                  )}
+
                   {/* Creative Milestone Snippet */}
                   {formData.bestContent && (
-                    <div className="review-best-work-section">
+                    <div className="review-text-block">
                       <span className="review-label">Creative Milestone / Best Work</span>
                       <p className="review-quote">"{formData.bestContent}"</p>
                     </div>

@@ -1246,8 +1246,17 @@ header.stage-top-bar {
   flex-shrink: 0;
 }
 
+.review-empty-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.74rem;
+  color: #94A3B8;
+  font-style: italic;
+  padding: 4px 0;
+}
+
+.review-text-block,
 .review-best-work-section {
-  padding-bottom: 20px;
+  padding-bottom: 18px;
   border-bottom: 1px solid #F1F5F9;
   display: flex;
   flex-direction: column;
