@@ -287,19 +287,18 @@ export default function CareersApplicationExperience({
       cityState: locationStr,
       journeyStage: `${formData.currentStatus.toUpperCase()} (${expOrYear})`,
       collegeCourse: collegeCourseStr,
-      keySkills: formData.secondarySkills.trim() || formData.preferredFormats.join(', '),
-      featuredProject: formData.bestContent.trim(),
-      socialMediaHandle: formData.portfolioUrl.trim() || formData.instagramUrl.trim(),
-      githubUrl: formData.youtubeUrl.trim() || formData.otherSocialUrl.trim(),
-      portfolioUrl: formData.portfolioUrl.trim() || formData.instagramUrl.trim(),
-      portfolioGithub: socialLinksCombined,
+      targetFormats: formData.preferredFormats.join(', '),
+      keySkills: formData.secondarySkills.trim() || 'None specified',
       resumeUrl: formData.resumeUrl.trim(),
-      resumeFileName: formData.resumeUrl.trim(),
-      hasExperience: 'Yes',
-      available3Months: 'Yes (3 Months Full Commitment)',
-      remoteComfortable: 'Yes (100% Remote)',
+      portfolioUrl: formData.portfolioUrl.trim(),
+      instagramUrl: formData.instagramUrl.trim(),
+      socialMediaHandle: formData.instagramUrl.trim(),
+      youtubeUrl: formData.youtubeUrl.trim(),
+      githubUrl: formData.youtubeUrl.trim(),
       whyJoin: formData.whyJoin.trim(),
-      contribution: `Formats: ${formData.preferredFormats.join(', ')} | Best Work: ${formData.bestContent.trim()}`
+      featuredProject: formData.bestContent.trim(),
+      available3Months: 'Yes (100% Remote Immersion)',
+      remoteComfortable: 'Yes (100% Remote)'
     };
 
     try {
@@ -316,9 +315,8 @@ export default function CareersApplicationExperience({
       }
     } catch (err) {
       console.warn('Submission notice:', err);
-    } finally {
       if (!assignedRefId) {
-        assignedRefId = `AETH-WI26-${Math.floor(109 + Math.random() * 890)}`;
+        assignedRefId = 'AETH-WISM-26-001';
       }
       setTimeout(() => {
         setIsSubmitting(false);
@@ -1260,17 +1258,16 @@ export default function CareersApplicationExperience({
                   </svg>
                 </div>
 
-                <span className="stage-success-kicker">// APPLICATION SUBMITTED SUCCESSFULLY</span>
-                <h2 className="stage-success-h1">Welcome to the Winter 2026–27 Candidate Roster</h2>
+                <span className="stage-success-kicker">// APPLICATION RECEIVED • WINTER COHORT 2026–2027</span>
+                <h2 className="stage-success-h1">Application Received.</h2>
                 <p className="stage-success-desc">
-                  Your official candidate application has been received by AETHRIZ AI.
-                  Our team evaluates creative portfolios on a rolling basis.
+                  Thank you for applying to AETHRIZ AI. Your official application has been successfully received and recorded in our candidate registry.
                 </p>
 
                 <div className="stage-ref-card">
                   <div className="ref-card-header">
                     <span className="ref-lbl">OFFICIAL CANDIDATE REFERENCE ID</span>
-                    <span className="ref-status-live">STATUS: UNDER EVALUATION</span>
+                    <span className="ref-status-live">STATUS: APPLICATION RECEIVED</span>
                   </div>
                   <div className="ref-code-row">
                     <code className="ref-token-txt">{refId}</code>
