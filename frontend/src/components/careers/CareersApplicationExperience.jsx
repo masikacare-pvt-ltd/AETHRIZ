@@ -12,13 +12,37 @@ const STATUS_OPTIONS = [
   { id: 'other', title: 'Other', desc: 'Unique background or self-taught creative builder' }
 ];
 
-const YEAR_OPTIONS = [
+const STUDENT_YEARS = [
   '1st Year',
   '2nd Year',
   '3rd Year',
-  'Final Year / Pre-Grad',
-  'Graduated / Alumni',
-  'Not Applicable'
+  'Final Year / Pre-Grad'
+];
+
+const FRESHER_EXP = [
+  'Fresher (Projects & Portfolio)',
+  'Internship Experience (< 1 Year)',
+  '1–2 Years Combined Work'
+];
+
+const PROFESSIONAL_EXP = [
+  '< 1 Year Experience',
+  '1–2 Years Experience',
+  '2–4 Years Experience',
+  '4+ Years Experience'
+];
+
+const FREELANCER_EXP = [
+  '< 1 Year Active Creator',
+  '1–2 Years Active Creator',
+  '2–3 Years Active Creator',
+  '3+ Years Active Creator'
+];
+
+const OTHER_EXP = [
+  'Beginner / Self-Taught',
+  '1–2 Years Practice',
+  '2+ Years Practice'
 ];
 
 const PREFERRED_FORMATS_LIST = [
@@ -71,6 +95,7 @@ export default function CareersApplicationExperience({
     institution: '',
     course: '',
     yearOfStudy: '3rd Year',
+    experienceLevel: '1–2 Years Experience',
 
     // Section C: Internship Preferences
     primaryDomain: roleData.title || role,
@@ -158,10 +183,13 @@ export default function CareersApplicationExperience({
       }
     } else if (stepNumber === 2) {
       if (!formData.currentStatus) {
-        setValidationError('Please select your current status.');
+        setValidationError('Please select your current journey stage.');
         return false;
       }
-      // Note: Institution, Course, and Year of Study are optional (if applicable)
+      if (formData.currentStatus === 'student' && !formData.institution.trim()) {
+        setValidationError('Please enter your college or university name.');
+        return false;
+      }
     } else if (stepNumber === 3) {
       if (!formData.primaryDomain) {
         setValidationError('Please select your primary internship domain.');
@@ -244,9 +272,12 @@ export default function CareersApplicationExperience({
       formData.otherSocialUrl ? `Other: ${formData.otherSocialUrl.trim()}` : ''
     ].filter(Boolean).join(' | ');
 
+    const expOrYear = formData.currentStatus === 'student' ? formData.yearOfStudy : formData.experienceLevel;
     const collegeCourseStr = formData.institution.trim()
       ? `${formData.institution.trim()}${formData.course.trim() ? ` - ${formData.course.trim()}` : ''}`
-      : 'Self-Directed / Independent';
+      : formData.course.trim()
+      ? formData.course.trim()
+      : `${formData.currentStatus.toUpperCase()} (${expOrYear})`;
 
     const payload = {
       position: formData.primaryDomain,
@@ -254,7 +285,7 @@ export default function CareersApplicationExperience({
       emailAddress: formData.email.trim(),
       phone: fullPhone,
       cityState: locationStr,
-      journeyStage: `${formData.currentStatus.toUpperCase()} (${formData.yearOfStudy})`,
+      journeyStage: `${formData.currentStatus.toUpperCase()} (${expOrYear})`,
       collegeCourse: collegeCourseStr,
       keySkills: formData.secondarySkills.trim() || formData.preferredFormats.join(', '),
       featuredProject: formData.bestContent.trim(),
@@ -583,61 +614,239 @@ export default function CareersApplicationExperience({
                   </div>
                 </div>
 
-                <div className="stage-form-grid" style={{ marginTop: '20px' }}>
-                  <div className="stage-input-field">
-                    <label className="stage-label">
-                      INSTITUTION OR ORGANISATION NAME <span className="optional-tag">(IF APPLICABLE)</span>
-                    </label>
-                    <div className="stage-input-wrap">
-                      <i className="fa-solid fa-graduation-cap input-icon"></i>
-                      <input
-                        type="text"
-                        className="stage-input"
-                        placeholder="e.g. IIT Bombay / Delhi University / Tech Startup"
-                        value={formData.institution}
-                        onChange={(e) => {
-                          setFormData({ ...formData, institution: e.target.value });
-                          setValidationError('');
-                        }}
-                      />
+                {/* Dynamically Rendered Inputs based on Current Status */}
+                {formData.currentStatus === 'student' && (
+                  <div className="stage-form-grid" style={{ marginTop: '22px' }}>
+                    <div className="stage-input-field">
+                      <label className="stage-label">
+                        COLLEGE OR UNIVERSITY NAME <span className="req-dot">*</span>
+                      </label>
+                      <div className="stage-input-wrap">
+                        <i className="fa-solid fa-graduation-cap input-icon"></i>
+                        <input
+                          type="text"
+                          className="stage-input"
+                          placeholder="e.g. IIT Bombay / Delhi University / Christ University"
+                          value={formData.institution}
+                          onChange={(e) => {
+                            setFormData({ ...formData, institution: e.target.value });
+                            setValidationError('');
+                          }}
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="stage-input-field">
-                    <label className="stage-label">
-                      COURSE, DEPARTMENT OR DESIGNATION <span className="optional-tag">(IF APPLICABLE)</span>
-                    </label>
-                    <div className="stage-input-wrap">
-                      <i className="fa-solid fa-book-open input-icon"></i>
-                      <input
-                        type="text"
-                        className="stage-input"
-                        placeholder="e.g. B.Tech Computer Science / Mass Comm / Creator"
-                        value={formData.course}
-                        onChange={(e) => {
-                          setFormData({ ...formData, course: e.target.value });
-                          setValidationError('');
-                        }}
-                      />
+                    <div className="stage-input-field">
+                      <label className="stage-label">
+                        COURSE OR DEGREE PROGRAM <span className="optional-tag">(IF APPLICABLE)</span>
+                      </label>
+                      <div className="stage-input-wrap">
+                        <i className="fa-solid fa-book-open input-icon"></i>
+                        <input
+                          type="text"
+                          className="stage-input"
+                          placeholder="e.g. B.Tech Computer Science / Mass Comm / Design"
+                          value={formData.course}
+                          onChange={(e) => {
+                            setFormData({ ...formData, course: e.target.value });
+                            setValidationError('');
+                          }}
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="stage-input-field" style={{ gridColumn: '1 / -1' }}>
-                    <label className="stage-label">CURRENT YEAR OF STUDY (IF APPLICABLE)</label>
-                    <div className="year-pill-row">
-                      {YEAR_OPTIONS.map((yr) => (
-                        <button
-                          key={yr}
-                          type="button"
-                          className={`year-pill-btn ${formData.yearOfStudy === yr ? 'active' : ''}`}
-                          onClick={() => setFormData({ ...formData, yearOfStudy: yr })}
-                        >
-                          {yr}
-                        </button>
-                      ))}
+                    <div className="stage-input-field" style={{ gridColumn: '1 / -1' }}>
+                      <label className="stage-label">CURRENT YEAR OF STUDY</label>
+                      <div className="year-pill-row">
+                        {STUDENT_YEARS.map((yr) => (
+                          <button
+                            key={yr}
+                            type="button"
+                            className={`year-pill-btn ${formData.yearOfStudy === yr ? 'active' : ''}`}
+                            onClick={() => setFormData({ ...formData, yearOfStudy: yr })}
+                          >
+                            {yr}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
+
+                {formData.currentStatus === 'fresher' && (
+                  <div className="stage-form-grid" style={{ marginTop: '22px' }}>
+                    <div className="stage-input-field">
+                      <label className="stage-label">
+                        COLLEGE OR UNIVERSITY GRADUATED FROM <span className="optional-tag">(IF APPLICABLE)</span>
+                      </label>
+                      <div className="stage-input-wrap">
+                        <i className="fa-solid fa-graduation-cap input-icon"></i>
+                        <input
+                          type="text"
+                          className="stage-input"
+                          placeholder="e.g. Delhi University / SRM / Amity"
+                          value={formData.institution}
+                          onChange={(e) => {
+                            setFormData({ ...formData, institution: e.target.value });
+                            setValidationError('');
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="stage-input-field">
+                      <label className="stage-label">
+                        DEGREE OR SPECIALISATION <span className="optional-tag">(IF APPLICABLE)</span>
+                      </label>
+                      <div className="stage-input-wrap">
+                        <i className="fa-solid fa-book-open input-icon"></i>
+                        <input
+                          type="text"
+                          className="stage-input"
+                          placeholder="e.g. B.A. Journalism / B.Tech / BBA"
+                          value={formData.course}
+                          onChange={(e) => {
+                            setFormData({ ...formData, course: e.target.value });
+                            setValidationError('');
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="stage-input-field" style={{ gridColumn: '1 / -1' }}>
+                      <label className="stage-label">PROJECT & CREATIVE EXPERIENCE</label>
+                      <div className="year-pill-row">
+                        {FRESHER_EXP.map((lvl) => (
+                          <button
+                            key={lvl}
+                            type="button"
+                            className={`year-pill-btn ${formData.experienceLevel === lvl ? 'active' : ''}`}
+                            onClick={() => setFormData({ ...formData, experienceLevel: lvl })}
+                          >
+                            {lvl}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {formData.currentStatus === 'professional' && (
+                  <div className="stage-form-grid" style={{ marginTop: '22px' }}>
+                    <div className="stage-input-field" style={{ gridColumn: '1 / -1' }}>
+                      <label className="stage-label">TOTAL YEARS OF EXPERIENCE</label>
+                      <div className="year-pill-row">
+                        {PROFESSIONAL_EXP.map((lvl) => (
+                          <button
+                            key={lvl}
+                            type="button"
+                            className={`year-pill-btn ${formData.experienceLevel === lvl ? 'active' : ''}`}
+                            onClick={() => setFormData({ ...formData, experienceLevel: lvl })}
+                          >
+                            {lvl}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="stage-input-field" style={{ gridColumn: '1 / -1' }}>
+                      <label className="stage-label">
+                        CURRENT DOMAIN OR PROFESSIONAL FOCUS <span className="optional-tag">(OPTIONAL)</span>
+                      </label>
+                      <div className="stage-input-wrap">
+                        <i className="fa-solid fa-briefcase input-icon"></i>
+                        <input
+                          type="text"
+                          className="stage-input"
+                          placeholder="e.g. Digital Marketing, Video Production, Brand Storytelling, Technology"
+                          value={formData.course}
+                          onChange={(e) => {
+                            setFormData({ ...formData, course: e.target.value });
+                            setValidationError('');
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {formData.currentStatus === 'freelancer' && (
+                  <div className="stage-form-grid" style={{ marginTop: '22px' }}>
+                    <div className="stage-input-field" style={{ gridColumn: '1 / -1' }}>
+                      <label className="stage-label">CREATOR / FREELANCE EXPERIENCE</label>
+                      <div className="year-pill-row">
+                        {FREELANCER_EXP.map((lvl) => (
+                          <button
+                            key={lvl}
+                            type="button"
+                            className={`year-pill-btn ${formData.experienceLevel === lvl ? 'active' : ''}`}
+                            onClick={() => setFormData({ ...formData, experienceLevel: lvl })}
+                          >
+                            {lvl}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="stage-input-field" style={{ gridColumn: '1 / -1' }}>
+                      <label className="stage-label">
+                        PRIMARY CREATIVE NICHE OR SERVICES <span className="optional-tag">(OPTIONAL)</span>
+                      </label>
+                      <div className="stage-input-wrap">
+                        <i className="fa-solid fa-palette input-icon"></i>
+                        <input
+                          type="text"
+                          className="stage-input"
+                          placeholder="e.g. Short-form Video Editor, Podcast Host, Graphic Designer, Content Creator"
+                          value={formData.course}
+                          onChange={(e) => {
+                            setFormData({ ...formData, course: e.target.value });
+                            setValidationError('');
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {formData.currentStatus === 'other' && (
+                  <div className="stage-form-grid" style={{ marginTop: '22px' }}>
+                    <div className="stage-input-field" style={{ gridColumn: '1 / -1' }}>
+                      <label className="stage-label">CREATIVE EXPERIENCE LEVEL</label>
+                      <div className="year-pill-row">
+                        {OTHER_EXP.map((lvl) => (
+                          <button
+                            key={lvl}
+                            type="button"
+                            className={`year-pill-btn ${formData.experienceLevel === lvl ? 'active' : ''}`}
+                            onClick={() => setFormData({ ...formData, experienceLevel: lvl })}
+                          >
+                            {lvl}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="stage-input-field" style={{ gridColumn: '1 / -1' }}>
+                      <label className="stage-label">
+                        CREATIVE BACKGROUND OR FOCUS <span className="optional-tag">(OPTIONAL)</span>
+                      </label>
+                      <div className="stage-input-wrap">
+                        <i className="fa-solid fa-shapes input-icon"></i>
+                        <input
+                          type="text"
+                          className="stage-input"
+                          placeholder="e.g. Self-taught video creator, digital storyteller, indie builder"
+                          value={formData.course}
+                          onChange={(e) => {
+                            setFormData({ ...formData, course: e.target.value });
+                            setValidationError('');
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
@@ -831,120 +1040,211 @@ export default function CareersApplicationExperience({
               </div>
             )}
 
-            {/* STEP 5: REVIEW & DECLARATIONS */}
+            {/* STEP 5: EXECUTIVE DOSSIER & FINAL VERIFICATION */}
             {currentStep === 5 && (
               <div className="stage-card-box">
                 <div className="stage-header-group">
-                  <span className="stage-kicker">// SECTION E • APPLICATION REVIEW & VERIFICATION</span>
-                  <h1 className="stage-h1">Review & formal submission.</h1>
+                  <span className="stage-kicker">// SECTION E • CANDIDATE VERIFICATION DOSSIER</span>
+                  <h1 className="stage-h1">Executive review & formal submission.</h1>
                   <p className="stage-desc">
-                    Please verify your candidacy profile and confirm declarations before submitting to AETHRIZ AI.
+                    Review your verified candidacy dossier and execute formal declarations prior to routing your file to the AETHRIZ AI Selection Board.
                   </p>
                 </div>
 
-                {/* Candidate Review Summary Deck */}
-                <div className="stage-review-deck">
-                  <div className="review-meta-item">
-                    <span className="review-meta-label">Candidate Name</span>
-                    <strong className="review-meta-val">
-                      {formData.firstName} {formData.lastName}
-                    </strong>
-                  </div>
-                  <div className="review-meta-item">
-                    <span className="review-meta-label">Selected Track</span>
-                    <strong className="review-meta-val" style={{ color: '#E81A2D' }}>
-                      {formData.primaryDomain}
-                    </strong>
-                  </div>
-                  <div className="review-meta-item">
-                    <span className="review-meta-label">Email Address</span>
-                    <strong className="review-meta-val">{formData.email}</strong>
-                  </div>
-                  <div className="review-meta-item">
-                    <span className="review-meta-label">Contact Number</span>
-                    <strong className="review-meta-val">{formData.phone}</strong>
-                  </div>
-                  <div className="review-meta-item">
-                    <span className="review-meta-label">Location</span>
-                    <strong className="review-meta-val">
-                      {formData.city}, {formData.state}
-                    </strong>
-                  </div>
-                  <div className="review-meta-item">
-                    <span className="review-meta-label">Background / Education</span>
-                    <strong className="review-meta-val">
-                      {formData.institution
-                        ? `${formData.institution}${formData.course ? ` (${formData.course})` : ''}`
-                        : formData.currentStatus
-                        ? formData.currentStatus.toUpperCase()
-                        : 'Self-Directed Creator'}
-                    </strong>
-                  </div>
-                  <div className="review-meta-item">
-                    <span className="review-meta-label">Preferred Formats</span>
-                    <strong className="review-meta-val">{formData.preferredFormats.join(', ')}</strong>
-                  </div>
-                  <div className="review-meta-item">
-                    <span className="review-meta-label">Work Model</span>
-                    <strong className="review-meta-val">100% Remote (3 Months)</strong>
-                  </div>
-                  <div className="review-meta-item" style={{ gridColumn: '1 / -1' }}>
-                    <span className="review-meta-label">Resume Link</span>
-                    <a
-                      href={formData.resumeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="review-resume-link"
-                    >
-                      <i className="fa-solid fa-arrow-up-right-from-square" style={{ marginRight: '6px' }}></i>
-                      {formData.resumeUrl}
-                    </a>
-                  </div>
-                  {(formData.portfolioUrl || formData.instagramUrl) && (
-                    <div className="review-meta-item" style={{ gridColumn: '1 / -1' }}>
-                      <span className="review-meta-label">Instagram / Portfolio Link</span>
-                      <a
-                        href={formData.portfolioUrl || formData.instagramUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="review-resume-link"
-                      >
-                        <i className="fa-solid fa-arrow-up-right-from-square" style={{ marginRight: '6px' }}></i>
-                        {formData.portfolioUrl || formData.instagramUrl}
-                      </a>
+                {/* Dossier Top Hero Banner */}
+                <div className="dossier-hero-card">
+                  <div className="dossier-hero-left">
+                    <div className="dossier-avatar">
+                      <i className={roleData.icon || 'fa-solid fa-user-tie'}></i>
                     </div>
-                  )}
+                    <div>
+                      <div className="dossier-cohort-tag">
+                        <span className="dossier-dot"></span> WINTER COHORT 2026–2027
+                      </div>
+                      <h2 className="dossier-candidate-name">
+                        {formData.firstName} {formData.lastName}
+                      </h2>
+                      <span className="dossier-applied-track">
+                        {formData.primaryDomain}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="dossier-hero-right">
+                    <span className="dossier-seal-badge">
+                      <i className="fa-solid fa-shield-halved"></i> PRE-SUBMISSION VERIFIED
+                    </span>
+                    <span className="dossier-id-preview">
+                      TRACK: {roleData.badge || 'WINTER INTERNSHIP'}
+                    </span>
+                  </div>
                 </div>
 
-                {/* Declarations Checkboxes */}
-                <div className="stage-declarations-box">
-                  <label className="stage-checkbox-row">
-                    <input
-                      type="checkbox"
-                      checked={formData.accurateConfirmed}
-                      onChange={(e) => {
-                        setFormData({ ...formData, accurateConfirmed: e.target.checked });
-                        setValidationError('');
-                      }}
-                    />
-                    <span className="stage-check-text">
-                      I declare that all information and portfolio links provided in this application are accurate, authentic, and verifiable.
-                    </span>
-                  </label>
+                {/* 3 Structured Dossier Information Modules */}
+                <div className="dossier-modules-grid">
+                  {/* Module 1: Candidate Identity */}
+                  <div className="dossier-module-box">
+                    <div className="module-header">
+                      <i className="fa-regular fa-id-card"></i>
+                      <span>CANDIDATE IDENTITY & CONTACT</span>
+                    </div>
+                    <div className="module-rows">
+                      <div className="module-row">
+                        <span className="mod-label">Email</span>
+                        <span className="mod-val">{formData.email}</span>
+                      </div>
+                      <div className="module-row">
+                        <span className="mod-label">Phone</span>
+                        <span className="mod-val">{formData.phone}</span>
+                      </div>
+                      <div className="module-row">
+                        <span className="mod-label">Location</span>
+                        <span className="mod-val">{formData.city}, {formData.state}</span>
+                      </div>
+                      <div className="module-row">
+                        <span className="mod-label">Work Model</span>
+                        <span className="mod-val">100% Remote Asynchronous</span>
+                      </div>
+                    </div>
+                  </div>
 
-                  <label className="stage-checkbox-row">
-                    <input
-                      type="checkbox"
-                      checked={formData.dedicationAgreed}
-                      onChange={(e) => {
-                        setFormData({ ...formData, dedicationAgreed: e.target.checked });
+                  {/* Module 2: Profile & Immersion Scope */}
+                  <div className="dossier-module-box">
+                    <div className="module-header">
+                      <i className="fa-solid fa-compass-drafting"></i>
+                      <span>CREATIVE IMMERSION PROFILE</span>
+                    </div>
+                    <div className="module-rows">
+                      <div className="module-row">
+                        <span className="mod-label">Journey Stage</span>
+                        <span className="mod-val" style={{ textTransform: 'capitalize' }}>
+                          {formData.currentStatus}
+                        </span>
+                      </div>
+                      <div className="module-row">
+                        <span className="mod-label">Experience / Stage</span>
+                        <span className="mod-val">
+                          {formData.currentStatus === 'student'
+                            ? `${formData.yearOfStudy}${formData.institution ? ` • ${formData.institution}` : ''}`
+                            : formData.experienceLevel || 'Professional / Creator'}
+                        </span>
+                      </div>
+                      <div className="module-row" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '6px' }}>
+                        <span className="mod-label">Preferred Content Formats</span>
+                        <div className="dossier-format-chips">
+                          {formData.preferredFormats.map((f) => (
+                            <span key={f} className="dossier-format-chip">
+                              <i className="fa-solid fa-play" style={{ fontSize: '0.55rem', color: '#E81A2D' }}></i> {f}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Module 3: Portfolio & Verified Assets */}
+                  <div className="dossier-module-box full-width">
+                    <div className="module-header">
+                      <i className="fa-solid fa-folder-open"></i>
+                      <span>VERIFIED ASSETS & CREATIVE EVIDENCE</span>
+                    </div>
+                    <div className="dossier-assets-row">
+                      <div className="asset-link-card">
+                        <div className="asset-link-icon">
+                          <i className="fa-solid fa-file-pdf"></i>
+                        </div>
+                        <div className="asset-link-info">
+                          <span className="asset-kind">RESUME / CV DOCUMENT</span>
+                          <a
+                            href={formData.resumeUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="asset-url-anchor"
+                          >
+                            <span>{formData.resumeUrl}</span>
+                            <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                          </a>
+                        </div>
+                      </div>
+
+                      {(formData.portfolioUrl || formData.instagramUrl) && (
+                        <div className="asset-link-card">
+                          <div className="asset-link-icon">
+                            <i className="fa-solid fa-link"></i>
+                          </div>
+                          <div className="asset-link-info">
+                            <span className="asset-kind">CREATIVE PORTFOLIO / INSTAGRAM</span>
+                            <a
+                              href={formData.portfolioUrl || formData.instagramUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="asset-url-anchor"
+                            >
+                              <span>{formData.portfolioUrl || formData.instagramUrl}</span>
+                              <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {formData.bestContent && (
+                      <div className="dossier-quote-box">
+                        <span className="quote-badge">// STANDOUT CREATIVE MILESTONE</span>
+                        <p className="quote-text">"{formData.bestContent}"</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Executive Legal Declarations (Interactive Executive Cards) */}
+                <div className="dossier-declarations-wrap">
+                  <span className="declarations-section-kicker">
+                    // MANDATORY CANDIDATE ATTESTATIONS (CLICK BOTH CARDS TO CONFIRM)
+                  </span>
+
+                  <div className="executive-declarations-grid">
+                    <div
+                      className={`declaration-attestation-card ${formData.accurateConfirmed ? 'confirmed' : ''}`}
+                      onClick={() => {
+                        setFormData((prev) => ({ ...prev, accurateConfirmed: !prev.accurateConfirmed }));
                         setValidationError('');
                       }}
-                    />
-                    <span className="stage-check-text">
-                      I confirm my availability for the 3-month remote immersion and agree to uphold professional dedication and quality standards.
-                    </span>
-                  </label>
+                    >
+                      <div className="attestation-checkbox-box">
+                        <i className={`fa-solid ${formData.accurateConfirmed ? 'fa-check' : ''}`}></i>
+                      </div>
+                      <div className="attestation-text-wrap">
+                        <h4 className="attestation-title">Accuracy & Creative Ownership Attestation</h4>
+                        <p className="attestation-body">
+                          I formally attest that all submitted personal records, credentials, social links, and creative assets represent authentic, original work owned or produced by me.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div
+                      className={`declaration-attestation-card ${formData.dedicationAgreed ? 'confirmed' : ''}`}
+                      onClick={() => {
+                        setFormData((prev) => ({ ...prev, dedicationAgreed: !prev.dedicationAgreed }));
+                        setValidationError('');
+                      }}
+                    >
+                      <div className="attestation-checkbox-box">
+                        <i className={`fa-solid ${formData.dedicationAgreed ? 'fa-check' : ''}`}></i>
+                      </div>
+                      <div className="attestation-text-wrap">
+                        <h4 className="attestation-title">Cohort Dedication & Remote Governance Agreement</h4>
+                        <p className="attestation-body">
+                          I confirm my availability for the 3-month remote immersion and agree to uphold AETHRIZ AI professional standards, weekly milestones, and confidentiality.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="dossier-security-footnote">
+                  <i className="fa-solid fa-lock"></i>
+                  <span>SECURE PROTOCOL • DIRECT ROUTING TO AETHRIZ AI FOUNDING TEAM & SELECTION COMMITTEE</span>
                 </div>
               </div>
             )}

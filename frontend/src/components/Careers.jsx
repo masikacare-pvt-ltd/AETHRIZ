@@ -94,7 +94,7 @@ const FAQS_LIST = [
 export default function Careers({ onBack }) {
   const [viewMode, setViewMode] = useState('overview'); // 'overview' | 'apply' | 'closing'
   const [expandedRoleId, setExpandedRoleId] = useState(null);
-  const [expandedFaqId, setExpandedFaqId] = useState(0);
+  const [expandedFaqId, setExpandedFaqId] = useState(null);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
