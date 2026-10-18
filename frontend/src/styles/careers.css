@@ -197,8 +197,85 @@
   font-size: 1.15rem;
   line-height: 1.65;
   color: #475569;
-  max-width: 720px;
-  margin-bottom: 36px;
+  max-width: 760px;
+  margin-bottom: 24px;
+}
+
+/* ==========================================================================
+   HUD METRICS STRIP
+   ========================================================================== */
+.c-hud-metrics-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 28px auto 36px;
+}
+
+.hud-metric-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(7, 9, 15, 0.08);
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 18px rgba(7, 9, 15, 0.03);
+  text-align: left;
+}
+
+.hud-metric-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(232, 26, 45, 0.35);
+  box-shadow: 0 10px 24px rgba(232, 26, 45, 0.08);
+  background: #FFFFFF;
+}
+
+.hud-metric-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: rgba(232, 26, 45, 0.08);
+  color: #E81A2D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.hud-metric-card:hover .hud-metric-icon {
+  transform: scale(1.08);
+  background: rgba(232, 26, 45, 0.14);
+}
+
+.hud-metric-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.hud-metric-val {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #07090F;
+  line-height: 1.25;
+}
+
+.hud-metric-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  color: #64748B;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .c-hero-actions {
@@ -281,18 +358,29 @@
 }
 
 .spotlight-banner-media {
+  position: relative;
   width: 100%;
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
 }
 
 .spotlight-banner-media img {
   width: 100%;
   height: auto;
   display: block;
+}
+
+.spotlight-media-glare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+  pointer-events: none;
 }
 
 .spotlight-badge {
@@ -405,6 +493,15 @@
   font-style: italic;
   font-weight: 400;
   color: #E81A2D;
+}
+
+.c-section-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: #64748B;
+  margin-top: 10px;
+  max-width: 780px;
 }
 
 .c-perks-grid {
@@ -608,12 +705,29 @@
 }
 
 @media (max-width: 1024px) {
+  .c-hud-metrics-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .c-perks-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
   .benefits-cards-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  .spotlight-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
 }
 
 @media (max-width: 640px) {
+  .c-hud-metrics-strip {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .c-perks-grid {
+    grid-template-columns: 1fr;
+  }
   .benefits-cards-grid {
     grid-template-columns: 1fr;
   }
@@ -621,18 +735,11 @@
   .benefit-card-growth .benefit-growth-banner {
     height: 180px;
   }
-}
-
-@media (max-width: 640px) {
-  .benefits-cards-grid {
-    grid-template-columns: 1fr;
+  .c-hero-title {
+    font-size: 2.1rem;
   }
-  .social-recruitment-grid {
-    grid-template-columns: 1fr;
-  }
-  .benefit-media-frame,
-  .benefit-card-growth .benefit-growth-banner {
-    height: 180px;
+  .c-prefooter-cta {
+    padding: 40px 20px;
   }
 }
 
@@ -868,6 +975,289 @@
   font-size: 1rem;
   color: #E81A2D;
   flex-shrink: 0;
+}
+
+/* ==========================================================================
+   JOB DETAILS ACCORDION & EXPANSION
+   ========================================================================== */
+.btn-details-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: transparent;
+  border: 1px solid rgba(7, 9, 15, 0.15);
+  color: #475569;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-details-toggle:hover {
+  background: rgba(7, 9, 15, 0.04);
+  color: #07090F;
+  border-color: #07090F;
+}
+
+.job-accordion-content {
+  border-top: 1px solid rgba(7, 9, 15, 0.08);
+  padding-top: 20px;
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: fadeInAccordion 0.25s ease;
+}
+
+@keyframes fadeInAccordion {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.job-acc-overview {
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: #334155;
+  margin: 0;
+}
+
+.job-acc-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.job-acc-heading {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #07090F;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.job-acc-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.job-acc-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.bullet-point-arrow {
+  color: #E81A2D;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.job-skills-tags-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.job-skills-tags-wrap .job-skill-tag {
+  background: rgba(7, 9, 15, 0.04);
+  border: 1px solid rgba(7, 9, 15, 0.08);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  color: #1E293B;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.job-acc-cta-bar {
+  margin-top: 8px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ==========================================================================
+   CANDIDATE FAQ ACCORDION
+   ========================================================================== */
+.c-faqs-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 900px;
+}
+
+.faq-card-item {
+  background: #FFFFFF;
+  border: 1px solid rgba(7, 9, 15, 0.09);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(7, 9, 15, 0.02);
+}
+
+.faq-card-item:hover {
+  border-color: rgba(232, 26, 45, 0.3);
+}
+
+.faq-card-item.open {
+  border-color: rgba(232, 26, 45, 0.4);
+  box-shadow: 0 6px 18px rgba(232, 26, 45, 0.06);
+}
+
+.faq-question-btn {
+  width: 100%;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: background 0.2s ease;
+}
+
+.faq-question-btn:hover {
+  background: rgba(7, 9, 15, 0.015);
+}
+
+.faq-q-text {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #07090F;
+}
+
+.faq-toggle-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(7, 9, 15, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #E81A2D;
+  font-size: 0.78rem;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.faq-card-item.open .faq-toggle-icon {
+  background: #E81A2D;
+  color: #FFFFFF;
+}
+
+.faq-answer-block {
+  padding: 0 22px 20px;
+  animation: faqReveal 0.22s ease;
+}
+
+@keyframes faqReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.faq-answer-block p {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #475569;
+  margin: 0;
+}
+
+/* ==========================================================================
+   PRE-FOOTER CTA CARD
+   ========================================================================== */
+.c-prefooter-cta {
+  position: relative;
+  background: linear-gradient(135deg, #090D16 0%, #131A29 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 60px 40px;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  margin-top: 40px;
+}
+
+.cta-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(232, 26, 45, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-content-wrapper {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.cta-kicker {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #E81A2D;
+  letter-spacing: 0.12em;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.cta-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 14px;
+  line-height: 1.2;
+}
+
+.cta-title i {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: #E81A2D;
+}
+
+.cta-desc {
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: #CBD5E1;
+  margin-bottom: 28px;
+}
+
+.cta-button-row {
+  display: flex;
+  justify-content: center;
 }
 
 /* ==========================================================================
