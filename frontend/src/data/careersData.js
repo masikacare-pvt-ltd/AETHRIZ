@@ -490,6 +490,50 @@ export const ROLE_SKILL_PRESETS = {
       }
     ]
   },
+  'social-media-influencer': {
+    categories: [
+      {
+        id: 'short_form_video',
+        name: 'SHORT-FORM VIDEO & REELS',
+        icon: 'fa-solid fa-video',
+        skills: ['Short-Form Video', 'Reels / Shorts', 'Content Creation', 'CapCut / Editing', 'Visual Storytelling', 'Audio Trending']
+      },
+      {
+        id: 'influencing_branding',
+        name: 'INFLUENCING & PERSONAL BRANDING',
+        icon: 'fa-solid fa-hashtag',
+        skills: ['Social Media Influencing', 'Personal Branding', 'Audience Growth', 'Instagram', 'YouTube', 'LinkedIn', 'Twitter/X']
+      },
+      {
+        id: 'campaigns_community',
+        name: 'CREATIVE CAMPAIGNS & COMMUNITY',
+        icon: 'fa-solid fa-users',
+        skills: ['Community Engagement', 'Tech Storytelling', 'Brand Ambassadorship', 'Creative Direction', 'Copywriting']
+      }
+    ]
+  },
+  'podcast-host': {
+    categories: [
+      {
+        id: 'hosting_broadcast',
+        name: 'PODCAST HOSTING & BROADCAST',
+        icon: 'fa-solid fa-microphone',
+        skills: ['Podcast Hosting', 'Digital Presenting', 'Interview Moderation', 'Public Speaking', 'Live Streaming', 'Vocal Articulation']
+      },
+      {
+        id: 'narrative_scripting',
+        name: 'NARRATIVE & SCRIPTWRITING',
+        icon: 'fa-solid fa-pen-nib',
+        skills: ['Scriptwriting', 'Episode Research', 'Discussion Outlines', 'Bio-Tech Storytelling', 'Guest Curation']
+      },
+      {
+        id: 'media_production',
+        name: 'AUDIO / VIDEO PRESENTATION',
+        icon: 'fa-solid fa-headphones',
+        skills: ['Audio Recording', 'Microphone Technique', 'On-Camera Presence', 'Audio Editing', 'Broadcast Communications']
+      }
+    ]
+  },
   'social-media': {
     categories: [
       {
@@ -605,8 +649,12 @@ export const ROLE_SKILL_PRESETS = {
 export function getCategoriesForRole(roleTitle = '', roleSkills = []) {
   const r = (roleTitle || '').toLowerCase();
 
-  let presetKey = 'web-fullstack';
-  if (r.includes('ai') || r.includes('ml') || r.includes('machine learning') || r.includes('intelligence')) {
+  let presetKey = 'social-media-influencer';
+  if (r.includes('podcast') || r.includes('host') || r.includes('presenter') || r.includes('digital presenter')) {
+    presetKey = 'podcast-host';
+  } else if (r.includes('influencer') || r.includes('creator') || r.includes('social media influencer')) {
+    presetKey = 'social-media-influencer';
+  } else if (r.includes('ai') || r.includes('ml') || r.includes('machine learning') || r.includes('intelligence')) {
     presetKey = 'ai-ml';
   } else if (r.includes('app') || r.includes('mobile') || r.includes('ios') || r.includes('android') || r.includes('flutter')) {
     presetKey = 'app-dev';
@@ -614,8 +662,6 @@ export function getCategoriesForRole(roleTitle = '', roleSkills = []) {
     presetKey = 'design';
   } else if (r.includes('social') || r.includes('community')) {
     presetKey = 'social-media';
-  } else if (r.includes('influencer') || r.includes('creator')) {
-    presetKey = 'influencer-team';
   } else if (r.includes('marketing') || r.includes('growth')) {
     presetKey = 'marketing-lead';
   } else if (r.includes('cloud') || r.includes('devops') || r.includes('infra') || r.includes('sre')) {
@@ -626,7 +672,7 @@ export function getCategoriesForRole(roleTitle = '', roleSkills = []) {
     presetKey = 'web-fullstack';
   }
 
-  const preset = ROLE_SKILL_PRESETS[presetKey] || ROLE_SKILL_PRESETS['web-fullstack'];
+  const preset = ROLE_SKILL_PRESETS[presetKey] || ROLE_SKILL_PRESETS['social-media-influencer'];
 
   const categories = preset.categories.map((cat, idx) => {
     if (idx === 0 && Array.isArray(roleSkills) && roleSkills.length > 0) {
@@ -646,6 +692,8 @@ export function getCategoriesForRole(roleTitle = '', roleSkills = []) {
 
 // Top 5 most commonly used skills in respective industry domains
 export const TOP_DOMAIN_SKILLS = {
+  'social-media-influencer': ['Content Creation', 'Short-Form Video', 'Reels / Shorts', 'Social Media Influencing', 'Community Engagement'],
+  'podcast-host': ['Podcast Hosting', 'Digital Presenting', 'Public Speaking', 'Interview Moderation', 'Scriptwriting'],
   'ai-ml': ['Python', 'PyTorch', 'TensorFlow', 'LLMs', 'Computer Vision'],
   'web-fullstack': ['React', 'TypeScript', 'JavaScript', 'Node.js', 'Next.js'],
   'backend': ['Node.js', 'Python', 'PostgreSQL', 'Docker', 'REST APIs'],
@@ -661,8 +709,12 @@ export const TOP_DOMAIN_SKILLS = {
 export function getSkillsForRole(roleTitle = '', roleSkills = []) {
   const r = (roleTitle || '').toLowerCase();
 
-  let domainKey = 'web-fullstack';
-  if (r.includes('ai') || r.includes('ml') || r.includes('machine learning') || r.includes('intelligence')) {
+  let domainKey = 'social-media-influencer';
+  if (r.includes('podcast') || r.includes('host') || r.includes('presenter') || r.includes('digital presenter')) {
+    domainKey = 'podcast-host';
+  } else if (r.includes('influencer') || r.includes('creator') || r.includes('social media influencer')) {
+    domainKey = 'social-media-influencer';
+  } else if (r.includes('ai') || r.includes('ml') || r.includes('machine learning') || r.includes('intelligence')) {
     domainKey = 'ai-ml';
   } else if (r.includes('app') || r.includes('mobile') || r.includes('ios') || r.includes('android') || r.includes('flutter')) {
     domainKey = 'app-dev';
@@ -670,8 +722,6 @@ export function getSkillsForRole(roleTitle = '', roleSkills = []) {
     domainKey = 'design';
   } else if (r.includes('social') || r.includes('community')) {
     domainKey = 'social-media';
-  } else if (r.includes('influencer') || r.includes('creator')) {
-    domainKey = 'influencer-team';
   } else if (r.includes('marketing') || r.includes('growth')) {
     domainKey = 'marketing-lead';
   } else if (r.includes('cloud') || r.includes('devops') || r.includes('infra') || r.includes('sre')) {
@@ -684,7 +734,7 @@ export function getSkillsForRole(roleTitle = '', roleSkills = []) {
     domainKey = 'web-fullstack';
   }
 
-  const domainDefaults = TOP_DOMAIN_SKILLS[domainKey] || TOP_DOMAIN_SKILLS['web-fullstack'];
+  const domainDefaults = TOP_DOMAIN_SKILLS[domainKey] || TOP_DOMAIN_SKILLS['social-media-influencer'];
 
   // Prefer role's specific skills if provided, then backfill with domain standards
   const rawList = [

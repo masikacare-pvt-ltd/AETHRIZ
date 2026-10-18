@@ -30,7 +30,7 @@ const generateSequentialApplicationId = () => {
 };
 
 export default function CareersApplicationExperience({
-  role = 'Social Media Management',
+  role = 'Social Media Influencer & Content Creator',
   rolesList = [],
   onSelectRole,
   onExit
@@ -224,6 +224,10 @@ export default function CareersApplicationExperience({
         setValidationError('Please provide your Portfolio or LinkedIn profile link.');
         return false;
       }
+      if (!formData.githubUrl.trim()) {
+        setValidationError('Please provide your Instagram or social media handle.');
+        return false;
+      }
       if (!formData.resumeUrl.trim()) {
         setValidationError('Please provide your resume link (Google Drive / OneDrive / Cloud link).');
         return false;
@@ -300,7 +304,7 @@ export default function CareersApplicationExperience({
     let assignedRefId = '';
 
     const linksCombined = [
-      formData.githubUrl ? `GitHub: ${formData.githubUrl}` : '',
+      formData.githubUrl ? `Social/Instagram: ${formData.githubUrl}` : '',
       formData.portfolioUrl ? `Portfolio/LinkedIn: ${formData.portfolioUrl}` : ''
     ].filter(Boolean).join(' | ') || formData.portfolioUrl || formData.githubUrl || '';
 
@@ -314,6 +318,7 @@ export default function CareersApplicationExperience({
       collegeCourse: formData.institution.trim(),
       keySkills: formData.skills.join(', '),
       featuredProject: formData.featuredProject.trim(),
+      socialMediaHandle: formData.githubUrl.trim(),
       githubUrl: formData.githubUrl.trim(),
       portfolioUrl: formData.portfolioUrl.trim(),
       portfolioGithub: linksCombined,
@@ -484,11 +489,19 @@ export default function CareersApplicationExperience({
         <div className="sidebar-perks-box">
           <div className="perk-mini-item">
             <i className="fa-solid fa-certificate" style={{ color: '#E81A2D' }}></i>
-            <span>Offer Letter & Official Completion Certificate</span>
+            <span>Internship Completion Certificate</span>
           </div>
           <div className="perk-mini-item">
-            <i className="fa-solid fa-user-astronaut" style={{ color: '#E81A2D' }}></i>
-            <span>Direct 1-on-1 mentorship with founders</span>
+            <i className="fa-solid fa-box-open" style={{ color: '#E81A2D' }}></i>
+            <span>AETHRIZ branded goodies</span>
+          </div>
+          <div className="perk-mini-item">
+            <i className="fa-solid fa-trophy" style={{ color: '#E81A2D' }}></i>
+            <span>AETHRIZ memento</span>
+          </div>
+          <div className="perk-mini-item">
+            <i className="fa-solid fa-chart-line" style={{ color: '#E81A2D' }}></i>
+            <span>Practical experience & development</span>
           </div>
         </div>
 
@@ -936,15 +949,20 @@ export default function CareersApplicationExperience({
                   </div>
 
                   <div className="stage-field">
-                    <label className="stage-label">GITHUB / CODE REPOSITORY (OPTIONAL)</label>
+                    <label className="stage-label">
+                      INSTAGRAM / SOCIAL MEDIA HANDLE <span className="req-dot">*</span>
+                    </label>
                     <div className="stage-input-wrap">
-                      <i className="fa-brands fa-github input-icon"></i>
+                      <i className="fa-brands fa-instagram input-icon" style={{ color: '#E1306C' }}></i>
                       <input
-                        type="url"
+                        type="text"
                         className="stage-text-input"
-                        placeholder="https://github.com/username/project"
+                        placeholder="@yourhandle or instagram.com/yourhandle"
                         value={formData.githubUrl}
-                        onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
+                        onChange={(e) => {
+                          setFormData({ ...formData, githubUrl: e.target.value });
+                          setValidationError('');
+                        }}
                       />
                     </div>
                   </div>
@@ -1112,9 +1130,14 @@ export default function CareersApplicationExperience({
 
                     <div className="review-links-row">
                       {formData.githubUrl && (
-                        <a href={formData.githubUrl} target="_blank" rel="noopener noreferrer" className="review-link-chip">
-                          <i className="fa-brands fa-github"></i>
-                          <span>GitHub Repository</span>
+                        <a
+                          href={formData.githubUrl.startsWith('http') ? formData.githubUrl : `https://instagram.com/${formData.githubUrl.replace(/^@/, '')}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="review-link-chip"
+                        >
+                          <i className="fa-brands fa-instagram" style={{ color: '#E1306C' }}></i>
+                          <span>{formData.githubUrl.startsWith('@') ? formData.githubUrl : `@${formData.githubUrl.replace(/^https?:\/\/(www\.)?instagram\.com\//, '')}`}</span>
                           <i className="fa-solid fa-arrow-up-right-from-square" style={{ fontSize: '0.65rem', opacity: 0.7 }}></i>
                         </a>
                       )}
@@ -1267,44 +1290,7 @@ export default function CareersApplicationExperience({
           </div>
         </div>
 
-        {/* Floating Bottom Action Bar */}
-        {currentStep <= totalSteps && (
-          <footer className="stage-bottom-bar">
-            <div className="stage-actions-col">
-              {currentStep > 1 && (
-                <button
-                  type="button"
-                  className="stage-secondary-btn"
-                  onClick={handleBack}
-                  disabled={isSubmitting}
-                >
-                  <i className="fa-solid fa-arrow-left"></i> BACK
-                </button>
-              )}
 
-              <button
-                type="button"
-                className={`stage-primary-btn ${currentStep === totalSteps ? 'btn-submit-glow' : ''}`}
-                onClick={handleNext}
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  <>
-                    <i className="fa-solid fa-circle-notch fa-spin"></i> Submitting...
-                  </>
-                ) : currentStep === totalSteps ? (
-                  <>
-                    Submit Application <i className="fa-solid fa-arrow-right btn-arrow-animated"></i>
-                  </>
-                ) : (
-                  <>
-                    CONTINUE <i className="fa-solid fa-arrow-right"></i>
-                  </>
-                )}
-              </button>
-            </div>
-          </footer>
-        )}
       </section>
     </div>
   );

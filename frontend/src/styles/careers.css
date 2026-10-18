@@ -457,6 +457,186 @@
 }
 
 /* ==========================================================================
+   INTERNSHIP BENEFITS & RECOGNITION SHOWCASE
+   ========================================================================== */
+.benefits-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  margin-top: 24px;
+}
+
+.benefit-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(7, 9, 15, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
+  position: relative;
+}
+
+.benefit-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(232, 26, 45, 0.4);
+  box-shadow: 0 16px 36px rgba(232, 26, 45, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.benefit-media-frame {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background: #07090F;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.benefit-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 12px;
+  background: #07090F;
+  transition: transform 0.4s ease;
+}
+
+.benefit-card:hover .benefit-img {
+  transform: scale(1.05);
+}
+
+.benefit-tag-pill {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(7, 9, 15, 0.88);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(232, 26, 45, 0.4);
+  color: #E81A2D;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.benefit-content {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.benefit-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #07090F;
+  margin-bottom: 10px;
+  line-height: 1.35;
+}
+
+.benefit-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.benefit-card-growth .benefit-growth-banner {
+  height: 220px;
+  background: linear-gradient(135deg, #090D16 0%, #171E2D 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.growth-icon-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(232, 26, 45, 0.12);
+  border: 1.5px solid rgba(232, 26, 45, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #E81A2D;
+  font-size: 1.9rem;
+  box-shadow: 0 0 25px rgba(232, 26, 45, 0.25);
+}
+
+.benefits-disclaimer-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 28px;
+  padding: 16px 22px;
+  background: rgba(232, 26, 45, 0.05);
+  border: 1px solid rgba(232, 26, 45, 0.22);
+  border-radius: 12px;
+}
+
+.disclaimer-icon {
+  color: #E81A2D;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.disclaimer-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #334155;
+}
+
+.disclaimer-text strong {
+  color: #07090F;
+  font-weight: 700;
+}
+
+@media (max-width: 1024px) {
+  .benefits-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .benefits-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .benefit-media-frame,
+  .benefit-card-growth .benefit-growth-banner {
+    height: 180px;
+  }
+}
+
+@media (max-width: 640px) {
+  .benefits-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .social-recruitment-grid {
+    grid-template-columns: 1fr;
+  }
+  .benefit-media-frame,
+  .benefit-card-growth .benefit-growth-banner {
+    height: 180px;
+  }
+}
+
+/* ==========================================================================
    OPEN ROLES (ATS JOB BOARD)
    ========================================================================== */
 .job-board-filters {

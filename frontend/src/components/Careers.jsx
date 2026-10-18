@@ -1,138 +1,64 @@
 import React, { useState } from 'react';
 import '../styles/careers.css';
 import '../styles/careers-application.css';
-import '../styles/careers-coming-soon.css';
 import CareersApplicationExperience from './careers/CareersApplicationExperience';
-import CareersComingSoonOverlay from './careers/CareersComingSoonOverlay';
 
 const ROLES_LIST = [
   {
-    id: 'ai-ml',
-    title: 'AI/ML Development',
-    category: 'engineering',
-    dept: 'Intelligence Engine',
+    id: 'social-media-influencer',
+    title: 'Social Media Influencer & Content Creator',
+    category: 'creator',
+    dept: 'Digital Creator Ecosystems',
     location: 'Remote',
-    duration: '3 Months (Oct 15, 2026 – Jan 15, 2027)',
-    overview: 'Work on production machine learning pipelines, predictive bio-algorithmic health models, and real healthcare data research.',
-    skills: ['PyTorch', 'TensorFlow', 'Python', 'Computer Vision', 'Bio-Data Models'],
-    responsibilities: [
-      'Train and evaluate predictive machine learning architectures on biosignal datasets.',
-      'Design real-time inference pipelines with optimized low-latency execution.',
-      'Collaborate with research mentors to validate clinical and algorithmic outputs.'
+    duration: '3 Months',
+    overview:
+      'Serve as an authentic digital creator, brand ambassador, and presenter for AETHRIZ AI. Ideate, produce, and publish high-engagement short-form video reels, visual infographics, and storytelling campaigns across Instagram, YouTube, LinkedIn, and X.',
+    skills: [
+      'Short-Form Video',
+      'Content Creation',
+      'Reels / Shorts',
+      'Personal Branding',
+      'Community Engagement',
+      'Visual Storytelling'
     ],
-    isClosed: true,
-    status: 'filled'
+    responsibilities: [
+      'Produce creative, engaging short-form video content and reels spotlighting AETHRIZ AI healthcare innovations.',
+      'Act as a leading digital creator voice and brand ambassador across student, builder, and health-tech communities.',
+      'Collaborate directly with the core team to translate bio-intelligence concepts into compelling digital media.',
+      'Grow and nurture active digital conversations, audience engagement, and community resonance.'
+    ],
+    isClosed: false,
+    status: 'open'
   },
   {
-    id: 'app-dev',
-    title: 'App Development',
-    category: 'engineering',
-    dept: 'Mobile & Distributed Systems',
+    id: 'podcast-host',
+    title: 'Podcast Host & Digital Presenter',
+    category: 'media',
+    dept: 'Media & Broadcast Communications',
     location: 'Remote',
-    duration: '3 Months (Oct 15, 2026 – Jan 15, 2027)',
-    overview: 'Develop modern cross-platform mobile applications integrating real-time biometric metrics with intelligent telemetry.',
-    skills: ['Flutter', 'React Native', 'Swift', 'Kotlin', 'Mobile Telemetry'],
-    responsibilities: [
-      'Engineer sleek, reactive mobile interfaces for both iOS and Android platforms.',
-      'Integrate Bluetooth/biometric sensors and real-time WebSocket telemetry feeds.',
-      'Optimize app memory footprint, local caching, and background synchronization.'
+    duration: '3 Months',
+    overview:
+      'Anchor AETHRIZ podcasts, live digital broadcast shows, and presenter series. Formulate compelling interview outlines, converse with researchers and guest creators, and communicate our health-intelligence vision with charisma, poise, and clarity.',
+    skills: [
+      'Podcast Hosting',
+      'Digital Presenting',
+      'Public Speaking',
+      'Interview Moderation',
+      'Scriptwriting',
+      'Audio & Video Broadcast'
     ],
-    isClosed: true,
-    status: 'filled'
-  },
-  {
-    id: 'full-stack',
-    title: 'Full-Stack Web Development',
-    category: 'engineering',
-    dept: 'Core Web Infrastructure',
-    location: 'Remote',
-    duration: '3 Months (Oct 15, 2026 – Jan 15, 2027)',
-    overview: 'Build high-velocity reactive web applications, glassmorphic design systems, and resilient microservices powering the platform.',
-    skills: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Tailwind/CSS3'],
     responsibilities: [
-      'Build high-velocity reactive web frontends and resilient backend API microservices.',
-      'Implement enterprise token authentication, security, and healthcare data integrity.',
-      'Craft responsive, accessible UI components adhering to AETHRIZ design tokens.'
+      'Host and moderate official AETHRIZ podcast episodes, creator interviews, and interactive live streams.',
+      'Structure engaging narrative arcs, research discussion topics, and prepare thought-provoking interview questions.',
+      'Deliver articulate digital presentations, product release walkthroughs, and audio-visual updates.',
+      'Work alongside audio/video production mentors to uphold top-tier broadcast clarity and professional presentation.'
     ],
-    isClosed: true,
-    status: 'filled'
-  },
-  {
-    id: 'social-media',
-    title: 'Social Media Management',
-    category: 'marketing',
-    dept: 'Community & Digital Media',
-    location: 'Remote',
-    duration: '3 Months (Oct 15, 2026 – Jan 15, 2027)',
-    overview: 'Direct technical storytelling, craft viral brand resonance, and cultivate active health-tech communities across digital channels.',
-    skills: ['Tech Storytelling', 'Content Strategy', 'Analytics', 'LinkedIn', 'Twitter/X'],
-    responsibilities: [
-      'Translate complex bio-algorithmic research into engaging social threads and infographics.',
-      'Cultivate active developer and health-tech community engagement across digital channels.',
-      'Analyze reach, engagement metrics, and sentiment to iterate on content impact.'
-    ],
-    isClosed: true,
-    status: 'filled'
-  },
-  {
-    id: 'graphics-design',
-    title: 'Graphics Design',
-    category: 'design',
-    dept: 'Visual Brand Architecture',
-    location: 'Remote',
-    duration: '3 Months (Oct 15, 2026 – Jan 15, 2027)',
-    overview: 'Design futuristic visual assets, cyberpunk interfaces, 3D bio-graphics, and compelling creative design deliverables.',
-    skills: ['Figma', 'Adobe Photoshop', 'Blender / 3D', 'Brand Systems', 'Illustrator'],
-    responsibilities: [
-      'Design futuristic visual brand assets, cybernetic iconography, and UI design systems.',
-      'Create 3D bio-graphics, motion graphics, and presentation assets for product launches.',
-      'Maintain aesthetic brand cohesion across all digital touchpoints and company decks.'
-    ],
-    isClosed: true,
-    status: 'filled'
-  },
-  {
-    id: 'marketing-lead',
-    title: 'Marketing Lead',
-    category: 'marketing',
-    dept: 'Growth Strategy',
-    location: 'Remote',
-    duration: '3 Months (Oct 15, 2026 – Jan 15, 2027)',
-    overview: 'Formulate data-backed user acquisition campaigns, strategic alliances, and digital growth flywheels for upcoming releases.',
-    skills: ['Growth Flywheels', 'User Acquisition', 'Campaign Analytics', 'Product Marketing'],
-    responsibilities: [
-      'Formulate and execute go-to-market strategies for upcoming platform and product releases.',
-      'Architect referral engines and analyze conversion funnels to scale user onboarding.',
-      'Conduct competitive landscape benchmarking in healthcare AI and longevity tech.'
-    ],
-    isClosed: true,
-    status: 'filled'
-  },
-  {
-    id: 'influencer-team',
-    title: 'Influencer Team',
-    category: 'marketing',
-    dept: 'Creator Ecosystems',
-    location: 'Remote',
-    duration: '3 Months (Oct 15, 2026 – Jan 15, 2027)',
-    overview: 'Engage top creators, technology advocates, and health pioneers to amplify AETHRIZ initiatives across digital spaces.',
-    skills: ['Creator Outreach', 'Partnership Pitching', 'Community Building', 'PR Strategy'],
-    responsibilities: [
-      'Identify, curate, and partner with top technology and medical creator voices.',
-      'Coordinate exclusive preview activations and early-access feedback loops.',
-      'Amplify AETHRIZ brand awareness across scientific, academic, and builder networks.'
-    ],
-    isClosed: true,
-    status: 'filled'
+    isClosed: false,
+    status: 'open'
   }
 ];
 
 export default function Careers({ onBack }) {
-  // Coming Soon Overlay: applications officially unlock on October 1, 2026 at 00:00:00 IST (UTC+05:30)
-  const [isApplicationsLocked, setIsApplicationsLocked] = useState(() => {
-    return Date.now() < new Date('2026-10-01T00:00:00+05:30').getTime();
-  });
-
   // Page mode: 'overview' (Corporate Careers Landing) | 'apply' (Cinematic Application Experience)
   const [viewMode, setViewMode] = useState('overview');
 
@@ -142,12 +68,12 @@ export default function Careers({ onBack }) {
   const [expandedRoleId, setExpandedRoleId] = useState(null);
 
   // Selected role for the application experience (defaults to first active open role)
-  const defaultOpenRole = ROLES_LIST.find((r) => !r.isClosed)?.title || ROLES_LIST[0]?.title || 'Full-Stack Web Development';
+  const defaultOpenRole = ROLES_LIST.find((r) => !r.isClosed)?.title || ROLES_LIST[0].title;
   const [selectedRole, setSelectedRole] = useState(defaultOpenRole);
 
-  // Launch Cinematic Application Experience
+  // Launch Application Experience
   const handleStartApplication = (roleTitle = '', isClosed = false) => {
-    if (isClosed || ROLES_LIST.every((r) => r.isClosed)) return;
+    if (isClosed) return;
     const target = roleTitle || defaultOpenRole;
     setSelectedRole(target);
     setViewMode('apply');
@@ -180,376 +106,372 @@ export default function Careers({ onBack }) {
       {/* Panel 1: Careers Overview (slides left with blur and scale when applying) */}
       <div className={`careers-overview-container ${viewMode === 'apply' ? 'slide-out-left' : ''}`}>
         <div className="careers-main-viewport">
-      {/* Hero Section */}
-      <section className="c-hero">
-        {ROLES_LIST.some((r) => !r.isClosed) ? (
-          <div className="c-status-chip" title="Applications currently open" style={{ marginBottom: '20px' }}>
-            <span className="c-pulse-wrapper">
-              <span className="c-pulse-ping"></span>
-              <span className="c-pulse"></span>
-            </span>
-            <span className="c-status-text">
-              <strong className="c-status-live-tag">APPLICATIONS OPEN</strong>
-              <span className="c-status-dot-sep">•</span>
-              <span>WINTER COHORT 2026-27</span>
-            </span>
-          </div>
-        ) : (
-          <div
-            className="c-status-chip closed-status-chip"
-            title="Applications currently closed"
-            style={{
-              marginBottom: '20px',
-              borderColor: 'rgba(239, 68, 68, 0.45)',
-              background: 'rgba(239, 68, 68, 0.08)',
-              boxShadow: '0 0 14px rgba(239, 68, 68, 0.15)'
-            }}
-          >
-            <span className="c-pulse-wrapper">
-              <span className="c-pulse" style={{ backgroundColor: '#EF4444', boxShadow: '0 0 8px #EF4444' }}></span>
-            </span>
-            <span className="c-status-text">
-              <strong className="c-status-live-tag" style={{ color: '#EF4444' }}>APPLICATIONS CLOSED</strong>
-              <span className="c-status-dot-sep">•</span>
-              <span style={{ color: '#94A3B8' }}>ALL POSITIONS FILLED</span>
-            </span>
-          </div>
-        )}
-        <h1 className="c-hero-title">
-          Build the Future of <br />
-          <i>Bio-Algorithmic Health.</i>
-        </h1>
-        <p className="c-hero-subtitle">
-          We are assembling exceptional student engineers, researchers, designers, and growth strategists to work on
-          breakthrough health intelligence platforms. Join our Winter 2026-27 remote immersion cohort.
-        </p>
-        <div className="c-hero-actions">
-          <button
-            className="btn-secondary-lead"
-            onClick={() => {
-              const el = document.getElementById('open-positions');
-              if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }}
-          >
-            {ROLES_LIST.filter((r) => !r.isClosed).length > 0
-              ? `VIEW ${ROLES_LIST.filter((r) => !r.isClosed).length} OPEN ROLES`
-              : 'VIEW COHORT POSITIONS'}{' '}
-            <i className="fa-solid fa-list-check"></i>
-          </button>
-        </div>
-      </section>
-
-      {/* Program Spotlight Card with Official Banner */}
-      <section className="c-program-spotlight">
-        <div className="spotlight-banner-media">
-          <img
-            src="/20260925_071353.png"
-            alt="AETHRIZ Winter Internship Programme 2026-27 Official HD Banner"
-            loading="eager"
-            decoding="async"
-          />
-        </div>
-
-        <div className="spotlight-badge">
-          <i className="fa-solid fa-snowflake"></i> WINTER INTERNSHIP PROGRAMME 2026-27
-        </div>
-        <h2 className="spotlight-title">AETHRIZ AI Healthcare and Research Private Limited</h2>
-        <div className="spotlight-company">Cohort Duration: 15 October 2026 – 15 January 2027 • Remote</div>
-
-        <div className="spotlight-grid">
-          <div>
-            <p className="spotlight-summary-p">
-              We are inviting applications for our Winter Internship Programme 2026-27, a 3-month remote internship
-              designed for students and emerging talent interested in technology, research, product development, creative
-              communication and digital growth.
+          {/* Hero Section */}
+          <section className="c-hero">
+            <div className="c-status-chip" title="Applications currently open" style={{ marginBottom: '20px' }}>
+              <span className="c-pulse-wrapper">
+                <span className="c-pulse-ping"></span>
+                <span className="c-pulse"></span>
+              </span>
+              <span className="c-status-text">
+                <strong className="c-status-live-tag">APPLICATIONS OPEN</strong>
+                <span className="c-status-dot-sep">•</span>
+                <span>AETHRIZ WINTER INTERNSHIP PROGRAM 2026–2027</span>
+              </span>
+            </div>
+            <h1 className="c-hero-title">
+              Build the Future of <br />
+              <i>Bio-Algorithmic Health.</i>
+            </h1>
+            <p className="c-hero-subtitle">
+              We are assembling dynamic digital creators, storytellers, and podcast presenters to lead our official Winter
+              Internship Program 2026–2027. Amplify breakthrough health intelligence through real creative ownership.
             </p>
-            <p className="spotlight-summary-p">
-              Selected interns will work on defined responsibilities within their respective teams and will be expected to
-              contribute to real organizational activities, projects and deliverables.
-            </p>
-            <button
-              className="btn-primary-lead"
-              style={{ marginTop: '12px' }}
-              onClick={() => {
-                const el = document.getElementById('open-positions');
-                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }}
-            >
-              {ROLES_LIST.filter((r) => !r.isClosed).length > 0 ? 'VIEW OPEN ROLES' : 'VIEW COHORT POSITIONS'}{' '}
-              <i className="fa-solid fa-arrow-down"></i>
-            </button>
-          </div>
-
-          <div className="spotlight-meta-list">
-            <div className="meta-row">
-              <span className="meta-label">Internship Duration</span>
-              <span className="meta-val">15 Oct 2026 – 15 Jan 2027</span>
-            </div>
-            <div className="meta-row">
-              <span className="meta-label">Work Mode</span>
-              <span className="meta-val">100% Remote</span>
-            </div>
-            <div className="meta-row">
-              <span className="meta-label">Deliverables</span>
-              <span className="meta-val">Real Projects & Production Code</span>
-            </div>
-            <div className="meta-row">
-              <span className="meta-label">Credentials</span>
-              <span className="meta-val">Offer Letter & Certificate</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Aethriz (Culture & Perks) */}
-      <section className="c-section">
-        <div className="c-section-header">
-          <span className="c-section-kicker">// WHY WORK AT AETHRIZ</span>
-          <h2 className="c-section-title">
-            Engineered for <i>High Velocity & Autonomy.</i>
-          </h2>
-        </div>
-
-        <div className="c-perks-grid">
-          <div className="c-perk-card">
-            <div className="perk-icon-wrap">
-              <i className="fa-solid fa-code-merge"></i>
-            </div>
-            <h3 className="perk-title">Real Production Impact</h3>
-            <p className="perk-desc">
-              No simulated projects. You will write code, run AI experiments, and ship features that actively impact real
-              healthcare products and research.
-            </p>
-          </div>
-
-          <div className="c-perk-card">
-            <div className="perk-icon-wrap">
-              <i className="fa-solid fa-brain"></i>
-            </div>
-            <h3 className="perk-title">1-on-1 Architect Mentorship</h3>
-            <p className="perk-desc">
-              Work alongside our core technology founders, gaining direct guidance on algorithmic systems, system design,
-              and machine learning.
-            </p>
-          </div>
-
-          <div className="c-perk-card">
-            <div className="perk-icon-wrap">
-              <i className="fa-solid fa-award"></i>
-            </div>
-            <h3 className="perk-title">Official Recognition</h3>
-            <p className="perk-desc">
-              Selected interns receive a formal Internship Offer Letter at commencement and an official Completion
-              Certificate upon graduation.
-            </p>
-          </div>
-
-          <div className="c-perk-card">
-            <div className="perk-icon-wrap">
-              <i className="fa-solid fa-house-laptop"></i>
-            </div>
-            <h3 className="perk-title">Asynchronous Flexibility</h3>
-            <p className="perk-desc">
-              Work on your own schedule. Our remote-first, asynchronous model lets you balance university coursework and exams
-              without friction.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Open Positions Board */}
-      <section className="c-section" id="open-positions">
-        <div className="c-section-header">
-          <span className="c-section-kicker">// COHORT OPPORTUNITIES</span>
-          <h2 className="c-section-title">
-            {ROLES_LIST.filter((r) => !r.isClosed).length > 0 ? (
-              <>Open Positions <i>(Winter 2026–27)</i></>
-            ) : (
-              <>Cohort Positions <i>(Winter 2026–27)</i></>
-            )}
-          </h2>
-        </div>
-
-        {/* Search & Filters Toolbar */}
-        <div className="job-board-toolbar">
-          <div className="job-search-box">
-            <i className="fa-solid fa-magnifying-glass search-icon"></i>
-            <input
-              type="text"
-              className="job-search-input"
-              placeholder="Search roles by keyword, domain or skill (e.g. Python, React, Design, Creator)..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            {searchQuery && (
-              <button
-                type="button"
-                className="search-clear-btn"
-                onClick={() => setSearchQuery('')}
-                title="Clear search"
-              >
-                <i className="fa-solid fa-xmark"></i>
-              </button>
-            )}
-          </div>
-
-          <div className="job-board-filters">
-            <button
-              className={`filter-btn ${activeCategory === 'all' ? 'active' : ''}`}
-              onClick={() => setActiveCategory('all')}
-            >
-              All Tracks ({ROLES_LIST.length})
-            </button>
-            <button
-              className={`filter-btn ${activeCategory === 'engineering' ? 'active' : ''}`}
-              onClick={() => setActiveCategory('engineering')}
-            >
-              Engineering & AI
-            </button>
-            <button
-              className={`filter-btn ${activeCategory === 'design' ? 'active' : ''}`}
-              onClick={() => setActiveCategory('design')}
-            >
-              Design
-            </button>
-            <button
-              className={`filter-btn ${activeCategory === 'marketing' ? 'active' : ''}`}
-              onClick={() => setActiveCategory('marketing')}
-            >
-              Marketing & Growth
-            </button>
-          </div>
-        </div>
-
-        {/* Roles List */}
-        <div className="job-cards-list">
-          {filteredJobs.length === 0 ? (
-            <div className="job-empty-state">
-              <i className="fa-solid fa-magnifying-glass" style={{ fontSize: '2rem', color: '#94A3B8', marginBottom: '12px' }}></i>
-              <h3 style={{ color: '#FFFFFF', fontSize: '1.2rem', marginBottom: '6px' }}>No matching tracks found</h3>
-              <p style={{ color: '#94A3B8', fontSize: '0.9rem', marginBottom: '16px' }}>
-                We couldn't find any opportunities matching "{searchQuery}".
-              </p>
+            <div className="c-hero-actions">
               <button
                 className="btn-secondary-lead"
                 onClick={() => {
-                  setSearchQuery('');
-                  setActiveCategory('all');
+                  const el = document.getElementById('open-positions');
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }}
               >
-                Reset Search Filters
+                VIEW {ROLES_LIST.filter((r) => !r.isClosed).length} OPEN TRACKS <i className="fa-solid fa-list-check"></i>
+              </button>
+              <button
+                className="btn-primary-lead"
+                onClick={() => handleStartApplication()}
+              >
+                APPLY DIRECTLY <i className="fa-solid fa-arrow-right"></i>
               </button>
             </div>
-          ) : (
-            filteredJobs.map((role) => {
-              const isExpanded = expandedRoleId === role.id;
-              return (
-                <div key={role.id} className={`job-row-item ${isExpanded ? 'expanded' : ''} ${role.isClosed ? 'role-closed' : ''}`}>
-                  <div className="job-row-main">
-                    <div className="job-left-info">
-                      <div className="job-header-pills">
-                        <span className="job-dept-pill">{role.dept}</span>
-                        {role.isClosed ? (
-                          <span className="job-closed-pill">
-                            <i className="fa-solid fa-lock"></i> POSITION FILLED
-                          </span>
-                        ) : (
-                          <span className="job-open-pill">
-                            <span className="pulse-dot-green"></span> OPEN
-                          </span>
-                        )}
-                      </div>
-                      <h3 className="job-name-title">{role.title}</h3>
-                      <div className="job-metadata-chips">
-                        <span>
-                          <i className="fa-solid fa-location-dot" style={{ color: role.isClosed ? '#94A3B8' : '#E81A2D' }}></i> {role.location}
-                        </span>
-                        <span>•</span>
-                        <span>
-                          <i className="fa-regular fa-clock" style={{ color: role.isClosed ? '#94A3B8' : '#E81A2D' }}></i> 3 Months
-                        </span>
-                        <span>•</span>
-                        <span>Winter Cohort</span>
-                      </div>
-                    </div>
+          </section>
 
-                    <div className="job-actions-group">
-                      <button
-                        type="button"
-                        className="btn-details-toggle"
-                        onClick={() => setExpandedRoleId(isExpanded ? null : role.id)}
-                      >
-                        {isExpanded ? 'Hide Details' : 'View Details'}
-                        <i className={`fa-solid ${isExpanded ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
-                      </button>
-                      {role.isClosed ? (
-                        <button
-                          type="button"
-                          className="btn-apply-job btn-role-closed"
-                          disabled
-                          aria-disabled="true"
-                          title="Applications for this role have been closed as the position is already filled."
-                        >
-                          <i className="fa-solid fa-lock"></i> Position Filled
-                        </button>
-                      ) : (
-                        <button
-                          className="btn-apply-job"
-                          onClick={() => handleStartApplication(role.title, role.isClosed)}
-                        >
-                          Apply Now <i className="fa-solid fa-arrow-right"></i>
-                        </button>
-                      )}
-                    </div>
+          {/* Program Spotlight Card with Official Banner */}
+          <section className="c-program-spotlight">
+            <div className="spotlight-banner-media">
+              <img
+                src="/winter-internship-banner-hd.png"
+                alt="AETHRIZ Winter Internship Program 2026-2027 Official HD Banner"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+
+            <div className="spotlight-badge">
+              <i className="fa-solid fa-snowflake"></i> AETHRIZ WINTER INTERNSHIP PROGRAM 2026–2027
+            </div>
+            <h2 className="spotlight-title">AETHRIZ AI Healthcare and Research Private Limited</h2>
+            <div className="spotlight-company">Cohort Duration: 3 Months • 100% Remote Immersion</div>
+
+            <div className="spotlight-grid">
+              <div>
+                <p className="spotlight-summary-p">
+                  We are inviting applications for the <strong>AETHRIZ Winter Internship Program 2026–2027</strong>, a
+                  3-month remote immersion designed for emerging creators, presenters, and digital media builders.
+                </p>
+                <p className="spotlight-summary-p">
+                  Selected interns will spearhead authentic storytelling, host podcasts, and craft viral resonance across
+                  social media platforms, directly collaborating with founding architects on real deliverables.
+                </p>
+                <button
+                  className="btn-primary-lead"
+                  style={{ marginTop: '12px' }}
+                  onClick={() => {
+                    const el = document.getElementById('open-positions');
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }}
+                >
+                  EXPLORE ELIGIBLE TRACKS <i className="fa-solid fa-arrow-down"></i>
+                </button>
+              </div>
+
+              <div className="spotlight-meta-list">
+                <div className="meta-row">
+                  <span className="meta-label">Programme</span>
+                  <span className="meta-val">Winter Internship 2026–2027</span>
+                </div>
+                <div className="meta-row">
+                  <span className="meta-label">Duration</span>
+                  <span className="meta-val">3 Months (Full Immersion)</span>
+                </div>
+                <div className="meta-row">
+                  <span className="meta-label">Work Mode</span>
+                  <span className="meta-val">100% Remote & Asynchronous</span>
+                </div>
+                <div className="meta-row">
+                  <span className="meta-label">Approved Rewards</span>
+                  <span className="meta-val">Certificate, Goodies & Memento</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Section: Official Internship Benefits & Recognition */}
+          <section className="c-section" id="internship-benefits">
+            <div className="c-section-header">
+              <span className="c-section-kicker">// PROGRAMME REWARDS & CREDENTIALS</span>
+              <h2 className="c-section-title">
+                Internship Benefits & <i>Recognition.</i>
+              </h2>
+              <p style={{ color: '#94A3B8', fontSize: '1rem', marginTop: '10px', maxWidth: '750px' }}>
+                Eligible interns who successfully complete the AETHRIZ Winter Internship Program 2026–2027 will receive the following
+                official credentials, awards, and professional development assets:
+              </p>
+            </div>
+
+            <div className="benefits-cards-grid">
+              {/* Benefit 1: Certificate */}
+              <div className="benefit-card">
+                <div className="benefit-media-frame">
+                  <img
+                    src="/internship completion.png"
+                    alt="AETHRIZ Internship Completion Certificate"
+                    className="benefit-img"
+                    loading="lazy"
+                  />
+                  <span className="benefit-tag-pill">
+                    <i className="fa-solid fa-certificate"></i> OFFICIAL CREDENTIAL
+                  </span>
+                </div>
+                <div className="benefit-content">
+                  <h3 className="benefit-name">Internship Completion Certificate</h3>
+                  <p className="benefit-description">
+                    Formal verified completion certificate recognizing your dedication, creative excellence, and consistent
+                    performance during the AETHRIZ Winter Internship Program 2026–2027.
+                  </p>
+                </div>
+              </div>
+
+              {/* Benefit 2: Goodies */}
+              <div className="benefit-card">
+                <div className="benefit-media-frame">
+                  <img
+                    src="/goodies.png"
+                    alt="AETHRIZ Branded Goodies Kit"
+                    className="benefit-img"
+                    loading="lazy"
+                  />
+                  <span className="benefit-tag-pill">
+                    <i className="fa-solid fa-box-open"></i> MERCHANDISE KIT
+                  </span>
+                </div>
+                <div className="benefit-content">
+                  <h3 className="benefit-name">AETHRIZ Branded Goodies</h3>
+                  <p className="benefit-description">
+                    Exclusive customized AETHRIZ branded package including premium wearable black t-shirt, signature coffee mug,
+                    hardcover notebook/diary, and executive pen.
+                  </p>
+                </div>
+              </div>
+
+              {/* Benefit 3: Memento */}
+              <div className="benefit-card">
+                <div className="benefit-media-frame">
+                  <img
+                    src="/memonto.png"
+                    alt="AETHRIZ Memento Plaque and Letter of Recommendation"
+                    className="benefit-img"
+                    loading="lazy"
+                  />
+                  <span className="benefit-tag-pill">
+                    <i className="fa-solid fa-trophy"></i> HONOR & AWARD
+                  </span>
+                </div>
+                <div className="benefit-content">
+                  <h3 className="benefit-name">AETHRIZ Memento</h3>
+                  <p className="benefit-description">
+                    Prestigious crystal acrylic keepsake award alongside a signed Letter of Recommendation honoring valuable
+                    organizational contributions and high impact.
+                  </p>
+                </div>
+              </div>
+
+              {/* Benefit 4: Practical Experience */}
+              <div className="benefit-card benefit-card-growth">
+                <div className="benefit-growth-banner">
+                  <div className="growth-icon-circle">
+                    <i className="fa-solid fa-seedling"></i>
                   </div>
+                  <span className="benefit-tag-pill">
+                    <i className="fa-solid fa-chart-line"></i> CAREER ACCELERATION
+                  </span>
+                </div>
+                <div className="benefit-content">
+                  <h3 className="benefit-name">Practical Experience & Professional Development</h3>
+                  <p className="benefit-description">
+                    Real hands-on experience producing public campaigns, growing digital communities, and direct 1-on-1 mentorship
+                    with technology founders in healthcare AI.
+                  </p>
+                </div>
+              </div>
+            </div>
 
-                  {/* Expanded Accordion Details */}
-                  {isExpanded && (
-                    <div className="job-accordion-content">
-                      {role.isClosed && (
-                        <div className="job-closed-notice">
-                          <i className="fa-solid fa-circle-info"></i>
-                          <span>
-                            Applications for this track are currently closed as the position has been filled.
-                            {ROLES_LIST.some((r) => !r.isClosed)
-                              ? ' Feel free to explore our other active engineering and growth tracks!'
-                              : ' Stay tuned for upcoming cohorts and future openings!'}
-                          </span>
-                        </div>
-                      )}
-                      <p className="job-acc-overview">{role.overview}</p>
+            {/* Compliance Guarantee */}
+            <div className="benefits-disclaimer-box">
+              <i className="fa-solid fa-circle-check disclaimer-icon"></i>
+              <div className="disclaimer-text">
+                <strong>Approved Programme Guarantee:</strong> The rewards and recognitions above are formally approved for interns
+                who complete their defined responsibilities and deliverables. No unauthorized rewards or benefits are promised.
+              </div>
+            </div>
+          </section>
 
-                      <div className="job-acc-section">
-                        <span className="job-acc-heading">Key Immersion Responsibilities:</span>
-                        <ul className="job-acc-bullets">
-                          {role.responsibilities && role.responsibilities.map((resp, idx) => (
-                            <li key={idx}>{resp}</li>
-                          ))}
-                        </ul>
-                      </div>
 
-                      {role.skills && role.skills.length > 0 && (
-                        <div className="job-acc-skills">
-                          <span className="job-acc-heading">Target Competencies:</span>
-                          <div className="job-skills-tags-wrap">
-                            {role.skills.map((sk) => (
-                              <span key={sk} className="job-skill-tag">{sk}</span>
-                            ))}
+
+          {/* Open Positions Board */}
+          <section className="c-section" id="open-positions">
+            <div className="c-section-header">
+              <span className="c-section-kicker">// COHORT TRACKS (SECTION C)</span>
+              <h2 className="c-section-title">
+                Open Tracks <i>(Winter 2026–2027)</i>
+              </h2>
+            </div>
+
+            {/* Search & Filters Toolbar */}
+            <div className="job-board-toolbar">
+              <div className="job-search-box">
+                <i className="fa-solid fa-magnifying-glass search-icon"></i>
+                <input
+                  type="text"
+                  className="job-search-input"
+                  placeholder="Search tracks by keyword or skill (e.g. Creator, Reels, Podcast, Presenter)..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    className="search-clear-btn"
+                    onClick={() => setSearchQuery('')}
+                    title="Clear search"
+                  >
+                    <i className="fa-solid fa-xmark"></i>
+                  </button>
+                )}
+              </div>
+
+              <div className="job-board-filters">
+                <button
+                  className={`filter-btn ${activeCategory === 'all' ? 'active' : ''}`}
+                  onClick={() => setActiveCategory('all')}
+                >
+                  All Active Tracks ({ROLES_LIST.length})
+                </button>
+                <button
+                  className={`filter-btn ${activeCategory === 'creator' ? 'active' : ''}`}
+                  onClick={() => setActiveCategory('creator')}
+                >
+                  Creator & Influencer
+                </button>
+                <button
+                  className={`filter-btn ${activeCategory === 'media' ? 'active' : ''}`}
+                  onClick={() => setActiveCategory('media')}
+                >
+                  Podcast & Media
+                </button>
+              </div>
+            </div>
+
+            {/* Roles List */}
+            <div className="job-cards-list">
+              {filteredJobs.length === 0 ? (
+                <div className="job-empty-state">
+                  <i className="fa-solid fa-magnifying-glass" style={{ fontSize: '2rem', color: '#94A3B8', marginBottom: '12px' }}></i>
+                  <h3 style={{ color: '#FFFFFF', fontSize: '1.2rem', marginBottom: '6px' }}>No matching tracks found</h3>
+                  <p style={{ color: '#94A3B8', fontSize: '0.9rem', marginBottom: '16px' }}>
+                    We couldn't find any opportunities matching "{searchQuery}".
+                  </p>
+                  <button
+                    className="btn-secondary-lead"
+                    onClick={() => {
+                      setSearchQuery('');
+                      setActiveCategory('all');
+                    }}
+                  >
+                    Reset Search Filters
+                  </button>
+                </div>
+              ) : (
+                filteredJobs.map((role) => {
+                  const isExpanded = expandedRoleId === role.id;
+                  return (
+                    <div key={role.id} className={`job-row-item ${isExpanded ? 'expanded' : ''}`}>
+                      <div className="job-row-main">
+                        <div className="job-left-info">
+                          <div className="job-header-pills">
+                            <span className="job-dept-pill">{role.dept}</span>
+                            <span className="job-open-pill">
+                              <span className="pulse-dot-green"></span> APPLICATIONS OPEN
+                            </span>
+                          </div>
+                          <h3 className="job-name-title">{role.title}</h3>
+                          <div className="job-metadata-chips">
+                            <span>
+                              <i className="fa-solid fa-location-dot" style={{ color: '#E81A2D' }}></i> {role.location}
+                            </span>
+                            <span>•</span>
+                            <span>
+                              <i className="fa-regular fa-clock" style={{ color: '#E81A2D' }}></i> {role.duration}
+                            </span>
+                            <span>•</span>
+                            <span>Winter Cohort 2026–2027</span>
                           </div>
                         </div>
+
+                        <div className="job-actions-group">
+                          <button
+                            type="button"
+                            className="btn-details-toggle"
+                            onClick={() => setExpandedRoleId(isExpanded ? null : role.id)}
+                          >
+                            {isExpanded ? 'Hide Details' : 'View Details'}
+                            <i className={`fa-solid ${isExpanded ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
+                          </button>
+                          <button
+                            className="btn-apply-job"
+                            onClick={() => handleStartApplication(role.title, role.isClosed)}
+                          >
+                            Apply Now <i className="fa-solid fa-arrow-right"></i>
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Expanded Accordion Details */}
+                      {isExpanded && (
+                        <div className="job-accordion-content">
+                          <p className="job-acc-overview">{role.overview}</p>
+
+                          <div className="job-acc-section">
+                            <span className="job-acc-heading">Key Immersion Responsibilities:</span>
+                            <ul className="job-acc-bullets">
+                              {role.responsibilities && role.responsibilities.map((resp, idx) => (
+                                <li key={idx}>{resp}</li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          {role.skills && role.skills.length > 0 && (
+                            <div className="job-acc-skills">
+                              <span className="job-acc-heading">Target Competencies:</span>
+                              <div className="job-skills-tags-wrap">
+                                {role.skills.map((sk) => (
+                                  <span key={sk} className="job-skill-tag">{sk}</span>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
                       )}
                     </div>
-                  )}
-                </div>
-              );
-            })
-          )}
+                  );
+                })
+              )}
+            </div>
+          </section>
         </div>
-      </section>
-    </div>
-  </div>
+      </div>
 
-      {/* Panel 2: Cinematic Application Experience (slides in from right) */}
+      {/* Panel 2: Multi-Step Application Experience (slides in from right) */}
       <div className={`careers-app-container ${viewMode === 'apply' ? 'active' : ''} ${viewMode === 'closing' ? 'closing' : ''}`}>
         {(viewMode === 'apply' || viewMode === 'closing') && (
           <CareersApplicationExperience
@@ -560,14 +482,6 @@ export default function Careers({ onBack }) {
           />
         )}
       </div>
-
-      {/* Coming Soon Fullscreen Overlay: automatically disappears when countdown reaches Oct 1, 2026 00:00 IST */}
-      {isApplicationsLocked && (
-        <CareersComingSoonOverlay
-          onBack={onBack}
-          onUnlock={() => setIsApplicationsLocked(false)}
-        />
-      )}
     </div>
   );
 }
