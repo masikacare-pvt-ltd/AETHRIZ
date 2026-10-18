@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/careers.css';
 import '../styles/careers-application.css';
 import CareersApplicationExperience from './careers/CareersApplicationExperience';
@@ -6,6 +6,7 @@ import CareersApplicationExperience from './careers/CareersApplicationExperience
 const ROLES_LIST = [
   {
     id: 'social-media-influencer',
+    domainCode: 'A',
     title: 'Social Media Influencer & Content Creator',
     category: 'creator',
     dept: 'Digital Creator Ecosystems',
@@ -17,26 +18,28 @@ const ROLES_LIST = [
     overview:
       'Serve as an authentic digital creator, brand ambassador, and presenter for AETHRIZ AI. Ideate, produce, and publish high-engagement short-form video reels, visual infographics, and storytelling campaigns across Instagram, YouTube, LinkedIn, and X.',
     skills: [
-      'Short-Form Video',
-      'Content Creation',
-      'Reels / Shorts',
-      'Personal Branding',
+      'Instagram Reels',
+      'YouTube Shorts',
+      'On-Camera Presentation',
+      'Creative Storytelling',
       'Community Engagement',
-      'Visual Storytelling'
+      'Hook Formulation'
     ],
     responsibilities: [
-      'Produce creative, engaging short-form video content and reels spotlighting AETHRIZ AI healthcare innovations.',
-      'Act as a leading digital creator voice and brand ambassador across student, builder, and health-tech communities.',
-      'Collaborate directly with the core team to translate bio-intelligence concepts into compelling digital media.',
-      'Grow and nurture active digital conversations, audience engagement, and community resonance.'
+      'Create engaging Instagram Reels and YouTube Shorts highlighting AETHRIZ AI innovations.',
+      'Develop original video concepts, compelling hooks, and storytelling formats.',
+      'Appear on camera confidently to communicate ideas and healthcare AI topics.',
+      'Create awareness-driven content around AI, healthcare, and relevant industry themes.',
+      'Participate actively in online campaigns and creator collaborations.'
     ],
     isClosed: false,
     status: 'open'
   },
   {
     id: 'podcast-host',
+    domainCode: 'D',
     title: 'Podcast Host & Digital Presenter',
-    category: 'media',
+    category: 'podcast',
     dept: 'Media & Broadcast Communications',
     location: '100% Remote',
     duration: '3 Months',
@@ -44,20 +47,21 @@ const ROLES_LIST = [
     badge: 'Podcast & Media Track',
     icon: 'fa-solid fa-microphone-lines',
     overview:
-      'Anchor AETHRIZ podcasts, live digital broadcast shows, and presenter series. Formulate compelling interview outlines, converse with researchers and guest creators, and communicate our health-intelligence vision with charisma, poise, and clarity.',
+      'Anchor official AETHRIZ podcasts, live digital broadcast shows, and guest presenter series. Formulate compelling interview outlines, converse with researchers and guest creators, and communicate our health-intelligence vision with charisma, poise, and broadcast clarity.',
     skills: [
       'Podcast Hosting',
       'Digital Presenting',
       'Public Speaking',
       'Interview Moderation',
-      'Scriptwriting',
+      'Script & Topic Research',
       'Audio & Video Broadcast'
     ],
     responsibilities: [
-      'Host and moderate official AETHRIZ podcast episodes, creator interviews, and interactive live streams.',
-      'Structure engaging narrative arcs, research discussion topics, and prepare thought-provoking interview questions.',
-      'Deliver articulate digital presentations, product release walkthroughs, and audio-visual updates.',
-      'Work alongside audio/video production mentors to uphold top-tier broadcast clarity and professional presentation.'
+      'Host or co-host official AETHRIZ podcasts and live interactive online conversations.',
+      'Conduct insightful interviews with guests, researchers, and subject-matter experts.',
+      'Present topics with poise, articulation, and charisma across video and audio formats.',
+      'Research discussion topics thoroughly and prepare thought-provoking interview questions.',
+      'Support podcast clips, promotional soundbites, and multi-platform campaign distribution.'
     ],
     isClosed: false,
     status: 'open'
@@ -66,38 +70,39 @@ const ROLES_LIST = [
 
 const FAQS_LIST = [
   {
-    q: 'Who is eligible to apply for this winter cohort?',
-    a: 'Students from any year of study (1st, 2nd, 3rd, or final year), recent graduates, and independent digital creators or podcast hosts with a passion for creative storytelling and media presentation are eligible to apply.'
+    q: 'Who is eligible to apply for this Winter Internship Program?',
+    a: 'Students (from any year of study), recent graduates, working professionals, freelancers, and independent digital creators or podcast hosts with a passion for creative storytelling, social media, or digital presenting are eligible to apply. Prior professional experience is not mandatory if you can demonstrate creativity through sample work.'
   },
   {
     q: 'What is the required weekly commitment and work model?',
-    a: 'The internship is 100% remote and asynchronous with a flexible weekly commitment. You will collaborate through structured weekly deliverables, content milestones, and founder syncs without rigid 9-to-5 requirements.'
+    a: 'The internship is 100% remote and asynchronous. You collaborate through structured weekly deliverables, content sprints, and founder feedback syncs without rigid 9-to-5 requirements, allowing you to balance academic or personal commitments.'
   },
   {
-    q: 'How and when will the approved rewards be dispatched?',
-    a: 'Upon successful completion of the 3-month programme and verification of defined deliverables, eligible interns will receive their official verified Internship Completion Certificate digitally, and the physical package (AETHRIZ branded goodies kit and crystal keepsake memento with signed letter of recommendation) will be safely dispatched to your provided address.'
+    q: 'What rewards and recognitions are provided upon completion?',
+    a: 'Every eligible intern who completes defined program deliverables will receive an official verified AETHRIZ AI Internship Completion Certificate, a customized AETHRIZ branded merchandise goodies kit (t-shirt, ceramic mug, notebook, executive pen), a crystal acrylic keepsake memento, and professional mentorship. Additionally, the Top 3 Creators receive special rankings, signed Letters of Recommendation (LOR), and priority consideration for permanent employment.'
   },
   {
     q: 'How does the selection process work?',
-    a: 'Applications are reviewed on a rolling basis. Our recruitment team evaluates your creative work samples, social profile/channel link, and motivation statement. Shortlisted candidates are invited for a brief virtual interaction with the founding team before final cohort confirmation.'
+    a: 'Applications are reviewed on a rolling basis. Our recruitment team evaluates your creative samples, social profiles, and motivation note. Shortlisted candidates are invited for a brief virtual interaction with the founding team before cohort confirmation.'
+  },
+  {
+    q: 'Are permanent employment opportunities offered after the internship?',
+    a: 'Yes. AETHRIZ AI actively identifies outstanding creators, storytellers, and presenters for potential long-term, permanent roles. Participants demonstrating exceptional reliability, creativity, and brand resonance will receive priority consideration.'
   }
 ];
 
 export default function Careers({ onBack }) {
-  // Page mode: 'overview' (Corporate Careers Landing) | 'apply' (Cinematic Application Experience)
-  const [viewMode, setViewMode] = useState('overview');
-
-  // Filter category in overview
-  const [activeCategory, setActiveCategory] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [viewMode, setViewMode] = useState('overview'); // 'overview' | 'apply' | 'closing'
   const [expandedRoleId, setExpandedRoleId] = useState(null);
   const [expandedFaqId, setExpandedFaqId] = useState(0);
 
-  // Selected role for the application experience (defaults to first active open role)
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
   const defaultOpenRole = ROLES_LIST.find((r) => !r.isClosed)?.title || ROLES_LIST[0].title;
   const [selectedRole, setSelectedRole] = useState(defaultOpenRole);
 
-  // Launch Application Experience
   const handleStartApplication = (roleTitle = '', isClosed = false) => {
     if (isClosed) return;
     const target = roleTitle || defaultOpenRole;
@@ -105,69 +110,40 @@ export default function Careers({ onBack }) {
     setViewMode('apply');
   };
 
-  // Exit back to overview with smooth reverse slide transition
+  const scrollToTracks = () => {
+    const el = document.getElementById('open-positions');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   const handleReturnToOverview = () => {
     setViewMode('closing');
     setTimeout(() => {
       setViewMode('overview');
       window.scrollTo({ top: 0, behavior: 'instant' });
-    }, 700);
+    }, 650);
   };
 
-  // Filtered jobs in overview
-  const filteredJobs = ROLES_LIST.filter((r) => {
-    const matchesCategory = activeCategory === 'all' || r.category === activeCategory;
-    const q = searchQuery.trim().toLowerCase();
-    const matchesQuery =
-      !q ||
-      r.title.toLowerCase().includes(q) ||
-      r.dept.toLowerCase().includes(q) ||
-      r.overview.toLowerCase().includes(q) ||
-      (r.skills && r.skills.some((s) => s.toLowerCase().includes(q)));
-    return matchesCategory && matchesQuery;
-  });
-
   return (
-    <div className="careers-stage-viewport">
-      {/* Panel 1: Careers Overview (slides left with blur and scale when applying) */}
+    <div className="careers-stage-viewport" id="careers-top">
+      {/* Panel 1: Careers Overview Container */}
       <div className={`careers-overview-container ${viewMode === 'apply' ? 'slide-out-left' : ''}`}>
         <div className="careers-main-viewport">
-          {/* Top Bar Navigation */}
-          <div className="c-top-bar">
-            {onBack ? (
-              <button type="button" className="c-back-link" onClick={onBack}>
-                <i className="fa-solid fa-arrow-left"></i> BACK TO PLATFORM
-              </button>
-            ) : (
-              <a href="/" className="c-back-link">
-                <i className="fa-solid fa-arrow-left"></i> BACK TO HOME
-              </a>
-            )}
-
-            <div className="c-status-chip" title="Applications currently open">
-              <span className="c-pulse-wrapper">
-                <span className="c-pulse-ping"></span>
-                <span className="c-pulse"></span>
-              </span>
-              <span className="c-status-text">
-                <strong className="c-status-live-tag">APPLICATIONS ACTIVE</strong>
-                <span className="c-status-dot-sep">•</span>
-                <span>WINTER INTERNSHIP 2026–2027</span>
-              </span>
-            </div>
-          </div>
-
           {/* Hero Section */}
           <section className="c-hero">
-            <span className="c-hero-kicker">// AETHRIZ TALENT RECRUITMENT • WINTER COHORT 2026–2027</span>
+            <span className="c-hero-kicker">// AETHRIZ AI • WINTER INTERNSHIP PROGRAM 2026–2027</span>
             <h1 className="c-hero-title">
-              Architect the Next Era of <br />
-              <i>Bio-Algorithmic Health.</i>
+              Create. Influence. Inspire. <br />
+              <i>Build with AI.</i>
             </h1>
             <p className="c-hero-subtitle">
-              We are assembling dynamic digital creators, visual storytellers, and podcast hosts for the official{' '}
-              <strong>AETHRIZ Winter Internship Program 2026–2027</strong>. Gain hands-on exposure to breakthrough healthcare AI,
-              amplify public brand resonance, and earn verified executive credentials.
+              AETHRIZ AI is launching its official <strong>Winter Internship Program 2026–2027</strong> to discover creative minds,
+              emerging influencers, storytellers, and passionate content creators who will shape our global brand presence. Turn ideas
+              into engaging media, communicate breakthrough health AI, and earn verified executive credentials.
+            </p>
+            <p className="c-hero-accent-quote">
+              This is more than an internship. It is an opportunity to create, grow, get recognised, and potentially join our team permanently.
             </p>
 
             {/* Quick Metrics HUD Strip */}
@@ -184,7 +160,7 @@ export default function Careers({ onBack }) {
 
               <div className="hud-metric-card">
                 <div className="hud-metric-icon">
-                  <i className="fa-regular fa-calendar-check"></i>
+                  <i className="fa-regular fa-clock"></i>
                 </div>
                 <div className="hud-metric-content">
                   <span className="hud-metric-val">3 Months</span>
@@ -198,7 +174,7 @@ export default function Careers({ onBack }) {
                 </div>
                 <div className="hud-metric-content">
                   <span className="hud-metric-val">4 Approved Rewards</span>
-                  <span className="hud-metric-sub">Certificate, Goodies, Memento & Growth</span>
+                  <span className="hud-metric-sub">Certificate, Goodies, Memento & LOR</span>
                 </div>
               </div>
 
@@ -207,8 +183,8 @@ export default function Careers({ onBack }) {
                   <i className="fa-solid fa-bolt"></i>
                 </div>
                 <div className="hud-metric-content">
-                  <span className="hud-metric-val">Rolling Review</span>
-                  <span className="hud-metric-sub">Immediate Candidate Evaluation</span>
+                  <span className="hud-metric-val">Top 3 Creators</span>
+                  <span className="hud-metric-sub">Honors & Permanent Role Priority</span>
                 </div>
               </div>
             </div>
@@ -216,24 +192,23 @@ export default function Careers({ onBack }) {
             {/* Hero CTA Actions */}
             <div className="c-hero-actions">
               <button
+                type="button"
                 className="btn-primary-lead"
-                onClick={() => handleStartApplication()}
+                onClick={scrollToTracks}
               >
-                APPLY FOR COHORT <i className="fa-solid fa-arrow-right"></i>
+                START APPLICATION <i className="fa-solid fa-arrow-down"></i>
               </button>
               <button
+                type="button"
                 className="btn-secondary-lead"
-                onClick={() => {
-                  const el = document.getElementById('open-positions');
-                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }}
+                onClick={scrollToTracks}
               >
-                EXPLORE {ROLES_LIST.filter((r) => !r.isClosed).length} OPEN TRACKS <i className="fa-solid fa-arrow-down"></i>
+                VIEW 2 OPEN TRACKS <i className="fa-solid fa-arrow-down"></i>
               </button>
             </div>
           </section>
 
-          {/* Program Spotlight Card with Official Banner */}
+          {/* Program Spotlight Card with Official HD Banner */}
           <section className="c-program-spotlight">
             <div className="spotlight-banner-media">
               <img
@@ -246,7 +221,7 @@ export default function Careers({ onBack }) {
             </div>
 
             <div className="spotlight-badge">
-              <i className="fa-solid fa-snowflake"></i> AETHRIZ WINTER INTERNSHIP PROGRAM 2026–2027
+              <i className="fa-solid fa-snowflake"></i> AETHRIZ AI WINTER INTERNSHIP PROGRAM 2026–2027
             </div>
             <h2 className="spotlight-title">AETHRIZ AI Healthcare and Research Private Limited</h2>
             <div className="spotlight-company">Cohort Duration: 3 Months • 100% Remote Immersion • Creator & Media Ecosystems</div>
@@ -254,308 +229,73 @@ export default function Careers({ onBack }) {
             <div className="spotlight-grid">
               <div className="spotlight-left-narrative">
                 <p className="spotlight-summary-p">
-                  We are inviting passionate creators, video editors, presenters, and podcast moderators to join the{' '}
-                  <strong>AETHRIZ Winter Internship Program 2026–2027</strong>. This program is intentionally engineered to provide
-                  real creative ownership, direct 1-on-1 collaboration with founding architects, and public brand distribution.
+                  Selected candidates will turn ideas into engaging content, communicate effectively, and bring fresh perspectives
+                  to the world of AI and healthcare. You will experiment with creative storytelling, produce compelling social media campaigns,
+                  host conversations, and amplify the growing AETHRIZ AI community.
                 </p>
                 <p className="spotlight-summary-p">
-                  Selected interns will translate complex bio-algorithmic concepts into engaging short-form video reels, host digital
-                  episodes, and cultivate authentic digital resonance across modern builder communities.
+                  This program provides direct executive collaboration, authentic public distribution across YouTube, Instagram, LinkedIn,
+                  and X, and tangible physical credentials upon completion.
                 </p>
                 <button
+                  type="button"
                   className="btn-primary-lead"
                   style={{ marginTop: '14px' }}
-                  onClick={() => {
-                    const el = document.getElementById('open-positions');
-                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }}
+                  onClick={scrollToTracks}
                 >
-                  SELECT YOUR TRACK <i className="fa-solid fa-arrow-down"></i>
+                  START APPLICATION <i className="fa-solid fa-arrow-down"></i>
                 </button>
               </div>
 
               <div className="spotlight-meta-list">
                 <div className="meta-row">
-                  <span className="meta-label">Programme</span>
+                  <span className="meta-label">Program Term</span>
                   <span className="meta-val">Winter Internship 2026–2027</span>
                 </div>
                 <div className="meta-row">
-                  <span className="meta-label">Cohort Duration</span>
-                  <span className="meta-val">3 Months (Full Immersion)</span>
-                </div>
-                <div className="meta-row">
-                  <span className="meta-label">Delivery Mode</span>
+                  <span className="meta-label">Work Model</span>
                   <span className="meta-val">100% Remote & Asynchronous</span>
                 </div>
                 <div className="meta-row">
-                  <span className="meta-label">Approved Recognitions</span>
-                  <span className="meta-val">Certificate, Goodies & Crystal Memento</span>
+                  <span className="meta-label">Cohort Duration</span>
+                  <span className="meta-val">3 Months Full Immersion</span>
                 </div>
                 <div className="meta-row">
-                  <span className="meta-label">Mentorship</span>
-                  <span className="meta-val">Direct Executive Founder Guidance</span>
+                  <span className="meta-label">Universal Rewards</span>
+                  <span className="meta-val">Certificate, Goodies Kit & Memento</span>
+                </div>
+                <div className="meta-row">
+                  <span className="meta-label">Top 3 Creators</span>
+                  <span className="meta-val">Special Honor, LOR & Permanent Roles</span>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* Section: Immersion Pillars / Why Build at AETHRIZ */}
-          <section className="c-section" id="why-aethriz">
-            <div className="c-section-header">
-              <span className="c-section-kicker">// WHY BUILD WITH US</span>
-              <h2 className="c-section-title">
-                Engineered for High-Velocity <i>Growth.</i>
-              </h2>
-              <p className="c-section-desc">
-                Experience what it feels like to create at the intersection of clinical bio-intelligence, bleeding-edge algorithms,
-                and high-engagement digital media storytelling.
-              </p>
-            </div>
-
-            <div className="c-perks-grid">
-              <div className="c-perk-card">
-                <div className="perk-icon-wrap">
-                  <i className="fa-solid fa-brain"></i>
-                </div>
-                <h3 className="perk-title">Bio-Algorithmic Frontier</h3>
-                <p className="perk-desc">
-                  Gain unique, behind-the-scenes exposure to our proprietary health intelligence platform and translate complex AI
-                  models into viral, understandable digital media.
-                </p>
-              </div>
-
-              <div className="c-perk-card">
-                <div className="perk-icon-wrap">
-                  <i className="fa-solid fa-wand-magic-sparkles"></i>
-                </div>
-                <h3 className="perk-title">Full Creative Autonomy</h3>
-                <p className="perk-desc">
-                  No rigid corporate bureaucracy. You have the creative freedom to script, direct, host, and publish original content
-                  with full creative confidence.
-                </p>
-              </div>
-
-              <div className="c-perk-card">
-                <div className="perk-icon-wrap">
-                  <i className="fa-solid fa-laptop-code"></i>
-                </div>
-                <h3 className="perk-title">100% Remote Immersion</h3>
-                <p className="perk-desc">
-                  Work asynchronously from anywhere in the world. Our workflows are optimized for creative flow, flexible scheduling,
-                  and clear deliverables.
-                </p>
-              </div>
-
-              <div className="c-perk-card">
-                <div className="perk-icon-wrap">
-                  <i className="fa-solid fa-user-astronaut"></i>
-                </div>
-                <h3 className="perk-title">Direct Founder Access</h3>
-                <p className="perk-desc">
-                  Collaborate directly with our founders and core engineering leadership. Receive personal career feedback and strong
-                  executive recommendations.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Section: Official Internship Benefits & Recognition */}
-          <section className="c-section" id="internship-benefits">
-            <div className="c-section-header">
-              <span className="c-section-kicker">// PROGRAMME REWARDS & CREDENTIALS</span>
-              <h2 className="c-section-title">
-                Internship Benefits & <i>Recognition.</i>
-              </h2>
-              <p className="c-section-desc">
-                Eligible interns who successfully complete the AETHRIZ Winter Internship Program 2026–2027 will receive the following
-                official credentials, merchandise, and professional development assets:
-              </p>
-            </div>
-
-            <div className="benefits-cards-grid">
-              {/* Benefit 1: Certificate */}
-              <div className="benefit-card">
-                <div className="benefit-media-frame">
-                  <img
-                    src="/internship completion.png"
-                    alt="AETHRIZ Internship Completion Certificate"
-                    className="benefit-img"
-                    loading="lazy"
-                  />
-                  <span className="benefit-tag-pill">
-                    <i className="fa-solid fa-certificate"></i> OFFICIAL CREDENTIAL
-                  </span>
-                </div>
-                <div className="benefit-content">
-                  <h3 className="benefit-name">Internship Completion Certificate</h3>
-                  <p className="benefit-description">
-                    Formal verified completion certificate recognizing your dedication, creative output, and excellence during the
-                    AETHRIZ Winter Internship Program 2026–2027.
-                  </p>
-                </div>
-              </div>
-
-              {/* Benefit 2: Goodies */}
-              <div className="benefit-card">
-                <div className="benefit-media-frame">
-                  <img
-                    src="/goodies.png"
-                    alt="AETHRIZ Branded Goodies Kit"
-                    className="benefit-img"
-                    loading="lazy"
-                  />
-                  <span className="benefit-tag-pill">
-                    <i className="fa-solid fa-box-open"></i> MERCHANDISE PACKAGE
-                  </span>
-                </div>
-                <div className="benefit-content">
-                  <h3 className="benefit-name">AETHRIZ Branded Goodies</h3>
-                  <p className="benefit-description">
-                    Exclusive customized AETHRIZ branded package including premium wearable black T-shirt, ceramic coffee mug,
-                    hardcover notebook/diary, and executive pen.
-                  </p>
-                </div>
-              </div>
-
-              {/* Benefit 3: Memento */}
-              <div className="benefit-card">
-                <div className="benefit-media-frame">
-                  <img
-                    src="/memonto.png"
-                    alt="AETHRIZ Memento Plaque and Letter of Recommendation"
-                    className="benefit-img"
-                    loading="lazy"
-                  />
-                  <span className="benefit-tag-pill">
-                    <i className="fa-solid fa-trophy"></i> HONOR & RECOGNITION
-                  </span>
-                </div>
-                <div className="benefit-content">
-                  <h3 className="benefit-name">AETHRIZ Memento</h3>
-                  <p className="benefit-description">
-                    Prestigious crystal acrylic keepsake award alongside a formally signed Letter of Recommendation honoring your
-                    valuable contributions and performance.
-                  </p>
-                </div>
-              </div>
-
-              {/* Benefit 4: Practical Experience */}
-              <div className="benefit-card benefit-card-growth">
-                <div className="benefit-growth-banner">
-                  <div className="growth-icon-circle">
-                    <i className="fa-solid fa-chart-line"></i>
-                  </div>
-                  <span className="benefit-tag-pill">
-                    <i className="fa-solid fa-bolt"></i> CAREER ACCELERATION
-                  </span>
-                </div>
-                <div className="benefit-content">
-                  <h3 className="benefit-name">Practical Experience & Development</h3>
-                  <p className="benefit-description">
-                    Real hands-on experience producing public campaigns, growing digital audience resonance, and direct 1-on-1 mentorship
-                    with technology founders in healthcare AI.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Compliance Guarantee */}
-            <div className="benefits-disclaimer-box">
-              <i className="fa-solid fa-circle-check disclaimer-icon"></i>
-              <div className="disclaimer-text">
-                <strong>Approved Programme Guarantee:</strong> The rewards and recognitions above are formally approved for interns
-                who complete their defined responsibilities and deliverables. No unauthorized rewards or benefits are promised.
-              </div>
-            </div>
-          </section>
-
-          {/* Section: Open Positions Board */}
+          {/* Available Cohort Tracks (The 2 Roles) */}
           <section className="c-section" id="open-positions">
             <div className="c-section-header">
-              <span className="c-section-kicker">// COHORT TRACKS (WINTER 2026–2027)</span>
+              <span className="c-section-kicker">// COHORT TRACKS</span>
               <h2 className="c-section-title">
-                Available Cohort <i>Opportunities.</i>
+                Available Internship <i>Tracks.</i>
               </h2>
               <p className="c-section-desc">
-                Review our open tracks and choose the role that aligns with your creative expertise and passion.
+                Review our open tracks and choose the role that best matches your creative expertise and passion.
               </p>
             </div>
 
-            {/* Search & Filters Toolbar */}
-            <div className="job-board-toolbar">
-              <div className="job-search-box">
-                <i className="fa-solid fa-magnifying-glass search-icon"></i>
-                <input
-                  type="text"
-                  className="job-search-input"
-                  placeholder="Search tracks by keyword or skill (e.g. Creator, Reels, Podcast, Presenter)..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                {searchQuery && (
-                  <button
-                    type="button"
-                    className="search-clear-btn"
-                    onClick={() => setSearchQuery('')}
-                    title="Clear search"
-                  >
-                    <i className="fa-solid fa-xmark"></i>
-                  </button>
-                )}
-              </div>
-
-              <div className="job-board-filters">
-                <button
-                  className={`filter-btn ${activeCategory === 'all' ? 'active' : ''}`}
-                  onClick={() => setActiveCategory('all')}
-                >
-                  All Active Tracks ({ROLES_LIST.length})
-                </button>
-                <button
-                  className={`filter-btn ${activeCategory === 'creator' ? 'active' : ''}`}
-                  onClick={() => setActiveCategory('creator')}
-                >
-                  <i className="fa-solid fa-camera-retro" style={{ marginRight: '6px' }}></i> Creator & Influencer
-                </button>
-                <button
-                  className={`filter-btn ${activeCategory === 'media' ? 'active' : ''}`}
-                  onClick={() => setActiveCategory('media')}
-                >
-                  <i className="fa-solid fa-microphone-lines" style={{ marginRight: '6px' }}></i> Podcast & Media
-                </button>
-              </div>
-            </div>
-
-            {/* Roles List */}
+            {/* Roles List (Directly 2 Active Cohort Tracks) */}
             <div className="job-cards-list">
-              {filteredJobs.length === 0 ? (
-                <div className="job-empty-state">
-                  <i className="fa-solid fa-magnifying-glass" style={{ fontSize: '2rem', color: '#94A3B8', marginBottom: '12px' }}></i>
-                  <h3 style={{ color: '#07090F', fontSize: '1.2rem', marginBottom: '6px' }}>No matching tracks found</h3>
-                  <p style={{ color: '#64748B', fontSize: '0.9rem', marginBottom: '16px' }}>
-                    We couldn't find any opportunities matching "{searchQuery}".
-                  </p>
-                  <button
-                    className="btn-secondary-lead"
-                    onClick={() => {
-                      setSearchQuery('');
-                      setActiveCategory('all');
-                    }}
-                  >
-                    Reset Search Filters
-                  </button>
-                </div>
-              ) : (
-                filteredJobs.map((role) => {
-                  const isExpanded = expandedRoleId === role.id;
+              {ROLES_LIST.map((role) => {
+                const isExpanded = expandedRoleId === role.id;
                   return (
                     <div key={role.id} className={`job-row-item ${isExpanded ? 'expanded' : ''}`}>
                       <div className="job-row-main">
                         <div className="job-left-info">
                           <div className="job-header-pills">
                             <span className="job-dept-pill">
-                              <i className={role.icon} style={{ marginRight: '5px' }}></i>
-                              {role.dept}
+                              <i className={role.icon} style={{ marginRight: '6px' }}></i>
+                              {role.badge}
                             </span>
                             <span className="job-open-pill">
                               <span className="pulse-dot-green"></span> APPLICATIONS OPEN
@@ -585,6 +325,7 @@ export default function Careers({ onBack }) {
                             <i className={`fa-solid ${isExpanded ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
                           </button>
                           <button
+                            type="button"
                             className="btn-apply-job"
                             onClick={() => handleStartApplication(role.title, role.isClosed)}
                           >
@@ -601,18 +342,19 @@ export default function Careers({ onBack }) {
                           <div className="job-acc-section">
                             <span className="job-acc-heading">Key Immersion Responsibilities:</span>
                             <ul className="job-acc-bullets">
-                              {role.responsibilities && role.responsibilities.map((resp, idx) => (
-                                <li key={idx}>
-                                  <span className="bullet-point-arrow">▹</span>
-                                  <span>{resp}</span>
-                                </li>
-                              ))}
+                              {role.responsibilities &&
+                                role.responsibilities.map((resp, idx) => (
+                                  <li key={idx}>
+                                    <span className="bullet-point-arrow">▹</span>
+                                    <span>{resp}</span>
+                                  </li>
+                                ))}
                             </ul>
                           </div>
 
                           {role.skills && role.skills.length > 0 && (
                             <div className="job-acc-skills">
-                              <span className="job-acc-heading">Target Competencies:</span>
+                              <span className="job-acc-heading">Target Competencies & Formats:</span>
                               <div className="job-skills-tags-wrap">
                                 {role.skills.map((sk) => (
                                   <span key={sk} className="job-skill-tag">
@@ -627,18 +369,194 @@ export default function Careers({ onBack }) {
                             <button
                               type="button"
                               className="btn-primary-lead"
-                              style={{ padding: '10px 24px', fontSize: '0.8rem' }}
+                              style={{ padding: '10px 24px', fontSize: '0.82rem' }}
                               onClick={() => handleStartApplication(role.title, role.isClosed)}
                             >
-                              START APPLICATION FOR THIS TRACK <i className="fa-solid fa-arrow-right"></i>
+                              START APPLICATION FOR {role.title.toUpperCase()} <i className="fa-solid fa-arrow-right"></i>
                             </button>
                           </div>
                         </div>
                       )}
                     </div>
                   );
-                })
-              )}
+                })}
+            </div>
+          </section>
+
+          {/* Section 6: Rewards, Recognitions & Special Podium for Top 3 */}
+          <section className="c-section" id="internship-benefits">
+            <div className="c-section-header">
+              <span className="c-section-kicker">// PROGRAMME REWARDS & RECOGNITION</span>
+              <h2 className="c-section-title">
+                Internship Benefits & <i>Special Recognition.</i>
+              </h2>
+              <p className="c-section-desc">
+                Every eligible intern who completes the program receives verified credentials and merchandise. In addition, the top
+                three creators earn executive honors, signed Letters of Recommendation, and priority permanent role consideration.
+              </p>
+            </div>
+
+            {/* Universal Benefits (4 Cards) */}
+            <div className="benefits-cards-grid">
+              {/* Benefit 1: Certificate */}
+              <div className="benefit-card">
+                <div className="benefit-media-frame">
+                  <img
+                    src="/internship completion.png"
+                    alt="AETHRIZ Internship Completion Certificate"
+                    className="benefit-img"
+                    loading="lazy"
+                  />
+                  <span className="benefit-tag-pill">
+                    <i className="fa-solid fa-certificate"></i> OFFICIAL CREDENTIAL
+                  </span>
+                </div>
+                <div className="benefit-content">
+                  <h3 className="benefit-name">Internship Completion Certificate</h3>
+                  <p className="benefit-description">
+                    Formal verified completion certificate recognizing your dedication, creative output, and excellence during the
+                    AETHRIZ AI Winter Internship Program 2026–2027.
+                  </p>
+                </div>
+              </div>
+
+              {/* Benefit 2: Goodies */}
+              <div className="benefit-card">
+                <div className="benefit-media-frame">
+                  <img
+                    src="/goodies.png"
+                    alt="AETHRIZ Branded Goodies Kit"
+                    className="benefit-img"
+                    loading="lazy"
+                  />
+                  <span className="benefit-tag-pill">
+                    <i className="fa-solid fa-box-open"></i> MERCHANDISE PACKAGE
+                  </span>
+                </div>
+                <div className="benefit-content">
+                  <h3 className="benefit-name">Premium AETHRIZ AI Goodies Kit</h3>
+                  <p className="benefit-description">
+                    Exclusive customized merchandise package including wearable black AETHRIZ T-shirt, ceramic mug, hardcover
+                    executive notebook, and premium metal pen safely shipped to your doorstep.
+                  </p>
+                </div>
+              </div>
+
+              {/* Benefit 3: Memento */}
+              <div className="benefit-card">
+                <div className="benefit-media-frame">
+                  <img
+                    src="/memonto.png"
+                    alt="AETHRIZ Memento Plaque and Letter of Recommendation"
+                    className="benefit-img"
+                    loading="lazy"
+                  />
+                  <span className="benefit-tag-pill">
+                    <i className="fa-solid fa-trophy"></i> HONOR & RECOGNITION
+                  </span>
+                </div>
+                <div className="benefit-content">
+                  <h3 className="benefit-name">Crystal Keepsake Memento</h3>
+                  <p className="benefit-description">
+                    Prestigious laser-engraved crystal acrylic keepsake award commemorating your contributions to building the
+                    AETHRIZ AI brand ecosystem.
+                  </p>
+                </div>
+              </div>
+
+              {/* Benefit 4: Practical Experience & Growth */}
+              <div className="benefit-card benefit-card-growth">
+                <div className="benefit-media-frame benefit-growth-frame">
+                  <div className="growth-visual-matrix">
+                    <div className="matrix-radial-flare"></div>
+                    <div className="growth-hud-indicator">
+                      <i className="fa-solid fa-arrow-trend-up"></i>
+                      <span>CREATOR ACCELERATION</span>
+                    </div>
+                    <div className="growth-metric-trio">
+                      <div className="trio-item">
+                        <span className="trio-val">100%</span>
+                        <span className="trio-lbl">Remote</span>
+                      </div>
+                      <div className="trio-item">
+                        <span className="trio-val">3 Mo</span>
+                        <span className="trio-lbl">Immersion</span>
+                      </div>
+                      <div className="trio-item">
+                        <span className="trio-val">1-on-1</span>
+                        <span className="trio-lbl">Founder Guidance</span>
+                      </div>
+                    </div>
+                  </div>
+                  <span className="benefit-tag-pill">
+                    <i className="fa-solid fa-bolt"></i> CAREER IMPACT
+                  </span>
+                </div>
+                <div className="benefit-content">
+                  <h3 className="benefit-name">Practical Experience & Mentorship</h3>
+                  <p className="benefit-description">
+                    Real hands-on experience producing public campaigns, growing digital audience resonance, receiving constructive
+                    feedback, and collaborating directly with founders in AI healthcare.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Special Recognition for Top 3 Creators (Podium Showcase) */}
+            <div className="c-podium-showcase">
+              <div className="podium-header-center">
+                <span className="podium-kicker">// EXCELLENCE RECOGNITION</span>
+                <h3 className="podium-title">Special Honors for the Top Three Creators</h3>
+                <p className="podium-subtitle">
+                  The three highest-performing eligible participants will receive special distinction, formal signed Letters of Recommendation,
+                  and priority consideration for permanent employment.
+                </p>
+              </div>
+
+              <div className="podium-grid">
+                {/* 2nd Place */}
+                <div className="podium-tier tier-silver">
+                  <div className="tier-rank-badge">
+                    <i className="fa-solid fa-medal"></i> 2ND PLACE
+                  </div>
+                  <h4 className="tier-honor-name">Outstanding Creator / Influencer</h4>
+                  <ul className="tier-perks-list">
+                    <li>Official Special Distinction from AETHRIZ AI</li>
+                    <li>Formally signed Letter of Recommendation (LOR)</li>
+                    <li>Priority consideration for permanent roles</li>
+                  </ul>
+                </div>
+
+                {/* 1st Place (Champion) */}
+                <div className="podium-tier tier-gold champion">
+                  <div className="tier-crown-tag">
+                    <i className="fa-solid fa-crown"></i> TOP HONORS
+                  </div>
+                  <div className="tier-rank-badge gold-badge">
+                    <i className="fa-solid fa-trophy"></i> 1ST PLACE
+                  </div>
+                  <h4 className="tier-honor-name">Best Creator / Influencer</h4>
+                  <ul className="tier-perks-list">
+                    <li>Top Creator Trophy & Formal Distinction Award</li>
+                    <li>Executive signed Letter of Recommendation (LOR)</li>
+                    <li>Top priority consideration for permanent employment</li>
+                    <li>Featured spotlight across official AETHRIZ channels</li>
+                  </ul>
+                </div>
+
+                {/* 3rd Place */}
+                <div className="podium-tier tier-bronze">
+                  <div className="tier-rank-badge">
+                    <i className="fa-solid fa-award"></i> 3RD PLACE
+                  </div>
+                  <h4 className="tier-honor-name">Emerging Creator / Influencer</h4>
+                  <ul className="tier-perks-list">
+                    <li>Official Special Distinction from AETHRIZ AI</li>
+                    <li>Formally signed Letter of Recommendation (LOR)</li>
+                    <li>Priority consideration for permanent roles</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -650,7 +568,7 @@ export default function Careers({ onBack }) {
                 Frequently Asked <i>Questions.</i>
               </h2>
               <p className="c-section-desc">
-                Everything you need to know about the evaluation criteria, deliverables, and rewards fulfillment.
+                Everything you need to know about eligibility, remote work, weekly commitment, and rewards fulfillment.
               </p>
             </div>
 
@@ -678,24 +596,29 @@ export default function Careers({ onBack }) {
             </div>
           </section>
 
-          {/* Section: Final Call to Action Card */}
+          {/* Final Call for Applications */}
           <section className="c-prefooter-cta">
             <div className="cta-ambient-glow"></div>
             <div className="cta-content-wrapper">
-              <span className="cta-kicker">// READY TO MAKE AN IMPACT?</span>
+              <span className="cta-kicker">// FINAL CALL FOR APPLICATIONS</span>
               <h2 className="cta-title">
-                Join the Winter 2026–2027 <i>Cohort Today.</i>
+                Your Creativity Deserves a <i>Bigger Platform.</i>
               </h2>
               <p className="cta-desc">
-                Applications are processed on a rolling basis. Step into an authentic creator or podcast presenter role
-                and build with the founding team of AETHRIZ AI.
+                If you have ideas worth sharing, stories worth telling, and the passion to create content that makes an impact,
+                the AETHRIZ AI Winter Internship Program 2026–2027 is your opportunity to begin.
               </p>
+              <div className="cta-deadline-pill">
+                <i className="fa-solid fa-globe" style={{ marginRight: '6px' }}></i>
+                100% REMOTE • ASYNCHRONOUS COHORT IMMERSION
+              </div>
               <div className="cta-button-row">
                 <button
+                  type="button"
                   className="btn-primary-lead"
-                  onClick={() => handleStartApplication()}
+                  onClick={scrollToTracks}
                 >
-                  START ONLINE APPLICATION <i className="fa-solid fa-arrow-right"></i>
+                  START APPLICATION <i className="fa-solid fa-arrow-down"></i>
                 </button>
               </div>
             </div>
@@ -703,7 +626,7 @@ export default function Careers({ onBack }) {
         </div>
       </div>
 
-      {/* Panel 2: Multi-Step Application Experience (slides in from right) */}
+      {/* Panel 2: Multi-Step Application Experience (Slides in from Right) */}
       <div className={`careers-app-container ${viewMode === 'apply' ? 'active' : ''} ${viewMode === 'closing' ? 'closing' : ''}`}>
         {(viewMode === 'apply' || viewMode === 'closing') && (
           <CareersApplicationExperience

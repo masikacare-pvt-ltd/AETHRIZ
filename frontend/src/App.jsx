@@ -30,6 +30,7 @@ export default function App() {
     const handleHashChange = () => {
       if (window.location.hash === '#careers') {
         setCurrentView('careers');
+        window.scrollTo({ top: 0, behavior: 'instant' });
       } else {
         setCurrentView('home');
       }
