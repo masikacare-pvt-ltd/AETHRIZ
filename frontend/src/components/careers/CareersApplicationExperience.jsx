@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../../styles/careers-application.css';
 
 const GOOGLE_SHEET_ENDPOINT =
-  'https://script.google.com/macros/s/AKfycbwsHwBC4_m3W8bmwXF3xjZyteIMvaT7biQFPn97mlAr_XqGlrAKerJO-QBO4ZeVwq7J_g/exec';
+  'https://script.google.com/macros/s/AKfycbzMoyTdmQeGAYMHNSjPJSA3U28fS5NsUYN8kvXbzizevGFyZHCICP69XEVLajoGOcv0/exec';
 
 const STATUS_OPTIONS = [
   { id: 'student', title: 'Student', desc: 'Currently pursuing college or university education' },
