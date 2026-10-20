@@ -100,6 +100,21 @@ export default function Careers({ onBack }) {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
+  // Lock mobile body scroll when application modal is open
+  useEffect(() => {
+    if (viewMode === 'apply') {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, [viewMode]);
+
   const defaultOpenRole = ROLES_LIST.find((r) => !r.isClosed)?.title || ROLES_LIST[0].title;
   const [selectedRole, setSelectedRole] = useState(defaultOpenRole);
 

@@ -450,6 +450,15 @@ export default function CareersApplicationExperience({
           </button>
         </header>
 
+        {/* Mobile-Only Track Intel Banner */}
+        <div className="mobile-stage-track-banner">
+          <div className="mobile-track-indicator">
+            <i className={roleData.icon || 'fa-solid fa-bolt'}></i>
+            <span className="mobile-track-text">{formData.primaryDomain}</span>
+          </div>
+          <span className="mobile-track-cohort">WINTER 2026–27</span>
+        </div>
+
         {/* Scrollable Form Viewport */}
         <div className="stage-form-viewport" ref={formViewportRef}>
           <div className="stage-slide-content">

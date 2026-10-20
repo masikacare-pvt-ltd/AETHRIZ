@@ -1584,42 +1584,297 @@ footer.stage-bottom-bar {
   cursor: not-allowed;
 }
 
+/* Mobile-Only Track Banner (Hidden on Desktop) */
+.mobile-stage-track-banner {
+  display: none;
+}
+
 /* ==========================================================================
    RESPONSIVE DESIGN (TABLETS & MOBILE <= 1024px)
+   Apple-Grade Touch Optimization • Zero Nested Scrolling Freezes
    ========================================================================== */
 @media (max-width: 1024px) {
-  .careers-split-layout {
+  .careers-app-container {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100% !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+    z-index: 10005 !important;
+    display: flex !important;
     flex-direction: column !important;
-    overflow-y: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
+  .careers-split-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    height: 100% !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+    position: relative !important;
+    background: #F8FAFC !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Completely hide 1000px desktop sidebar on mobile so candidate lands directly on the form */
   .cine-role-sidebar,
   aside.cine-role-sidebar {
+    display: none !important;
+  }
+
+  /* Full screen form stage */
+  .cine-form-stage,
+  main.cine-form-stage {
     width: 100% !important;
+    height: 100% !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    position: relative !important;
+    background: #F8FAFC !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Top sticky progress bar */
+  .stage-top-bar,
+  header.stage-top-bar {
+    width: calc(100% - 20px) !important;
     max-width: 100% !important;
-    height: auto !important;
-    max-height: none !important;
-    border-right: none !important;
-    border-bottom: 1px solid rgba(7, 9, 15, 0.08) !important;
-    padding: 18px 20px !important;
+    margin: 8px auto 4px !important;
+    padding: 8px 12px 8px 16px !important;
+    flex-shrink: 0 !important;
+    z-index: 30 !important;
+    box-sizing: border-box !important;
+  }
+
+  .stage-progress-info {
+    gap: 10px !important;
+  }
+
+  .stage-num-tag {
+    font-size: 0.72rem !important;
+    white-space: nowrap !important;
+  }
+
+  .stage-progress-track {
+    width: 100px !important;
+    height: 5px !important;
+  }
+
+  .stage-close-btn {
+    padding: 5px 12px !important;
+    font-size: 0.7rem !important;
+    min-height: 30px !important;
+    white-space: nowrap !important;
+  }
+
+  /* Mobile Track Banner */
+  .mobile-stage-track-banner {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: calc(100% - 20px) !important;
+    margin: 0 auto 6px !important;
+    padding: 6px 12px !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(7, 9, 15, 0.08) !important;
+    border-radius: 8px !important;
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 1px 4px rgba(7, 9, 15, 0.02) !important;
+  }
+
+  .mobile-track-indicator {
+    display: flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    color: #07090F !important;
+    overflow: hidden !important;
+  }
+
+  .mobile-track-text {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  .mobile-track-cohort {
+    font-family: 'Space Mono', monospace !important;
+    font-size: 0.64rem !important;
+    font-weight: 700 !important;
+    color: #E81A2D !important;
+    background: rgba(232, 26, 45, 0.08) !important;
+    border: 1px solid rgba(232, 26, 45, 0.25) !important;
+    padding: 2px 7px !important;
+    border-radius: 999px !important;
+    white-space: nowrap !important;
     flex-shrink: 0 !important;
   }
 
-  .stage-bottom-bar,
-  footer.stage-bottom-bar {
-    left: 0 !important;
-    width: 100% !important;
-    padding: 0 20px !important;
-  }
-
+  /* Scrollable form viewport with smooth mobile touch scrolling */
   .stage-form-viewport {
-    padding: 24px 20px 100px !important;
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-y: contain !important;
+    padding: 10px 14px 150px !important;
+    display: block !important;
+    box-sizing: border-box !important;
   }
 
+  /* Remove flex centering on mobile to prevent top field cutoff */
+  .stage-slide-content {
+    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-top: 2px !important;
+  }
+
+  .stage-header-group {
+    margin-bottom: 16px !important;
+  }
+
+  .stage-kicker {
+    font-size: 0.68rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  .stage-h1 {
+    font-size: 1.45rem !important;
+    line-height: 1.22 !important;
+    margin: 0 0 6px !important;
+  }
+
+  .stage-desc {
+    font-size: 0.84rem !important;
+    line-height: 1.45 !important;
+  }
+
+  /* Grids to single column */
   .stage-form-grid,
   .status-cards-grid,
   .domain-selection-grid,
-  .stage-review-deck {
+  .stage-review-deck,
+  .review-details-grid {
     grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Inputs iOS auto-zoom prevention */
+  .stage-input,
+  .stage-text-input,
+  .stage-select,
+  .stage-textarea {
+    font-size: 16px !important;
+    min-height: 48px !important;
+    border-radius: 8px !important;
+    box-sizing: border-box !important;
+  }
+
+  .stage-textarea {
+    min-height: 100px !important;
+  }
+
+  /* Format chips wrap cleanly */
+  .format-tags-cloud {
+    gap: 6px !important;
+  }
+
+  .format-tag-btn {
+    padding: 7px 12px !important;
+    font-size: 0.74rem !important;
+  }
+
+  /* Review Summary Container on Mobile */
+  .review-summary-container {
+    padding: 18px 14px !important;
+    gap: 16px !important;
+  }
+
+  .review-role-title {
+    font-size: 1.2rem !important;
+  }
+
+  .review-pill-link {
+    padding: 8px 12px !important;
+    font-size: 0.72rem !important;
+  }
+
+  /* Rock-Solid Fixed Bottom Bar */
+  .stage-bottom-bar,
+  footer.stage-bottom-bar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 64px !important;
+    padding: 8px 12px max(10px, env(safe-area-inset-bottom)) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border-top: 1px solid rgba(7, 9, 15, 0.12) !important;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08) !important;
+    z-index: 10020 !important;
+    box-sizing: border-box !important;
+  }
+
+  .stage-bottom-left {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin: 0 !important;
+  }
+
+  .stage-val-error {
+    width: 100% !important;
+    justify-content: center !important;
+    font-size: 0.76rem !important;
+    padding: 6px 10px !important;
+    border-radius: 6px !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+  }
+
+  .stage-actions-col {
+    width: 100% !important;
+    display: flex !important;
+    gap: 8px !important;
+    margin: 0 !important;
+  }
+
+  .stage-secondary-btn {
+    flex: 1 !important;
+    min-height: 48px !important;
+    justify-content: center !important;
+    padding: 0 10px !important;
+    font-size: 0.74rem !important;
+  }
+
+  .stage-primary-btn {
+    flex: 2 !important;
+    min-height: 48px !important;
+    justify-content: center !important;
+    padding: 0 12px !important;
+    font-size: 0.78rem !important;
+    letter-spacing: 0.04em !important;
   }
 }
