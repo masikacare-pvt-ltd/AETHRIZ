@@ -1,0 +1,157 @@
+var htmlBody = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AETHRIZ Application Received</title>
+</head>
+<body style="margin:0; padding:0; background:#f3f3f3; font-family:Arial,Helvetica,sans-serif; color:#111111;">
+
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%; background:#f3f3f3; margin:0; padding:0;">
+    <tr>
+      <td align="center" style="padding:30px 12px;">
+        
+        <!-- CARD -->
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%; max-width:650px; background:#ffffff; border:1px solid #e5e5e5;">
+          
+          <!-- LOGO HEADER -->
+          <tr>
+            <td align="center" style="padding:28px 25px; background:#fcfcfc; text-align:center;">
+              <div style="font-size:28px; font-weight:900; letter-spacing:6px; color:#111111; font-family:Arial,Helvetica,sans-serif;">AETHRIZ</div>
+              <div style="font-size:10px; font-weight:700; letter-spacing:3px; color:#e30613; margin-top:5px;">SYSTEM ARCHITECTURE</div>
+            </td>
+          </tr>
+
+          <!-- RED BRAND LINE -->
+          <tr>
+            <td style="height:4px; background:#e30613; font-size:0; line-height:0;">&nbsp;</td>
+          </tr>
+
+          <!-- MAIN CONTENT -->
+          <tr>
+            <td style="padding:42px 42px 38px 42px; background:#ffffff;">
+              
+              <div style="font-size:11px; line-height:16px; font-weight:bold; letter-spacing:2px; color:#e30613; margin:0 0 13px 0;">
+                APPLICATION RECEIVED
+              </div>
+
+              <h1 style="margin:0 0 20px 0; padding:0; font-size:30px; line-height:38px; font-weight:700; color:#111111;">
+                Thank you for applying.
+              </h1>
+
+              <p style="margin:0 0 18px 0; padding:0; font-size:16px; line-height:26px; color:#333333;">
+                Hello <strong>` + details.candidateName + `</strong>,
+              </p>
+
+              <p style="margin:0 0 20px 0; padding:0; font-size:15px; line-height:25px; color:#444444;">
+                Thank you for applying to the <strong>AETHRIZ Winter Internship Programme</strong>. Your application has been successfully received.
+              </p>
+
+              <p style="margin:0 0 28px 0; padding:0; font-size:15px; line-height:25px; color:#444444;">
+                Our team will carefully review all applications received and evaluate them based on the requirements of each role.
+              </p>
+
+              <!-- APPLICATION DETAILS TABLE -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%; background:#f8f8f8; border:1px solid #e3e3e3;">
+                <tr>
+                  <td style="padding:22px 24px;">
+                    <div style="font-size:11px; line-height:16px; font-weight:bold; letter-spacing:1.5px; color:#777777; margin:0 0 16px 0;">
+                      APPLICATION DETAILS
+                    </div>
+
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;">
+                      <tr>
+                        <td width="38%" style="padding:7px 0; font-size:13px; line-height:20px; color:#777777; vertical-align:top;">Candidate</td>
+                        <td style="padding:7px 0; font-size:14px; line-height:20px; font-weight:bold; color:#111111; vertical-align:top;">` + details.candidateName + `</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:7px 0; font-size:13px; line-height:20px; color:#777777; vertical-align:top;">Applied Role</td>
+                        <td style="padding:7px 0; font-size:14px; line-height:20px; font-weight:bold; color:#111111; vertical-align:top;">` + details.appliedRole + `</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:7px 0; font-size:13px; line-height:20px; color:#777777; vertical-align:top;">Application ID</td>
+                        <td style="padding:7px 0; font-size:14px; line-height:20px; font-weight:bold; color:#e30613; vertical-align:top;">` + details.applicationId + `</td>
+                      </tr>
+                      <tr>
+                        <td style="padding:7px 0; font-size:13px; line-height:20px; color:#777777; vertical-align:top;">Programme</td>
+                        <td style="padding:7px 0; font-size:14px; line-height:20px; font-weight:bold; color:#111111; vertical-align:top;">Winter Internship — 2026</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- WHAT HAPPENS NEXT -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%; margin-top:28px;">
+                <tr>
+                  <td>
+                    <div style="font-size:17px; line-height:24px; font-weight:bold; color:#111111; margin:0 0 10px 0;">What happens next?</div>
+                    <p style="margin:0; padding:0; font-size:14px; line-height:24px; color:#555555;">
+                      There is nothing you need to do at this stage. Please keep an eye on your inbox for future communication from the AETHRIZ team.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- IMPORTANT NOTE -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%; margin-top:28px;">
+                <tr>
+                  <td style="border-left:3px solid #e30613; padding:3px 0 3px 16px;">
+                    <p style="margin:0; padding:0; font-size:13px; line-height:22px; color:#555555;">
+                      Please retain your application ID for future communication regarding your application.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td style="background:#fcfcfc; padding:30px 35px; border-top:1px solid #eeeeee;">
+              <div style="font-size:18px; line-height:24px; font-weight:700; letter-spacing:3px; color:#111111; margin:0 0 5px 0;">AETHRIZ</div>
+              <div style="font-size:11px; line-height:16px; letter-spacing:2px; color:#777777; margin:0 0 18px 0;">BUILD WHAT'S NEXT</div>
+
+              <div style="height:1px; background:#e5e5e5; margin:0 0 18px 0;"></div>
+
+              <a href="` + websiteUrl + `" target="_blank" style="font-size:13px; line-height:20px; font-weight:600; color:#111111; text-decoration:none;">
+                www.aethriz.com
+              </a>
+
+              <!-- SOCIAL MEDIA -->
+              <table cellpadding="0" cellspacing="0" border="0" style="margin-top:18px;">
+                <tr>
+                  <td style="padding-right:10px;">
+                    <a href="` + xUrl + `" target="_blank" style="display:block; width:36px; height:36px; line-height:36px; text-align:center; background:#111111; color:#ffffff; text-decoration:none; font-size:14px; font-weight:bold; border-radius:4px;">X</a>
+                  </td>
+                  <td style="padding-right:10px;">
+                    <a href="` + instagramUrl + `" target="_blank" style="display:block; width:36px; height:36px; line-height:36px; text-align:center; background:#111111; color:#ffffff; text-decoration:none; font-size:12px; font-weight:bold; border-radius:4px;">IG</a>
+                  </td>
+                  <td>
+                    <a href="` + linkedinUrl + `" target="_blank" style="display:block; width:36px; height:36px; line-height:36px; text-align:center; background:#111111; color:#ffffff; text-decoration:none; font-size:13px; font-weight:bold; border-radius:4px;">in</a>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- CONTACT -->
+              <div style="margin-top:18px; font-size:12px; line-height:20px; color:#777777;">
+                <a href="mailto:` + contactEmail + `" style="color:#777777; text-decoration:none;">` + contactEmail + `</a>
+                <br>
+                AETHRIZ Careers · Winter Internship Programme
+              </div>
+            </td>
+          </tr>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
+  `;
+
+  

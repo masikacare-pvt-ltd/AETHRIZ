@@ -45,19 +45,248 @@ const OTHER_EXP = [
   '2+ Years Practice'
 ];
 
-const PREFERRED_FORMATS_LIST = [
-  'Instagram Reels',
-  'YouTube Shorts',
-  'Long-form Videos',
-  'Social Media Posts & Carousels',
-  'Podcast Hosting & Interviews',
-  'Content Strategy & Storytelling'
-];
+const TRACK_PRESETS_MAP = {
+  'ai-ml': {
+    formatSectionTitle: 'CORE AI/ML SPECIALISATIONS & ARCHITECTURES',
+    formatSubtitle: 'Select the machine learning competencies and areas you want to focus on during your immersion.',
+    deliverablesLabel: 'TARGET COMPETENCIES & PIPELINES (SELECT ALL THAT APPLY)',
+    skillsPlaceholder: 'e.g. PyTorch, HuggingFace, CUDA, Pandas, FastAPI, Scikit-learn, LangChain',
+    defaultDeliverables: ['Model Training & Fine-Tuning', 'PyTorch / TensorFlow Pipelines'],
+    deliverables: [
+      'Model Training & Fine-Tuning',
+      'PyTorch / TensorFlow Pipelines',
+      'Computer Vision & Bio-Signals',
+      'LLMs & RAG Architectures',
+      'Model Deployment & REST APIs',
+      'Data Cleaning & Feature Engineering'
+    ],
+    whyJoinPlaceholder: 'Share what excites you about building machine learning models, biosignal inference, or healthcare AI at AETHRIZ...',
+    achievementLabel: 'BRIEFLY DESCRIBE YOUR BEST AI/ML PROJECT OR MODEL PIPELINE',
+    achievementPlaceholder: 'Share a machine learning model, biosignal pipeline, algorithm, or research project you built...',
+    links: [
+      {
+        field: 'portfolioUrl',
+        label: 'GITHUB / CODE REPOSITORY LINK',
+        icon: 'fa-brands fa-github',
+        placeholder: 'https://github.com/yourusername/project or Hugging Face'
+      },
+      {
+        field: 'otherSocialUrl',
+        label: 'OTHER RELEVANT LINK (LINKEDIN / PORTFOLIO)',
+        icon: 'fa-solid fa-link',
+        placeholder: 'https://linkedin.com/in/yourprofile or project link'
+      }
+    ]
+  },
+  'app-dev': {
+    formatSectionTitle: 'MOBILE APP DEVELOPMENT FOCUS & ARCHITECTURES',
+    formatSubtitle: 'Select the mobile frameworks, sensor protocols, and architectures you want to build with.',
+    deliverablesLabel: 'TARGET MOBILE COMPETENCIES (SELECT ALL THAT APPLY)',
+    skillsPlaceholder: 'e.g. Flutter, React Native, Swift, Kotlin, BLE Sensors, Firebase, WebSocket',
+    defaultDeliverables: ['Flutter Cross-Platform', 'Mobile UI & State Management'],
+    deliverables: [
+      'Flutter Cross-Platform',
+      'React Native Architecture',
+      'iOS / Swift Development',
+      'Android / Kotlin',
+      'Bluetooth & Sensor Telemetry',
+      'Mobile UI & State Management'
+    ],
+    whyJoinPlaceholder: 'Share what excites you about developing high-performance mobile health experiences and telemetry at AETHRIZ...',
+    achievementLabel: 'BRIEFLY DESCRIBE YOUR BEST MOBILE APP OR INTEGRATION',
+    achievementPlaceholder: 'Share an app you developed, Bluetooth/sensor telemetry flow, or responsive mobile UI...',
+    links: [
+      {
+        field: 'portfolioUrl',
+        label: 'GITHUB / APP REPOSITORY LINK',
+        icon: 'fa-brands fa-github',
+        placeholder: 'https://github.com/yourusername/app'
+      },
+      {
+        field: 'otherSocialUrl',
+        label: 'OTHER RELEVANT LINK (LINKEDIN / PORTFOLIO)',
+        icon: 'fa-solid fa-link',
+        placeholder: 'https://linkedin.com/in/yourprofile or app link'
+      }
+    ]
+  },
+  'full-stack': {
+    formatSectionTitle: 'FULL-STACK WEB ARCHITECTURE & SYSTEMS',
+    formatSubtitle: 'Select the web technologies and stack layers you want to architect during your internship.',
+    deliverablesLabel: 'TARGET WEB COMPETENCIES (SELECT ALL THAT APPLY)',
+    skillsPlaceholder: 'e.g. React, Next.js, Node.js, Express, PostgreSQL, Prisma, Tailwind, Docker',
+    defaultDeliverables: ['React & Next.js Frontends', 'REST & GraphQL APIs'],
+    deliverables: [
+      'React & Next.js Frontends',
+      'Node.js & Express Backends',
+      'PostgreSQL & Database Design',
+      'REST & GraphQL APIs',
+      'TypeScript & Modern UI',
+      'Microservices & Cloud Deployment'
+    ],
+    whyJoinPlaceholder: 'Share what excites you about building high-performance web applications and health intelligence platforms at AETHRIZ...',
+    achievementLabel: 'BRIEFLY DESCRIBE YOUR BEST FULL-STACK WEB PROJECT OR SYSTEM',
+    achievementPlaceholder: 'Share a full-stack platform, backend API, responsive dashboard, or database architecture you built...',
+    links: [
+      {
+        field: 'portfolioUrl',
+        label: 'GITHUB REPOSITORY / PROFILE LINK',
+        icon: 'fa-brands fa-github',
+        placeholder: 'https://github.com/yourusername'
+      },
+      {
+        field: 'otherSocialUrl',
+        label: 'OTHER RELEVANT LINK (LINKEDIN / PORTFOLIO)',
+        icon: 'fa-solid fa-link',
+        placeholder: 'https://linkedin.com/in/yourprofile or live link'
+      }
+    ]
+  },
+  'graphics-design': {
+    formatSectionTitle: 'DESIGN SPECIALISATION & CREATIVE DELIVERABLES',
+    formatSubtitle: 'Select the design domains and toolsets you specialize in.',
+    deliverablesLabel: 'PRIMARY DESIGN DELIVERABLES & TOOLSETS (SELECT ALL THAT APPLY)',
+    skillsPlaceholder: 'e.g. Figma, Adobe Photoshop, Illustrator, Blender 3D, After Effects, Procreate',
+    defaultDeliverables: ['Figma UI/UX Systems', 'Brand Identity & Guidelines'],
+    deliverables: [
+      'Figma UI/UX Systems',
+      'Brand Identity & Guidelines',
+      'Adobe Photoshop & Illustrator',
+      '3D Modeling & Blender',
+      'Motion Graphics & Infographics',
+      'Social Media & Visual Assets'
+    ],
+    whyJoinPlaceholder: 'Share what inspires you about crafting cybernetic brand identities, 3D bio-graphics, and visual systems for AETHRIZ...',
+    achievementLabel: 'BRIEFLY DESCRIBE YOUR BEST DESIGN PROJECT OR VISUAL IDENTITY',
+    achievementPlaceholder: 'Share a UI kit, 3D bio-render, brand system, or visual campaign you crafted...',
+    links: [
+      {
+        field: 'portfolioUrl',
+        label: 'PORTFOLIO OR WORK SAMPLES LINK',
+        icon: 'fa-solid fa-palette',
+        placeholder: 'https://behance.net/yourprofile or Dribbble / Drive'
+      },
+      {
+        field: 'otherSocialUrl',
+        label: 'OTHER RELEVANT LINK (FIGMA / LINKEDIN)',
+        icon: 'fa-solid fa-link',
+        placeholder: 'https://figma.com/@yourhandle or LinkedIn profile'
+      }
+    ]
+  },
+  'marketing': {
+    formatSectionTitle: 'GROWTH STRATEGY & MARKETING CHANNELS',
+    formatSubtitle: 'Select the marketing disciplines and growth loops you want to execute.',
+    deliverablesLabel: 'PRIMARY GROWTH & MARKETING CHANNELS (SELECT ALL THAT APPLY)',
+    skillsPlaceholder: 'e.g. GTM Strategy, Google Analytics, SEO, Meta Ads, Email Flywheels, Notion',
+    defaultDeliverables: ['Go-to-Market (GTM) Strategy', 'Growth Loops & Referral Engines'],
+    deliverables: [
+      'Go-to-Market (GTM) Strategy',
+      'Growth Loops & Referral Engines',
+      'Campaign Analytics & Funnels',
+      'Product Marketing & Positioning',
+      'SEO & Organic Discovery',
+      'Community & Ecosystem Building'
+    ],
+    whyJoinPlaceholder: 'Share what excites you about scaling user acquisition, GTM campaigns, and community growth for AETHRIZ AI...',
+    achievementLabel: 'BRIEFLY DESCRIBE YOUR BEST CAMPAIGN OR GROWTH ACHIEVEMENT',
+    achievementPlaceholder: 'Share a user acquisition milestone, GTM launch, viral campaign, or analytics success...',
+    links: [
+      {
+        field: 'portfolioUrl',
+        label: 'CAMPAIGN PORTFOLIO / CASE STUDIES DECK',
+        icon: 'fa-solid fa-chart-line',
+        placeholder: 'https://yourportfolio.com or Drive folder with case studies'
+      },
+      {
+        field: 'otherSocialUrl',
+        label: 'OTHER RELEVANT LINK (LINKEDIN / OTHER)',
+        icon: 'fa-solid fa-link',
+        placeholder: 'https://linkedin.com/in/yourprofile or other profile'
+      }
+    ]
+  },
+  'social-media-influencer': {
+    formatSectionTitle: 'CREATOR FORMATS & SHORT-FORM MEDIA',
+    formatSubtitle: 'Select the content formats and storytelling styles you produce.',
+    deliverablesLabel: 'PREFERRED CONTENT FORMATS (SELECT ALL THAT APPLY)',
+    skillsPlaceholder: 'e.g. CapCut, Premiere Pro, Storytelling, Viral Hooks, Community Engagement',
+    defaultDeliverables: ['Instagram Reels', 'YouTube Shorts'],
+    deliverables: [
+      'Instagram Reels',
+      'YouTube Shorts',
+      'Long-form Videos',
+      'Social Media Posts & Carousels',
+      'On-Camera Presentation',
+      'Hook Formulation & Storytelling'
+    ],
+    whyJoinPlaceholder: 'Share what excites you about building content at the intersection of AI, healthcare storytelling, and digital creator ecosystems...',
+    achievementLabel: 'BRIEFLY DESCRIBE YOUR BEST CONTENT OR CREATIVE ACHIEVEMENT',
+    achievementPlaceholder: 'Share a standout reel, viral video, campaign, or creative milestone you created...',
+    links: [
+      {
+        field: 'instagramUrl',
+        label: 'INSTAGRAM PROFILE URL',
+        icon: 'fa-brands fa-instagram',
+        placeholder: 'https://instagram.com/yourhandle'
+      },
+      {
+        field: 'youtubeUrl',
+        label: 'YOUTUBE OR OTHER RELEVANT LINK',
+        icon: 'fa-brands fa-youtube',
+        placeholder: 'https://youtube.com/@yourchannel or video link'
+      }
+    ]
+  },
+  'podcast-host': {
+    formatSectionTitle: 'BROADCAST & PODCAST PRESENTING FORMATS',
+    formatSubtitle: 'Select the broadcast and audio/video hosting formats you excel in.',
+    deliverablesLabel: 'PREFERRED BROADCAST & PODCAST FORMATS (SELECT ALL THAT APPLY)',
+    skillsPlaceholder: 'e.g. Descript, Audacity, Guest Research, Teleprompter, Public Speaking',
+    defaultDeliverables: ['Podcast Hosting & Moderation', 'Live Digital Broadcasts'],
+    deliverables: [
+      'Podcast Hosting & Moderation',
+      'Live Digital Broadcasts',
+      'Guest Interview Curation',
+      'Script & Research Outlines',
+      'Audio Editing & Mixing',
+      'Short-Form Clips & Soundbites'
+    ],
+    whyJoinPlaceholder: 'Share what excites you about hosting official AETHRIZ podcasts, interviewing researchers, and digital presenting...',
+    achievementLabel: 'BRIEFLY DESCRIBE YOUR BEST PODCAST EPISODE OR PRESENTATION',
+    achievementPlaceholder: 'Share an interview you hosted, speech you delivered, or podcast episode you produced...',
+    links: [
+      {
+        field: 'portfolioUrl',
+        label: 'SPOTIFY / PODCAST SHOW / AUDIO LINK',
+        icon: 'fa-brands fa-spotify',
+        placeholder: 'https://open.spotify.com/show/yourshow or podcast link'
+      },
+      {
+        field: 'youtubeUrl',
+        label: 'YOUTUBE OR OTHER RELEVANT LINK',
+        icon: 'fa-brands fa-youtube',
+        placeholder: 'https://youtube.com/@yourchannel or recording link'
+      }
+    ]
+  }
+};
 
-
+const getTrackPreset = (roleIdOrTitle) => {
+  if (!roleIdOrTitle) return TRACK_PRESETS_MAP['full-stack'];
+  const key = String(roleIdOrTitle).toLowerCase();
+  if (key.includes('ai') || key.includes('machine learning') || key === 'ai-ml') return TRACK_PRESETS_MAP['ai-ml'];
+  if (key.includes('app') || key === 'app-dev') return TRACK_PRESETS_MAP['app-dev'];
+  if (key.includes('full-stack') || key.includes('web') || key === 'full-stack') return TRACK_PRESETS_MAP['full-stack'];
+  if (key.includes('graphic') || key.includes('design') || key === 'graphics-design') return TRACK_PRESETS_MAP['graphics-design'];
+  if (key.includes('market') || key === 'marketing') return TRACK_PRESETS_MAP['marketing'];
+  if (key.includes('podcast') || key.includes('host') || key === 'podcast-host') return TRACK_PRESETS_MAP['podcast-host'];
+  if (key.includes('influencer') || key.includes('content') || key === 'social-media-influencer') return TRACK_PRESETS_MAP['social-media-influencer'];
+  return TRACK_PRESETS_MAP['full-stack'];
+};
 
 export default function CareersApplicationExperience({
-  role = 'Social Media Influencer & Content Creator',
+  role = 'Full-Stack Web Development',
   rolesList = [],
   onSelectRole,
   onExit
@@ -65,20 +294,8 @@ export default function CareersApplicationExperience({
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 5;
 
-  // Active role data
-  const roleData =
-    (rolesList && rolesList.find((r) => r.title.toLowerCase() === role.toLowerCase())) ||
-    (rolesList && rolesList.find((r) => !r.isClosed)) ||
-    (rolesList && rolesList[0]) || {
-      title: role,
-      badge: 'Creator & Influencer Track',
-      dept: 'Digital Creator Ecosystems',
-      location: '100% Remote',
-      duration: '3 Months',
-      overview:
-        'Ideate, produce, and publish high-engagement short-form video reels, visual infographics, and storytelling campaigns.',
-      skills: ['Instagram Reels', 'YouTube Shorts', 'On-Camera Presentation', 'Storytelling']
-    };
+  const initialDomain = role || (rolesList && rolesList[0] && rolesList[0].title) || 'Full-Stack Web Development';
+  const initialPreset = getTrackPreset(initialDomain);
 
   // Form Data conforming strictly to Sections A to E of Official Spec
   const [formData, setFormData] = useState({
@@ -98,9 +315,9 @@ export default function CareersApplicationExperience({
     experienceLevel: '1–2 Years Experience',
 
     // Section C: Internship Preferences
-    primaryDomain: roleData.title || role,
+    primaryDomain: initialDomain,
     secondarySkills: '',
-    preferredFormats: ['Instagram Reels', 'YouTube Shorts'],
+    preferredFormats: initialPreset.defaultDeliverables,
     availableFullPeriod: 'yes',
     whyJoin: '',
 
@@ -117,6 +334,25 @@ export default function CareersApplicationExperience({
     dedicationAgreed: false
   });
 
+  // Active role data derived dynamically from formData.primaryDomain
+  const roleData =
+    (rolesList && rolesList.find((r) => r.title.toLowerCase() === formData.primaryDomain.toLowerCase())) ||
+    (rolesList && rolesList.find((r) => r.id === formData.primaryDomain)) ||
+    (rolesList && rolesList.find((r) => r.title.toLowerCase() === role.toLowerCase())) ||
+    (rolesList && rolesList[0]) || {
+      id: 'full-stack',
+      title: formData.primaryDomain || role,
+      badge: 'Winter Cohort Track',
+      dept: 'AETHRIZ AI Healthcare',
+      icon: 'fa-solid fa-code',
+      location: '100% Remote',
+      duration: '3 Months',
+      overview: 'Collaborate with the AETHRIZ engineering, design, and growth teams on winter deliverables.',
+      skills: ['Execution', 'Problem Solving', 'Communication']
+    };
+
+  const activePreset = getTrackPreset(roleData.id || roleData.title);
+
   const [validationError, setValidationError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [refId, setRefId] = useState('');
@@ -124,15 +360,18 @@ export default function CareersApplicationExperience({
 
   const formViewportRef = useRef(null);
 
-  // Sync role change
+  // Sync role change from parent prop
   useEffect(() => {
-    if (role) {
+    if (role && role !== formData.primaryDomain) {
+      const preset = getTrackPreset(role);
       setFormData((prev) => ({
         ...prev,
-        primaryDomain: role
+        primaryDomain: role,
+        preferredFormats: preset.defaultDeliverables
       }));
     }
   }, [role]);
+
 
   // Auto scroll to top of viewport on step change
   useEffect(() => {
@@ -196,7 +435,7 @@ export default function CareersApplicationExperience({
         return false;
       }
       if (formData.preferredFormats.length === 0) {
-        setValidationError('Please select at least one preferred content format.');
+        setValidationError('Please select at least one focus competency or deliverable.');
         return false;
       }
       if (formData.availableFullPeriod !== 'yes') {
@@ -212,9 +451,9 @@ export default function CareersApplicationExperience({
         setValidationError('Please provide your Resume / CV link (Google Drive, OneDrive, or cloud document).');
         return false;
       }
-      // Instagram / Portfolio links are optional (if applicable)
+      // Portfolio links are optional (if applicable)
       if (!formData.bestContent.trim() || formData.bestContent.trim().length < 10) {
-        setValidationError('Please describe your best content piece or creative achievement.');
+        setValidationError('Please describe your best project, work sample, or milestone.');
         return false;
       }
     } else if (stepNumber === 5) {
@@ -865,9 +1104,9 @@ export default function CareersApplicationExperience({
               <div className="stage-card-box">
                 <div className="stage-header-group">
                   <span className="stage-kicker">// SECTION C • TRACK SPECIALISATION & MOTIVATION</span>
-                  <h1 className="stage-h1">Track focus & creative deliverables.</h1>
+                  <h1 className="stage-h1">Track focus & deliverables.</h1>
                   <p className="stage-desc">
-                    Confirm your target content formats, secondary tools, and motivation for the AETHRIZ AI Winter Cohort.
+                    Confirm your target focus areas, deliverables, secondary tools, and motivation for the AETHRIZ AI Winter Cohort.
                   </p>
                 </div>
 
@@ -885,10 +1124,13 @@ export default function CareersApplicationExperience({
 
                 <div className="stage-format-selector" style={{ marginTop: '22px' }}>
                   <label className="stage-label">
-                    PREFERRED CONTENT FORMATS (SELECT ALL THAT APPLY) <span className="req-dot">*</span>
+                    {activePreset.deliverablesLabel} <span className="req-dot">*</span>
                   </label>
+                  <p className="stage-input-hint" style={{ marginTop: '2px', marginBottom: '12px' }}>
+                    {activePreset.formatSubtitle}
+                  </p>
                   <div className="format-tags-cloud">
-                    {PREFERRED_FORMATS_LIST.map((fmt) => {
+                    {activePreset.deliverables.map((fmt) => {
                       const isSelected = formData.preferredFormats.includes(fmt);
                       return (
                         <button
@@ -914,7 +1156,7 @@ export default function CareersApplicationExperience({
                     <input
                       type="text"
                       className="stage-input"
-                      placeholder="e.g. CapCut, Premiere Pro, Audio Mixing, Graphic Design, Community Growth"
+                      placeholder={activePreset.skillsPlaceholder}
                       value={formData.secondarySkills}
                       onChange={(e) => setFormData({ ...formData, secondarySkills: e.target.value })}
                     />
@@ -944,7 +1186,7 @@ export default function CareersApplicationExperience({
                   <textarea
                     className="stage-textarea"
                     rows={4}
-                    placeholder="Share what excites you about building content at the intersection of AI, healthcare storytelling, and digital creator ecosystems..."
+                    placeholder={activePreset.whyJoinPlaceholder}
                     value={formData.whyJoin}
                     onChange={(e) => {
                       setFormData({ ...formData, whyJoin: e.target.value });
@@ -962,7 +1204,7 @@ export default function CareersApplicationExperience({
                   <span className="stage-kicker">// SECTION D • RESUME & PORTFOLIO LINKS</span>
                   <h1 className="stage-h1">Showcase your work.</h1>
                   <p className="stage-desc">
-                    Provide verifiable links to your past content, social channels, or creative portfolio.
+                    Provide verifiable links to your resume, code repositories, design showcase, or past projects.
                   </p>
                 </div>
 
@@ -989,71 +1231,43 @@ export default function CareersApplicationExperience({
                     </span>
                   </div>
 
-                  <div className="stage-input-field">
-                    <label className="stage-label">
-                      PORTFOLIO OR WORK SAMPLES LINK <span className="optional-tag">(IF APPLICABLE)</span>
-                    </label>
-                    <div className="stage-input-wrap">
-                      <i className="fa-solid fa-link input-icon"></i>
-                      <input
-                        type="url"
-                        className="stage-input"
-                        placeholder="https://yourportfolio.com, Drive folder, or Behance"
-                        value={formData.portfolioUrl}
-                        onChange={(e) => {
-                          setFormData({ ...formData, portfolioUrl: e.target.value });
-                          setValidationError('');
-                        }}
-                      />
+                  {/* Domain-Perspective Links (Tailored for each track) */}
+                  {activePreset.links && activePreset.links.map((item) => (
+                    <div
+                      key={item.field}
+                      className="stage-input-field"
+                      style={item.fullWidth ? { gridColumn: '1 / -1' } : {}}
+                    >
+                      <label className="stage-label">
+                        {item.label} <span className="optional-tag">(IF APPLICABLE)</span>
+                      </label>
+                      <div className="stage-input-wrap">
+                        <i className={`${item.icon} input-icon`}></i>
+                        <input
+                          type="url"
+                          className="stage-input"
+                          placeholder={item.placeholder}
+                          value={formData[item.field] || ''}
+                          onChange={(e) => {
+                            setFormData({ ...formData, [item.field]: e.target.value });
+                            setValidationError('');
+                          }}
+                        />
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="stage-input-field">
-                    <label className="stage-label">
-                      INSTAGRAM PROFILE URL <span className="optional-tag">(IF APPLICABLE)</span>
-                    </label>
-                    <div className="stage-input-wrap">
-                      <i className="fa-brands fa-instagram input-icon"></i>
-                      <input
-                        type="url"
-                        className="stage-input"
-                        placeholder="https://instagram.com/yourhandle"
-                        value={formData.instagramUrl}
-                        onChange={(e) => {
-                          setFormData({ ...formData, instagramUrl: e.target.value });
-                          setValidationError('');
-                        }}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="stage-input-field" style={{ gridColumn: '1 / -1' }}>
-                    <label className="stage-label">
-                      YOUTUBE OR OTHER RELEVANT LINK <span className="optional-tag">(IF APPLICABLE)</span>
-                    </label>
-                    <div className="stage-input-wrap">
-                      <i className="fa-brands fa-youtube input-icon"></i>
-                      <input
-                        type="url"
-                        className="stage-input"
-                        placeholder="https://youtube.com/@yourchannel, LinkedIn, or X"
-                        value={formData.youtubeUrl}
-                        onChange={(e) => setFormData({ ...formData, youtubeUrl: e.target.value })}
-                      />
-                    </div>
-                  </div>
+                  ))}
 
                   <div className="stage-input-field" style={{ gridColumn: '1 / -1' }}>
                     <div className="label-with-counter">
                       <label className="stage-label">
-                        BRIEFLY DESCRIBE YOUR BEST CONTENT OR CREATIVE ACHIEVEMENT <span className="req-dot">*</span>
+                        {activePreset.achievementLabel} <span className="req-dot">*</span>
                       </label>
                       <span className="char-count">{formData.bestContent.length} chars</span>
                     </div>
                     <textarea
                       className="stage-textarea"
                       rows={3}
-                      placeholder="Share a standout reel, viral video, campaign, podcast episode, or creative milestone you created..."
+                      placeholder={activePreset.achievementPlaceholder}
                       value={formData.bestContent}
                       onChange={(e) => {
                         setFormData({ ...formData, bestContent: e.target.value });
@@ -1132,7 +1346,15 @@ export default function CareersApplicationExperience({
                       </div>
                     )}
                     <div className="review-detail-group">
-                      <span className="review-label">Target Formats</span>
+                      <span className="review-label">
+                        {roleData.category === 'engineering'
+                          ? 'Target Competencies & Focus'
+                          : roleData.category === 'design'
+                          ? 'Target Design Deliverables'
+                          : roleData.category === 'marketing'
+                          ? 'Growth Channels'
+                          : 'Target Formats'}
+                      </span>
                       <span className="review-value">{formData.preferredFormats.join(', ')}</span>
                     </div>
                     {formData.secondarySkills && (
@@ -1159,57 +1381,29 @@ export default function CareersApplicationExperience({
                       </a>
                     </div>
 
-                    <div className="review-link-row">
-                      <span className="review-label">Portfolio / Work Samples</span>
-                      {formData.portfolioUrl ? (
-                        <a
-                          href={formData.portfolioUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="review-pill-link"
-                        >
-                          <i className="fa-solid fa-link"></i>
-                          <span>{formData.portfolioUrl}</span>
-                          <i className="fa-solid fa-arrow-up-right-from-square"></i>
-                        </a>
-                      ) : (
-                        <span className="review-empty-tag">None provided (Optional)</span>
-                      )}
-                    </div>
-
-                    <div className="review-link-row">
-                      <span className="review-label">Instagram Profile</span>
-                      {formData.instagramUrl ? (
-                        <a
-                          href={formData.instagramUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="review-pill-link"
-                        >
-                          <i className="fa-brands fa-instagram"></i>
-                          <span>{formData.instagramUrl}</span>
-                          <i className="fa-solid fa-arrow-up-right-from-square"></i>
-                        </a>
-                      ) : (
-                        <span className="review-empty-tag">None provided (Optional)</span>
-                      )}
-                    </div>
-
-                    {formData.youtubeUrl && (
-                      <div className="review-link-row">
-                        <span className="review-label">YouTube / Other Link</span>
-                        <a
-                          href={formData.youtubeUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="review-pill-link"
-                        >
-                          <i className="fa-brands fa-youtube"></i>
-                          <span>{formData.youtubeUrl}</span>
-                          <i className="fa-solid fa-arrow-up-right-from-square"></i>
-                        </a>
-                      </div>
-                    )}
+                    {/* Domain-Perspective Links (Tailored for each track) */}
+                    {activePreset.links && activePreset.links.map((item) => {
+                      const linkVal = formData[item.field];
+                      return (
+                        <div key={item.field} className="review-link-row">
+                          <span className="review-label">{item.label}</span>
+                          {linkVal ? (
+                            <a
+                              href={linkVal}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="review-pill-link"
+                            >
+                              <i className={item.icon}></i>
+                              <span>{linkVal}</span>
+                              <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+                          ) : (
+                            <span className="review-empty-tag">None provided (Optional)</span>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
 
                   {/* Motivation Snippet */}
@@ -1220,10 +1414,18 @@ export default function CareersApplicationExperience({
                     </div>
                   )}
 
-                  {/* Creative Milestone Snippet */}
+                  {/* Milestone Snippet */}
                   {formData.bestContent && (
                     <div className="review-text-block">
-                      <span className="review-label">Creative Milestone / Best Work</span>
+                      <span className="review-label">
+                        {roleData.category === 'engineering'
+                          ? 'Key Technical Milestone / Project'
+                          : roleData.category === 'design'
+                          ? 'Featured Design Milestone'
+                          : roleData.category === 'marketing'
+                          ? 'Key Campaign / Growth Milestone'
+                          : 'Creative Milestone / Best Work'}
+                      </span>
                       <p className="review-quote">"{formData.bestContent}"</p>
                     </div>
                   )}

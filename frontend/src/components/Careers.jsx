@@ -5,8 +5,162 @@ import CareersApplicationExperience from './careers/CareersApplicationExperience
 
 const ROLES_LIST = [
   {
+    id: 'ai-ml',
+    domainCode: 'AIML',
+    title: 'AI/ML Development',
+    category: 'engineering',
+    dept: 'Intelligence Engine',
+    location: '100% Remote',
+    duration: '3 Months',
+    cohort: 'Winter 2026–2027',
+    badge: 'AI & Research Track',
+    icon: 'fa-solid fa-brain',
+    overview:
+      'Work on production machine learning pipelines, predictive bio-algorithmic health models, and real healthcare data research across neural architectures, computer vision, and LLM orchestration.',
+    skills: [
+      'PyTorch',
+      'TensorFlow',
+      'Python',
+      'Computer Vision',
+      'Bio-Data Models',
+      'LLMs & RAG'
+    ],
+    responsibilities: [
+      'Train and evaluate predictive machine learning architectures on biosignal and health datasets.',
+      'Design real-time inference pipelines with optimized low-latency execution and model quantization.',
+      'Collaborate with research mentors to validate clinical and algorithmic outputs.',
+      'Implement LLM-powered query parsing, health embeddings, and RAG pipelines.',
+      'Document model benchmarks, validation metrics, and reproducible experiment pipelines.'
+    ],
+    isClosed: false,
+    status: 'open'
+  },
+  {
+    id: 'app-dev',
+    domainCode: 'APP',
+    title: 'App Development',
+    category: 'engineering',
+    dept: 'Mobile & Distributed Systems',
+    location: '100% Remote',
+    duration: '3 Months',
+    cohort: 'Winter 2026–2027',
+    badge: 'Mobile Engineering Track',
+    icon: 'fa-solid fa-mobile-screen',
+    overview:
+      'Develop modern cross-platform mobile applications integrating real-time biometric metrics, intuitive glassmorphic UIs, and intelligent telemetry.',
+    skills: [
+      'Flutter',
+      'React Native',
+      'Swift',
+      'Kotlin',
+      'Mobile Telemetry',
+      'BLE Sensors'
+    ],
+    responsibilities: [
+      'Engineer sleek, reactive mobile interfaces for both iOS and Android platforms.',
+      'Integrate Bluetooth LE sensor protocols and real-time WebSocket telemetry feeds.',
+      'Optimize app memory footprint, local caching, and offline-first synchronization.',
+      'Implement smooth animations, state management, and ergonomic health tracking views.',
+      'Conduct cross-device testing and performance benchmarking on physical hardware.'
+    ],
+    isClosed: false,
+    status: 'open'
+  },
+  {
+    id: 'full-stack',
+    domainCode: 'FSW',
+    title: 'Full-Stack Web Development',
+    category: 'engineering',
+    dept: 'Core Web Infrastructure',
+    location: '100% Remote',
+    duration: '3 Months',
+    cohort: 'Winter 2026–2027',
+    badge: 'Full-Stack Web Track',
+    icon: 'fa-solid fa-code',
+    overview:
+      'Build high-velocity reactive web applications, glassmorphic design systems, and resilient microservices powering the AETHRIZ health intelligence platform.',
+    skills: [
+      'React',
+      'TypeScript',
+      'Node.js',
+      'PostgreSQL',
+      'Tailwind / CSS3',
+      'REST APIs'
+    ],
+    responsibilities: [
+      'Build high-velocity reactive web frontends and resilient backend API microservices.',
+      'Implement enterprise token authentication, security, and healthcare data integrity.',
+      'Craft responsive, accessible UI components adhering to AETHRIZ design tokens.',
+      'Optimize client-side rendering performance, bundle sizes, and state architectures.',
+      'Collaborate on CI/CD pipelines, automated testing, and developer documentation.'
+    ],
+    isClosed: false,
+    status: 'open'
+  },
+  {
+    id: 'graphics-design',
+    domainCode: 'GD',
+    title: 'Graphics Design',
+    category: 'design',
+    dept: 'Visual Brand Architecture',
+    location: '100% Remote',
+    duration: '3 Months',
+    cohort: 'Winter 2026–2027',
+    badge: 'Design & Visuals Track',
+    icon: 'fa-solid fa-palette',
+    overview:
+      'Design futuristic visual assets, cyberpunk interfaces, 3D bio-graphics, and compelling creative brand deliverables that communicate breakthrough healthcare technology.',
+    skills: [
+      'Figma',
+      'Adobe Photoshop',
+      'Blender / 3D',
+      'Brand Systems',
+      'Illustrator',
+      'UI/UX'
+    ],
+    responsibilities: [
+      'Design futuristic visual brand assets, cybernetic iconography, and UI design systems.',
+      'Create 3D bio-graphics, motion graphics, and presentation assets for product launches.',
+      'Maintain aesthetic brand cohesion across all digital touchpoints and company decks.',
+      'Collaborate with engineering to translate Figma prototypes into pixel-perfect web experiences.',
+      'Produce high-impact graphic carousels, feature infographics, and social design templates.'
+    ],
+    isClosed: false,
+    status: 'open'
+  },
+  {
+    id: 'marketing',
+    domainCode: 'MKT',
+    title: 'Marketing',
+    category: 'marketing',
+    dept: 'Growth Strategy & Ecosystems',
+    location: '100% Remote',
+    duration: '3 Months',
+    cohort: 'Winter 2026–2027',
+    badge: 'Growth & Marketing Track',
+    icon: 'fa-solid fa-bullhorn',
+    overview:
+      'Formulate data-backed user acquisition campaigns, strategic alliances, and digital growth flywheels for upcoming releases in healthcare AI and longevity technology.',
+    skills: [
+      'Growth Flywheels',
+      'User Acquisition',
+      'Campaign Analytics',
+      'Product Marketing',
+      'Content Strategy'
+    ],
+    responsibilities: [
+      'Formulate and execute go-to-market strategies for upcoming platform and product releases.',
+      'Architect referral engines and analyze conversion funnels to scale user onboarding.',
+      'Conduct competitive landscape benchmarking in healthcare AI and longevity tech.',
+      'Collaborate with creator and influencer teams to maximize campaign reach and virality.',
+      'Track and report acquisition KPIs, CAC/LTV indicators, and community conversion metrics.'
+    ],
+    isClosed: false,
+    status: 'open'
+  },
+  {
     id: 'social-media-influencer',
-    domainCode: 'A',
+    domainCode: 'SMI',
     title: 'Social Media Influencer & Content Creator',
     category: 'creator',
     dept: 'Digital Creator Ecosystems',
@@ -37,9 +191,9 @@ const ROLES_LIST = [
   },
   {
     id: 'podcast-host',
-    domainCode: 'D',
+    domainCode: 'POD',
     title: 'Podcast Host & Digital Presenter',
-    category: 'podcast',
+    category: 'creator',
     dept: 'Media & Broadcast Communications',
     location: '100% Remote',
     duration: '3 Months',
@@ -71,23 +225,23 @@ const ROLES_LIST = [
 const FAQS_LIST = [
   {
     q: 'Who is eligible to apply for this Winter Internship Program?',
-    a: 'Students (from any year of study), recent graduates, working professionals, freelancers, and independent digital creators or podcast hosts with a passion for creative storytelling, social media, or digital presenting are eligible to apply. Prior professional experience is not mandatory if you can demonstrate creativity through sample work.'
+    a: 'Students (from any year of study), recent graduates, working professionals, freelancers, developers, designers, growth marketers, and digital creators or podcast hosts are eligible to apply. Prior professional experience is not mandatory if you can demonstrate capability through sample work, code, or projects.'
   },
   {
     q: 'What is the required weekly commitment and work model?',
-    a: 'The internship is 100% remote and asynchronous. You collaborate through structured weekly deliverables, content sprints, and founder feedback syncs without rigid 9-to-5 requirements, allowing you to balance academic or personal commitments.'
+    a: 'The internship is 100% remote and asynchronous. You collaborate through structured weekly deliverables, code/content sprints, and founder feedback syncs without rigid 9-to-5 requirements, allowing you to balance academic or personal commitments.'
   },
   {
     q: 'What rewards and recognitions are provided upon completion?',
-    a: 'Every eligible intern who completes defined program deliverables will receive an official verified AETHRIZ AI Internship Completion Certificate, a customized AETHRIZ branded merchandise goodies kit (t-shirt, ceramic mug, notebook, executive pen), a crystal acrylic keepsake memento, and professional mentorship. Additionally, the Top 3 Creators receive special rankings, signed Letters of Recommendation (LOR), and priority consideration for permanent employment.'
+    a: 'Every eligible intern who completes defined program deliverables will receive an official verified AETHRIZ AI Internship Completion Certificate, a customized AETHRIZ branded merchandise goodies kit (t-shirt, ceramic mug, notebook, executive pen), a crystal acrylic keepsake memento, and professional mentorship. Additionally, Top Performers receive special rankings, signed Letters of Recommendation (LOR), and priority consideration for permanent employment.'
   },
   {
     q: 'How does the selection process work?',
-    a: 'Applications are reviewed on a rolling basis. Our recruitment team evaluates your creative samples, social profiles, and motivation note. Shortlisted candidates are invited for a brief virtual interaction with the founding team before cohort confirmation.'
+    a: 'Applications are reviewed on a rolling basis. Our recruitment team evaluates your background, creative/technical samples, social or GitHub profiles, and motivation note. Shortlisted candidates are invited for a brief virtual interaction with the founding team before cohort confirmation.'
   },
   {
     q: 'Are permanent employment opportunities offered after the internship?',
-    a: 'Yes. AETHRIZ AI actively identifies outstanding creators, storytellers, and presenters for potential long-term, permanent roles. Participants demonstrating exceptional reliability, creativity, and brand resonance will receive priority consideration.'
+    a: 'Yes. AETHRIZ AI actively identifies outstanding builders, designers, marketers, and creators for potential long-term, permanent roles. Participants demonstrating exceptional reliability, creativity, and execution will receive priority consideration.'
   }
 ];
 
@@ -95,6 +249,7 @@ export default function Careers({ onBack }) {
   const [viewMode, setViewMode] = useState('overview'); // 'overview' | 'apply' | 'closing'
   const [expandedRoleId, setExpandedRoleId] = useState(null);
   const [expandedFaqId, setExpandedFaqId] = useState(null);
+  const [activeCategory, setActiveCategory] = useState('all');
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -117,6 +272,11 @@ export default function Careers({ onBack }) {
 
   const defaultOpenRole = ROLES_LIST.find((r) => !r.isClosed)?.title || ROLES_LIST[0].title;
   const [selectedRole, setSelectedRole] = useState(defaultOpenRole);
+
+  const filteredRoles = ROLES_LIST.filter((r) => {
+    if (activeCategory === 'all') return true;
+    return r.category === activeCategory;
+  });
 
   const handleStartApplication = (roleTitle = '', isClosed = false) => {
     if (isClosed) return;
@@ -149,16 +309,16 @@ export default function Careers({ onBack }) {
           <section className="c-hero">
             <span className="c-hero-kicker">// AETHRIZ AI • WINTER INTERNSHIP PROGRAM 2026–2027</span>
             <h1 className="c-hero-title">
-              Create. Influence. Inspire. <br />
+              Create. Engineer. Inspire. <br />
               <i>Build with AI.</i>
             </h1>
             <p className="c-hero-subtitle">
-              AETHRIZ AI is launching its official <strong>Winter Internship Program 2026–2027</strong> to discover creative minds,
-              emerging influencers, storytellers, and passionate content creators who will shape our global brand presence. Turn ideas
-              into engaging media, communicate breakthrough health AI, and earn verified executive credentials.
+              AETHRIZ AI is launching its official <strong>Winter Internship Program 2026–2027</strong> to discover talented engineers,
+              designers, growth marketers, and creative storytellers who will build and shape our global presence. Turn breakthrough ideas
+              into intelligent software, striking visual systems, and impactful media while earning verified executive credentials.
             </p>
             <p className="c-hero-accent-quote">
-              This is more than an internship. It is an opportunity to create, grow, get recognised, and potentially join our team permanently.
+              This is more than an internship. It is an opportunity to build, create, get recognised, and potentially join our team permanently.
             </p>
 
             {/* Quick Metrics HUD Strip */}
@@ -198,7 +358,7 @@ export default function Careers({ onBack }) {
                   <i className="fa-solid fa-bolt"></i>
                 </div>
                 <div className="hud-metric-content">
-                  <span className="hud-metric-val">Top 3 Creators</span>
+                  <span className="hud-metric-val">Top Performers</span>
                   <span className="hud-metric-sub">Honors & Permanent Role Priority</span>
                 </div>
               </div>
@@ -218,7 +378,7 @@ export default function Careers({ onBack }) {
                 className="btn-secondary-lead"
                 onClick={scrollToTracks}
               >
-                VIEW 2 OPEN TRACKS <i className="fa-solid fa-arrow-down"></i>
+                VIEW {ROLES_LIST.length} OPEN TRACKS <i className="fa-solid fa-arrow-down"></i>
               </button>
             </div>
           </section>
@@ -239,18 +399,18 @@ export default function Careers({ onBack }) {
               <i className="fa-solid fa-snowflake"></i> AETHRIZ AI WINTER INTERNSHIP PROGRAM 2026–2027
             </div>
             <h2 className="spotlight-title">AETHRIZ AI Healthcare and Research Private Limited</h2>
-            <div className="spotlight-company">Cohort Duration: 3 Months • 100% Remote Immersion • Creator & Media Ecosystems</div>
+            <div className="spotlight-company">Cohort Duration: 3 Months • 100% Remote Immersion • Engineering, Design, Growth & Media</div>
 
             <div className="spotlight-grid">
               <div className="spotlight-left-narrative">
                 <p className="spotlight-summary-p">
-                  Selected candidates will turn ideas into engaging content, communicate effectively, and bring fresh perspectives
-                  to the world of AI and healthcare. You will experiment with creative storytelling, produce compelling social media campaigns,
-                  host conversations, and amplify the growing AETHRIZ AI community.
+                  Selected candidates will build intelligent systems, craft next-generation design systems, formulate growth flywheels,
+                  and create compelling digital media at the intersection of AI and healthcare. You will collaborate directly with founders
+                  and mentors across engineering, creative storytelling, product marketing, and distributed systems.
                 </p>
                 <p className="spotlight-summary-p">
-                  This program provides direct executive collaboration, authentic public distribution across YouTube, Instagram, LinkedIn,
-                  and X, and tangible physical credentials upon completion.
+                  This program provides direct executive collaboration, hands-on production experience, and tangible physical credentials,
+                  including branded goodies kits, certificates, and crystal keepsakes upon completion.
                 </p>
                 <button
                   type="button"
@@ -280,14 +440,14 @@ export default function Careers({ onBack }) {
                   <span className="meta-val">Certificate, Goodies Kit & Memento</span>
                 </div>
                 <div className="meta-row">
-                  <span className="meta-label">Top 3 Creators</span>
+                  <span className="meta-label">Top Performers</span>
                   <span className="meta-val">Special Honor, LOR & Permanent Roles</span>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* Available Cohort Tracks (The 2 Roles) */}
+          {/* Available Cohort Tracks (All 7 Open Tracks) */}
           <section className="c-section" id="open-positions">
             <div className="c-section-header">
               <span className="c-section-kicker">// COHORT TRACKS</span>
@@ -295,13 +455,52 @@ export default function Careers({ onBack }) {
                 Available Internship <i>Tracks.</i>
               </h2>
               <p className="c-section-desc">
-                Review our open tracks and choose the role that best matches your creative expertise and passion.
+                Review our {ROLES_LIST.length} open tracks across Engineering, Design, Growth, and Media. Choose the role that best matches your expertise and passion.
               </p>
             </div>
 
-            {/* Roles List (Directly 2 Active Cohort Tracks) */}
+            {/* Category Filter Tabs */}
+            <div className="job-board-filters" style={{ justifyContent: 'center', marginBottom: '32px' }}>
+              <button
+                type="button"
+                className={`filter-btn ${activeCategory === 'all' ? 'active' : ''}`}
+                onClick={() => setActiveCategory('all')}
+              >
+                All Tracks ({ROLES_LIST.length})
+              </button>
+              <button
+                type="button"
+                className={`filter-btn ${activeCategory === 'engineering' ? 'active' : ''}`}
+                onClick={() => setActiveCategory('engineering')}
+              >
+                <i className="fa-solid fa-code" style={{ marginRight: '6px' }}></i> Engineering & AI (3)
+              </button>
+              <button
+                type="button"
+                className={`filter-btn ${activeCategory === 'design' ? 'active' : ''}`}
+                onClick={() => setActiveCategory('design')}
+              >
+                <i className="fa-solid fa-palette" style={{ marginRight: '6px' }}></i> Design (1)
+              </button>
+              <button
+                type="button"
+                className={`filter-btn ${activeCategory === 'marketing' ? 'active' : ''}`}
+                onClick={() => setActiveCategory('marketing')}
+              >
+                <i className="fa-solid fa-bullhorn" style={{ marginRight: '6px' }}></i> Marketing (1)
+              </button>
+              <button
+                type="button"
+                className={`filter-btn ${activeCategory === 'creator' ? 'active' : ''}`}
+                onClick={() => setActiveCategory('creator')}
+              >
+                <i className="fa-solid fa-camera-retro" style={{ marginRight: '6px' }}></i> Creators & Media (2)
+              </button>
+            </div>
+
+            {/* Roles List */}
             <div className="job-cards-list">
-              {ROLES_LIST.map((role) => {
+              {filteredRoles.map((role) => {
                 const isExpanded = expandedRoleId === role.id;
                   return (
                     <div key={role.id} className={`job-row-item ${isExpanded ? 'expanded' : ''}`}>
