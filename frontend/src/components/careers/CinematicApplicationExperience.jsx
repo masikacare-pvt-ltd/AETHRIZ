@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../../styles/cinematic-application.css';
 
 const GOOGLE_SHEET_ENDPOINT =
-  'https://script.google.com/macros/s/AKfycbzMoyTdmQeGAYMHNSjPJSA3U28fS5NsUYN8kvXbzizevGFyZHCICP69XEVLajoGOcv0/exec';
+  'https://script.google.com/macros/s/AKfycbxvZ8U8vKGB5OGM46i7uCcIPDW9DmTrxoXqkQYiGhus095d9xHfFKfr5ce0FhnlDKaj/exec';
 
 const SKILLS_LIBRARY = [
   'PyTorch', 'TensorFlow', 'Python', 'C++ / CUDA', 'LLMs / RAG',

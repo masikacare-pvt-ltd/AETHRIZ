@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../../styles/careers-application.css';
 
 const GOOGLE_SHEET_ENDPOINT =
-  'https://script.google.com/macros/s/AKfycbzMoyTdmQeGAYMHNSjPJSA3U28fS5NsUYN8kvXbzizevGFyZHCICP69XEVLajoGOcv0/exec';
+  'https://script.google.com/macros/s/AKfycbxvZ8U8vKGB5OGM46i7uCcIPDW9DmTrxoXqkQYiGhus095d9xHfFKfr5ce0FhnlDKaj/exec';
 
 const STATUS_OPTIONS = [
   { id: 'student', title: 'Student', desc: 'Currently pursuing college or university education' },
@@ -525,15 +525,18 @@ export default function CareersApplicationExperience({
       phone: fullPhone,
       cityState: locationStr,
       journeyStage: `${formData.currentStatus.toUpperCase()} (${expOrYear})`,
+      institution: formData.institution.trim(),
+      course: formData.course.trim(),
       collegeCourse: collegeCourseStr,
       targetFormats: formData.preferredFormats.join(', '),
       keySkills: formData.secondarySkills.trim() || 'None specified',
       resumeUrl: formData.resumeUrl.trim(),
       portfolioUrl: formData.portfolioUrl.trim(),
+      githubUrl: formData.portfolioUrl.trim(),
+      otherSocialUrl: formData.otherSocialUrl.trim(),
       instagramUrl: formData.instagramUrl.trim(),
-      socialMediaHandle: formData.instagramUrl.trim(),
+      socialMediaHandle: formData.instagramUrl.trim() || formData.otherSocialUrl.trim(),
       youtubeUrl: formData.youtubeUrl.trim(),
-      githubUrl: formData.youtubeUrl.trim(),
       whyJoin: formData.whyJoin.trim(),
       featuredProject: formData.bestContent.trim(),
       available3Months: 'Yes (100% Remote Immersion)',
