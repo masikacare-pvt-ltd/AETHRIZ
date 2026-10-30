@@ -222,6 +222,13 @@ const ROLES_LIST = [
   }
 ];
 
+// Set to true to temporarily hide technical, design, and marketing tracks without deleting any code
+export const HIDE_NON_CREATOR_TRACKS = true;
+
+export const ACTIVE_ROLES = HIDE_NON_CREATOR_TRACKS
+  ? ROLES_LIST.filter((r) => r.category === 'creator')
+  : ROLES_LIST;
+
 const FAQS_LIST = [
   {
     q: 'Who is eligible to apply for this Winter Internship Program?',
@@ -270,10 +277,10 @@ export default function Careers({ onBack }) {
     };
   }, [viewMode]);
 
-  const defaultOpenRole = ROLES_LIST.find((r) => !r.isClosed)?.title || ROLES_LIST[0].title;
+  const defaultOpenRole = ACTIVE_ROLES.find((r) => !r.isClosed)?.title || ACTIVE_ROLES[0].title;
   const [selectedRole, setSelectedRole] = useState(defaultOpenRole);
 
-  const filteredRoles = ROLES_LIST.filter((r) => {
+  const filteredRoles = ACTIVE_ROLES.filter((r) => {
     if (activeCategory === 'all') return true;
     return r.category === activeCategory;
   });
@@ -378,7 +385,7 @@ export default function Careers({ onBack }) {
                 className="btn-secondary-lead"
                 onClick={scrollToTracks}
               >
-                VIEW {ROLES_LIST.length} OPEN TRACKS <i className="fa-solid fa-arrow-down"></i>
+                VIEW {ACTIVE_ROLES.length} OPEN TRACKS <i className="fa-solid fa-arrow-down"></i>
               </button>
             </div>
           </section>
@@ -399,7 +406,7 @@ export default function Careers({ onBack }) {
               <i className="fa-solid fa-snowflake"></i> AETHRIZ AI WINTER INTERNSHIP PROGRAM 2026–2027
             </div>
             <h2 className="spotlight-title">AETHRIZ AI Healthcare and Research Private Limited</h2>
-            <div className="spotlight-company">Cohort Duration: 3 Months • 100% Remote Immersion • Engineering, Design, Growth & Media</div>
+            <div className="spotlight-company">Cohort Duration: 3 Months • 100% Remote Immersion • {HIDE_NON_CREATOR_TRACKS ? 'Digital Creators & Broadcast Media' : 'Engineering, Design, Growth & Media'}</div>
 
             <div className="spotlight-grid">
               <div className="spotlight-left-narrative">
@@ -455,18 +462,21 @@ export default function Careers({ onBack }) {
                 Available Internship <i>Tracks.</i>
               </h2>
               <p className="c-section-desc">
-                Review our {ROLES_LIST.length} open tracks across Engineering, Design, Growth, and Media. Choose the role that best matches your expertise and passion.
+                {HIDE_NON_CREATOR_TRACKS
+                  ? `Review our ${ACTIVE_ROLES.length} open tracks in Digital Creators & Broadcast Media. Choose the role that best matches your expertise and passion.`
+                  : `Review our ${ACTIVE_ROLES.length} open tracks across Engineering, Design, Growth, and Media. Choose the role that best matches your expertise and passion.`}
               </p>
             </div>
 
             {/* Category Filter Tabs */}
+            {!HIDE_NON_CREATOR_TRACKS && (
             <div className="job-board-filters" style={{ justifyContent: 'center', marginBottom: '32px' }}>
               <button
                 type="button"
                 className={`filter-btn ${activeCategory === 'all' ? 'active' : ''}`}
                 onClick={() => setActiveCategory('all')}
               >
-                All Tracks ({ROLES_LIST.length})
+                All Tracks ({ACTIVE_ROLES.length})
               </button>
               <button
                 type="button"
@@ -497,6 +507,8 @@ export default function Careers({ onBack }) {
                 <i className="fa-solid fa-camera-retro" style={{ marginRight: '6px' }}></i> Creators & Media (2)
               </button>
             </div>
+
+            )}
 
             {/* Roles List */}
             <div className="job-cards-list">
@@ -845,7 +857,7 @@ export default function Careers({ onBack }) {
         {(viewMode === 'apply' || viewMode === 'closing') && (
           <CareersApplicationExperience
             role={selectedRole}
-            rolesList={ROLES_LIST}
+            rolesList={ACTIVE_ROLES}
             onSelectRole={setSelectedRole}
             onExit={handleReturnToOverview}
           />
